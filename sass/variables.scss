@@ -19,7 +19,7 @@ $gray-200: #e9ecef;
 $gray-300: #dee2e6;
 $gray-400: #ced4da;
 $gray-500: #adb5bd;
-$gray-600: #6c757d;
+$gray-600: #555f68;
 $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #3d3d3d;
@@ -27,7 +27,7 @@ $black: #000;
 // scss-docs-end gray-color-variables
 
 // custom background
-$light-red: rgba(237, 50, 55, 0.1);
+$silver: #919fac;
 
 // fusv-disable
 // scss-docs-start gray-colors-map
@@ -53,7 +53,7 @@ $pink: #d63384;
 $red: #ed3237;
 $orange: #fd7e14;
 $yellow: #ffc107;
-$green: #198754;
+$green: #26a65b;
 $teal: #20c997;
 $cyan: #0dcaf0;
 // scss-docs-end color-variables
@@ -78,7 +78,7 @@ $cyan: #0dcaf0;
 
 // // scss-docs-start theme-color-variables
 $primary: $blue;
-// $secondary: $gray-600;
+$secondary: $green;
 // $success: $green;
 // $info: $cyan;
 // $warning: $yellow;
@@ -603,7 +603,7 @@ $font-size-base: 1rem; // Assumes the browser default, typically `16px`
 // $font-weight-lighter: lighter;
 // $font-weight-light: 300;
 // $font-weight-normal: 400;
-// $font-weight-bold: 700;
+$font-weight-bold: 700;
 // $font-weight-bolder: bolder;
 
 // $font-weight-base: $font-weight-normal;
@@ -753,7 +753,7 @@ $table-cell-padding-x: 1.25rem;
 
 // // scss-docs-start input-btn-variables
 $input-btn-padding-y: 0.8rem;
-$input-btn-padding-x: 1.5rem;
+$input-btn-padding-x: 2rem;
 // $input-btn-font-family: null;
 // $input-btn-font-size: $font-size-base;
 // $input-btn-line-height: $line-height-base;
@@ -801,7 +801,7 @@ $input-btn-padding-x: 1.5rem;
 
 // $btn-border-width: $input-btn-border-width;
 
-// $btn-font-weight: $font-weight-normal;
+$btn-font-weight: $font-weight-bold;
 // $btn-box-shadow: inset 0 1px 0 rgba($white, 0.15), 0 1px 1px rgba($black, 0.075);
 // $btn-focus-width: $input-btn-focus-width;
 // $btn-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -1164,8 +1164,8 @@ $navbar-nav-link-padding-x: 1.2rem;
 // $navbar-dark-toggler-icon-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 // $navbar-dark-toggler-border-color: rgba($white, 0.1);
 
-$navbar-light-color: $primary;
-$navbar-light-hover-color: $primary;
+$navbar-light-color: $gray-600;
+$navbar-light-hover-color: $secondary;
 $navbar-light-active-color: $primary;
 // $navbar-light-disabled-color: rgba($black, 0.3);
 // $navbar-light-toggler-icon-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");

@@ -116,7 +116,7 @@ const Navigation = ({ parentPage }) => {
         <Link href="/" passHref>
           <Navbar.Brand>
             <Image
-              src="/img/logo.png"
+              src="/assets/img/logo.png"
               alt="blissville logo"
               width={147}
               height={46}
