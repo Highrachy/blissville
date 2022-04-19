@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,400;0,600;0,700;1,200;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,400;0,600;0,700;1,200;1,400;1,600;1,700&family=DM+Sans:wght@400;700&display=swap');
 
-$text-font: 'Bai Jamjuree';
-$headings-font: 'Bai Jamjuree';
+$font-primary: 'Bai Jamjuree';
+$font-secondary: 'DM Sans', sans-serif;
 
-$text-color: #3d3d3d;
+$text-font: $font-primary;
+$headings-font: $font-primary;
+
+$text-color: #585858;
 
 // Variables
 //
@@ -22,7 +25,7 @@ $gray-500: #adb5bd;
 $gray-600: #555f68;
 $gray-700: #495057;
 $gray-800: #343a40;
-$gray-900: #3d3d3d;
+$gray-900: #232323;
 $black: #000;
 // scss-docs-end gray-color-variables
 
@@ -99,6 +102,7 @@ $danger: darken(#ed3237, 10%);
 //   'dark': $dark,
 // );
 // // scss-docs-end theme-colors-map
+$bg-blue: rgba(68, 108, 178, 0.05);
 
 // // scss-docs-start theme-colors-rgb
 // $theme-colors-rgb: map-loop($theme-colors, to-rgb, '$value');
@@ -541,6 +545,8 @@ $grid-breakpoints: (
 // $border-radius: 0.25rem;
 // $border-radius-sm: 0.2rem;
 // $border-radius-lg: 0.3rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 1rem;
 // $border-radius-pill: 50rem;
 // // scss-docs-end border-radius-variables
 
@@ -603,8 +609,8 @@ $font-size-base: 1rem; // Assumes the browser default, typically `16px`
 // $font-weight-lighter: lighter;
 // $font-weight-light: 300;
 // $font-weight-normal: 400;
-$font-weight-bold: 700;
-// $font-weight-bolder: bolder;
+$font-weight-bold: 600;
+$font-weight-bolder: 700;
 
 // $font-weight-base: $font-weight-normal;
 
@@ -1288,7 +1294,7 @@ $dropdown-link-active-bg: transparent;
 // $card-title-spacer-y: $spacer * 0.5;
 // $card-border-width: $border-width;
 // $card-border-color: rgba($black, 0.125);
-// $card-border-radius: $border-radius;
+$card-border-radius: $border-radius-xl;
 // $card-box-shadow: null;
 // $card-inner-border-radius: subtract($card-border-radius, $card-border-width);
 // $card-cap-padding-y: $card-spacer-y * 0.5;

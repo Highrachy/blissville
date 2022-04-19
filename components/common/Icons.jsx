@@ -1,6 +1,6 @@
 import { FiChevronRight } from 'react-icons/fi';
 import { FiChevronLeft } from 'react-icons/fi';
-import { FaFacebookF } from 'react-icons/fa';
+import { FaFacebookF, FaTape } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
 import { FaLinkedinIn } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa';
@@ -23,6 +23,7 @@ export const LeftAngleIcon = () => <FiChevronLeft />;
 export const BedIcon = () => <FaBed />;
 export const ToiletIcon = () => <FaToilet />;
 export const BathIcon = () => <FaBath />;
+export const SizeIcon = () => <FaTape />;
 export const LocationIcon = () => <HiLocationMarker />;
 
 export const PhoneIcon = () => <FaPhone />;
