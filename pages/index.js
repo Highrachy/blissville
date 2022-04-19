@@ -61,8 +61,8 @@ const HeroSection = () => (
             </ul>
           </div>
         </section>
-        <section className="col-md-6">
-          <div className="hero-image py-6 ps-5">
+        <section className="col-md-6 hero-image__container">
+          <div className="hero-image py-6 mx-auto">
             <Image
               className="rounded-5"
               src="/assets/img/home/hero.jpeg"
@@ -82,7 +82,7 @@ const ExecutiveSummary = () => (
   <section className="pt-6">
     <div className="container">
       <div className="row">
-        <div className="col-6">
+        <div className="col-md-5 col-lg-6 order-1">
           <div className="ms-n5">
             <Image
               src="/assets/img/home/cuate.svg"
@@ -92,8 +92,8 @@ const ExecutiveSummary = () => (
             />
           </div>
         </div>
-        <div className="col-6">
-          <h3 className="mt-6">Executive Summary</h3>
+        <div className="col-md-7 col-lg-6 order-0">
+          <h3 className="mt-3 mt-lg-6">Executive Summary</h3>
 
           <p className="lead fw-bold">
             Our projects strategically aim at providing energy efficient luxury
@@ -205,7 +205,7 @@ const Benefits = () => (
 );
 
 const SingleBenefits = ({ background, icon, title, text }) => (
-  <div className="col-sm-4 text-center px-5 mt-6 benefits-section">
+  <div className="col-md-6 col-lg-4 text-center px-5 mt-6 benefits-section">
     <div className={`bg-icon bg-${background}`}>{icon}</div>
     <h5 className="text-uppercase mt-3 text-color-1">{title}</h5>
     <p className="">{text}</p>
@@ -214,10 +214,10 @@ const SingleBenefits = ({ background, icon, title, text }) => (
 
 const WhyBlissville = () => (
   <section>
-    <div className="container">
+    <div className="container pb-7">
       <div className="row">
-        <div className="col-6">
-          <div className="ms-n7">
+        <div className="col-md-6">
+          <div className="ms-lg-n7 ms-0">
             <Image
               src="/assets/img/home/why-blissville.jpg"
               alt="Why Blissville"
@@ -226,8 +226,8 @@ const WhyBlissville = () => (
             />
           </div>
         </div>
-        <div className="col-6">
-          <p className="lead fw-bold font-secondary pt-6">
+        <div className="col-md-6">
+          <p className="lead fw-bold font-secondary pt-lg-6">
             Blissville Condos and Apartments are about more than just the homes,
             but about you and everything that makes your life better and easier.
           </p>

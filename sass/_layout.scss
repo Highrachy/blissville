@@ -1,0 +1,12 @@
+.container {
+  @include media-breakpoint-down(md) {
+    padding: 0 2rem;
+  }
+}
+
+.parallax {
+  background-attachment: fixed !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}

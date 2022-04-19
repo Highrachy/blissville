@@ -1,0 +1,91 @@
+.bg-icon {
+  height: 5.8rem;
+  width: 5.8rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  position: relative;
+
+  svg {
+    height: 2.4rem;
+    width: 2.4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.icon-sm {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.icon-md svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.icon-md2 svg {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.icon-lg svg {
+  height: 4rem;
+  width: 4rem;
+}
+.icon-xl svg {
+  height: 8rem;
+  width: 8rem;
+}
+.icon-xxl svg {
+  height: 12rem;
+  width: 12rem;
+  @include media-breakpoint-up(lg) {
+    height: 16rem;
+    width: 16rem;
+  }
+}
+
+.rounded-4 {
+  border-radius: $border-radius-lg;
+}
+
+.rounded-5 {
+  border-radius: $border-radius-xl;
+}
+
+.bg-blue {
+  background-color: $bg-blue;
+}
+
+.bg-red {
+  background: rgba(192, 67, 67, 0.1);
+}
+
+.bg-blue2 {
+  background: rgba(68, 108, 178, 0.1);
+}
+
+.bg-green {
+  background: rgba(38, 166, 91, 0.1);
+}
+
+.bg-purple {
+  background: rgba(117, 4, 156, 0.1);
+}
+
+.bg-orange {
+  background: rgba(184, 71, 7, 0.1);
+}
+
+.bg-blue3 {
+  background: rgba(46, 138, 253, 0.1);
+}
+
+.btn-none {
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+}

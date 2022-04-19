@@ -8,9 +8,9 @@ const OurInvestors = ({ image, text, header, buttonText }) => (
     <Section className="investor-section">
       <div className="container">
         <div className="row">
-          <div className="col-lg-12">
-            <h3 className="h2 text-white pb-2">{header}</h3>
-            <p className="pb-3">{text}</p>
+          <div className="col-12">
+            <h3 className="invest-now__header">{header}</h3>
+            <p className="pb-3 pe-5">{text}</p>
             <Link href="/contact-us" passHref>
               <a className="btn btn-success text-white btn-wide">
                 {buttonText}
@@ -28,8 +28,8 @@ OurInvestors.defaultProps = {
   text: 'Invest today and watch your money grow',
   header: (
     <>
-      Get up to <span className="text-success">45% return</span> <br /> on
-      investment
+      Get up to <br className="d-block d-md-none" />{' '}
+      <span className="text-success">45% return</span> <br /> on investment
     </>
   ),
   buttonText: 'Learn More',

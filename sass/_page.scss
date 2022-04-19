@@ -1,0 +1,32 @@
+.benefits-section {
+  h5 {
+    line-height: 134.69%;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+  p {
+    color: rgba($gray-900, 0.65);
+  }
+}
+
+.investor-section {
+  h3 {
+    font-size: 2.5rem;
+
+    @include media-breakpoint-up(md) {
+      font-size: 3.75rem;
+    }
+
+    padding-bottom: 0.25rem;
+    color: white;
+
+    span {
+      color: #26a65b;
+    }
+  }
+
+  p {
+    color: #c1c1c1 !important;
+    font-size: 24px;
+  }
+}

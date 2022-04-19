@@ -1,0 +1,42 @@
+.text-color-dark {
+  color: rgba(55, 51, 51, 1);
+}
+.text-color-dark-1 {
+  color: rgba(55, 51, 51, 0.9);
+}
+
+.text-color-dark-2 {
+  color: rgba(55, 51, 51, 0.65);
+}
+
+.text-color {
+  color: $gray-900;
+}
+
+.text-color-1 {
+  color: rgba($gray-900, 0.9);
+}
+.text-color-2 {
+  color: rgba($gray-900, 0.65);
+}
+
+.font-secondary {
+  font-family: $font-secondary !important;
+}
+
+.text-title {
+  font-size: 2.8rem;
+  @include media-breakpoint-up(md) {
+    font-size: 3rem;
+  }
+  @include media-breakpoint-up(lg) {
+    font-size: 4rem;
+  }
+  line-height: 1.2;
+}
+
+.text-leading {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  color: rgba(#373333, 0.8);
+}
