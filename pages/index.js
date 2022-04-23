@@ -1,9 +1,18 @@
-import { BathIcon, BedIcon, SizeIcon } from '@/components/common/Icons';
+import Footer from '@/components/common/Footer';
+import {
+  BathIcon,
+  BedIcon,
+  SizeIcon,
+  TestimonialQuote,
+  TestimonialTopQuotes,
+} from '@/components/common/Icons';
 import OurInvestors from '@/components/common/OurInvestors';
 import Overlay from '@/components/common/Overlay';
+import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
 import Navigation from '@/components/layouts/Navigation';
 import { benefits } from '@/data/benefits';
+import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { socialMediaLinks } from '../data';
@@ -17,8 +26,9 @@ export default function Home() {
       <OurProjects />
       <Benefits />
       <WhyBlissville />
+      <Testimonials />
       <OurInvestors />
-      <WhyBlissville />
+      <Footer />
     </>
   );
 }
@@ -28,7 +38,7 @@ const HeroSection = () => (
     <div className="container">
       <div className="row">
         <section className="col-md-6">
-          <h1 className="text-primary text-title mt-5">
+          <h1 className="text-primary text-title mt-6">
             Start planning your dream home with us
           </h1>
           <p className="text-leading">
@@ -79,7 +89,7 @@ const HeroSection = () => (
 );
 
 const ExecutiveSummary = () => (
-  <section className="pt-6">
+  <Section>
     <div className="container">
       <div className="row">
         <div className="col-md-5 col-lg-6 order-1">
@@ -117,7 +127,7 @@ const ExecutiveSummary = () => (
         </div>
       </div>
     </div>
-  </section>
+  </Section>
 );
 
 const OurProjects = () => (
@@ -187,6 +197,48 @@ const SingleProject = ({ img }) => (
       </div>
     </div>
   </div>
+);
+
+const Testimonials = () => (
+  <Section altBg2>
+    <div className="container">
+      <div className="text-center">
+        <TestimonialTopQuotes />
+        <h3 className="text-color-dark-1 font-secondary mt-3 mb-5">
+          What our customers are saying
+        </h3>
+      </div>
+      <div className="row">
+        <SingleTestimonial img="1" />
+        <SingleTestimonial altBg img="2" />
+        <SingleTestimonial img="3" />
+      </div>
+    </div>
+  </Section>
+);
+
+const SingleTestimonial = ({ img, altBg }) => (
+  <aside
+    className={classNames('testimonial-listing col-lg-4 col-sm-12', { altBg })}
+  >
+    <div className="testimonial-listing__image">
+      <Image
+        src={`/assets/img/testimonials/${img}.jpeg`}
+        alt="testimonials 1"
+        width={120}
+        height={120}
+        className="rounded-circle image-cover"
+      />
+      <TestimonialQuote />
+    </div>
+    <div className="py-4">
+      <p className="text-color-3">
+        Though, we sell you homes, our ultimate target is to enhance your living
+        experience with very reasonable financial consequences.
+      </p>
+      <h4 className="text-secondary">Tolu Asabi</h4>
+    </div>
+  </aside>
 );
 
 const Benefits = () => (

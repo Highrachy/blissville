@@ -21,3 +21,26 @@ export const socialMediaLinks = [
     url: 'https://www.linkedin.com/company/highrachy-investment-and-technology-limited',
   },
 ];
+
+export const footerLinks = [
+  {
+    title: 'Careers',
+    url: '/careers',
+  },
+  {
+    title: 'Sitemap',
+    url: '/sitemap-0.xml',
+  },
+  {
+    title: 'Our Projects',
+    url: '/projects',
+  },
+  {
+    title: 'Download Brochure',
+    url: '/assets/pdf/brochure.pdf',
+  },
+  {
+    title: 'Existing Business Relationships',
+    url: '/about-us#business-relationships',
+  },
+];

@@ -5,7 +5,7 @@ import Section from './Section';
 
 const OurInvestors = ({ image, text, header, buttonText }) => (
   <Parallax bgImage={image}>
-    <Section className="investor-section">
+    <Section noPaddingBottom className="investor-section pb-9">
       <div className="container">
         <div className="row">
           <div className="col-12">
