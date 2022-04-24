@@ -1,9 +1,11 @@
 import React from 'react';
 import { benefits } from '@/data/benefits';
+import Section from './Section';
+import classNames from 'classnames';
 
-const Benefits = () => (
-  <section className="position-relative bg-blue my-7 py-7">
-    <div className="container">
+const Benefits = ({ className }) => (
+  <Section className="bg-blue">
+    <div className={classNames('container', className)}>
       <div className="row">
         <h3 className="font-secondary text-center text-color-dark-1">
           Benefits of Blissville
@@ -13,7 +15,7 @@ const Benefits = () => (
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 );
 
 const SingleBenefits = ({ background, icon, title, text }) => (

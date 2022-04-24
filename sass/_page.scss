@@ -30,3 +30,39 @@
     font-size: 24px;
   }
 }
+
+.features-section {
+  padding: 2.5rem;
+  border: 1px solid #919fac;
+  border-radius: 0.5rem;
+  h5 {
+    line-height: 134.69%;
+    letter-spacing: 0.01em;
+  }
+  p {
+    color: rgba($gray-900, 0.65);
+  }
+  li {
+    &.red::marker {
+      color: #b84707;
+    }
+    &.green::marker {
+      color: #26a65b;
+    }
+    &.blue::marker {
+      color: #446cb2;
+    }
+  }
+}
+
+.team-section {
+  position: relative;
+  border: 1px solid rgba(#919fac, 0.5);
+  border-radius: 0.5rem;
+
+  .image-container {
+    display: inline-block;
+    border: 20px solid #f8f8f8;
+    margin-top: -70px;
+  }
+}

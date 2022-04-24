@@ -1,3 +1,11 @@
 .image-cover {
   object-fit: cover !important;
 }
+
+.image-gray {
+  filter: grayscale(100%);
+
+  &:hover {
+    filter: grayscale(0);
+  }
+}

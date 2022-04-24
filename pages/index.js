@@ -24,7 +24,7 @@ export default function Home() {
       <HeroSection />
       <ExecutiveSummary />
       <OurProjects />
-      <Benefits />
+      <Benefits className="my-7" />
       <WhyBlissville />
       <Testimonials />
       <OurInvestors />
@@ -144,18 +144,14 @@ const SingleProject = ({ img }) => (
   <div className="col-md-6 col-sm-12">
     <div className="property-listing overflow-hidden card">
       <Overlay>
-        <span className="d-inline-block">
-          <span className="d-inline-block">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`/assets/img/property/property${img}.jpeg`}
-              alt="Hero Image"
-              width={636}
-              height={382}
-              className="card-img-top "
-            />
-          </span>
-        </span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/assets/img/property/property${img}.jpeg`}
+          alt="Hero Image"
+          width={636}
+          height={382}
+          className="card-img-top"
+        />
       </Overlay>
       <div className="card-body p-4">
         <div className="row">

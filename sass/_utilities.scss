@@ -1,8 +1,7 @@
 .bg-icon {
   height: 5.8rem;
   width: 5.8rem;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline-block;
   border-radius: 50%;
   position: relative;
 
@@ -81,4 +80,9 @@
       bottom: 30px;
     }
   }
+}
+
+// Fix Next.js images
+span[style^='box-sizing:border-box;display:inline-block'] {
+  display: block !important;
 }

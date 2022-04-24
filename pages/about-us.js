@@ -6,6 +6,9 @@ import OurInvestors from '@/components/common/OurInvestors';
 import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
 import Benefits from '@/components/common/Benefits';
+import Features from '@/components/common/Features';
+import Team from '@/components/common/Team';
+import StrategicRelationships from '@/components/layouts/StrategicRelationships';
 
 export default function Home() {
   return (
@@ -16,7 +19,10 @@ export default function Home() {
         bgImage="/assets/img/bg/about-us.jpeg"
       />
       <OurVision />
+      <Features />
       <Benefits />
+      <Team />
+      <StrategicRelationships />
       <OurInvestors />
       <Footer />
     </>
