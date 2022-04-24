@@ -5,7 +5,7 @@ import {
   ReturnsIcon,
   StrategicIcon,
   TransferIcon,
-} from '@/components/common/BenefitIcons';
+} from '@/components/Icons/BenefitIcons';
 
 export const benefits = [
   {

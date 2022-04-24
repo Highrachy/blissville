@@ -1,7 +1,7 @@
-import { InstagramIcon } from '@/components/common/Icons';
-import { LinkedInIcon } from '@/components/common/Icons';
-import { TwitterIcon } from '@/components/common/Icons';
-import { FacebookIcon } from '@/components/common/Icons';
+import { InstagramIcon } from '@/components/Icons/Icons';
+import { LinkedInIcon } from '@/components/Icons/Icons';
+import { TwitterIcon } from '@/components/Icons/Icons';
+import { FacebookIcon } from '@/components/Icons/Icons';
 
 export const socialMediaLinks = [
   {

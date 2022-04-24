@@ -1,6 +1,6 @@
 import { footerLinks, socialMediaLinks } from '@/data/index';
 import Link from 'next/link';
-import { RightAngleIcon } from '../common/Icons';
+import { RightAngleIcon } from '../Icons/Icons';
 import Section from '../common/Section';
 
 const Footer = () => (

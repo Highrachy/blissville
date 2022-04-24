@@ -15,9 +15,9 @@ const Section = ({
       className={classNames(className, 'position-relative', {
         'bg-light': altBg,
         'bg-light-2': altBg2,
-        'py-6 py-lg-7': !noPaddingBottom && !noPaddingTop,
-        'pt-6 pt-lg-7': noPaddingBottom,
-        'pb-6 pb-lg-7': noPaddingTop,
+        'py-5 py-lg-6': !noPaddingBottom && !noPaddingTop,
+        'pt-5 pt-lg-6': noPaddingBottom,
+        'pb-5 pb-lg-6': noPaddingTop,
       })}
       {...props}
     >

@@ -5,11 +5,11 @@ import Section from './Section';
 
 const OurInvestors = ({ image, text, header, buttonText }) => (
   <Parallax bgImage={image}>
-    <Section noPaddingBottom className="investor-section pb-9">
+    <Section noPaddingBottom className="investor-section pb-8">
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h3 className="invest-now__header">{header}</h3>
+            <h3 className="invest-now__header pt-5">{header}</h3>
             <p className="pb-3 pe-5">{text}</p>
             <Link href="/contact-us" passHref>
               <a className="btn btn-success text-white btn-wide">
