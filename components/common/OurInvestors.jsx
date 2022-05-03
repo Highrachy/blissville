@@ -24,7 +24,7 @@ const OurInvestors = ({ image, text, header, buttonText }) => (
 );
 
 OurInvestors.defaultProps = {
-  image: '/assets/img/bg/investors.jpeg',
+  image: '/assets/img/bg/invest-now.jpeg',
   text: 'Invest today and watch your money grow',
   header: (
     <>
