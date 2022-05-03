@@ -62,12 +62,16 @@
 }
 
 .testimonial-listing {
-  padding: 5rem 3rem;
+  padding: 4rem 3rem 2rem;
   &.altBg {
     background: white;
-    border-radius: 6rem 2rem;
+    border-radius: 2rem;
     box-shadow: 0px 4px 88px 0px rgba(0, 0, 0, 0.05);
-    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0% 100%);
+    transform: skewY(-8deg);
+
+    .testimonial-listing__container {
+      transform: skewY(8deg);
+    }
   }
 
   &__image {
@@ -82,7 +86,13 @@
   }
 }
 
-// Fix Next.js images
-span[style^='box-sizing:border-box;display:inline-block'] {
-  display: block !important;
+// // Fix Next.js images
+// span[style^='box-sizing:border-box;display:inline-block'] {
+//   display: block !important;
+// }
+// https://stackoverflow.com/questions/1833734/display-inline-block-extra-margin/8262649#8262649
+.img-wrapper {
+  letter-spacing: 0;
+  word-spacing: 0;
+  font-size: 0;
 }

@@ -31,7 +31,7 @@ export default function Home() {
 
 const OurVision = () => {
   return (
-    <Section>
+    <section className="pt-5">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-md-7 col-lg-8">
@@ -79,6 +79,6 @@ const OurVision = () => {
           </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 };

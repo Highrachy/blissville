@@ -20,13 +20,15 @@ const SingleTeam = ({ name, image, title, description }) => (
   <div className="col-md-6 text-center my-6">
     <div className="team-section h-100">
       <div className="image-container rounded-circle">
-        <Image
-          className="image-cover rounded-circle"
-          src={`/assets/img/team/${image}`}
-          alt={name}
-          width={120}
-          height={120}
-        />
+        <div className="img-wrapper">
+          <Image
+            className="image-cover rounded-circle"
+            src={`/assets/img/team/${image}`}
+            alt={name}
+            width={120}
+            height={120}
+          />
+        </div>
       </div>
       <h6 className="text-uppercase mt-3 text-color-1">
         {name} ({title})

@@ -4,8 +4,8 @@ import Section from './Section';
 import classNames from 'classnames';
 
 const Benefits = ({ className }) => (
-  <Section className="bg-blue">
-    <div className={classNames('container', className)}>
+  <Section className={classNames('bg-blue', className)}>
+    <div className="container">
       <div className="row">
         <h3 className="font-secondary text-center text-color-dark-1">
           Benefits of Blissville
