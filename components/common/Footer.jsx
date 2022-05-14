@@ -6,34 +6,34 @@ import Section from '../common/Section';
 const Footer = () => (
   <>
     <footer className="bg-dark text-white">
-      <Section noPaddingBottom>
-        <div className="container">
+      <section>
+        <div className="container py-5">
           <div className="row">
-            <div className="col-md-4 col-sm-12">
-              <h6 className="text-white">About Us</h6>
-              <p className="small">
+            <div className="col-md-3 col-sm-12">
+              <h5 className="text-white pb-2">About Us</h5>
+              <p className="small text-dark-light">
                 The unique thing about our investors is that they are very
                 erudite and exposed individuals that can tell the difference
                 between mediocre and true quality, words and actions.
               </p>
             </div>
-            <div className="col-md-4 col-sm-6 col-6">
-              <h6 className="text-white">Helpful Links</h6>
-              <ul className="text-white list-unstyled">
+            <div className="col-md-5 offset-md-1 col-sm-6 col-6">
+              <h6 className="text-white pb-2">Quick Links</h6>
+              <ul className="text-dark-light list-unstyled row">
                 {footerLinks.map(({ title, url }) => (
-                  <li key={title}>
+                  <li key={title} className="col-sm-6 pb-2">
                     <Link href={url} passHref>
-                      <a className="text-reset small">
-                        <RightAngleIcon /> {title}
+                      <a className="text-reset text-decoration-none small">
+                        {title}
                       </a>
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="col-lg-4 col-md-4 col-sm-12">
-              <h6 className="text-white">Contact Us</h6>
-              <div className="small">
+            <div className="col-md-3 col-sm-12">
+              <h6 className="text-white pb-2">Contact Us</h6>
+              <div className="small text-dark-light">
                 <p>
                   5th Floor, Ibukun House, <br />
                   No. 70 Adetokunbo Ademola Street, <br />
@@ -44,27 +44,10 @@ const Footer = () => (
                   <span>Phone:</span> +234 802 833 7440
                 </p>
               </div>
-              <ul className="list-inline text-white ms-auto">
-                {socialMediaLinks.map(({ icon, url }, index) => (
-                  <li key={`social-link-${index}`} className="list-inline-item">
-                    <Link href={url} passHref>
-                      <a className="text-reset icon-md">{icon}</a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="row mt-5 pt-5 pb-3">
-            <div className="col-12 text-center">
-              <p>
-                &copy; {new Date().getFullYear()} Highrachy. All Rights
-                Reserved.
-              </p>
             </div>
           </div>
         </div>
-      </Section>
+      </section>
     </footer>
   </>
 );

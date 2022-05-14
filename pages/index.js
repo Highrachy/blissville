@@ -86,7 +86,7 @@ const ExecutiveSummary = () => (
   <Section>
     <div className="container">
       <div className="row">
-        <div className="col-md-5 col-lg-6 order-1">
+        <div className="col-md-5 col-lg-6">
           <div className="ms-n5">
             <Image
               src="/assets/img/home/cuate.svg"
@@ -96,7 +96,7 @@ const ExecutiveSummary = () => (
             />
           </div>
         </div>
-        <div className="col-md-7 col-lg-6 order-0">
+        <div className="col-md-7 col-lg-6">
           <h3 className="mt-3 mt-lg-6">Executive Summary</h3>
 
           <p className="lead fw-bold">
@@ -126,7 +126,7 @@ const ExecutiveSummary = () => (
 
 export const OurProjects = () => (
   <div className="container mt-5">
-    <h3 className="text-color-dark">Our Projects</h3>
+    <h3>Our Projects</h3>
     <div className="row">
       <SingleProject img="1" />
       <SingleProject img="2" />
