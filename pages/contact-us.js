@@ -20,6 +20,7 @@ const ContactUs = () => {
     <>
       <Navigation />
       <Map />
+      <ContactUsForm />
       <ContactInfo />
       <Footer />
     </>
@@ -47,7 +48,6 @@ const GetInTouch = () => (
         If you want to reach out, discuss opportunities or plan your property
         strategy, we’d love to hear from you.
       </p>
-      <ContactUsForm />
     </div>
   </section>
 );
@@ -57,9 +57,6 @@ const ContactInfo = () => (
     <div id="form" className="contact-form-area">
       <div className="container">
         <div className="row align-items-center">
-          <div className="col-lg-6 col-12 mb-5 pd-5">
-            <GetInTouch />
-          </div>
           <div className="col-lg-5 offset-lg-1">
             <div className="contact-info-wrapper mt-7">
               <h3> Contact Us</h3>
@@ -177,23 +174,44 @@ const ContactUsForm = () => {
   };
 
   return (
-    <FormikForm
-      schema={contactUsSchema}
-      handleSubmit={handleSubmit}
-      name="contact-us-form"
-      butttonText="Send Message"
-      persistForm
-    >
-      <Input name="name" label="Full Name" />
-      <Input name="email" type="email" label="Email Address" />
-      <Input name="phone" label="Phone Number" optional />
-      <Select
-        name="subject"
-        label="Subject"
-        options={valuesToOptions(subjects, 'Select One...')}
-      />
-      <Textarea name="message" label="Your Message" />
-    </FormikForm>
+    <Section className="container">
+      <FormikForm
+        schema={contactUsSchema}
+        handleSubmit={handleSubmit}
+        name="contact-us-form"
+        butttonText="Send Message"
+        persistForm
+      >
+        <div className="text-center">
+          <h3>Contact Us</h3>
+          <p className="lead">We&apos;ll update you within the next 24 hours</p>
+        </div>
+        <div className="row">
+          <Input name="name" formGroupClassName="col-sm-6" label="Full Name" />
+          <Input
+            name="email"
+            formGroupClassName="col-sm-6"
+            type="email"
+            label="Email Address"
+          />
+        </div>
+        <div className="row">
+          <Input
+            formGroupClassName="col-sm-6"
+            name="phone"
+            label="Phone Number"
+            optional
+          />
+          <Select
+            name="subject"
+            label="Subject"
+            formGroupClassName="col-sm-6"
+            options={valuesToOptions(subjects, 'Select One...')}
+          />
+        </div>
+        <Textarea name="message" label="Your Message" />
+      </FormikForm>
+    </Section>
   );
 };
 

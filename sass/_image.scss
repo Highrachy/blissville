@@ -13,3 +13,12 @@
 .img-wrapper {
   font-size: 0;
 }
+
+.bg-image {
+  background-position: 0 50%;
+  background-size: cover;
+}
+
+.bg-primary-op {
+  background-color: rgba($primary, 0.75) !important;
+}

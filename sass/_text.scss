@@ -66,3 +66,27 @@
   line-height: 1.5;
   color: rgba(#373333, 0.8);
 }
+
+.form-tab-title {
+  margin-bottom: 2rem;
+
+  span {
+    font-size: 1.6rem;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+    color: $gray-800;
+    border-bottom: 2px solid $gray-800;
+  }
+
+  a {
+    font-size: 1.1rem;
+    display: inline-block;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: $gray-600;
+    text-decoration: none;
+    &:hover {
+      color: $primary;
+    }
+  }
+}

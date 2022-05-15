@@ -46,7 +46,7 @@ const FormikForm = ({
 
 FormikForm.defaultProps = {
   buttonText: 'Submit',
-  buttonColor: 'danger',
+  buttonColor: 'primary',
 };
 
 export default FormikForm;
