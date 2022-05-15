@@ -126,7 +126,7 @@ $sidebar-width: 17rem;
 }
 
 .content-page {
-  padding-left: 0;
+  background: #f5f8fb;
   min-height: 88vh;
   padding-bottom: 8rem;
   @include media-breakpoint-up(sm) {
@@ -134,4 +134,43 @@ $sidebar-width: 17rem;
     padding-top: 2rem;
   }
   overflow: hidden;
+}
+
+.dashboard-top-nav {
+  &.navbar {
+    z-index: 9;
+    box-shadow: none;
+    @include media-breakpoint-up(md) {
+      padding-bottom: 3rem;
+    }
+    background: #f8faff !important;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .navbar-nav {
+    height: 2rem;
+    padding: 1rem 0 !important;
+  }
+
+  &__avatar {
+    object-fit: cover;
+    border-radius: 100%;
+    display: inline-block;
+    overflow: hidden;
+    margin-right: 1rem;
+  }
+
+  // &__company-logo {
+  //   max-height: 2.5rem;
+  //   margin-right: 1rem;
+  // }
+
+  .dropdown-menu-children {
+    margin-left: -4rem !important;
+    margin-top: 1rem !important;
+  }
+
+  // .top-nav-dropdown {
+  //   margin-left: 2rem;
+  // }
 }

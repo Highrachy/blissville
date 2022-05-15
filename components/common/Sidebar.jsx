@@ -3,56 +3,47 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import LogoImage from './LogoImage';
 import Link from 'next/link';
-import { FiGrid, FiHeart } from 'react-icons/fi';
-import {
-  FaGift,
-  FaHouseUser,
-  FaQuestionCircle,
-  FaUber,
-  FaUser,
-} from 'react-icons/fa';
+import { RiHome5Fill } from 'react-icons/ri';
+import { IoWallet } from 'react-icons/io5';
+import { ImUsers } from 'react-icons/im';
+import { MdMessage } from 'react-icons/md';
+import { FaGift, FaTachometerAlt } from 'react-icons/fa';
 
 const sideMenu = [
   {
     title: 'Home',
     to: '/user/dashboard',
-    icon: <FiGrid />,
+    icon: <FaTachometerAlt />,
     footer: true,
   },
   {
     title: 'My Portfolio',
     to: '/user/portfolio',
-    icon: <FiHeart />,
+    icon: <RiHome5Fill />,
     footer: true,
   },
   {
-    title: 'Transaction',
-    to: '/user/transactions',
-    icon: <FaGift />,
+    title: 'Payments',
+    to: '/user/payments',
+    icon: <IoWallet />,
     footer: false,
   },
   {
-    title: 'Just For You',
+    title: 'Forum',
     to: '/user/just-for-you',
-    icon: <FaHouseUser />,
+    icon: <ImUsers />,
     footer: true,
-  },
-  {
-    title: 'Services',
-    to: '/user/service',
-    icon: <FaQuestionCircle />,
-    footer: false,
-  },
-  {
-    title: 'Settings',
-    to: '/user/settings',
-    icon: <FaUser />,
-    footer: false,
   },
   {
     title: 'Refer to Earn',
     to: '/user/refer-and-earn',
-    icon: <FaUber />,
+    icon: <FaGift />,
+    footer: true,
+  },
+  {
+    title: 'Reviews',
+    to: '/user/refer-and-earn',
+    icon: <MdMessage />,
     footer: true,
   },
 ];

@@ -1,4 +1,4 @@
-import { FiChevronRight } from 'react-icons/fi';
+import { FiBell, FiChevronRight, FiSettings } from 'react-icons/fi';
 import { FiChevronLeft } from 'react-icons/fi';
 import { FaFacebookF, FaTape } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
@@ -11,6 +11,7 @@ import { FaPhone } from 'react-icons/fa';
 import { FaGlobe } from 'react-icons/fa';
 import { FaMapMarker } from 'react-icons/fa';
 import { HiLocationMarker } from 'react-icons/hi';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 
 export const FacebookIcon = () => <FaFacebookF />;
 export const TwitterIcon = () => <FaTwitter />;
@@ -30,6 +31,9 @@ export const PhoneIcon = () => <FaPhone />;
 export const WebsiteIcon = () => <FaGlobe />;
 export const MarkerIcon = () => <FaMapMarker />;
 
+export const ThreeDotsIcon = () => <BsThreeDotsVertical />;
+export const NotificationIcon = () => <FiBell />;
+export const ProfileIcon = () => <FiSettings />;
 export const TestimonialTopQuotes = () => (
   <svg
     width={61}
