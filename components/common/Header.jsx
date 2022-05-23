@@ -10,17 +10,19 @@ export const SectionHeader = (props) => <SHeader {...props} />;
 export const PageHeader = ({ title, breadcrumb, bgImage, subHeader }) => {
   const currentBreadCrumb = breadcrumb || [{ title }];
   return (
-    <Parallax bgImage={bgImage}>
-      <Section noPaddingBottom className="pb-5">
-        <div className="container mt-7">
-          <h3 className="text-page-header">{title}</h3>
-          <h4 className="text-page-subheader">
-            {subHeader || 'Powered By Highrachy'}
-          </h4>
-          {false && <BreadCrumb breadcrumb={currentBreadCrumb} />}
-        </div>
-      </Section>
-    </Parallax>
+    <>
+      <Parallax bgImage={bgImage}>
+        <Section noPaddingBottom className="pb-5">
+          <div className="container mt-7">
+            <h3 className="text-page-header">{title}</h3>
+            <h4 className="text-page-subheader">
+              {subHeader || 'Powered By Highrachy'}
+            </h4>
+            {false && <BreadCrumb breadcrumb={currentBreadCrumb} />}
+          </div>
+        </Section>
+      </Parallax>
+    </>
   );
 };
 

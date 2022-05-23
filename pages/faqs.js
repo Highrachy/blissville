@@ -23,11 +23,11 @@ export default function FAQs() {
 
 const AllFAQs = () => {
   return (
-    <section className="container-fluid py-6">
+    <section className="container py-6">
       <div className="row">
         {faqs.map(({ name, faqs: allFaqs }, index) => (
           <div className="mt-5 col-12 faqs-section" key={index}>
-            <h5>{name}</h5>
+            <h4>{name}</h4>
             <FAQsAccordion faqs={allFaqs} />
           </div>
         ))}

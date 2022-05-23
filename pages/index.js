@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { socialMediaLinks } from '../data';
 import Benefits from '@/components/common/Benefits';
-import Testimonials from '@/components/common/Testimonials';
+import { TestimonialSection } from '@/components/common/Testimonials';
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
       <OurProjects />
       <Benefits className="my-7" />
       <WhyBlissville />
-      <Testimonials />
+      <TestimonialSection />
       <OurInvestors />
       <Footer />
     </>

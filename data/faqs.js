@@ -3,27 +3,27 @@ const faqs = [
     name: 'Getting Started',
     faqs: [
       {
-        question: 'What is BALL?',
+        question: 'What is Blissville?',
         answer:
-          'BALL is an acronym for Become A Landlord. It is an online platform that you can use to plan your income properly and define a clear step-by-step process that will take you from your current financial position to owning your dream home.',
+          'Blissville is an acronym for Become A Landlord. It is an online platform that you can use to plan your income properly and define a clear step-by-step process that will take you from your current financial position to owning your dream home.',
         showOnHomePage: true,
       },
       {
-        question: <>What is special about BALL?</>,
+        question: <>What is special about Blissville?</>,
         answer:
-          'BALL is the only platform that gives you the flexibility to make convenient contributions towards owning your home inline with your income. BALL also avails you with a myriad of benefits including additional income via our referral program, and access to vast real estate knowledge via our community.',
+          'Blissville is the only platform that gives you the flexibility to make convenient contributions towards owning your home inline with your income. Blissville also avails you with a myriad of benefits including additional income via our referral program, and access to vast real estate knowledge via our community.',
         showOnHomePage: true,
       },
       {
-        question: 'Why should I subscribe to the BALL platform?',
+        question: 'Why should I subscribe to the Blissville platform?',
         answer:
-          'BALL is not for everyone, but if you are keen on owning your home in the shortest possible time with the least amount of stress then you should sign up.',
+          'Blissville is not for everyone, but if you are keen on owning your home in the shortest possible time with the least amount of stress then you should sign up.',
         showOnHomePage: true,
       },
       {
         question: <>Is this a rent-to-own scheme?</>,
         answer:
-          'No, BALL is a platform that you can use to enhance your eligibility to access available property acquisition options including rent-to-own, mortgages and spread payments.',
+          'No, Blissville is a platform that you can use to enhance your eligibility to access available property acquisition options including rent-to-own, mortgages and spread payments.',
         showOnHomePage: false,
       },
       {
@@ -35,11 +35,11 @@ const faqs = [
       {
         question: <>How long does it take for me to own a home?</>,
         answer:
-          '  The duration is based on several parameters including your disposable income, availability of savings that can be contributed at the beginning of the BALLing experience, type of home and Location of the property. However, if you have a substantial amount saved and can make significant monthly contributions, you can be handed the keys to your new home in less than 2 years.',
+          '  The duration is based on several parameters including your disposable income, availability of savings that can be contributed at the beginning of the Blissvilleing experience, type of home and Location of the property. However, if you have a substantial amount saved and can make significant monthly contributions, you can be handed the keys to your new home in less than 2 years.',
         showOnHomePage: true,
       },
       {
-        question: <>How does BALL work?</>,
+        question: <>How does Blissville work?</>,
         answer: (
           <>
             It’s easy, just 1. Apply by filling the sign-up form 2. Begin to
@@ -52,12 +52,12 @@ const faqs = [
         showOnHomePage: false,
       },
       {
-        question: <> Do I have to be a millionaire to BALL?</>,
+        question: <> Do I have to be a millionaire to Blissville?</>,
         answer: (
           <>
             No you do not, you can start from wherever you currently are
-            financially. However, we assure you that BALLing will definitely
-            take you millionaire status.
+            financially. However, we assure you that Blissvilleing will
+            definitely take you millionaire status.
           </>
         ),
         showOnHomePage: false,
@@ -70,7 +70,7 @@ const faqs = [
       {
         question: 'How do I make my periodic payments?',
         answer:
-          ' Via the payment gateway within your dashboard on this BALL platform.',
+          ' Via the payment gateway within your dashboard on this Blissville platform.',
         showOnHomePage: false,
       },
       {

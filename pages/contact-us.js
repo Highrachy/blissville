@@ -41,91 +41,85 @@ const Map = () => (
   </section>
 );
 
-const GetInTouch = () => (
-  <section className="form-wrapper p-5">
-    <div className="py-4">
-      <p className="lead">
-        If you want to reach out, discuss opportunities or plan your property
-        strategy, we’d love to hear from you.
-      </p>
-    </div>
-  </section>
-);
-
 const ContactInfo = () => (
-  <Section noPaddingTop altBg>
+  <Section noPaddingTop altBg className="pt-3">
     <div id="form" className="contact-form-area">
       <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-5 offset-lg-1">
-            <div className="contact-info-wrapper mt-7">
-              <h3> Contact Us</h3>
-              <div className="contact-info">
-                <p className="lead mt-4">
-                  Feel free to get in touch with us via any convenient way
-                </p>
-                <ul className="list-unstyled">
-                  <li>
-                    <div className="contact-text d-flex align-items-center pb-4">
-                      <span className="icon-circled">
-                        <PhoneIcon />
-                      </span>
-                      <p>
-                        <a href="#" className="text-reset">
-                          +234 802 833 7440
-                        </a>
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="contact-text d-flex align-items-center pb-4">
-                      <span className="icon-circled">
-                        <WebsiteIcon />
-                      </span>
-                      <p>
-                        <a
-                          href="mailto:info@highrachy.com"
-                          className="text-reset"
-                        >
-                          info@highrachy.com
-                        </a>
-                        <br />
-                        <a
-                          href="https://www.highrachy.com"
-                          className="text-reset"
-                        >
-                          www.highrachy.com
-                        </a>
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="contact-text d-flex align-items-center pb-4">
-                      <span className="icon-circled">
-                        <LocationIcon />
-                      </span>
-                      <p>
-                        5th Floor, Ibukun House, <br />
-                        No.70 Adetokunbo Ademola Street, <br />
-                        Victoria Island, Lagos.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-                <ul className="list-inline icon-md2">
-                  {socialMediaLinks.map(({ url, icon }, index) => (
-                    <li
-                      className="list-inline-item"
-                      key={`contact-social-media-${index}`}
-                    >
-                      <Link href={url} passHref>
-                        <a className="text-reset">{icon}</a>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+        <div className="contact-info-wrapper mt-7">
+          <h4>Office address</h4>
+          <div className="contact-info">
+            <p className="lead mt-4">
+              Feel free to get in touch with us via any convenient way.
+            </p>
+            <ul className="list-unstyled">
+              <li>
+                <div className="contact-text d-flex align-items-center pb-4">
+                  <span className="icon-circled">
+                    <LocationIcon />
+                  </span>
+                  <p>
+                    5th Floor, Ibukun House, <br />
+                    No.70 Adetokunbo Ademola Street, <br />
+                    Victoria Island, Lagos.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div className="contact-text d-flex align-items-center pb-4">
+                  <span className="icon-circled">
+                    <PhoneIcon />
+                  </span>
+                  <p>
+                    <a href="#" className="text-reset">
+                      +234 802 833 7440
+                    </a>
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div className="contact-text d-flex align-items-center pb-4">
+                  <span className="icon-circled">
+                    <WebsiteIcon />
+                  </span>
+                  <p>
+                    <a href="mailto:info@highrachy.com" className="text-reset">
+                      info@highrachy.com
+                    </a>
+                    <br />
+                    <a href="https://www.highrachy.com" className="text-reset">
+                      www.highrachy.com
+                    </a>
+                  </p>
+                </div>
+              </li>
+            </ul>
+            <ul className="list-inline icon-md2">
+              <h4>Connect with us on social Media</h4>
+              {socialMediaLinks.map(({ url, icon }, index) => (
+                <li
+                  className="list-inline-item"
+                  key={`contact-social-media-${index}`}
+                >
+                  <Link href={url} passHref>
+                    <a className="text-reset">{icon}</a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="hero-icons my-5">
+            <ul className="list-inline ms-auto">
+              {socialMediaLinks.map(({ icon, url }, index) => (
+                <li
+                  key={`social-link-${index}`}
+                  className="list-inline-item hero-icon"
+                >
+                  <Link href={url} passHref>
+                    <a className="text-reset icon-sm">{icon}</a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
@@ -134,8 +128,6 @@ const ContactInfo = () => (
 );
 
 const ContactUsForm = () => {
-  const allServices = [];
-  const subjects = ['General', 'Enquiries', ...allServices, 'Others'];
   const handleSubmit = async (values, actions) => {
     const fetchOptions = {
       /**
@@ -175,42 +167,52 @@ const ContactUsForm = () => {
 
   return (
     <Section className="container">
-      <FormikForm
-        schema={contactUsSchema}
-        handleSubmit={handleSubmit}
-        name="contact-us-form"
-        butttonText="Send Message"
-        persistForm
-      >
-        <div className="text-center">
-          <h3>Contact Us</h3>
-          <p className="lead">We&apos;ll update you within the next 24 hours</p>
+      <div className="row justify-content-center">
+        <div className="col-md-10">
+          <FormikForm
+            schema={contactUsSchema}
+            handleSubmit={handleSubmit}
+            name="contact-us-form"
+            buttonText="Send Message"
+            persistForm
+          >
+            <div className="text-center">
+              <h3>Contact Us</h3>
+              <p className="lead">
+                We&apos;ll update you within the next 24 hours
+              </p>
+            </div>
+            <div className="row">
+              <Input
+                name="name"
+                formGroupClassName="col-sm-6"
+                label="Full Name"
+              />
+              <Input
+                name="email"
+                formGroupClassName="col-sm-6"
+                type="email"
+                label="Email Address"
+              />
+            </div>
+            <div className="row">
+              <Input
+                formGroupClassName="col-sm-6"
+                name="phone"
+                label="Phone Number"
+                optional
+              />
+
+              <Input
+                name="subject"
+                formGroupClassName="col-sm-6"
+                label="Subject"
+              />
+            </div>
+            <Textarea name="message" label="Your Message" />
+          </FormikForm>
         </div>
-        <div className="row">
-          <Input name="name" formGroupClassName="col-sm-6" label="Full Name" />
-          <Input
-            name="email"
-            formGroupClassName="col-sm-6"
-            type="email"
-            label="Email Address"
-          />
-        </div>
-        <div className="row">
-          <Input
-            formGroupClassName="col-sm-6"
-            name="phone"
-            label="Phone Number"
-            optional
-          />
-          <Select
-            name="subject"
-            label="Subject"
-            formGroupClassName="col-sm-6"
-            options={valuesToOptions(subjects, 'Select One...')}
-          />
-        </div>
-        <Textarea name="message" label="Your Message" />
-      </FormikForm>
+      </div>
     </Section>
   );
 };

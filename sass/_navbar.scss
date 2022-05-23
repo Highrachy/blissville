@@ -21,6 +21,8 @@
   text-transform: uppercase;
   transition: all 0.25s ease-in;
   position: relative;
+  padding-left: 2.5rem;
+  padding-right: 0 !important;
 
   &:before {
     content: '';
@@ -65,4 +67,9 @@
   min-width: 320px;
   min-height: 100vh;
   position: relative;
+}
+
+.top-nav {
+  color: #37474f;
+  font-size: 0.75rem;
 }
