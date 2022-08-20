@@ -13,7 +13,7 @@ const Section = ({
   return (
     <section
       className={classNames(className, 'position-relative', {
-        'bg-light': altBg,
+        'bg-gray': altBg,
         'bg-light-2': altBg2,
         'py-5 py-lg-7': !noPaddingBottom && !noPaddingTop,
         'pt-5 pt-lg-7': noPaddingBottom,

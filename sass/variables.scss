@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,400;0,600;0,700;1,200;1,400;1,600;1,700&family=DM+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,800;1,300;1,500;1,600;1,800&display=swap');
+@import 'colors';
 
-$font-primary: 'Bai Jamjuree';
-$font-secondary: 'DM Sans', sans-serif;
+$font-primary: 'Inter';
+$font-secondary: Jost;
 
 $text-font: $font-primary;
-$headings-font: $font-primary;
+$headings-font: $font-secondary;
 
 // Variables
 //
@@ -15,20 +16,17 @@ $headings-font: $font-primary;
 
 // scss-docs-start gray-color-variables
 $white: #fff;
-$gray-100: #f4f6f7;
-$gray-200: #eceff2;
-$gray-300: #dde0e6;
-$gray-400: #d2d7df;
-$gray-500: #cad0d9;
-$gray-600: #a1acbc;
-$gray-700: #66768e;
-$gray-800: #3a4451;
-$gray-900: #0f1114;
+// $gray-100: #f4f6f7;
+// $gray-200: #eceff2;
+// $gray-300: #dde0e6;
+// $gray-400: #d2d7df;
+// $gray-500: #cad0d9;
+// $gray-600: #a1acbc;
+// $gray-700: #66768e;
+// $gray-800: #3a4451;
+// $gray-900: #0f1114;
 $black: #000;
 // scss-docs-end gray-color-variables
-
-// custom background
-$silver: #919fac;
 
 // fusv-disable
 // scss-docs-start gray-colors-map
@@ -47,15 +45,15 @@ $grays: (
 // fusv-enable
 
 // scss-docs-start color-variables
-$blue: #446cb2;
+$blue: $primary-500;
 $indigo: #6610f2;
 $purple: #6f42c1;
 $pink: #d63384;
-$red: #ed3237;
-$orange: #fd7e14;
-$yellow: #ffc107;
-$green: #26a65b;
-$teal: #20c997;
+$red: $error-500;
+$orange: $warning-500;
+$yellow: $warning-400;
+$green: $secondary-600;
+$teal: $secondary-700;
 $cyan: #0dcaf0;
 // scss-docs-end color-variables
 
@@ -117,15 +115,15 @@ $bg-blue: rgba(68, 108, 178, 0.05);
 // $color-contrast-light: $white;
 
 // // fusv-disable
-// $blue-100: tint-color($blue, 80%);
-// $blue-200: tint-color($blue, 60%);
-// $blue-300: tint-color($blue, 40%);
-// $blue-400: tint-color($blue, 20%);
-// $blue-500: $blue;
-// $blue-600: shade-color($blue, 20%);
-// $blue-700: shade-color($blue, 40%);
-// $blue-800: shade-color($blue, 60%);
-// $blue-900: shade-color($blue, 80%);
+$blue-100: $primary-100;
+$blue-200: $primary-200;
+$blue-300: $primary-300;
+$blue-400: $primary-400;
+$blue-500: $primary-500;
+$blue-600: $primary-600;
+$blue-700: $primary-700;
+$blue-800: $primary-800;
+$blue-900: $primary-900;
 
 // $indigo-100: tint-color($indigo, 80%);
 // $indigo-200: tint-color($indigo, 60%);
@@ -157,25 +155,25 @@ $bg-blue: rgba(68, 108, 178, 0.05);
 // $pink-800: shade-color($pink, 60%);
 // $pink-900: shade-color($pink, 80%);
 
-// $red-100: tint-color($red, 80%);
-// $red-200: tint-color($red, 60%);
-// $red-300: tint-color($red, 40%);
-// $red-400: tint-color($red, 20%);
-// $red-500: $red;
-// $red-600: shade-color($red, 20%);
-// $red-700: shade-color($red, 40%);
-// $red-800: shade-color($red, 60%);
-// $red-900: shade-color($red, 80%);
+$red-100: $error-100;
+$red-200: $error-200;
+$red-300: $error-300;
+$red-400: $error-400;
+$red-500: $error-500;
+$red-600: $error-600;
+$red-700: $error-700;
+$red-800: $error-800;
+$red-900: $error-900;
 
-// $orange-100: tint-color($orange, 80%);
-// $orange-200: tint-color($orange, 60%);
-// $orange-300: tint-color($orange, 40%);
-// $orange-400: tint-color($orange, 20%);
-// $orange-500: $orange;
-// $orange-600: shade-color($orange, 20%);
-// $orange-700: shade-color($orange, 40%);
-// $orange-800: shade-color($orange, 60%);
-// $orange-900: shade-color($orange, 80%);
+$orange-100: $warning-100;
+$orange-200: $warning-200;
+$orange-300: $warning-300;
+$orange-400: $warning-400;
+$orange-500: $warning-500;
+$orange-600: $warning-600;
+$orange-700: $warning-700;
+$orange-800: $warning-800;
+$orange-900: $warning-900;
 
 // $yellow-100: tint-color($yellow, 80%);
 // $yellow-200: tint-color($yellow, 60%);
@@ -187,15 +185,15 @@ $bg-blue: rgba(68, 108, 178, 0.05);
 // $yellow-800: shade-color($yellow, 60%);
 // $yellow-900: shade-color($yellow, 80%);
 
-// $green-100: tint-color($green, 80%);
-// $green-200: tint-color($green, 60%);
-// $green-300: tint-color($green, 40%);
-// $green-400: tint-color($green, 20%);
-// $green-500: $green;
-// $green-600: shade-color($green, 20%);
-// $green-700: shade-color($green, 40%);
-// $green-800: shade-color($green, 60%);
-// $green-900: shade-color($green, 80%);
+$green-100: $secondary-100;
+$green-200: $secondary-200;
+$green-300: $secondary-300;
+$green-400: $secondary-400;
+$green-500: $secondary-500;
+$green-600: $secondary-600;
+$green-700: $secondary-700;
+$green-800: $secondary-800;
+$green-900: $secondary-900;
 
 // $teal-100: tint-color($teal, 80%);
 // $teal-200: tint-color($teal, 60%);
@@ -419,9 +417,9 @@ $spacers: (
 // //
 // // Settings for the `<body>` element.
 
-// $body-bg: $white;
-// $body-color: $gray-900;
-// $body-text-align: null;
+$body-bg: $white;
+$body-color: $gray-800;
+$body-text-align: null;
 
 // // Utilities maps
 // //
@@ -542,11 +540,10 @@ $grid-breakpoints: (
 // // scss-docs-end border-variables
 
 // // scss-docs-start border-radius-variables
-// $border-radius: 0.25rem;
-// $border-radius-sm: 0.2rem;
-// $border-radius-lg: 0.3rem;
-$border-radius-lg: 0.5rem;
-$border-radius-xl: 1rem;
+$border-radius: 4px;
+$border-radius-sm: 3px;
+$border-radius-lg: 5px;
+$border-radius-xl: 7px;
 // $border-radius-pill: 50rem;
 // // scss-docs-end border-radius-variables
 
@@ -607,10 +604,10 @@ $font-size-base: 1rem; // Assumes the browser default, typically `16px`
 // $font-size-lg: $font-size-base * 1.25;
 
 // $font-weight-lighter: lighter;
-// $font-weight-light: 300;
-// $font-weight-normal: 400;
-$font-weight-bold: 600;
-$font-weight-bolder: 700;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-bolder: 800;
 
 // $font-weight-base: $font-weight-normal;
 
@@ -618,12 +615,12 @@ $line-height-base: 1.8;
 // $line-height-sm: 1.25;
 // $line-height-lg: 2;
 
-$h1-font-size: $font-size-base * 3;
-$h2-font-size: $font-size-base * 2.4;
-$h3-font-size: $font-size-base * 2;
-$h4-font-size: $font-size-base * 1.5;
-$h5-font-size: $font-size-base * 1.25;
-$h6-font-size: $font-size-base;
+// $h1-font-size: $font-size-base * 3;
+// $h2-font-size: $font-size-base * 2.4;
+// $h3-font-size: $font-size-base * 2;
+// $h4-font-size: $font-size-base * 1.5;
+// $h5-font-size: $font-size-base * 1.25;
+// $h6-font-size: $font-size-base;
 // // scss-docs-end font-variables
 
 // // scss-docs-start font-sizes
@@ -641,8 +638,8 @@ $h6-font-size: $font-size-base;
 // $headings-margin-bottom: $spacer * 0.5;
 $headings-font-family: $headings-font;
 // $headings-font-style: null;
-$headings-font-weight: 700;
-$headings-line-height: 1.3;
+$headings-font-weight: 600;
+$headings-line-height: 1.6;
 $headings-color: $gray-900;
 // // scss-docs-end headings-variables
 
@@ -1145,7 +1142,7 @@ $nav-link-hover-color: rgba($red, 0.7);
 $navbar-padding-y: 1rem;
 // $navbar-padding-x: null;
 
-$navbar-nav-link-padding-x: 1.2rem;
+$navbar-nav-link-padding-x: 3rem;
 
 // $navbar-brand-font-size: $font-size-lg;
 // // Compute the navbar-brand padding-y so the navbar-brand will have the same height as navbar-text and nav-link
@@ -1293,8 +1290,8 @@ $dropdown-link-active-bg: transparent;
 // $card-spacer-x: $spacer;
 // $card-title-spacer-y: $spacer * 0.5;
 // $card-border-width: $border-width;
-// $card-border-color: rgba($black, 0.125);
-$card-border-radius: $border-radius-xl;
+$card-border-color: $gray-400;
+$card-border-radius: $border-radius-sm;
 // $card-box-shadow: null;
 // $card-inner-border-radius: subtract($card-border-radius, $card-border-width);
 // $card-cap-padding-y: $card-spacer-y * 0.5;

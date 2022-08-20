@@ -4,12 +4,10 @@ import Section from './Section';
 import classNames from 'classnames';
 
 const Benefits = ({ className }) => (
-  <Section className={classNames('bg-blue', className)}>
+  <Section className={className}>
     <div className="container">
-      <div className="row">
-        <h3 className="font-secondary text-center text-color-dark-1">
-          Benefits of Blissville
-        </h3>
+      <h3>Why Choose Blissville</h3>
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 gy-5 gx-5">
         {benefits.map((benefit, index) => (
           <SingleBenefits key={index} {...benefit} />
         ))}
@@ -18,11 +16,15 @@ const Benefits = ({ className }) => (
   </Section>
 );
 
-const SingleBenefits = ({ background, icon, title, text }) => (
-  <div className="col-md-6 col-lg-4 text-center px-5 mt-6 benefits-section">
-    <div className={`bg-icon bg-${background}`}>{icon}</div>
-    <h5 className="text-uppercase mt-3 text-color-1">{title}</h5>
-    <p className="">{text}</p>
+const SingleBenefits = ({ icon, title, text }) => (
+  <div className="col d-flex align-items-stretch">
+    <div className="benefits-card">
+      <div className="bg-icon">{icon}</div>
+      <h6 className="text-uppercase mt-4 mb-2 font-secondary text-color">
+        {title}
+      </h6>
+      <p>{text}</p>
+    </div>
   </div>
 );
 export default Benefits;

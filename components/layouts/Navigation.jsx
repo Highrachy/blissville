@@ -107,7 +107,6 @@ const Navigation = ({ parentPage }) => {
 
   return (
     <>
-      <TopNav />
       <Navbar
         bg={navbarColor}
         expand="lg"

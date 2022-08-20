@@ -1,36 +1,6 @@
-// .text-color-dark {
-//   color: rgba(55, 51, 51, 1);
-// }
-// .text-color-dark-1 {
-//   color: rgba(55, 51, 51, 0.9);
-// }
-// .text-color-dark-2 {
-//   color: rgba(55, 51, 51, 0.8);
-// }
-
-// .text-color-dark-2 {
-//   color: rgba(55, 51, 51, 0.65);
-// }
-
-// .text-color {
-//   color: $gray-900;
-// }
-
-// .text-color-1 {
-//   color: rgba($gray-900, 0.9);
-// }
-// .text-color-2 {
-//   color: rgba($gray-900, 0.65);
-// }
-
-// .text-color-3 {
-//   color: rgba(0, 0, 0, 0.65);
-// }
-
-.text-dark-light {
-  color: $gray-500;
+.font-primary {
+  font-family: $font-primary !important;
 }
-
 .font-secondary {
   font-family: $font-secondary !important;
 }
@@ -46,47 +16,77 @@
   line-height: 1.2;
 }
 
-.text-page-header {
-  font-size: 3rem;
-  text-transform: uppercase;
-  color: $white;
-  font-weight: 600;
+.text-xl {
+  font-size: 1.5rem;
 }
 
-.text-page-subheader {
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  font-weight: 200;
-  letter-spacing: 0.3rem;
-  color: $white;
+.text-lg {
+  font-size: 1.25rem;
 }
 
-.text-leading {
-  font-size: 1.8rem;
-  line-height: 1.5;
-  color: rgba(#373333, 0.8);
+.text-md {
+  font-size: 1rem;
 }
 
-.form-tab-title {
-  margin-bottom: 2rem;
+.text-sm {
+  font-size: 0.875rem;
+}
 
-  span {
-    font-size: 1.6rem;
-    font-weight: bold;
-    padding-bottom: 0.5rem;
-    color: $gray-800;
-    border-bottom: 2px solid $gray-800;
-  }
+.text-xs {
+  font-size: 0.75rem;
+}
 
-  a {
-    font-size: 1.1rem;
-    display: inline-block;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    color: $gray-600;
-    text-decoration: none;
-    &:hover {
-      color: $primary;
-    }
+.text-tiny {
+  font-size: 0.6rem;
+}
+
+@each $name, $color in $grays {
+  .text-gray-#{$name} {
+    color: $color !important;
   }
 }
+
+// .text-page-header {
+//   font-size: 3rem;
+//   text-transform: uppercase;
+//   color: $white;
+//   font-weight: 600;
+// }
+
+// .text-page-subheader {
+//   font-size: 1.2rem;
+//   text-transform: uppercase;
+//   font-weight: 200;
+//   letter-spacing: 0.3rem;
+//   color: $white;
+// }
+
+// .text-leading {
+//   font-size: 1.8rem;
+//   line-height: 1.5;
+//   color: rgba(#373333, 0.8);
+// }
+
+// .form-tab-title {
+//   margin-bottom: 2rem;
+
+//   span {
+//     font-size: 1.6rem;
+//     font-weight: bold;
+//     padding-bottom: 0.5rem;
+//     color: $gray-800;
+//     border-bottom: 2px solid $gray-800;
+//   }
+
+//   a {
+//     font-size: 1.1rem;
+//     display: inline-block;
+//     margin-left: 1rem;
+//     margin-right: 1rem;
+//     color: $gray-600;
+//     text-decoration: none;
+//     &:hover {
+//       color: $primary;
+//     }
+//   }
+// }
