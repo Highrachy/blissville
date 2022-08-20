@@ -1,7 +1,6 @@
 import React from 'react';
 import { benefits } from '@/data/benefits';
 import Section from './Section';
-import classNames from 'classnames';
 
 const Benefits = ({ className }) => (
   <Section className={className}>

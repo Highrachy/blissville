@@ -7,21 +7,14 @@ import { testimonials } from '@/data/testimonials';
 import Link from 'next/link';
 
 export const TestimonialSection = () => (
-  <Section altBg2>
+  <Section altBg>
     <div className="container">
       <div className="text-center">
         <TestimonialTopQuotes />
-        <h3 className="text-color-dark-1 font-secondary mt-3 mb-5">
-          What our customers are saying
-        </h3>
+        <h3 className="mt-3">What our customers are saying</h3>
       </div>
       <div className="row pt-5">
-        <Testimonials topThree />
-      </div>
-      <div className="text-center">
-        <Link href="/testimonials" passHref>
-          <a className="text-secondary">View All Reviews</a>
-        </Link>
+        <OneTestimonial {...testimonials[2]} />
       </div>
     </div>
   </Section>
@@ -63,6 +56,29 @@ const SingleTestimonial = ({ image, name, testimonial, altBg }) => (
           <p className="text-color-3">{testimonial}</p>
           <h6 className="text-secondary">{name}</h6>
         </div>
+      </div>
+    </div>
+  </aside>
+);
+
+const OneTestimonial = ({ image, name, testimonial, altBg }) => (
+  <aside className="text-center">
+    <div className="testimonial-listing__container col-md-6 col-sm-8 col-10 mx-auto">
+      <div className="testimonial-listing__image">
+        <Image
+          src={`/assets/img/${
+            image ? `testimonials/${image}` : `avatars/default.png`
+          }`}
+          alt={name}
+          width={100}
+          height={100}
+          className="rounded-circle image-cover"
+        />
+        <TestimonialQuote />
+      </div>
+      <div className="py-4">
+        <p className="text-color-3">{testimonial}</p>
+        <h6 className="text-secondary">{name}</h6>
       </div>
     </div>
   </aside>

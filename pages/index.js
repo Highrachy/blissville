@@ -10,6 +10,8 @@ import Link from 'next/link';
 import { socialMediaLinks } from '../data';
 import Benefits from '@/components/common/Benefits';
 import { TestimonialSection } from '@/components/common/Testimonials';
+import OurProjects from '@/components/layouts/OurProjects';
+import ScheduleVisit from '@/components/common/ScheduleVisit';
 
 export default function Home() {
   return (
@@ -17,11 +19,12 @@ export default function Home() {
       <Navigation />
       <HeroSection />
       <ExecutiveSummary />
-      <OurProjects />
+      <FeaturedProperties />
       <Benefits className="my-7" />
-      <WhyBlissville />
+      <OurProjects />
+      <InvestToday />
       <TestimonialSection />
-      <OurInvestors />
+      <ScheduleVisit />
       <Footer />
     </>
   );
@@ -75,17 +78,17 @@ const ExecutiveSummary = () => (
   </Section>
 );
 
-export const OurProjects = () => (
+export const FeaturedProperties = () => (
   <div className="container mt-5">
     <h4>Featured Properties</h4>
     <div className="row">
-      <SingleProject img="1" />
-      <SingleProject img="2" />
+      <SingleProperty img="1" />
+      <SingleProperty img="2" />
     </div>
   </div>
 );
 
-const SingleProject = ({ img }) => (
+const SingleProperty = ({ img }) => (
   <div className="col-md-4 col-sm-12">
     <div className="property-listing overflow-hidden bg-gray-50 card">
       <div className="img-wrapper">
@@ -139,38 +142,46 @@ const SingleProject = ({ img }) => (
   </div>
 );
 
-const WhyBlissville = () => (
-  <section>
-    <div className="container pb-7">
+const InvestToday = () => (
+  <Section>
+    <div className="container">
       <div className="row">
-        <div className="col-md-6">
-          <div className="ms-lg-n7 ms-0">
+        <div className="col-md-7 col-lg-7">
+          <h3 className="mt-3 mt-lg-6">Invest Today</h3>
+
+          <p className="">
+            Our investors comprise of a selected group of elite personalities
+            that includes professionals in various works of life; Lawyers,
+            manufacturers, agriculturalists, bankers, businessmen, and the list
+            goes on.
+          </p>
+
+          <p className="mb-5">
+            The unique thing about our investors is that they are very erudite &
+            exposed individuals that can tell the difference between mediocre
+            and true quality, words and actions.
+          </p>
+
+          <Button color="primary">Learn More</Button>
+        </div>
+        <div className="col-md-5 col-lg-5">
+          <div className="card bg-gray-50">
+            <div className="px-5 py-7 text-center">
+              <h6>You will get up to</h6>
+              <h3>N 14,500,000</h3>
+              <p className="text-gray-700 text-sm font-secondary fw-medium">
+                when you invest N10,000,000
+              </p>
+            </div>
             <Image
-              src="/assets/img/home/why-blissville.jpg"
-              alt="Why Blissville"
-              width={674}
-              height={674}
+              src="/assets/svg/skyline.svg"
+              alt="Skyline"
+              height="189"
+              width="576"
             />
           </div>
         </div>
-        <div className="col-md-6">
-          <p className="lead fw-bold font-secondary pt-lg-6">
-            Blissville Condos and Apartments are about more than just the homes,
-            but about you and everything that makes your life better and easier.
-          </p>
-
-          <p>
-            Our designs respond imaginatively to the cultural, climatic and
-            environmental conditions; as such, only the most suitable materials
-            are employed.
-          </p>
-
-          <p>
-            Though, we sell you homes, our ultimate target is to enhance your
-            living experience with very reasonable financial consequences.
-          </p>
-        </div>
       </div>
     </div>
-  </section>
+  </Section>
 );

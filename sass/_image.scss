@@ -23,3 +23,9 @@
 .bg-primary-op {
   background-color: rgba($primary, 0.75) !important;
 }
+
+.bg-image-top {
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+}

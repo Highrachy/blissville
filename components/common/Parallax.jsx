@@ -10,6 +10,6 @@ const Parallax = ({ bgImage, className, children, bgColor }) => (
 );
 
 Parallax.defaultProps = {
-  bgColor: 'rgba(1, 20, 53, 0.84)',
+  bgColor: 'rgba(23, 36, 59, 0.95)',
 };
 export default Parallax;
