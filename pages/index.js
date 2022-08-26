@@ -1,17 +1,14 @@
 import Footer from '@/components/common/Footer';
 import { BathIcon, BedIcon, SizeIcon } from '@/components/Icons/Icons';
-import OurInvestors from '@/components/common/OurInvestors';
-import Overlay from '@/components/common/Overlay';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
 import Navigation from '@/components/layouts/Navigation';
 import Image from 'next/image';
-import Link from 'next/link';
-import { socialMediaLinks } from '../data';
 import Benefits from '@/components/common/Benefits';
 import { TestimonialSection } from '@/components/common/Testimonials';
 import OurProjects from '@/components/layouts/OurProjects';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
+import { InvestToday } from './investors';
 
 export default function Home() {
   return (
@@ -140,48 +137,4 @@ const SingleProperty = ({ img }) => (
       </div>
     </div>
   </div>
-);
-
-const InvestToday = () => (
-  <Section>
-    <div className="container">
-      <div className="row">
-        <div className="col-md-7 col-lg-7">
-          <h3 className="mt-3 mt-lg-6">Invest Today</h3>
-
-          <p className="">
-            Our investors comprise of a selected group of elite personalities
-            that includes professionals in various works of life; Lawyers,
-            manufacturers, agriculturalists, bankers, businessmen, and the list
-            goes on.
-          </p>
-
-          <p className="mb-5">
-            The unique thing about our investors is that they are very erudite &
-            exposed individuals that can tell the difference between mediocre
-            and true quality, words and actions.
-          </p>
-
-          <Button color="primary">Learn More</Button>
-        </div>
-        <div className="col-md-5 col-lg-5">
-          <div className="card bg-gray-50">
-            <div className="px-5 py-7 text-center">
-              <h6>You will get up to</h6>
-              <h3>N 14,500,000</h3>
-              <p className="text-gray-700 text-sm font-secondary fw-medium">
-                when you invest N10,000,000
-              </p>
-            </div>
-            <Image
-              src="/assets/svg/skyline.svg"
-              alt="Skyline"
-              height="189"
-              width="576"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </Section>
 );

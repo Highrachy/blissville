@@ -26,4 +26,5 @@ const SingleBenefits = ({ icon, title, text }) => (
     </div>
   </div>
 );
+
 export default Benefits;

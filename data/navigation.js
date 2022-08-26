@@ -7,7 +7,10 @@ export const home = {
 export const portfolio = {
   title: 'Portfolio',
   url: 'portfolio',
-  children: {},
+  children: {
+    services: 'Our Services',
+    investors: 'Investors',
+  },
 };
 
 export const faqs = {
