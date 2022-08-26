@@ -1,0 +1,29 @@
+@import '~rc-slider/assets/index.css';
+
+.rc-slider-rail,
+.rc-slider-track,
+.rc-slider-step {
+  height: 0.6rem;
+}
+
+.rc-slider-track {
+  background: $secondary;
+}
+
+.rc-slider-handle {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-color: rgba($secondary, 0.6);
+  margin-top: -8px;
+  opacity: 1;
+  &:active,
+  &:hover {
+    border-color: rgba($secondary, 0.8);
+    box-shadow: 0 0 5px $secondary;
+  }
+}
+
+.rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+  border-color: $secondary;
+  box-shadow: 0 0 0 5px rgba($secondary, 0.4);
+}
