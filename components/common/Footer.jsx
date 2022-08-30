@@ -1,13 +1,11 @@
-import { footerLinks, socialMediaLinks } from '@/data/index';
+import { footerLinks } from '@/data/index';
 import Link from 'next/link';
-import { RightAngleIcon } from '../Icons/Icons';
-import Section from '../common/Section';
 
 const Footer = () => (
   <>
     <footer className="bg-dark text-white">
       <section>
-        <div className="container py-5">
+        <div className="container py-7">
           <div className="row">
             <div className="col-md-3 col-sm-12">
               <h5 className="text-white pb-2">About Us</h5>

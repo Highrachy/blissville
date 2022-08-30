@@ -1,14 +1,15 @@
 import Footer from '@/components/common/Footer';
-import { BathIcon, BedIcon, SizeIcon } from '@/components/Icons/Icons';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
 import Navigation from '@/components/layouts/Navigation';
 import Image from 'next/image';
 import Benefits from '@/components/common/Benefits';
 import { TestimonialSection } from '@/components/common/Testimonials';
-import OurProjects from '@/components/layouts/OurProjects';
+import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { InvestToday } from './investors';
+import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
+import { KeyIcon, PhoneIcon } from '@/components/Icons/Icons';
 
 export default function Home() {
   return (
@@ -17,8 +18,8 @@ export default function Home() {
       <HeroSection />
       <ExecutiveSummary />
       <FeaturedProperties />
-      <Benefits className="my-7" />
-      <OurProjects />
+      <Benefits topThree />
+      <ProjectsSlideshow />
       <InvestToday />
       <TestimonialSection />
       <ScheduleVisit />
@@ -28,113 +29,73 @@ export default function Home() {
 }
 
 const HeroSection = () => (
-  <section className="position-relative">
-    <Image
-      src="/assets/img/home/hero.jpeg"
-      alt="Hero Image"
-      width={1500}
-      height={1398}
-    />
+  <section className="hero-image">
+    <div className="container">
+      <div className="position-absolute bottom-0">
+        <p className="text-white lead">A PLACE TO CALL HOME</p>
+        <h1 className="text-white text-display">BLISSVILLE UNO</h1>
+        <div className="btn-primary py-3 btn btn-xl d-inline-flex align-items-center rounded-4 me-md-3 mb-3">
+          <div className="me-3">
+            <KeyIcon />
+          </div>
+          <div className="d-flex flex-column">
+            <div className="text-start">PRICES FROM</div>
+            <h5 className="text-white mb-0">₦35,000,000</h5>
+          </div>
+        </div>
+        <Button className="btn btn-secondary py-3 btn-xl d-inline-flex align-items-center rounded-4 me-md-3 mb-3">
+          <div className="me-3">
+            <PhoneIcon />
+          </div>
+          <div className="d-flex flex-column">
+            <div className="text-start">CALL NOW</div>
+            <h5 className="text-white mb-0">0802-833-7440</h5>
+          </div>
+        </Button>
+      </div>
+    </div>
   </section>
 );
 
 const ExecutiveSummary = () => (
-  <Section altBg>
+  <Section altBg className="mt-n7">
     <div className="container">
       <div className="row">
-        <div className="col-md-7 col-lg-6">
-          <h3 className="mt-3 mt-lg-6">
-            Start Planning your DREAM HOME with us.
+        <div className="col-md-7 col-lg-6 pe-5">
+          <h3 className="mt-3 mt-lg-6 mb-4">
+            Start Planning your{' '}
+            <span className="text-primary">
+              <br />
+              DREAM HOME
+            </span>{' '}
+            with us.
           </h3>
 
-          <p className="">
+          <p className="lead">
             Actualize the dream of buying a home, readily tailored to suit your
             peculiar taste with the specific finishing details you desire.
           </p>
 
-          <p className="mb-5">
+          <p className="mb-5 lead">
             Subscribe with us today and proceed to select from our vast range of
             Floor tiles, Wall tiles, Paint colors, and other finishes to
             customize your home into the haven that suits your style.
           </p>
 
-          <Button color="secondary">Try it Now</Button>
+          <Button color="secondary" className="mb-5">
+            Try it Now
+          </Button>
         </div>
         <div className="col-md-5 col-lg-6">
-          <div className="ms-n5">
-            <Image
-              src="/assets/img/home/cuate.svg"
-              alt="Hero Image"
-              width={601}
-              height={564}
-            />
-          </div>
+          <Image
+            src="/assets/img/home/dream-home.png"
+            alt="Hero Image"
+            width={534}
+            height={694}
+            className="img-cover"
+          />
         </div>
       </div>
     </div>
   </Section>
-);
-
-export const FeaturedProperties = () => (
-  <div className="container mt-5">
-    <h4>Featured Properties</h4>
-    <div className="row">
-      <SingleProperty img="1" />
-      <SingleProperty img="2" />
-    </div>
-  </div>
-);
-
-const SingleProperty = ({ img }) => (
-  <div className="col-md-4 col-sm-12">
-    <div className="property-listing overflow-hidden bg-gray-50 card">
-      <div className="img-wrapper">
-        {/* <Overlay> */}
-        <Image
-          src={`/assets/img/property/property${img}.jpeg`}
-          alt="Hero Image"
-          width={636}
-          height={432}
-          className="card-img-top"
-        />
-        {/* </Overlay> */}
-      </div>
-      <div className="card-body p-4">
-        <div className="row">
-          <h5 className="card-title fw-medium">4 Bedroom Maisonettes</h5>
-          <div className="text-gray-700 text-sm font-secondary fw-medium">
-            Blissville Duos - Lekki, Lagos
-          </div>
-          <div className="text-lg text-primary fw-bold">₦ 74,000,000</div>
-        </div>
-
-        <hr className="dotted-border" />
-
-        <div className="text-gray-700 text-sm font-secondary fw-medium">
-          <span className="pe-3">
-            <span className="text-gray-600">
-              <SizeIcon />
-            </span>{' '}
-            255 Msq
-          </span>
-          <span className="px-3">
-            <span className="text-gray-600">
-              <BedIcon />
-            </span>{' '}
-            4 beds
-          </span>
-          <span className="px-3">
-            <span className="text-gray-600">
-              <BathIcon />
-            </span>{' '}
-            5 baths
-          </span>
-        </div>
-
-        <Button className="mt-5 btn-sm px-4 py-2 text-white text-sm fw-medium">
-          View Property
-        </Button>
-      </div>
-    </div>
-  </div>
 );

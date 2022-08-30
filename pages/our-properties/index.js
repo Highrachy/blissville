@@ -9,21 +9,26 @@ import InvestorSlider from '@/components/common/InvestorSlider';
 import Section from '@/components/common/Section';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { benefits } from '@/data/benefits';
+import SingleProject from '@/components/common/SingleProject';
+import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 
-export default function Home() {
+export default function OurProjects() {
   return (
     <>
       <Navigation />
       <PageHeader
-        title="Investors"
-        subHeader="INVEST TODAY AND WATCH YOUR MONEY GROW..."
+        title="Our Properties"
+        subHeader="Powered By Highrachy"
         bgImage="/assets/img/bg/investors.jpeg"
       />
-      <InvestToday />
-      <InvestmentOverview />
-      <AnnualGrowth />
-      <InvestmentCards />
-      <MidTermForecast />
+      <FeaturedProperties />
+
+      <div className="container">
+        <h3 className="mt-3 mt-lg-6">Our Projects</h3>
+        <div className="row">
+          <SingleProject />
+        </div>
+      </div>
       <ScheduleVisit />
       <Footer />
     </>
@@ -33,27 +38,26 @@ export default function Home() {
 export const InvestToday = () => (
   <Section>
     <div className="container">
-      <h3 className="mt-3 mt-lg-4 mb-4">Invest Today</h3>
       <div className="row">
-        <div className="col-md-7 col-lg-7 order-1 order-md-0">
-          <div className="pe-md-5">
-            <p className="lead">
-              Our investors comprise of a selected group of elite personalities
-              that includes professionals in various works of life; Lawyers,
-              manufacturers, agriculturalists, bankers, businessmen, and the
-              list goes on.
-            </p>
+        <div className="col-md-7 col-lg-7">
+          <h3 className="mt-3 mt-lg-6">Invest Today</h3>
 
-            <p className="lead mb-4">
-              The unique thing about our investors is that they are very erudite
-              & exposed individuals that can tell the difference between
-              mediocre and true quality, words and actions.
-            </p>
-          </div>
+          <p className="">
+            Our investors comprise of a selected group of elite personalities
+            that includes professionals in various works of life; Lawyers,
+            manufacturers, agriculturalists, bankers, businessmen, and the list
+            goes on.
+          </p>
 
-          <Button color="primary mb-5">Learn More</Button>
+          <p className="mb-5">
+            The unique thing about our investors is that they are very erudite &
+            exposed individuals that can tell the difference between mediocre
+            and true quality, words and actions.
+          </p>
+
+          <Button color="primary">Learn More</Button>
         </div>
-        <div className="col-md-5 col-lg-5 order-0 order-md-1 mb-5">
+        <div className="col-md-5 col-lg-5">
           <InvestorSlider />
         </div>
       </div>

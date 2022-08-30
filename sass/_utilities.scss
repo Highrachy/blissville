@@ -1,6 +1,25 @@
 .dotted-border {
   border: none !important;
-  border-bottom: 1px dotted $gray-400 !important;
+  border-bottom: 1px dotted $gray-500 !important;
+}
+
+.list-dotted {
+  li {
+    border: none !important;
+    border-top: 1px dotted $gray-500 !important;
+    padding: 1.25rem 0;
+    font-weight: 500;
+    display: flex !important;
+    justify-content: space-between;
+  }
+  &__label {
+    color: $gray-700;
+  }
+
+  &__value {
+    color: $primary-600;
+    float: right;
+  }
 }
 
 .fw-medium {
@@ -85,7 +104,37 @@
 
 ul.circle-tick {
   li {
+    padding-top: 1rem;
     list-style-image: url(/assets/svg/circle-tick.svg);
-    padding-bottom: 1rem;
+    // padding-bottom: 1rem;
   }
+}
+
+.nav-tab .nav-item.active span.active-indicator::before {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  opacity: 1;
+  transition-delay: 0.2s;
+  transition-duration: 0.2s;
+  width: 1.5rem;
+  height: 1.5rem;
+  content: '';
+  background-color: $primary-200;
+  transform: translate(-50%, 0) rotate(45deg) skewX(0) skewY(0) scaleX(1)
+    scaleY(1);
+}
+
+div.nav-link {
+  background: $gray-300;
+  &.active {
+    background: $primary-200;
+  }
+
+  color: $gray-700;
+  &:hover {
+    color: $primary-500;
+  }
+  border-radius: 4px !important;
+  padding: 1rem;
 }

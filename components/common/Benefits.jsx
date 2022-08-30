@@ -2,18 +2,21 @@ import React from 'react';
 import { benefits } from '@/data/benefits';
 import Section from './Section';
 
-const Benefits = ({ className }) => (
-  <Section className={className}>
-    <div className="container">
-      <h3>Why Choose Blissville</h3>
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 gy-5 gx-5">
-        {benefits.map((benefit, index) => (
-          <SingleBenefits key={index} {...benefit} />
-        ))}
+const Benefits = ({ className, topThree }) => {
+  const allBenefits = topThree ? benefits.slice(0, 3) : benefits;
+  return (
+    <Section className={className}>
+      <div className="container">
+        <h3 className="my-4">Why Choose Blissville</h3>
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 gy-5 gx-5">
+          {allBenefits.map((benefit, index) => (
+            <SingleBenefits key={index} {...benefit} />
+          ))}
+        </div>
       </div>
-    </div>
-  </Section>
-);
+    </Section>
+  );
+};
 
 const SingleBenefits = ({ icon, title, text }) => (
   <div className="col d-flex align-items-stretch">

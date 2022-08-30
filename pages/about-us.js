@@ -46,14 +46,12 @@ const IntroText = () => (
           </p>
         </div>
         <div className="col-md-5 col-lg-6">
-          <div className="ms-n5">
-            <Image
-              src="/assets/img/home/cuate.svg"
-              alt="Hero Image"
-              width={601}
-              height={564}
-            />
-          </div>
+          <Image
+            src="/assets/img/property/property1.jpeg"
+            alt="Hero Image"
+            width={1024}
+            height={768}
+          />
         </div>
       </div>
     </div>
@@ -67,15 +65,15 @@ const CEOSpeech = () => (
         <div className="col-md-4 col-lg-4">
           <div className="ms-n5">
             <Image
-              src="/assets/img/home/cuate.svg"
+              src="/assets/img/team/ceo.png"
               alt="Hero Image"
-              width={601}
-              height={564}
+              width={400}
+              height={506}
             />
           </div>
         </div>
         <div className="col-md-8 col-lg-8">
-          <p className="">
+          <p className="mt-n4">
             Our projects strategically aim at providing energy efficient luxury
             condos that are well within your grasp, thus presenting you with a
             rare combination of quality and affordability in a single package.
@@ -101,6 +99,14 @@ const CEOSpeech = () => (
             customize your home into the haven that suits your style.
           </p>
 
+          <div className="ms-n3">
+            <Image
+              src="/assets/img/team/ceo-sign.png"
+              alt="Hero Image"
+              width={143}
+              height={48}
+            />
+          </div>
           <h5>Nnamdi Ijei</h5>
           <h6>Company CEO</h6>
         </div>

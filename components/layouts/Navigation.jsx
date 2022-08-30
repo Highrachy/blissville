@@ -44,12 +44,15 @@ const Navigation = ({ parentPage }) => {
 
   const currentScrollPos = useScrollPosition();
 
-  const [navbarColor, setNavbarColor] = useState('bg-transparent');
+  const [navbarColor, setNavbarColor] = useState('white');
   const [lastScrollPos, setLastScrollPos] = useState(0);
   const [className, setClassName] = useState('show');
   const startingPos = 1;
 
+  const isDesktop = width > 991;
+
   React.useEffect(() => {
+    if (!isDesktop) return;
     // maintain current status
     if (currentScrollPos === lastScrollPos) return;
 
@@ -67,7 +70,7 @@ const Navigation = ({ parentPage }) => {
 
     // reset lastScrollPos
     setLastScrollPos(currentScrollPos);
-  }, [currentScrollPos, lastScrollPos]);
+  }, [currentScrollPos, lastScrollPos, isDesktop]);
 
   const MENU = navigation.map(({ children, url, title }, index) => (
     <React.Fragment key={index}>
@@ -96,8 +99,6 @@ const Navigation = ({ parentPage }) => {
       )}
     </React.Fragment>
   ));
-
-  const isDesktop = width > 991;
 
   const currentNavigation = isDesktop ? (
     <DesktopNavigation MENU={MENU} />

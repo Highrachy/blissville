@@ -20,7 +20,7 @@ export const testimonials = [
     name: 'Emmanuel Yousef',
     image: '2.jpeg',
     testimonial:
-      'Simply the best place to get your home. They will enhance your living experience with very reasonable financial consequences.',
+      'Though, we sell you homes, our ultimate target is to enhance your living experience with very reasonable financial consequences.',
   },
   {
     name: 'Feranmi Habibat',

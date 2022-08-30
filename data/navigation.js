@@ -8,8 +8,8 @@ export const portfolio = {
   title: 'Portfolio',
   url: 'portfolio',
   children: {
-    services: 'Our Services',
-    investors: 'Investors',
+    'our-projects': 'Our Projects',
+    'our-properties': 'Our Properties',
   },
 };
 
