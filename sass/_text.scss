@@ -6,9 +6,11 @@
 }
 
 .text-display {
-  font-size: $display-font-size * 0.5;
+  font-size: $display-font-size * 0.4;
   font-weight: 700;
+  color: $gray-800;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: $white;
   @include media-breakpoint-up(md) {
     font-size: $display-font-size * 0.75;
   }

@@ -35,10 +35,17 @@
   background-repeat: no-repeat;
 }
 
+.hero-container {
+  @include media-breakpoint-down(md) {
+    position: relative;
+  }
+}
 .hero-image {
   width: 100%;
-  height: 1188px;
-  min-height: 1188px;
+  @include media-breakpoint-up(md) {
+    min-height: 74rem;
+  }
+  min-height: 30rem;
   background: linear-gradient(
       0deg,
       rgba(15, 17, 20, 0.5),
@@ -48,10 +55,13 @@
   background-size: cover;
 }
 
-.hero-price {
-  font-size: 1.5rem !important;
+.hero-content {
+  position: absolute;
+  // transform: translate(-50%, -50%);
+  color: $white;
+  width: 100%;
+  z-index: 1;
 }
-
 // Next Images
 
 .img-wrapper {

@@ -10,6 +10,7 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { InvestToday } from './investors';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { KeyIcon, PhoneIcon } from '@/components/Icons/Icons';
+import ActionButton from '@/components/common/ActionButton';
 
 export default function Home() {
   return (
@@ -29,36 +30,39 @@ export default function Home() {
 }
 
 const HeroSection = () => (
-  <section className="hero-image">
-    <div className="container">
-      <div className="position-absolute bottom-0">
-        <p className="text-white lead">A PLACE TO CALL HOME</p>
-        <h1 className="text-white text-display">BLISSVILLE UNO</h1>
-        <div className="btn-primary py-3 btn btn-xl d-inline-flex align-items-center rounded-4 me-md-3 mb-3">
-          <div className="me-3">
-            <KeyIcon />
-          </div>
-          <div className="d-flex flex-column">
-            <div className="text-start">PRICES FROM</div>
-            <h5 className="text-white mb-0">₦35,000,000</h5>
-          </div>
+  <div className="hero-container">
+    <div className="hero-image">
+      <div className="hero-content bottom-0">
+        <div className="container">
+          <p className="lead d-none d-md-block">A PLACE TO CALL HOME</p>
+          <p className="lead d-md-none text-sm">
+            <span className="text-uppercase"> From</span>{' '}
+            <span className="fw-bold">₦35,000,000</span>
+          </p>
+          <h1 className="text-display mb-4">BLISSVILLE UNO</h1>
+          <ActionButton
+            color="primary"
+            Icon={<KeyIcon />}
+            topText="Prices From"
+            bottomText="₦35,000,000"
+            href="#"
+            className="d-none d-md-inline"
+          />
+          <ActionButton
+            color="secondary"
+            Icon={<PhoneIcon />}
+            topText="Call Now"
+            bottomText="0802-833-7440"
+            href="tel:08028337440"
+          />
         </div>
-        <Button className="btn btn-secondary py-3 btn-xl d-inline-flex align-items-center rounded-4 me-md-3 mb-3">
-          <div className="me-3">
-            <PhoneIcon />
-          </div>
-          <div className="d-flex flex-column">
-            <div className="text-start">CALL NOW</div>
-            <h5 className="text-white mb-0">0802-833-7440</h5>
-          </div>
-        </Button>
       </div>
     </div>
-  </section>
+  </div>
 );
 
 const ExecutiveSummary = () => (
-  <Section altBg className="mt-n7">
+  <Section altBg>
     <div className="container">
       <div className="row">
         <div className="col-md-7 col-lg-6 pe-5">
@@ -86,7 +90,7 @@ const ExecutiveSummary = () => (
             Try it Now
           </Button>
         </div>
-        <div className="col-md-5 col-lg-6">
+        <div className="col-md-5 col-lg-6 d-none d-md-block">
           <Image
             src="/assets/img/home/dream-home.png"
             alt="Hero Image"

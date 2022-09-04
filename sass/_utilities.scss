@@ -10,10 +10,18 @@
     padding: 1.25rem 0;
     font-weight: 500;
     display: flex !important;
-    justify-content: space-between;
+    flex-direction: column;
+    @include media-breakpoint-up(md) {
+      justify-content: space-between;
+      flex-direction: row;
+    }
   }
   &__label {
     color: $gray-700;
+    font-size: 0.8rem;
+    @include media-breakpoint-up(md) {
+      font-size: 1rem;
+    }
   }
 
   &__value {

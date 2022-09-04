@@ -9,7 +9,7 @@ const InvestorSlider = () => {
 
   return (
     <div className="card overflow-hidden bg-gray-50">
-      <div className="px-4 py-6 text-center">
+      <div className="px-4 py-5 py-md-6 text-center">
         <h6>You will get up to</h6>
         <h3 className="text-primary">
           ₦ {Humanize.intComma(value + value * 0.45)}

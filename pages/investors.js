@@ -51,7 +51,9 @@ export const InvestToday = () => (
             </p>
           </div>
 
-          <Button color="primary mb-5">Learn More</Button>
+          <Button color="primary" className="mb-5">
+            Learn More
+          </Button>
         </div>
         <div className="col-md-5 col-lg-5 order-0 order-md-1 mb-5">
           <InvestorSlider />
