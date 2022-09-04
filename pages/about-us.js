@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import Section from '@/components/common/Section';
 import Image from 'next/image';
@@ -11,7 +12,7 @@ import Team from '@/components/common/Team';
 import StrategicRelationships from '@/components/layouts/StrategicRelationships';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 
-export default function Home() {
+export default function AboutUs() {
   return (
     <>
       <Navigation />
@@ -63,7 +64,7 @@ const CEOSpeech = () => (
     <div className="container">
       <div className="row">
         <div className="col-md-4 col-lg-4">
-          <div className="ms-n5">
+          <div className="ms-n5 d-none d-md-block">
             <Image
               src="/assets/img/team/ceo.png"
               alt="Hero Image"
@@ -99,14 +100,12 @@ const CEOSpeech = () => (
             customize your home into the haven that suits your style.
           </p>
 
-          <div className="ms-n3">
-            <Image
-              src="/assets/img/team/ceo-sign.png"
-              alt="Hero Image"
-              width={143}
-              height={48}
-            />
-          </div>
+          <Image
+            src="/assets/img/team/ceo-sign.png"
+            alt="Ceo Signature"
+            width={138}
+            height={30}
+          />
           <h5>Nnamdi Ijei</h5>
           <h6>Company CEO</h6>
         </div>

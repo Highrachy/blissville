@@ -5,7 +5,7 @@ import Section from '../common/Section';
 
 const StrategicRelationships = () => {
   return (
-    <Section id="business-relationships">
+    <Section id="business-relationships" noPaddingTop>
       <div className="container">
         <h3 className="text-color-dark-1">Strategic Relationships</h3>
         <div className="row">
