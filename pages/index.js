@@ -1,21 +1,20 @@
 import Footer from '@/components/common/Footer';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
-import Navigation from '@/components/layouts/Navigation';
+import Navigations from '@/components/layouts/Navigation';
 import Image from 'next/image';
-import Benefits from '@/components/common/Benefits';
+import Benefits, { SingleBenefits } from '@/components/common/Benefits';
 import { TestimonialSection } from '@/components/common/Testimonials';
 import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { InvestToday } from './investors';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
-import { KeyIcon, PhoneIcon } from '@/components/Icons/Icons';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 
 export default function Home() {
   return (
     <>
-      <Navigation />
+      <Navigations />
       <HeroSection />
       <ExecutiveSummary />
       <FeaturedProperties />
@@ -40,21 +39,7 @@ const HeroSection = () => (
             <span className="fw-bold">₦35,000,000</span>
           </p>
           <h1 className="text-display mb-4">BLISSVILLE UNO</h1>
-          <ActionButton
-            color="primary"
-            Icon={<KeyIcon />}
-            topText="Prices From"
-            bottomText="₦35,000,000"
-            href="#"
-            className="d-none d-md-inline"
-          />
-          <ActionButton
-            color="secondary"
-            Icon={<PhoneIcon />}
-            topText="Call Now"
-            bottomText="0802-833-7440"
-            href="tel:08028337440"
-          />
+          <ActionButtonGroup />
         </div>
       </div>
     </div>
@@ -103,3 +88,71 @@ const ExecutiveSummary = () => (
     </div>
   </Section>
 );
+
+// // Import Swiper styles
+// import 'swiper/css';
+// import { benefits } from '@/data/benefits';
+// import { Pagination, Navigation, Autoplay, A11y, EffectCube } from 'swiper';
+
+// import { Swiper, SwiperSlide } from 'swiper/react';
+
+// // Import Swiper styles
+// import 'swiper/css';
+// import 'swiper/css/pagination';
+// import 'swiper/css/navigation';
+
+// import 'swiper/css/effect-cube';
+// import useWindowSize from '@/hooks/useWindowSize';
+// import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
+
+// const TextSlider = () => {
+//   const { width } = useWindowSize();
+//   const isMobile = width <= 991;
+
+//   return (
+//     <div className="container">
+//       <Swiper
+//         // install Swiper modules
+//         modules={[Autoplay, EffectCube, Pagination, A11y]}
+//         autoHeight={true}
+//         autoplay={{
+//           delay: 5000,
+//           disableOnInteraction: true,
+//         }}
+//         navigation={false}
+//         slidesPerView={1}
+//         spaceBetween={10}
+//         pagination={{ clickable: true }}
+//         onSwiper={(swiper) => console.log(swiper)}
+//         onSlideChange={() => console.log('slide change')}
+//         // slidesPerGroup={3}
+//         breakpoints={{
+//           640: {
+//             slidesPerView: 2,
+//             spaceBetween: 20,
+//           },
+//           991: {
+//             slidesPerView: 3,
+//             spaceBetween: 50,
+//           },
+//         }}
+//         loop={true}
+//         loopFillGroupWithBlank={true}
+//         effect={''}
+//         grabCursor={true}
+//         cubeEffect={{
+//           shadow: true,
+//           slideShadows: true,
+//           shadowOffset: 20,
+//           shadowScale: 0.94,
+//         }}
+//       >
+//         {benefits.map((benefit, index) => (
+//           <SwiperSlide key={index}>
+//             <SingleBenefits key={index} {...benefit} />
+//           </SwiperSlide>
+//         ))}
+//       </Swiper>
+//     </div>
+//   );
+// };

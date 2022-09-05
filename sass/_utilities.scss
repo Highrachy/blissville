@@ -118,23 +118,68 @@ ul.circle-tick {
   }
 }
 
-.nav-tab .nav-item.active span.active-indicator::before {
+ul.list-features {
+  li {
+    padding-top: 1rem;
+    list-style-image: url(/assets/svg/tick-square.svg);
+    // padding-bottom: 1rem;
+
+    &.green {
+      list-style-image: url(/assets/svg/tick-square-green.svg);
+      color: $secondary-600;
+    }
+    &.gold {
+      list-style-image: url(/assets/svg/tick-square-gold.svg);
+      color: $warning-600;
+    }
+  }
+}
+
+.list-location {
+  list-style-type: none;
+  margin: 0;
+}
+
+.list-location li {
+  position: relative;
+  margin: 2rem 1rem;
+}
+.list-location li::before {
+  content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath opacity='0.4' d='M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z' fill='%2366768E'/%3E%3Cpath d='M14.3246 14.3265C16.2069 12.4442 16.6913 9.87676 15.4065 8.59195C14.1217 7.30713 11.5542 7.7915 9.67189 9.67381C7.78958 11.5561 7.30522 14.1236 8.59003 15.4084C9.87484 16.6932 12.4423 16.2088 14.3246 14.3265Z' fill='%2366768E'/%3E%3C/svg%3E");
   position: absolute;
-  bottom: -10px;
-  left: 50%;
-  opacity: 1;
-  transition-delay: 0.2s;
-  transition-duration: 0.2s;
-  width: 1.5rem;
-  height: 1.5rem;
-  content: '';
-  background-color: $primary-200;
-  transform: translate(-50%, 0) rotate(45deg) skewX(0) skewY(0) scaleX(1)
-    scaleY(1);
+  top: 50%;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  transform: translate(-150%, -50%);
+}
+
+.list-sharer {
+  li {
+    margin-right: 0.5rem;
+  }
+}
+
+.nav-tab .nav-item.active span.active-indicator::before {
+  @include media-breakpoint-up(md) {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    opacity: 1;
+    transition-delay: 0.2s;
+    transition-duration: 0.2s;
+    width: 1.5rem;
+    height: 1.5rem;
+    content: '';
+    background-color: $primary-200;
+    transform: translate(-50%, 0) rotate(45deg) skewX(0) skewY(0) scaleX(1)
+      scaleY(1);
+  }
 }
 
 div.nav-link {
   background: $gray-300;
+  font-weight: bold;
   &.active {
     background: $primary-200;
   }
@@ -142,6 +187,10 @@ div.nav-link {
   color: $gray-700;
   &:hover {
     color: $primary-500;
+  }
+
+  &.active {
+    color: $primary-700;
   }
   border-radius: 4px !important;
   padding: 1rem;

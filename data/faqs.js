@@ -82,5 +82,36 @@ const faqs = [
     ],
   },
 ];
+export const projectFaqs = [
+  {
+    name: 'FAQs',
+    faqs: [
+      {
+        question: 'What is Blissville Uno?',
+        answer:
+          'Blissville Uno is life. It is an online platform that you can use to plan your income properly and define a clear step-by-step process that will take you from your current financial position to owning your dream home.',
+        showOnHomePage: true,
+      },
+      {
+        question: <>What is special about Blissville Uno?</>,
+        answer:
+          'Blissville is the only platform that gives you the flexibility to make convenient contributions towards owning your home inline with your income. Blissville also avails you with a myriad of benefits including additional income via our referral program, and access to vast real estate knowledge via our community.',
+        showOnHomePage: true,
+      },
+      {
+        question: 'Why should I subscribe to the Blissville platform?',
+        answer:
+          'Blissville is not for everyone, but if you are keen on owning your home in the shortest possible time with the least amount of stress then you should sign up.',
+        showOnHomePage: true,
+      },
+      {
+        question: <>Is this a rent-to-own scheme?</>,
+        answer:
+          'No, Blissville is a platform that you can use to enhance your eligibility to access available property acquisition options including rent-to-own, mortgages and spread payments.',
+        showOnHomePage: false,
+      },
+    ],
+  },
+];
 
 export default faqs;

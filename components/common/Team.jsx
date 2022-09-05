@@ -8,7 +8,7 @@ import { team } from '@/data/team';
 const Team = () => (
   <Section noPaddingTop>
     <div className="container">
-      <h3 className="font-secondary text-color-dark-1">Management Team</h3>
+      <h3 className="font-secondary text-color-dark-1">Meet Our Team</h3>
       <Tab.Container id="team-tab" defaultActiveKey={team[0]['name']}>
         <div className="row gx-0">
           <div className="col-12 col-lg-4 pr-lg-0">

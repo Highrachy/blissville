@@ -18,7 +18,7 @@ const Benefits = ({ className, topThree }) => {
   );
 };
 
-const SingleBenefits = ({ icon, title, text }) => (
+export const SingleBenefits = ({ icon, title, text }) => (
   <div className="col d-flex align-items-stretch">
     <div className="benefits-card">
       <div className="bg-icon">{icon}</div>

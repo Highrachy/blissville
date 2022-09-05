@@ -8,7 +8,7 @@ export const team = [
   },
   {
     name: 'Emeka Ijei LLB, BL, LLM',
-    image: 'leonard.jpeg',
+    image: 'emeka.png',
     title: 'Co-founder',
     description:
       'The Erudite lawyer with experience in corporate law and management has a keen eye for compliance and perfection. Equipped with a masters degree in Law from the University of London, He is the legal and general counsel for A & P Foods, part of Pladis, a global biscuit and confectionary business.',
