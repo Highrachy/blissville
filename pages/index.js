@@ -10,6 +10,7 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { InvestToday } from './investors';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
+import { ArrowRight } from '@/components/Icons/Icons';
 
 export default function Home() {
   return (
@@ -72,7 +73,7 @@ const ExecutiveSummary = () => (
           </p>
 
           <Button color="secondary" className="mb-5">
-            Try it Now
+            Try it Now &nbsp; <ArrowRight />
           </Button>
         </div>
         <div className="col-md-5 col-lg-6 d-none d-md-block">

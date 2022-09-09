@@ -124,13 +124,20 @@ ul.list-features {
     list-style-image: url(/assets/svg/tick-square.svg);
     // padding-bottom: 1rem;
 
-    &.green {
+    &.green,
+    &.standard {
       list-style-image: url(/assets/svg/tick-square-green.svg);
       color: $secondary-600;
     }
-    &.gold {
+    &.gold,
+    &.supreme {
       list-style-image: url(/assets/svg/tick-square-gold.svg);
       color: $warning-600;
+    }
+    &.invalid,
+    &.not-available {
+      list-style-image: url(/assets/svg/close-square.svg);
+      color: $gray-600;
     }
   }
 }
@@ -210,6 +217,87 @@ div.nav-link {
 
     .text-muted {
       color: $gray-700 !important;
+    }
+  }
+}
+
+.table {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+  > :not(:first-child) {
+    border-top: 1px solid #f5f9fa;
+  }
+  thead tr {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    background: #f5f9fa;
+
+    th {
+      padding: 1rem 1.25rem;
+      vertical-align: middle;
+    }
+  }
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #e5e5e5 !important;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+
+  td:first-child,
+  th:first-child {
+    padding-left: 1.5rem;
+    @include media-breakpoint-up(sm) {
+      padding-left: 2rem;
+    }
+  }
+
+  td:last-child,
+  th:last-child {
+    padding-right: 1.5rem;
+    @include media-breakpoint-up(sm) {
+      padding-right: 2rem;
+    }
+  }
+
+  &.table-no-padding {
+    td:first-child,
+    th:first-child {
+      padding-left: 0.5rem;
+    }
+
+    td:last-child,
+    th:last-child {
+      padding-right: 0.5rem;
+    }
+  }
+}
+
+// https://stackoverflow.com/questions/72093603/how-to-make-table-fit-in-mobile-view
+.table-responsive {
+  min-height: 0.01%;
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+
+    > .table {
+      margin-bottom: 0;
+    }
+
+    > .table > thead > tr > th,
+    > .table > tbody > tr > th,
+    > .table > tfoot > tr > th,
+    > .table > thead > tr > td,
+    > .table > tbody > tr > td,
+    > .table > tfoot > tr > td {
+      white-space: nowrap;
     }
   }
 }

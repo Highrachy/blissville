@@ -57,12 +57,13 @@ export default function SingleProjectPage() {
           </div>
         </div>
         <div className="container">
-          <div className="mb-3 img-fill mb-md-5">
+          <div className="mb-3 img-project img-fill mb-md-5">
             <Image
               src="/assets/img/property/property1.jpeg"
               alt="Hero Image"
               layout="fill"
               objectFit="cover"
+              className="img-fluid"
             />
           </div>
         </div>
@@ -268,7 +269,11 @@ const TabInformation = () => {
                                 </span>
                               </li>
                             </ul>
-                            <Button color="secondary" className="me-2 my-2">
+                            <Button
+                              color="secondary"
+                              className="me-2 my-2"
+                              href="/our-properties/3-bedroom-apartment"
+                            >
                               I am Interested
                             </Button>
                             <Button color="light">Schedule visit</Button>

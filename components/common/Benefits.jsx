@@ -22,10 +22,10 @@ export const SingleBenefits = ({ icon, title, text }) => (
   <div className="col d-flex align-items-stretch">
     <div className="benefits-card">
       <div className="bg-icon">{icon}</div>
-      <h6 className="text-uppercase mt-4 mb-2 font-secondary text-color">
+      <h6 className="text-uppercase mt-4 mb-2 font-secondary text-primary">
         {title}
       </h6>
-      <p>{text}</p>
+      <p className="text-gray-700">{text}</p>
     </div>
   </div>
 );

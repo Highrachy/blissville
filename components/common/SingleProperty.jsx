@@ -49,7 +49,10 @@ const SingleProperty = ({ img }) => (
           </span>
         </div>
 
-        <Button className="mt-md-5 mt-4 btn-sm px-4 py-2 text-white text-sm fw-medium">
+        <Button
+          className="mt-md-5 mt-4 btn-sm px-4 py-2 text-white text-sm fw-medium"
+          href="/our-properties/3-bedroom-apartments"
+        >
           View Property
         </Button>
       </div>
