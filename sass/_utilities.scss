@@ -11,6 +11,7 @@
     font-weight: 500;
     display: flex !important;
     flex-direction: column;
+    font-family: $font-secondary;
     @include media-breakpoint-up(md) {
       justify-content: space-between;
       flex-direction: row;

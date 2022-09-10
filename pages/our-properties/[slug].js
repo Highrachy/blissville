@@ -9,7 +9,7 @@ import Section from '@/components/common/Section';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import SingleProject from '@/components/common/SingleProject';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
-import { Tab } from 'react-bootstrap';
+import { Dropdown, Tab } from 'react-bootstrap';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
 import { projectFaqs } from '@/data/faqs';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
@@ -26,6 +26,7 @@ import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
 import Textarea from '@/components/forms/Textarea';
 import CompareProperties from '@/components/layouts/CompareProperties';
+import PaymentPlanSlider from '@/components/common/PaymentPlanSlider';
 
 export default function SinglePropertyPage() {
   return (
@@ -36,7 +37,9 @@ export default function SinglePropertyPage() {
         subHeader="Powered By Highrachy"
         bgImage="/assets/img/bg/investors.jpeg"
       />
+
       <PropertyInformation />
+      <PropertyToast />
       <TabInformation />
 
       <Gallery />
@@ -64,6 +67,49 @@ export default function SinglePropertyPage() {
     </>
   );
 }
+
+const PropertyToast = () => {
+  const [showToast, setShowToast] = React.useState(false);
+  return (
+    <>
+      <Button color="secondary" onClick={() => setShowToast(true)}>
+        Compare Property <ShareProjectIcon />
+      </Button>
+      <div className="toast-container position-fixed bottom-0 end-0 p-3">
+        <div
+          id="liveToast"
+          className={'toast' + (showToast ? ' show' : '')}
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div className="toast-header">
+            <Image
+              src="/assets/img/property/property1.jpeg"
+              alt="Hero Image"
+              height="48"
+              width="64"
+              objectFit="cover"
+              className="img-fluid rounded pe-2"
+            />
+            <strong className="me-auto">Bootstrap</strong>
+            <small>Min</small>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+              onClick={() => setShowToast(false)}
+            />
+          </div>
+          <div className="toast-body">
+            Hello, world! This is a toast message.
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 const PropertyInformation = () => {
   const [showModal, setShowModal] = React.useState(false);
@@ -136,7 +182,7 @@ const PropertyInformation = () => {
           </div>
           <div className="col-md-4">
             <div className="bg-gray rounded px-4">
-              <h5 className="pt-4 mb-3">Ask me for more Information</h5>
+              <h5 className="pt-4 mb-3">Property Overview</h5>
               <ul className="list-dotted list-unstyled">
                 <li>
                   <span className="list-dotted__label">Property Name </span>
@@ -160,15 +206,6 @@ const PropertyInformation = () => {
                   <span className="list-dotted__label">Size </span>
                   <span className="list-dotted__value">155msq</span>
                 </li>
-                {/* <li>
-              <span className="list-dotted__label">Bedrooms </span>
-              <span className="list-dotted__value">3 bedrooms</span>
-            </li>
-            <li>
-              <span className="list-dotted__label">Bathrooms </span>
-              <span className="list-dotted__value">4 bedrooms</span>
-            </li> */}
-
                 <li>
                   <span className="list-dotted__label">Parking Space </span>
                   <span className="list-dotted__value">2 Cars</span>
@@ -313,6 +350,16 @@ const TabInformation = () => {
               ))}
             </ul>
             <Tab.Content>
+              <Modal
+                title="Compare Packages"
+                show={showComparePropertyModal}
+                onHide={() => setShowComparePropertyModal(false)}
+                size="lg"
+              >
+                <section className="row">
+                  <CompareProperties />
+                </section>
+              </Modal>
               {packages.map(({ name, description }) => (
                 <Tab.Pane eventKey={name} key={name}>
                   <div className="my-5">
@@ -328,17 +375,6 @@ const TabInformation = () => {
                         >
                           Compare All Packages <CompareIcon />
                         </Button>
-
-                        <Modal
-                          title="Compare Packages"
-                          show={showComparePropertyModal}
-                          onHide={() => setShowComparePropertyModal(false)}
-                          size="lg"
-                        >
-                          <section className="row">
-                            <CompareProperties />
-                          </section>
-                        </Modal>
                       </div>
                     </div>
                     <div className="row">
@@ -379,6 +415,46 @@ const TabInformation = () => {
                         </section>
                       </div>
                     </div>
+
+                    <div className="row">
+                      <h4>
+                        Available Payment Plans
+                        <div className="float-end">
+                          <Dropdown>
+                            <Dropdown.Toggle
+                              variant="light"
+                              id="dropdown-basic"
+                            >
+                              Dropdown Button
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                              <Dropdown.Item href="#/action-1">
+                                Action
+                              </Dropdown.Item>
+                              <Dropdown.Item href="#/action-2">
+                                Another action
+                              </Dropdown.Item>
+                              <Dropdown.Item href="#/action-3">
+                                Something else
+                              </Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </div>
+                      </h4>
+
+                      <div className="col-md-4">
+                        <PaymentPlanCard />
+                      </div>
+
+                      <div className="col-md-4">
+                        <PaymentPlanCard />
+                      </div>
+
+                      <div className="col-md-4">
+                        <PaymentPlanCard />
+                      </div>
+                    </div>
                   </div>
                 </Tab.Pane>
               ))}
@@ -387,6 +463,54 @@ const TabInformation = () => {
         </div>
       </div>
     </Section>
+  );
+};
+
+const PaymentPlanCard = () => {
+  const [showModal, setShowModal] = React.useState(false);
+  return (
+    <>
+      <Modal
+        title="Customize Plan"
+        show={showModal}
+        onHide={() => setShowModal(false)}
+      >
+        <section className="row">
+          <PaymentPlanSlider />
+        </section>
+      </Modal>
+      <div className="card text-center px-4 py-5">
+        <h5 className="mb-3">Outright Payment</h5>
+        <ul className="list-dotted list-unstyled px-4">
+          <li>
+            <span className="list-dotted__label">Initial Payment</span>
+            <span className="list-dotted__value">₦35,000,000</span>
+          </li>
+          <li>
+            <span className="list-dotted__label">Monthly Payment</span>
+            <span className="list-dotted__value">0</span>
+          </li>
+          <li>
+            <span className="list-dotted__label">Total</span>
+            <span className="list-dotted__value text-xl fw-bold">
+              ₦35,000,000
+            </span>
+          </li>
+          <li>
+            <Button
+              color="secondary"
+              className="me-3"
+              onClick={() => setShowModal(true)}
+            >
+              Get Started
+            </Button>
+            <Button color="light" onClick={() => setShowModal(true)}>
+              Customize Plan <ShareProjectIcon />
+            </Button>
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
 
