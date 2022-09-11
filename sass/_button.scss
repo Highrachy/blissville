@@ -3,7 +3,8 @@
   background-color: $gray-500 !important;
 }
 
-.btn-secondary {
+.btn-secondary,
+.btn-warning {
   color: white !important;
 }
 
@@ -11,4 +12,8 @@
   background: white !important;
   border-color: $gray-400 !important;
   color: $primary-700 !important;
+}
+
+.btn-sm {
+  padding: 0.5rem 1.2rem;
 }

@@ -61,7 +61,7 @@ const Backend = ({ children, title }) => {
         )}
 
         {title && <TopTitle>{title}</TopTitle>}
-        {children}
+        <div className="container-fluid">{children}</div>
       </div>
     </section>
   );

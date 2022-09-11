@@ -1,6 +1,6 @@
 .dotted-border {
   border: none !important;
-  border-bottom: 1px dotted $gray-500 !important;
+  border-bottom: 1px dotted $gray-800 !important;
 }
 
 .list-dotted {
@@ -204,6 +204,23 @@ div.nav-link {
   padding: 1rem;
 }
 
+.nav-tabs {
+  border-bottom: none;
+  // border-top: 1px solid $gray-400;
+  padding: 1rem 0 0;
+  font-size: 0.8rem;
+  .nav-link {
+    text-transform: none;
+    padding-right: 1rem !important;
+  }
+}
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: $primary-500;
+  background-color: transparent;
+  border-color: $gray-400;
+}
+
 .team-tab-link {
   display: flex;
   align-items: center;
@@ -226,14 +243,13 @@ div.nav-link {
   font-size: 0.85rem;
   margin-bottom: 0;
   > :not(:first-child) {
-    border-top: 1px solid #f5f9fa;
+    border-top: 1px solid$primary-50;
   }
   thead tr {
     font-size: 11px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    background: #f5f9fa;
+    letter-spacing: 0.07rem;
+    background: $primary-50;
 
     th {
       padding: 1rem 1.25rem;
@@ -242,7 +258,7 @@ div.nav-link {
   }
   .table-bordered th,
   .table-bordered td {
-    border: 1px solid #e5e5e5 !important;
+    border: 1px solid $gray-100 !important;
   }
 
   td {
@@ -355,4 +371,30 @@ div.nav-link {
       color: $error-600;
     }
   }
+}
+
+.legend {
+  &__color {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 4px;
+  }
+
+  &__title,
+  &__price {
+    font-size: 12px;
+    font-family: $font-secondary;
+    font-weight: 600;
+  }
+}
+
+.badge.bg-light {
+  background: $gray-500 !important;
+  color: $gray-800;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
 }

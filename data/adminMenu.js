@@ -1,7 +1,7 @@
 import {
+  Buildings,
   Category,
   HeartAdd,
-  House,
   Logout,
   MessageQuestion,
   StatusUp,
@@ -14,7 +14,9 @@ const activeIconColor = '#446CB2';
 
 export const adminMenu = {
   Dashboard: <Category size="24" color={activeIconColor} variant="Bulk" />,
-  'My Properties': <House size="24" color={normalIconColor} variant="Bulk" />,
+  'My Properties': (
+    <Buildings size="24" color={normalIconColor} variant="Bulk" />
+  ),
   'Customize Your Home': (
     <Triangle size="24" color={normalIconColor} variant="Bulk" />
   ),

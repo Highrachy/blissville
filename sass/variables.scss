@@ -313,9 +313,9 @@ $primary: $blue;
 $secondary: $green;
 // $success: $green !default;
 // $info: $cyan !default;
-// $warning: $yellow !default;
+$warning: $warning-500;
 // $danger: $red !default;
-$danger: darken(#ed3237, 10%);
+$danger: $error-500;
 $dark: $gray-800;
 // // scss-docs-end theme-color-variables
 
@@ -691,7 +691,7 @@ $table-cell-padding-x: 1.25rem;
 
 // $table-striped-color: $table-color !default;
 // $table-striped-bg-factor: 0.05 !default;
-// $table-striped-bg: rgba($black, $table-striped-bg-factor) !default;
+$table-striped-bg: $gray-50;
 
 // $table-active-color: $table-color !default;
 // $table-active-bg-factor: 0.1 !default;
@@ -1508,7 +1508,7 @@ $modal-inner-padding: 1.5rem;
 // $progress-bg: $gray-200 !default;
 // $progress-border-radius: $border-radius !default;
 // $progress-box-shadow: $box-shadow-inset !default;
-// $progress-bar-color: $white !default;
+$progress-bar-color: $primary-200;
 // $progress-bar-bg: $primary !default;
 // $progress-bar-animation-timing: 1s linear infinite !default;
 // $progress-bar-transition: width 0.6s ease !default;

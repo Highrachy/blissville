@@ -42,7 +42,7 @@ const Sidebar = ({ isFolded, setIsFolded, isDesktop }) => {
           <ul className="nav">
             {Object.entries(adminMenu).map(([title, icon], index) => (
               <li key={index} className="nav-item">
-                <Link href={`/admin/${title.toLowerCase()}`} passHref>
+                <Link href={`/app/user/${changeSpaceToDash(title)}`} passHref>
                   <a className="nav-link">
                     <span className="link-icon">{icon}</span>
                     {!isFolded && <span className="link-title">{title}</span>}
@@ -55,6 +55,11 @@ const Sidebar = ({ isFolded, setIsFolded, isDesktop }) => {
       </nav>
     </div>
   );
+};
+
+// function to change space to dash
+const changeSpaceToDash = (str) => {
+  return str.replace(/\s+/g, '-').toLowerCase();
 };
 
 export default Sidebar;

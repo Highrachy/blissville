@@ -73,3 +73,10 @@ export const dashedLowerCase = (text) =>
 
 export const moneyFormat = (value) => Humanize.formatNumber(value, 2);
 export const moneyFormatInNaira = (value) => commaNumber(value, true);
+
+export const commaNumber = (value, prependCurrency = false) => {
+  const number = parseInt(value, 10);
+  const currency = prependCurrency ? '₦' : '';
+  const sign = number < 0 ? '— ' : '';
+  return sign + currency + humanize.intComma(Math.abs(number));
+};
