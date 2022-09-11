@@ -15,6 +15,7 @@
     "formik": "^2.2.9",
     "formik-persist": "^1.1.0",
     "humanize-plus": "^1.8.2",
+    "iconsax-react": "^0.0.8",
     "next": "12.1.1",
     "rc-slider": "^10.0.1",
     "react": "17.0.2",

@@ -302,3 +302,57 @@ div.nav-link {
     }
   }
 }
+
+.widget {
+  .card {
+    border-radius: 4px;
+    &.primary {
+      background: $primary-50;
+      border: 1px solid $primary-200;
+      .widget__color {
+        color: $primary-600 !important;
+      }
+    }
+    &.secondary {
+      background: $secondary-50;
+      border: 1px solid $secondary-200;
+      .widget__color {
+        color: $secondary-600 !important;
+      }
+    }
+    &.warning {
+      background: $warning-50;
+      border: 1px solid $warning-200;
+      .widget__color {
+        color: $warning-600 !important;
+      }
+    }
+    &.danger {
+      background: $error-50;
+      border: 1px solid $error-200;
+      .widget__color {
+        color: $error-600 !important;
+      }
+    }
+  }
+  &__icon-tint {
+    opacity: 0.2;
+    svg {
+      width: 4rem !important;
+      height: 4rem !important;
+    }
+
+    &.primary {
+      color: $primary-600;
+    }
+    &.secondary {
+      color: $secondary-600;
+    }
+    &.warning {
+      color: $warning-600;
+    }
+    &.danger {
+      color: $error-600;
+    }
+  }
+}
