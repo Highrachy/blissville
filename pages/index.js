@@ -1,7 +1,7 @@
 import Footer from '@/components/common/Footer';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
-import Navigations from '@/components/layouts/Navigation';
+import Navigation from '@/components/layouts/Navigation';
 import Image from 'next/image';
 import Benefits, { SingleBenefits } from '@/components/common/Benefits';
 import { TestimonialSection } from '@/components/common/Testimonials';
@@ -15,7 +15,7 @@ import { ArrowRight } from '@/components/Icons/Icons';
 export default function Home() {
   return (
     <>
-      <Navigations />
+      <Navigation />
       <HeroSection />
       <ExecutiveSummary />
       <FeaturedProperties />
