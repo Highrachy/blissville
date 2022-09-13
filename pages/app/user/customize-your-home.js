@@ -60,7 +60,7 @@ const SingleProperty = ({ type = 1, now }) => {
             </div>
 
             <Button
-              href="/our-projects/test"
+              href="/our-projects/3-bedroom-apartments"
               className="me-3 mt-5"
               color="secondary"
             >

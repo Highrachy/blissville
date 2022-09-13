@@ -2,10 +2,8 @@ import React from 'react';
 import Backend from '@/components/admin/Backend';
 import Link from 'next/link';
 import Humanize from 'humanize-plus';
-import TopTitle from '@/components/admin/TopTitle';
-import { HeartAdd, House, Star, StatusUp } from 'iconsax-react';
+import { HeartAdd, Buildings, StatusUp, UserAdd } from 'iconsax-react';
 import { Doughnut } from 'react-chartjs-2';
-import { moneyFormatInNaira } from '@/utils/helpers';
 import 'chart.js/auto';
 import Image from 'next/image';
 import Button from '@/components/forms/Button';
@@ -155,7 +153,10 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="text-center mb-1">
-                <Button href="/our-projects/test" color="secondary">
+                <Button
+                  href="/our-projects/3-bedroom-apartments"
+                  color="secondary"
+                >
                   Try it out now
                 </Button>
               </div>
@@ -237,7 +238,7 @@ const widgetLists = [
   {
     name: 'properties',
     color: 'primary',
-    Icon: <House variant="Bulk" />,
+    Icon: <Buildings variant="Bulk" />,
   },
   {
     name: 'transactions',
@@ -245,14 +246,14 @@ const widgetLists = [
     Icon: <StatusUp variant="Bulk" />,
   },
   {
-    name: 'referrals',
+    name: 'wishlist',
     color: 'warning',
     Icon: <HeartAdd variant="Bulk" />,
   },
   {
-    name: 'wishlist',
+    name: 'referrals',
     color: 'danger',
-    Icon: <Star variant="Bulk" />,
+    Icon: <UserAdd variant="Bulk" />,
   },
 ];
 

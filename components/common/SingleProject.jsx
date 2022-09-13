@@ -53,7 +53,10 @@ const SingleProject = ({ type = 1 }) => {
                 </span>
               </li>
               <li>
-                <Button href="/our-projects/test" color="secondary">
+                <Button
+                  href="/our-projects/3-bedroom-apartments"
+                  color="secondary"
+                >
                   View Project
                 </Button>
               </li>

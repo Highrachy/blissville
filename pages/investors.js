@@ -9,6 +9,7 @@ import InvestorSlider from '@/components/common/InvestorSlider';
 import Section from '@/components/common/Section';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { benefits } from '@/data/benefits';
+import useWindowSize from '@/hooks/useWindowSize';
 
 export default function Home() {
   return (
@@ -64,6 +65,9 @@ export const InvestToday = () => (
 );
 
 const InvestmentOverview = () => {
+  const { width } = useWindowSize();
+  const isMobile = width <= 991;
+  const [showReadMore, setShowReadMore] = React.useState(true);
   return (
     <section>
       <div className="container">
@@ -78,11 +82,45 @@ const InvestmentOverview = () => {
               conveniently manage, while they enjoy the luxuries available in
               today’s real estate industry. Seasoned industry experts diligently
               working with proven project management methodologies will handle
-              the day to day conceptualization, planning, execution and control
-              of the projects.
+              the day to day
+              <span className="d-none d-md-inline">
+                {' '}
+                conceptualization, planning, execution and control of the
+                projects.
+              </span>
+              {isMobile && showReadMore ? (
+                <>
+                  ...
+                  <div
+                    className="text-primary fw-bold mt-2"
+                    onClick={() => setShowReadMore(false)}
+                  >
+                    {' '}
+                    Read more
+                  </div>
+                </>
+              ) : (
+                <span className="mb-5 d-inline d-md-none">
+                  conceptualization, planning, execution and control of the
+                  projects.
+                  <br />
+                  <br />
+                  We forecast that our initial projects will have a future
+                  valuation greater than N1.3B and an exit value of
+                  approximately N1.2B. We are seeking investments ranging from
+                  N65M to N200M and more to be disbursed as required by our
+                  projects over the next 24months. Once initiated, our projects
+                  are modeled to finance themselves via cash flow. We seek
+                  investors who share our vision of enhancing lives and the
+                  environment by providing energy efficient residential
+                  dwellings, and are willing to benefit from our exciting
+                  pipeline of projects by keying in at this inception stage.
+                </span>
+              )}
             </p>
           </div>
-          <div className="col-md-6">
+
+          <div className="col-md-6 d-none d-md-block">
             <p className="mb-5">
               We forecast that our initial projects will have a future valuation
               greater than N1.3B and an exit value of approximately N1.2B. We

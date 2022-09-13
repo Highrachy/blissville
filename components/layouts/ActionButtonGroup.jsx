@@ -5,6 +5,10 @@ import ActionButton from '@/components/common/ActionButton';
 const ActionButtonGroup = () => {
   return (
     <>
+      <p className="lead d-md-none text-md">
+        <span className="text-uppercase">Prices From</span>{' '}
+        <span className="fw-bold">₦35,000,000</span>
+      </p>
       <ActionButton
         color="primary"
         Icon={<KeyIcon />}

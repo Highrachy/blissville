@@ -9,4 +9,5 @@ export const COLOR_STYLE = [
   'info',
   'light',
   'dark',
+  'outline-light',
 ];

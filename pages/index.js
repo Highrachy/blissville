@@ -34,12 +34,8 @@ const HeroSection = () => (
     <div className="hero-image">
       <div className="hero-content bottom-0">
         <div className="container">
-          <p className="lead d-none d-md-block">A PLACE TO CALL HOME</p>
-          <p className="lead d-md-none text-sm">
-            <span className="text-uppercase"> From</span>{' '}
-            <span className="fw-bold">₦35,000,000</span>
-          </p>
-          <h1 className="text-display mb-4">BLISSVILLE UNO</h1>
+          <p className="lead mb-0 mb-mb-3">A PLACE TO CALL HOME</p>
+          <h1 className="text-display mb-3 mb-md-4">BLISSVILLE UNO</h1>
           <ActionButtonGroup />
         </div>
       </div>

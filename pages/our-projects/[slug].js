@@ -132,7 +132,10 @@ export default function SingleProjectPage() {
                     <span className="list-dotted__value">In Progress</span>
                   </li>
                   <li>
-                    <Button href="/our-projects/test" color="light">
+                    <Button
+                      href="/our-projects/3-bedroom-apartments"
+                      color="light"
+                    >
                       Schedule Visit{' '}
                     </Button>
                   </li>

@@ -67,14 +67,14 @@ const SingleProperty = ({ type = 1 }) => {
             </p>
 
             <Button
-              href="/our-projects/test"
+              href="/our-projects/3-bedroom-apartments"
               className="me-3 mb-3 btn-sm"
               color="secondary"
             >
               View Project
             </Button>
             <Button
-              href="/our-projects/test"
+              href="/our-projects/3-bedroom-apartments"
               className="me-3 btn-sm"
               color="warning"
             >

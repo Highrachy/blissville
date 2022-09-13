@@ -11,24 +11,27 @@ const CompareProperties = () => {
     <section>
       <div className="card">
         <div className="table-responsive">
-          <table className="table table-border">
+          <table className="table table-border table-compare">
             <thead>
               <tr>
-                <th></th>
-                <th>
+                <th width="25%"></th>
+                <th width="25%">
                   Shell <span className="d-none d-md-inline">Package</span>
                 </th>
-                <th>
+                <th width="25%">
                   Standard <span className="d-none d-md-inline">Package</span>
                 </th>
-                <th>
+                <th width="25%">
                   Supreme <span className="d-none d-md-inline">Package</span>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="font-secondary">Cable TV Distribution</td>
+                <td className="font-secondary">
+                  Cable TV{' '}
+                  <span className="d-none d-md-inline"> Distribution</span>
+                </td>
                 <td className="text-center">
                   <ShellPackageIcon />
                 </td>
@@ -148,7 +151,10 @@ const CompareProperties = () => {
                 </td>
               </tr>
               <tr>
-                <td className="font-secondary">Surveillance System</td>
+                <td className="font-secondary">
+                  Surveillance{' '}
+                  <span className="d-none d-md-inline"> System</span>
+                </td>
                 <td className="text-center">
                   <ShellPackageIcon />
                 </td>

@@ -1,0 +1,98 @@
+.table {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+  > :not(:first-child) {
+    border-top: 1px solid$primary-50;
+  }
+  thead tr {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07rem;
+    background: $primary-50;
+
+    th {
+      padding: 1rem 1.25rem;
+      vertical-align: middle;
+    }
+  }
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid $gray-100 !important;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+
+  td:first-child,
+  th:first-child {
+    padding-left: 1.5rem;
+    @include media-breakpoint-up(sm) {
+      padding-left: 2rem;
+    }
+  }
+
+  td:last-child,
+  th:last-child {
+    padding-right: 1.5rem;
+    @include media-breakpoint-up(sm) {
+      padding-right: 2rem;
+    }
+  }
+
+  &.table-no-padding {
+    td:first-child,
+    th:first-child {
+      padding-left: 0.5rem;
+    }
+
+    td:last-child,
+    th:last-child {
+      padding-right: 0.5rem;
+    }
+  }
+}
+
+// https://stackoverflow.com/questions/72093603/how-to-make-table-fit-in-mobile-view
+.table-responsive {
+  min-height: 0.01%;
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid $gray-400;
+
+    > .table {
+      margin-bottom: 0;
+    }
+
+    > .table > thead > tr > th,
+    > .table > tbody > tr > th,
+    > .table > tfoot > tr > th,
+    > .table > thead > tr > td,
+    > .table > tbody > tr > td,
+    > .table > tfoot > tr > td {
+      white-space: nowrap;
+    }
+  }
+}
+
+.table.table-compare > :not(caption) > * > * {
+  @include media-breakpoint-down(md) {
+    padding: 1.25rem 0.25rem !important;
+  }
+}
+
+// todo
+#specs-list.compare-specs-list col.nfo,
+#specs-list.compare-specs-list td.nfo {
+  min-width: calc(50% - 38.5px);
+  max-width: calc(50% - 38.5px);
+  border-right: 1px solid var(--color-separator-light);
+}
+
+#specs-list.compare-specs-list col.ttl,
+#specs-list.compare-specs-list td.ttl {
+  width: 77px;
+}

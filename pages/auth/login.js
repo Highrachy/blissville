@@ -8,9 +8,9 @@ const Login = () => {
     <AuthPage name="login" schema={contactUsSchema}>
       <h3 className="form-tab-title">
         <span>Login</span>
-        <Link href="/auth/register">
+        {/* <Link href="/auth/register">
           <a>Sign up</a>
-        </Link>
+        </Link> */}
       </h3>
       <Input name="email" type="email" label="Email Address" />
       <Input
@@ -19,6 +19,8 @@ const Login = () => {
         placeholder="Password"
         type="password"
       />
+      <Link href="/app/user/dashboard">Forgot Password</Link>
+      <br />
     </AuthPage>
   );
 };
