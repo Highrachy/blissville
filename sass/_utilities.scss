@@ -188,6 +188,11 @@ ul.list-features {
 div.nav-link {
   background: $gray-300;
   font-weight: bold;
+
+  @include media-breakpoint-down(md) {
+    margin-bottom: 0.5rem;
+  }
+
   &.active {
     background: $primary-200;
   }
@@ -354,4 +359,25 @@ div.nav-link {
   background-color: rgba(0, 0, 0, 0.3);
   // background: url(../public/assets/img/property/property1.jpeg) center;
   background-size: cover;
+}
+
+.schedule-visit {
+  @include media-breakpoint-down(sm) {
+    &__name {
+      font-size: 1rem;
+    }
+    svg {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+    &__title {
+      font-size: 0.75rem;
+    }
+    &__phone {
+      font-size: 0.75rem;
+    }
+    &__email {
+      font-size: 0.75rem;
+    }
+  }
 }

@@ -34,8 +34,10 @@ const HeroSection = () => (
     <div className="hero-image">
       <div className="hero-content bottom-0">
         <div className="container">
-          <p className="lead mb-0 mb-mb-3">A PLACE TO CALL HOME</p>
-          <h1 className="text-display mb-3 mb-md-4">BLISSVILLE UNO</h1>
+          <p className="lead text-hero-lead mb-0 mb-mb-3">
+            A PLACE TO CALL HOME
+          </p>
+          <h1 className="text-display mb-2 mb-md-4">BLISSVILLE UNO</h1>
           <ActionButtonGroup />
         </div>
       </div>
@@ -47,11 +49,11 @@ const ExecutiveSummary = () => (
   <Section altBg>
     <div className="container">
       <div className="row">
-        <div className="col-md-7 col-lg-6 pe-5">
+        <div className="col-md-7 col-lg-6 pe-md-5">
           <h3 className="mt-3 mt-lg-6 mb-4">
             Start Planning your{' '}
             <span className="text-primary">
-              <br />
+              <br className="d-md-inline-block d-none" />
               DREAM HOME
             </span>{' '}
             with us.

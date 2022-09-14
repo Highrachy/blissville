@@ -25,7 +25,7 @@ import Link from 'next/link';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
 import Textarea from '@/components/forms/Textarea';
-import CompareProperties from '@/components/layouts/CompareProperties';
+import ComparePackages from '@/components/layouts/ComparePackages';
 import PaymentPlanSlider from '@/components/common/PaymentPlanSlider';
 import { Convertshape, Magicpen } from 'iconsax-react';
 
@@ -378,7 +378,7 @@ const TabInformation = () => {
                 size="lg"
               >
                 <section className="row">
-                  <CompareProperties />
+                  <ComparePackages />
                 </section>
               </Modal>
               {packages.map(({ name, description }) => (

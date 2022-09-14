@@ -271,16 +271,16 @@ const Widget = ({ name, color, Icon, result }) => {
   const link = `/admin/${name}`;
 
   return (
-    <section className="widget mb-4 col-md-6 mb-4">
+    <section className="widget mb-4 col-6 mb-4">
       <Link href={link} passHref>
         <a className="text-reset">
           <div className={`card h-100 position-relative ${color}`}>
-            <div className="card-body px-4">
+            <div className="card-body px-md-4 px-3">
               <div className="d-flex align-items-center justify-content-between">
                 <div className="py-1">
                   <div className="d-flex flex-wrap mb-2 pe-2 widget__color">
                     <h6 className={`d-flex align-items-center widget__color`}>
-                      <span className="widget__Icon me-2">{Icon}</span>
+                      <span className="widget__Icon me-sm-2 me-1">{Icon}</span>
                       {Humanize.capitalize(name)}
                     </h6>
                   </div>

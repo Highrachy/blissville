@@ -80,19 +80,40 @@
 
 .table.table-compare > :not(caption) > * > * {
   @include media-breakpoint-down(md) {
-    padding: 1.25rem 0.25rem !important;
+    padding: 1.25rem 0.5rem !important;
   }
 }
 
 // todo
-#specs-list.compare-specs-list col.nfo,
-#specs-list.compare-specs-list td.nfo {
-  min-width: calc(50% - 38.5px);
-  max-width: calc(50% - 38.5px);
-  border-right: 1px solid var(--color-separator-light);
-}
+@include media-breakpoint-down(sm) {
+  .table-compare {
+    table-layout: fixed; /* this keeps your columns with at the defined width */
+    width: 100%; /* a width must be specified */
 
-#specs-list.compare-specs-list col.ttl,
-#specs-list.compare-specs-list td.ttl {
-  width: 77px;
+    display: table; /* required for table-layout to be used
+                           (since this is the default value it is normally not necessary;
+                           just included for completeness) */
+
+    td,
+    th {
+      white-space: pre-wrap !important;
+      font-size: 0.75rem;
+    }
+    td:first-child,
+    th:first-child {
+      max-width: 120px;
+    }
+    &.table-cols-3 {
+      td,
+      th {
+        max-width: calc(50% - 60px);
+      }
+    }
+    &.table-cols-4 {
+      td,
+      th {
+        max-width: calc(33% - 40px);
+      }
+    }
+  }
 }

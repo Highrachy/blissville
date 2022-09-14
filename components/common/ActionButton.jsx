@@ -16,15 +16,19 @@ const ActionButton = ({
 }) => {
   return (
     <Link href={href} passHref>
-      <a className={className} role="button" {...props}>
-        <div
-          className={`btn btn-${color} btn btn-xl d-inline-flex align-items-center rounded-4 me-md-3 mb-3`}
-        >
-          <div className="me-3">{Icon}</div>
-          <div className="d-flex flex-column">
-            <div className="text-start text-uppercase">{topText}</div>
-            <h5 className="text-white mb-0">{bottomText}</h5>
-          </div>
+      <a
+        role="button"
+        {...props}
+        className={classNames(
+          'btn btn-action btn d-inline-flex align-items-center rounded-4',
+          `btn-${color}`,
+          className
+        )}
+      >
+        <div className="me-md-3 me-2">{Icon}</div>
+        <div className="d-flex flex-column">
+          <div className="text-start text-uppercase">{topText}</div>
+          <h5 className="text-white mb-0 text-nowrap">{bottomText}</h5>
         </div>
       </a>
     </Link>

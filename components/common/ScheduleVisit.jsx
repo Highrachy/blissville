@@ -12,34 +12,39 @@ const ScheduleVisit = () => (
         <div className="row">
           <div className="col-md-9 text-white">
             <h3 className="pt-5 text-white">Schedule a Visit</h3>
-            <p className="pb-3 pe-5 lead">
+            <p className="pb-3 pe-md-5 lead">
               Our designs respond imaginatively to the cultural, climatic and
               environmental conditions; as such, only the most suitable
               materials are employed.
             </p>
 
-            <div className="row mb-4">
-              <div className="d-flex flex-column flex-md-row align-items-md-center">
+            <div className="row mb-4 schedule-visit">
+              <div className="d-flex flex-row align-items-md-center">
                 <div className="flex-shrink-0">
                   <Image
                     src={`/assets/img/team/sales-manager.jpg`}
                     alt="Sales Manager"
                     width={150}
                     height={150}
-                    className="rounded"
+                    objectFit="cover"
+                    className="rounded pe-3"
                   />
                 </div>
                 <div className="flex-grow-1 ms-md-3">
-                  <h5 className="text-white">Sandra Holyfield</h5>
-                  <p className="text-white">SALES MANAGER</p>
-                  <p>
+                  <h5 className="text-white mb-2 mb-md-3 schedule-visit__name">
+                    Sandra Holyfield
+                  </h5>
+                  <p className="text-white mb-2 mb-md-3 schedule-visit__title">
+                    SALES MANAGER
+                  </p>
+                  <p className=" schedule-visit__phone mb-2 mb-md-3">
                     <PhoneIcon />
                     &nbsp;
                     <a className="text-white" href="tel:+2348028337440">
                       +0802-833-7440
                     </a>
                   </p>
-                  <p className="email">
+                  <p className="mb-2 mb-md-3 schedule-visit__email">
                     <a
                       href="mailto:blissville@highrachy.com"
                       className="text-white"

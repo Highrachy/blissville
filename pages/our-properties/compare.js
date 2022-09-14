@@ -33,7 +33,7 @@ const ComparePropertiesSection = () => {
       <div className="container">
         <div className="card">
           <div className="table-responsive">
-            <table className="table table-border">
+            <table className="table table-border table-compare table-cols-3">
               <thead>
                 <tr>
                   <th></th>
