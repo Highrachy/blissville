@@ -10,32 +10,38 @@ const FormikForm = ({
   buttonText,
   buttonColor,
   children,
+  initialValues,
   handleSubmit,
   name,
   schema,
   showFormikState,
   persistForm,
   showAllFormikState,
+  useSubmitButton,
 }) => {
   return (
     <Formik
-      initialValues={setInitialValues(schema)}
+      enableReinitialize={true}
+      initialValues={setInitialValues(schema, initialValues)}
       onSubmit={handleSubmit}
       validationSchema={createSchema(schema)}
     >
-      {({ isSubmitting, handleSubmit, ...props }) => (
+      {({ isSubmitting, handleSubmit: submitForm, ...props }) => (
         <Form>
           {children}
 
-          <Button
-            color={buttonColor}
-            loading={isSubmitting}
-            onClick={handleSubmit}
-          >
-            {buttonText}
-          </Button>
+          {useSubmitButton && (
+            <Button
+              color={buttonColor}
+              loading={isSubmitting}
+              onClick={submitForm}
+            >
+              {buttonText}
+            </Button>
+          )}
+
           {persistForm && <Persist name={name} />}
-          {isDevEnvironment() && showFormikState && (
+          {isDevEnvironment() && (showFormikState || showAllFormikState) && (
             <DisplayFormikState {...props} showAll={showAllFormikState} />
           )}
         </Form>
@@ -46,7 +52,9 @@ const FormikForm = ({
 
 FormikForm.defaultProps = {
   buttonText: 'Submit',
-  buttonColor: 'secondary',
+  buttonColor: 'danger',
+  initialValues: {},
+  useSubmitButton: false,
 };
 
 export default FormikForm;

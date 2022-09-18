@@ -9,7 +9,7 @@ import {
   feedback,
 } from 'components/forms/form-helper';
 import Label from './Label';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 
 // https://www.npmjs.com/package/react-number-format
 const InputFormat = ({
@@ -59,7 +59,7 @@ const InputFormat = ({
             ? 0
             : getIn(formik.values, name);
           return (
-            <NumberFormat
+            <NumericFormat
               {...props}
               className={classNames(
                 'form-control',

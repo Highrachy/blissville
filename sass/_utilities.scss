@@ -381,3 +381,17 @@ div.nav-link {
     }
   }
 }
+
+.form-switch {
+  .form-check-input {
+    height: 1.75rem;
+  }
+  .form-check-label {
+    margin-top: 0.2rem;
+  }
+}
+
+.swiper-autoheight,
+.swiper-autoheight .swiper-slide {
+  height: 100% !important;
+}

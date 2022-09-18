@@ -8,6 +8,7 @@ import 'chart.js/auto';
 import Image from 'next/image';
 import Button from '@/components/forms/Button';
 import SingleProperty from '@/components/common/SingleProperty';
+import classNames from 'classnames';
 
 const PROPERTY_COLOR = '#446CB2';
 const PENDING_PAYMENT_COLOR = '#F59E0B';
@@ -22,9 +23,9 @@ const Dashboard = () => {
 
   return (
     <Backend title="Welcome back, Haruna">
-      <div className="row">
+      <div className="row mb-4">
         <div className="col-sm-6 mb-4 mb-md-0">
-          <div className="card bg-gray-50 h-100 p-4 pb-5">
+          <div className="card h-100 bg-gray-50 p-4">
             <h4>₦ 7,000,000</h4>
             <p className="text-gray-700 fw-semibold text-sm">Your Net Worth</p>
             <div className="row">
@@ -58,16 +59,14 @@ const Dashboard = () => {
       </div>
 
       <div className="row">
-        <div className="col-sm-6 mb-4 mb-md-0">
-          <DashboardTable title="Upcoming Payments">
+        <div className="col-sm-6">
+          <DashboardTable title="Upcoming Payments" className="mb-4">
             <tr>
               <th width="300">
-                <span className="fw-semibold">
-                  3 Bedroom Apartments - Ikoyi
-                </span>
+                <span className="fw-semibold">Aug 17th, 2021</span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  Aug 17th, 2021
+                  3 Bedroom Apartments - Ikoyi
                 </span>
               </th>
               <td className="text-end">
@@ -80,12 +79,10 @@ const Dashboard = () => {
             </tr>
             <tr>
               <th width="300">
-                <span className="fw-semibold">
-                  4 Bedroom Apartments - Ikoyi
-                </span>
+                <span className="fw-semibold">Aug 17th, 2021</span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  Aug 17th, 2021
+                  4 Bedroom Apartments - Ikoyi
                 </span>
               </th>
               <td className="text-end">
@@ -97,15 +94,13 @@ const Dashboard = () => {
               </td>
             </tr>
           </DashboardTable>
-          <DashboardTable title="Transaction History">
+          <DashboardTable title="Transaction History" className="mb-md-0 mb-4">
             <tr>
               <th width="300">
-                <span className="fw-semibold">
-                  3 Bedroom Apartments - Ikoyi
-                </span>
+                <span className="fw-semibold">Aug 17th, 2021</span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  Aug 17th, 2021
+                  3 Bedroom Apartments - Ikoyi
                 </span>
               </th>
               <td className="text-end">
@@ -116,12 +111,10 @@ const Dashboard = () => {
             </tr>
             <tr>
               <th width="300">
-                <span className="fw-semibold">
-                  4 Bedroom Apartments - Ikoyi
-                </span>
+                <span className="fw-semibold">Aug 17th, 2021</span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  Aug 17th, 2021
+                  4 Bedroom Apartments - Ikoyi
                 </span>
               </th>
               <td className="text-end">
@@ -135,33 +128,7 @@ const Dashboard = () => {
           </DashboardTable>
         </div>
         <div className="col-sm-6">
-          <section className="card bg-gray-50 py-3 py-md-5">
-            <div className="card-body d-flex flex-column flex-center px-4 px-md-6">
-              <div className="my-4">
-                <h5 className="fw-regular text-gray-800 text-center lh-lg">
-                  Do you know that you can{' '}
-                  <div className="fw-bolder">Customize Your Home</div> at no
-                  extra costs?
-                </h5>
-                <div className="py-5 text-center">
-                  <Image
-                    src="/assets/svg/customize-your-home.svg"
-                    alt="blissville logo"
-                    width={316}
-                    height={194}
-                  />
-                </div>
-              </div>
-              <div className="text-center mb-1">
-                <Button
-                  href="/our-projects/3-bedroom-apartments"
-                  color="secondary"
-                >
-                  Try it out now
-                </Button>
-              </div>
-            </div>
-          </section>
+          <CustomizeYourHomeBanner />
         </div>
       </div>
       <FeaturedProperties />
@@ -169,6 +136,34 @@ const Dashboard = () => {
   );
 };
 
+const CustomizeYourHomeBanner = () => {
+  return (
+    <section className="card bg-gray-50 py-3 py-md-4 h-100">
+      <div className="card-body d-flex flex-column flex-center px-4 px-md-6">
+        <div className="my-3">
+          <h5 className="fw-regular text-gray-800 text-center lh-lg">
+            Do you know that you can{' '}
+            <div className="fw-bolder">Customize Your Home</div> at no extra
+            costs?
+          </h5>
+          <div className="py-4 text-center">
+            <Image
+              src="/assets/svg/customize-your-home.svg"
+              alt="blissville logo"
+              width={316}
+              height={194}
+            />
+          </div>
+        </div>
+        <div className="text-center mb-1">
+          <Button href="/our-projects/3-bedroom-apartments" color="secondary">
+            Try it out now
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+};
 const WidgetChart = () => {
   const accountOverview = {
     totalAmountPaid: 3000,
@@ -216,7 +211,7 @@ const WidgetChart = () => {
 const WidgetList = () => {
   return (
     <div className="col-sm-6">
-      <div className="row">
+      <div className="row g-4">
         {widgetLists.map((widget, index) => (
           <Widget
             key={index}
@@ -267,11 +262,18 @@ const ChartLegend = ({ color, name, price }) => (
   </div>
 );
 
-const Widget = ({ name, color, Icon, result }) => {
-  const link = `/admin/${name}`;
+export const Widget = ({
+  name,
+  color,
+  Icon,
+  result,
+  className = 'col-6',
+  role = 'user',
+}) => {
+  const link = `/app/${role}/${name}`;
 
   return (
-    <section className="widget mb-4 col-6 mb-4">
+    <section className={`widget ${className}`}>
       <Link href={link} passHref>
         <a className="text-reset">
           <div className={`card h-100 position-relative ${color}`}>
@@ -302,9 +304,9 @@ const Widget = ({ name, color, Icon, result }) => {
   );
 };
 
-export const DashboardTable = ({ children, title }) => {
+export const DashboardTable = ({ children, title, className }) => {
   return (
-    <div className="table-responsive card mt-5">
+    <div className={classNames('table-responsive card', className)}>
       <table className="table table-border table-striped">
         <thead>
           <tr>
