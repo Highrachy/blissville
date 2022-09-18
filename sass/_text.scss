@@ -31,6 +31,29 @@
   font-size: 1.25rem;
 }
 
+.text-mobile-lg {
+  @include media-breakpoint-down(sm) {
+    font-size: 1.25rem;
+  }
+}
+
+.text-mobile-md {
+  @include media-breakpoint-down(sm) {
+    font-size: 1rem;
+  }
+}
+
+.text-mobile-sm {
+  @include media-breakpoint-down(sm) {
+    font-size: 0.875rem;
+  }
+}
+.text-mobile-xs {
+  @include media-breakpoint-down(sm) {
+    font-size: 0.75rem;
+  }
+}
+
 .text-md {
   font-size: 1rem;
 }

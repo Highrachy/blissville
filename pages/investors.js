@@ -8,7 +8,7 @@ import InvestorSlider from '@/components/common/InvestorSlider';
 import Section from '@/components/common/Section';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import useWindowSize from '@/hooks/useWindowSize';
-import { Slide, Zoom } from 'react-reveal';
+import { Slide } from 'react-reveal';
 
 export default function Investors() {
   return (
@@ -36,26 +36,28 @@ export const InvestToday = ({ showButton }) => (
       <h3 className="mt-3 mt-lg-4 mb-4">Invest Today</h3>
       <div className="row">
         <div className="col-md-7 col-lg-7 order-1 order-md-0">
-          <div className="pe-md-5">
-            <p className="lead">
-              Our investors comprise of a selected group of elite personalities
-              that includes professionals in various works of life; Lawyers,
-              manufacturers, agriculturalists, bankers, businessmen, and the
-              list goes on.
-            </p>
+          <Slide left>
+            <div className="pe-md-5">
+              <p className="lead">
+                Our investors comprise of a selected group of elite
+                personalities that includes professionals in various works of
+                life; Lawyers, manufacturers, agriculturalists, bankers,
+                businessmen, and the list goes on.
+              </p>
 
-            <p className="lead mb-4">
-              The unique thing about our investors is that they are very erudite
-              & exposed individuals that can tell the difference between
-              mediocre and true quality, words and actions.
-            </p>
-          </div>
+              <p className="lead mb-4">
+                The unique thing about our investors is that they are very
+                erudite & exposed individuals that can tell the difference
+                between mediocre and true quality, words and actions.
+              </p>
+            </div>
 
-          {showButton && (
-            <Button color="secondary" className="mb-5">
-              Learn More
-            </Button>
-          )}
+            {showButton && (
+              <Button color="secondary" className="mb-5">
+                Learn More
+              </Button>
+            )}
+          </Slide>
         </div>
         <div className="col-md-5 col-lg-5 order-0 order-md-1 mb-5">
           <InvestorSlider />

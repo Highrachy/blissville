@@ -74,7 +74,7 @@ const OneTestimonial = ({ image, name, testimonial, altBg }) => (
   <aside className="text-center">
     <div className="testimonial-listing__container col-lg-5  col-md-6 col-sm-8 col-10 mx-auto">
       <div className="testimonial-listing__image">
-        <Zoom>
+        <Slide left>
           <Image
             src={`/assets/img/${
               image ? `testimonials/${image}` : `avatars/default.png`
@@ -85,7 +85,7 @@ const OneTestimonial = ({ image, name, testimonial, altBg }) => (
             className="rounded-circle image-cover"
           />
           <TestimonialQuote />
-        </Zoom>
+        </Slide>
       </div>
       <div className="py-5">
         <Slide right>

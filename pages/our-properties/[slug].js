@@ -63,7 +63,9 @@ export default function SinglePropertyPage() {
                   Compare everything about this property with another property
                   to simplify your decision of buying one.
                 </p>
-                <PropertyToast />
+                <Button color="secondary" href="/our-properties/compare">
+                  Compare Property <Convertshape variant="Bulk" />
+                </Button>
               </div>
             </div>
           </div>
@@ -83,49 +85,6 @@ export default function SinglePropertyPage() {
     </>
   );
 }
-
-const PropertyToast = () => {
-  const [showToast, setShowToast] = React.useState(false);
-  return (
-    <>
-      <Button color="secondary" onClick={() => setShowToast(true)}>
-        Compare Property <Convertshape variant="Bulk" />
-      </Button>
-      <div className="toast-container position-fixed bottom-0 end-0 p-3">
-        <div
-          id="liveToast"
-          className={'toast' + (showToast ? ' show' : '')}
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div className="toast-header">
-            <Image
-              src="/assets/img/property/property1.jpeg"
-              alt="Hero Image"
-              height="48"
-              width="64"
-              objectFit="cover"
-              className="img-fluid rounded pe-2"
-            />
-            <strong className="me-auto">3 Bedroom Apartment</strong>
-            {/* <small>Min</small> */}
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="toast"
-              aria-label="Close"
-              onClick={() => setShowToast(false)}
-            />
-          </div>
-          <div className="toast-body">
-            <Link href="/our-properties/compare">Compare Property</Link>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
 
 const PropertyInformation = () => {
   const [showModal, setShowModal] = React.useState(false);
