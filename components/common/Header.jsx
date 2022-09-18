@@ -3,9 +3,6 @@ import Link from 'next/link';
 import React from 'react';
 import Parallax from '../common/Parallax';
 import Section from '../common/Section';
-import { SectionHeader as SHeader } from '../common/Section';
-
-export const SectionHeader = (props) => <SHeader {...props} />;
 
 export const PageHeader = ({ title, breadcrumb, bgImage, subHeader }) => {
   const currentBreadCrumb = breadcrumb || [{ title }];

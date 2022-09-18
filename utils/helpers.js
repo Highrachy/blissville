@@ -80,3 +80,20 @@ export const commaNumber = (value, prependCurrency = false) => {
   const sign = number < 0 ? '— ' : '';
   return sign + currency + humanize.intComma(Math.abs(number));
 };
+
+export const getError = (error, policyError = 'Record exists') => {
+  if (error?.response?.status === 404) return;
+  if (error?.response?.status === 403) {
+    return policyError;
+  } else {
+    return error?.response?.data
+      ? JSON.stringify(error?.response?.data?.error) ||
+          JSON.stringify(error?.response?.data?.message) ||
+          JSON.stringify(error)
+      : 'An error has occured. Please try again later.';
+  }
+};
+export const statusIsSuccessful = (status) => status >= 200 && status <= 204;
+
+// Async Validation
+export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
