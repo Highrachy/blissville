@@ -33,7 +33,9 @@ export default function Investors() {
 export const InvestToday = ({ showButton }) => (
   <Section>
     <div className="container">
-      <h3 className="mt-3 mt-lg-4 mb-4">Invest Today</h3>
+      <Slide left>
+        <h3 className="mt-3 mt-lg-4 mb-4">Invest Today</h3>
+      </Slide>
       <div className="row">
         <div className="col-md-7 col-lg-7 order-1 order-md-0">
           <Slide left>
@@ -51,13 +53,15 @@ export const InvestToday = ({ showButton }) => (
                 between mediocre and true quality, words and actions.
               </p>
             </div>
+          </Slide>
 
-            {showButton && (
+          {showButton && (
+            <Slide left>
               <Button color="secondary" className="mb-5">
                 Learn More
               </Button>
-            )}
-          </Slide>
+            </Slide>
+          )}
         </div>
         <div className="col-md-5 col-lg-5 order-0 order-md-1 mb-5">
           <InvestorSlider />
