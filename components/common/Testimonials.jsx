@@ -4,12 +4,13 @@ import { TestimonialQuote, TestimonialTopQuotes } from '../Icons/Icons';
 import Section from './Section';
 import classNames from 'classnames';
 import { testimonials } from '@/data/testimonials';
+import { QuoteUp } from 'iconsax-react';
 
 export const TestimonialSection = () => (
   <Section altBg>
     <div className="container">
       <div className="text-center">
-        <TestimonialTopQuotes />
+        <QuoteUp size="64" color="#66768e" variant="Bold" />
         <h3 className="mt-3">What our customers are saying</h3>
       </div>
       <div className="row pt-5">
@@ -53,7 +54,7 @@ const SingleTestimonial = ({ image, name, testimonial, altBg }) => (
         </div>
         <div className="py-4">
           <p className="text-gray-700 lead mb-5">{testimonial}</p>
-          <h6 className="text-secondary">{name}</h6>
+          <h6 className="text-primary">{name}</h6>
         </div>
       </div>
     </div>
@@ -76,8 +77,8 @@ const OneTestimonial = ({ image, name, testimonial, altBg }) => (
         <TestimonialQuote />
       </div>
       <div className="py-5">
-        <p className="text-gray-700 lead mb-4">{testimonial}</p>
-        <h6 className="text-secondary">{name}</h6>
+        <p className="text-gray-800 lead mb-4">{testimonial}</p>
+        <h6 className="text-primary">{name}</h6>
       </div>
     </div>
   </aside>

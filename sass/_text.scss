@@ -54,17 +54,26 @@
 }
 
 .text-page-header {
-  font-size: 3rem;
+  font-size: 2rem;
+  @include media-breakpoint-up(md) {
+    font-size: 3rem;
+  }
   text-transform: uppercase;
   color: $white;
   font-weight: 600;
 }
 
 .text-page-subheader {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  @include media-breakpoint-up(md) {
+    font-size: 1.2rem;
+  }
   text-transform: uppercase;
-  font-weight: 200;
-  letter-spacing: 0.3rem;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  @include media-breakpoint-up(md) {
+    letter-spacing: 0.3rem;
+  }
   color: $white;
 }
 

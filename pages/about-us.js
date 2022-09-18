@@ -78,7 +78,7 @@ const CEOSpeech = () => {
             </div>
           </div>
           <div className="col-md-8 col-lg-8">
-            <p className="mt-n4 mb-5">
+            <p className="mt-md-n4 mb-5">
               Our projects strategically aim at providing energy efficient
               luxury condos that are well within your grasp, thus presenting you
               with a rare combination of quality and affordability in a single

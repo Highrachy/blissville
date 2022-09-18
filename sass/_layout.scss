@@ -17,7 +17,7 @@
 // Hero
 .text-hero-lead {
   color: $white;
-  font-size: 0.7rem;
+  font-size: 0.7rem !important;
 
   @include media-breakpoint-up(md) {
     font-size: 1.25rem;
