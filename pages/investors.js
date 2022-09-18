@@ -3,16 +3,14 @@ import Image from 'next/image';
 import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
-import classNames from 'classnames';
 import Button from '@/components/forms/Button';
 import InvestorSlider from '@/components/common/InvestorSlider';
 import Section from '@/components/common/Section';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
-import { benefits } from '@/data/benefits';
 import useWindowSize from '@/hooks/useWindowSize';
 import { Slide, Zoom } from 'react-reveal';
 
-export default function Home() {
+export default function Investors() {
   return (
     <>
       <Navigation />

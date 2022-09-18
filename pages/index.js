@@ -12,7 +12,7 @@ import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 import { ArrowRight } from '@/components/Icons/Icons';
 import Fade from 'react-reveal/Fade';
-import { Bounce, Zoom } from 'react-reveal';
+import { Bounce } from 'react-reveal';
 
 export default function Home() {
   return (
