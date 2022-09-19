@@ -27,21 +27,29 @@ const Team = () => (
 const SingleTeam = ({ name, image, title, description }) => (
   <div className="col-md-3 text-center my-3">
     <div className="team-section">
-      <Image
-        className="img-cover"
-        src={`/assets/img/team/${image}`}
-        alt={name}
-        width="400"
-        height="400"
-        objectFit="cover"
-      />
+      <div className="position-relative  img-wrapper">
+        <span
+          className="z-5 position-absolute top-0 start-0 end-0 bottom-0 rounded-top rounded-5"
+          style={{
+            background: `rgba(68, 108, 178, 0.1)`,
+          }}
+        ></span>
+        <Image
+          className="img-cover"
+          src={`/assets/img/team/${image}`}
+          alt={name}
+          width="400"
+          height="400"
+          objectFit="cover"
+        />
+      </div>
       <h6 className="text-uppercase mt-2 mb-1 text-color">{name}</h6>
       <p className="text-xs mb-3 text-gray-700"> {title}</p>
     </div>
   </div>
 );
 
-const TabTeam = () => (
+export const TabTeam = () => (
   <Tab.Container id="team-tab" defaultActiveKey={team[0]['name']}>
     <div className="row gx-0">
       <div className="col-12 col-lg-4 pr-lg-0">
