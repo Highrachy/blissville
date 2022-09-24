@@ -178,6 +178,8 @@ export const createSchema = (object) => {
   return yup.object().shape(object);
 };
 
+export const arrayValidation = (label) => yup.array().label(label);
+
 export const multiSelectValidation = (label) =>
   yup
     .array()

@@ -6,18 +6,27 @@ import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
 import FormikButton from '@/components/forms/FormikButton';
 import MdEditor from '@/components/forms/MdEditor';
-import Switch from '@/components/forms/Switch';
+import { projectSchema } from '@/components/forms/schemas/admin-schema';
 import { getTokenFromStore } from '@/utils/localStorage';
-import { getError, statusIsSuccessful } from '@/utils/helpers';
+import {
+  generateNumOptions,
+  getError,
+  statusIsSuccessful,
+  valuesToOptions,
+} from '@/utils/helpers';
 import { toast } from 'react-toastify';
 import Router, { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Humanize from 'humanize-plus';
 import Textarea from '@/components/forms/Textarea';
 import InputFormat from '@/components/forms/InputFormat';
+import Select from '@/components/forms/Select';
+import { STATES } from '@/utils/constants';
+import CustomSelect from '@/components/forms/CustomSelect';
+import DatePicker from '@/components/forms/DatePicker';
 
 const pageOptions = {
-  key: 'apartment',
+  key: 'project',
 };
 
 const New = () => {
@@ -26,35 +35,35 @@ const New = () => {
 
   const [query, result] = useSWRQuery({
     name: id ? [pageOptions.key, id] : id,
-    endpoint: `api/apartments/${id}`,
+    endpoint: `api/projects/${id}`,
   });
 
   return (
     <Backend>
-      <ProcessApartmentForm apartment={result} action={action} id={id} />
+      <ProcessProjectForm project={result} action={action} id={id} />
     </Backend>
   );
 };
 
-const ProcessApartmentForm = ({ action, id, apartment }) => {
+const ProcessProjectForm = ({ action, id, project }) => {
   const testInitialValues = {
     name: 'Blissville Uno',
     type: '3 Bedroom Flat',
-    location: 'Lekki',
     description: 'A maids room, 4 baths, 5 toilets',
-    address:
-      'Blissville Apartments, Prince Kemi Olusesi street, off Dreamwolrd Africana Way, Lekki.',
-    totalUnits: 1,
-    availableUnits: 1,
-    baths: 3,
-    beds: 3,
-    toilets: 3,
-    availableSoon: true,
+    street1:
+      'Blissville Projects, Prince Kemi Olusesi street, off Dreamwolrd Africana Way, Lekki.',
+    street2: '',
+    city: 'Lekki',
+    state: 'Lagos',
+    features: '',
+    featuresStandard: '',
+    featuresSupreme: '',
+    paymentPlan: 6,
+    startDate: '2020-01-01',
+    delivery: '2025-01-01',
   };
   const currentAction = action ? Humanize.capitalize(action) : 'New';
-  const initialValues = apartment
-    ? apartment.attributes
-    : { ...testInitialValues };
+  const initialValues = project ? project.attributes : { ...testInitialValues };
   const isEdit = currentAction === 'Edit';
 
   const handleSubmit = async (values, actions) => {
@@ -67,8 +76,8 @@ const ProcessApartmentForm = ({ action, id, apartment }) => {
       axios({
         method: isEdit ? 'put' : 'post',
         url: isEdit
-          ? `${process.env.NEXT_PUBLIC_API_URL}/api/apartments/${id}`
-          : `${process.env.NEXT_PUBLIC_API_URL}/api/apartments`,
+          ? `${process.env.NEXT_PUBLIC_API_URL}/api/projects/${id}`
+          : `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
         data: { data: payload },
         headers: { Authorization: getTokenFromStore() },
       })
@@ -76,7 +85,7 @@ const ProcessApartmentForm = ({ action, id, apartment }) => {
           const { status } = response;
           if (statusIsSuccessful(status)) {
             toast.success('Information sent successfully');
-            Router.push('/admin/apartments');
+            Router.push('/admin/projects');
             return;
           }
         })
@@ -92,8 +101,8 @@ const ProcessApartmentForm = ({ action, id, apartment }) => {
   };
 
   return (
-    <Section title={`${currentAction} Apartment`} noPaddingTop>
-      <ApartmentForm
+    <Section title={`${currentAction} Project`} noPaddingTop>
+      <ProjectForm
         handleSubmit={handleSubmit}
         initialValues={initialValues}
         isEdit={isEdit}
@@ -102,65 +111,73 @@ const ProcessApartmentForm = ({ action, id, apartment }) => {
   );
 };
 
-const ApartmentForm = ({ handleSubmit, initialValues, isEdit }) => (
+const ProjectForm = ({ handleSubmit, initialValues, isEdit }) => (
   <div className="container">
     <div className="row">
       <div className="col-12 col-sm-11 col-lg-10 col-xl-9">
         <FormikForm
-          schema={{}}
+          schema={projectSchema}
           handleSubmit={handleSubmit}
           initialValues={initialValues}
-          name={`new-apartment-form`}
+          name={`new-project-form`}
           showFormikState
           showAllFormikState
         >
-          <Input label="Apartment Name" name="name" />
+          <Input label="Project Name" name="name" />
           <Input label="Type" name="type" />
-          <Textarea label="Address" name="address" />
           <MdEditor label="Description" name="description" height="10rem" />
-          <div className="row">
-            <InputFormat
-              label="Total Units"
-              name="totalUnits"
-              formGroupClassName="col-sm-6"
-              prefix=""
-            />
-            <InputFormat
-              label="Available Units"
-              name="availableUnits"
-              formGroupClassName="col-sm-6"
-              prefix=""
-            />
-          </div>
-          <div className="row">
-            <InputFormat
-              label="Baths"
-              name="baths"
-              formGroupClassName="col-sm-4"
-              prefix=""
-            />
-            <InputFormat
-              label="Beds"
-              name="beds"
-              formGroupClassName="col-sm-4"
-              prefix=""
-            />
-            <InputFormat
-              label="Toilets"
-              name="toilets"
-              formGroupClassName="col-sm-4"
-              prefix=""
-            />
-          </div>
-          <Switch
+          <Input label="Street 1" name="street1" />
+          <Input label="Street 2" name="street2" />
+          <Input label="City" name="city" />
+          <Select
             formGroupClassName="col-md-6"
-            label="Available Soon"
-            name="availableSoon"
+            name="state"
+            label="State"
+            options={valuesToOptions(STATES)}
+            blankOption="Select State"
             optional
           />
-
+          <CustomSelect
+            name="features"
+            label="Features"
+            options={valuesToOptions(STATES)}
+            blankOption="Select Shell features"
+            isMulti
+          />
+          <CustomSelect
+            name="featuresStandard"
+            label="Standard Features"
+            options={valuesToOptions(STATES)}
+            blankOption="Select Standard features"
+            isMulti
+          />
+          <CustomSelect
+            name="featuresSupreme"
+            label="Supreme Features"
+            options={valuesToOptions(STATES)}
+            blankOption="Select Supreme features"
+            isMulti
+          />
+          <Select
+            label="Payment Plan"
+            name="paymentPlan"
+            options={generateNumOptions(36, 'month', { startFrom: 2 })}
+            blankOption="Select Payment Plan"
+          />
+          <DatePicker
+            label="Start Date"
+            name="startDate"
+            placeholder="YYYY-MM-DD"
+            helpText="Format: YYYY-MM-DD"
+          />
+          <DatePicker
+            label="Delivery"
+            name="delivery"
+            placeholder="YYYY-MM-DD"
+            helpText="Format: YYYY-MM-DD"
+          />
           <FormikButton color="secondary">
-            {isEdit ? 'Edit' : 'Save'} Apartment
+            {isEdit ? 'Edit' : 'Save'} Project
           </FormikButton>
         </FormikForm>
       </div>
