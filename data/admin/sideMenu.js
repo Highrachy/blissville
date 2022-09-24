@@ -1,4 +1,5 @@
 import {
+  Briefcase,
   Buildings,
   Category,
   HeartAdd,
@@ -14,6 +15,18 @@ import {
 // const activeIconColor = '#446CB2';
 
 export const adminMenu = {
+  Dashboard: <Category size="24" variant="Bulk" />,
+  'My Projects': <Briefcase size="24" variant="Bulk" />,
+  'My Properties': <Buildings size="24" variant="Bulk" />,
+  'Customize Your Home': <Triangle size="24" variant="Bulk" />,
+  Transactions: <StatusUp size="24" variant="Bulk" />,
+  Referrals: <UserAdd size="24" variant="Bulk" />,
+  Support: <MessageQuestion size="24" variant="Bulk" />,
+  'Edit Profile': <UserEdit size="24" variant="Bulk" />,
+  Logout: <Logout size="24" variant="Bulk" />,
+};
+
+export const userMenu = {
   Dashboard: <Category size="24" variant="Bulk" />,
   'My Properties': <Buildings size="24" variant="Bulk" />,
   'Customize Your Home': <Triangle size="24" variant="Bulk" />,

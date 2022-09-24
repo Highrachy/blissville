@@ -4,13 +4,13 @@ import React from 'react';
 import { getError } from 'utils/helpers';
 import { toast } from 'react-toastify';
 import Spinner from './../utils/Spinner';
-import { UploadIcon } from './../common/Icons';
 import Humanize from 'humanize-plus';
-import Image from '../common/Image';
+import Image from 'components/common/Image';
 import { useFormikContext } from 'formik';
 import { feedback, FeedbackMessage, getValidityClass } from './form-helper';
 import classNames from 'classnames';
 import Label from './Label';
+import { FiUploadCloud } from 'react-icons/fi';
 
 // https://blog.devgenius.io/upload-files-to-amazon-s3-from-a-react-frontend-fbd8f0b26f5
 
@@ -45,7 +45,7 @@ const Upload = ({
   const [uploadedFile, setUploadedFile] = React.useState(null);
   const [progress, setProgress] = React.useState(0);
 
-  const AWS_BUCKET = 'highrachy';
+  const AWS_BUCKET = 'blissville-staging';
   let allowedFormats =
     customFormats.length > 0 ? customFormats : ['jpg', 'jpeg', 'gif', 'png'];
 
@@ -190,7 +190,7 @@ const Upload = ({
               </>
             ) : (
               <>
-                <UploadIcon />{' '}
+                <FiUploadCloud />{' '}
                 {hasUploadedFile ? (
                   <>{changeText || 'Change File'}</>
                 ) : (

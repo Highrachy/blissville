@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getIn } from 'formik';
+import { getIn, useFormikContext } from 'formik';
 import { isDevEnvironment } from '@/utils/helpers';
 
 const validityOptions = {
@@ -51,12 +51,12 @@ export const getValidityClass = (
 };
 
 export const FeedbackMessage = ({
-  formik,
   helpText,
   name,
   showFeedback,
   validMessage,
 }) => {
+  const formik = useFormikContext();
   const className = getValidityClass(
     formik,
     name,
@@ -74,7 +74,6 @@ export const FeedbackMessage = ({
 };
 
 FeedbackMessage.propTypes = {
-  formik: PropTypes.object.isRequired,
   helpText: PropTypes.string,
   name: PropTypes.string.isRequired,
   showFeedback: PropTypes.string.isRequired,
@@ -136,7 +135,8 @@ export const setInitialValues = (
     if (initialValues?.[key] || initialValues?.[key] === 0) {
       values[key] = initialValues[key];
     } else {
-      values[key] = keepInitial ? schema[key] : '';
+      values[key] =
+        initialValues?.[key] !== undefined ? initialValues?.[key] : '';
     }
   });
   return values;

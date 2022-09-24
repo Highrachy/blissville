@@ -104,3 +104,27 @@ export const TabTeam = () => (
   </Tab.Container>
 );
 export default Team;
+
+/* The .image-container class needs to be applied to a div wrapped around the image you want to apply this filter to */
+// .image-container {
+//   display: inline-block;
+//   position: relative;
+//   line-height: 0;
+//   background: #ffffff;
+// }
+// .image-container::after {
+//   content: '';
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   top: 0;
+//   left: 0;
+//   mix-blend-mode: none;
+//   background: #faaa00;
+//   opacity: 0.13;
+// }
+// .image-container > img {
+//   -webkit-filter:   contrast(100%) grayscale(100%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(100%) sepia(0%);
+//           filter:   contrast(100%) grayscale(100%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(100%) sepia(0%);
+//   mix-blend-mode: none;
+// }

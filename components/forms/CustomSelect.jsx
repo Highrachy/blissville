@@ -77,6 +77,10 @@ const CustomSelect = ({
                 : form.setFieldValue(name, isMulti ? [] : '');
             };
 
+            const handleBlur = () => {
+              form.setTouched({ [name]: true });
+            };
+
             return (
               <ReactSelect
                 className={classNames(
@@ -84,9 +88,10 @@ const CustomSelect = ({
                   getValidityClass(formik, name, showFeedback)
                 )}
                 id={name}
+                instanceId={name}
                 isMulti={isMulti}
                 name={name}
-                onBlur={field.onBlur}
+                onBlur={handleBlur}
                 onChange={(option) => handleChange(option)}
                 options={options}
                 placeholder={placeholder || `Select ${label}...`}
@@ -97,14 +102,14 @@ const CustomSelect = ({
             );
           }}
         </Field>
+        <FeedbackMessage
+          formik={formik}
+          helpText={helpText}
+          name={name}
+          showFeedback={showFeedback}
+          validMessage={isValidMessage}
+        />
       </div>
-      <FeedbackMessage
-        formik={formik}
-        helpText={helpText}
-        name={name}
-        showFeedback={showFeedback}
-        validMessage={isValidMessage}
-      />
     </div>
   );
 };

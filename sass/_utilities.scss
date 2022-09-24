@@ -399,3 +399,46 @@ div.nav-link {
 .z-5 {
   z-index: 5;
 }
+
+// https://www.benmarshall.me/styling-file-inputs/
+.custom-file-upload {
+  [type='file'] {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+  }
+
+  [type='file'] + label {
+    border: 2px solid $gray-600;
+    border-radius: 5px;
+    color: $gray-600;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Rubik', sans-serif;
+    font-size: inherit;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    outline: none;
+    padding: 0.5rem 2.5rem;
+    position: relative;
+    transition: all 0.3s;
+    vertical-align: middle;
+
+    &:hover {
+      background-color: darken($gray-600, 15%);
+      color: $white;
+    }
+  }
+}
+
+.react-datepicker__navigation-icon {
+  margin-top: 20px;
+}
+
+.react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle {
+  margin-left: -5px;
+}
+
+.react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle {
+  display: none !important;
+}

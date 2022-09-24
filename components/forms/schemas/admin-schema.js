@@ -10,6 +10,7 @@ import {
 export const projectSchema = {
   name: stringValidation('Project Name'),
   type: stringValidation('Project Type'),
+  image: optionalValidation(stringValidation('Project Image')),
   description: stringValidation('Project Description'),
   street1: stringValidation('Street 1'),
   street2: optionalValidation(stringValidation('Street 2')),

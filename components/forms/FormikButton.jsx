@@ -13,6 +13,7 @@ const FormikButton = ({ children, ...props }) => {
   }, [formikProps.isSubmitting]);
 
   const handleClick = () => {
+    // formikProps.setSubmitting(true);
     formikProps.handleSubmit();
     const errors = formikProps.errors;
     errors && toast.error(Object.values(errors)[0]);

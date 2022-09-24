@@ -11,6 +11,7 @@ import { getTokenFromStore } from '@/utils/localStorage';
 import {
   generateNumOptions,
   getError,
+  sleep,
   statusIsSuccessful,
   valuesToOptions,
 } from '@/utils/helpers';
@@ -18,12 +19,11 @@ import { toast } from 'react-toastify';
 import Router, { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Humanize from 'humanize-plus';
-import Textarea from '@/components/forms/Textarea';
-import InputFormat from '@/components/forms/InputFormat';
 import Select from '@/components/forms/Select';
-import { STATES } from '@/utils/constants';
+import { STATES, USER_ROLES } from '@/utils/constants';
 import CustomSelect from '@/components/forms/CustomSelect';
 import DatePicker from '@/components/forms/DatePicker';
+import Upload from '@/components/forms/Upload';
 
 const pageOptions = {
   key: 'project',
@@ -39,7 +39,7 @@ const New = () => {
   });
 
   return (
-    <Backend>
+    <Backend role={USER_ROLES.ADMIN} title="Add New Project">
       <ProcessProjectForm project={result} action={action} id={id} />
     </Backend>
   );
@@ -55,7 +55,7 @@ const ProcessProjectForm = ({ action, id, project }) => {
     street2: '',
     city: 'Lekki',
     state: 'Lagos',
-    features: '',
+    features: ['Adamawa', 'Anambra'],
     featuresStandard: '',
     featuresSupreme: '',
     paymentPlan: 6,
@@ -67,9 +67,19 @@ const ProcessProjectForm = ({ action, id, project }) => {
   const isEdit = currentAction === 'Edit';
 
   const handleSubmit = async (values, actions) => {
+    // alert('I am here');
+    // await sleep(3000);
+    // console.log('actions', actions);
+    // setTimeout(() => {
+    // toast.error(JSON.stringify(values, null, 2));
+    // setSubmitting(false);
+    // }, 3000);
+    // toast.error(JSON.stringify(values, null, 2));
     const payload = {
       ...values,
-      availableSoon: !!values.availableSoon,
+      features: Array.isArray(values.features)
+        ? values.features?.join(',')
+        : 'testing123',
     };
 
     try {
@@ -125,6 +135,20 @@ const ProjectForm = ({ handleSubmit, initialValues, isEdit }) => (
         >
           <Input label="Project Name" name="name" />
           <Input label="Type" name="type" />
+          <Upload
+            label="Upload your image"
+            changeText="Update Picture"
+            // defaultImage="/assets/img/placeholder/image.png"
+            imgOptions={{
+              className: 'mb-3 icon-md',
+              width: 200,
+              height: 300,
+            }}
+            name="image"
+            uploadText={`Upload Picture`}
+            folder={`projects`}
+            maxFileSize={1_024 * 2_050}
+          />
           <MdEditor label="Description" name="description" height="10rem" />
           <Input label="Street 1" name="street1" />
           <Input label="Street 2" name="street2" />

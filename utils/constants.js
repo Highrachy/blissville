@@ -17,6 +17,11 @@ export const FILTER_FIELDS = {
   SELECT: 'select',
 };
 
+export const USER_ROLES = {
+  USER: 0,
+  ADMIN: 10,
+};
+
 export const DATA_TYPE = {
   STRING: 'string',
   NUMBER: 'number',

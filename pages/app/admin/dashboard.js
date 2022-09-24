@@ -3,6 +3,7 @@ import Backend from '@/components/admin/Backend';
 import { Buildings, StatusUp, Briefcase, People } from 'iconsax-react';
 import 'chart.js/auto';
 import { Widget } from '../user/dashboard';
+import { USER_ROLES } from '@/utils/constants';
 
 const PROPERTY_COLOR = '#446CB2';
 const PENDING_PAYMENT_COLOR = '#F59E0B';
@@ -16,7 +17,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Backend title="Welcome back, Admin">
+    <Backend role={USER_ROLES.ADMIN} title="Welcome back, Admin">
       <div className="row mb-4">
         <WidgetList />
       </div>
