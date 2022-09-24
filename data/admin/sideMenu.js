@@ -16,7 +16,7 @@ import {
 
 export const adminMenu = {
   Dashboard: <Category size="24" variant="Bulk" />,
-  'My Projects': <Briefcase size="24" variant="Bulk" />,
+  Projects: <Briefcase size="24" variant="Bulk" />,
   'My Properties': <Buildings size="24" variant="Bulk" />,
   'Customize Your Home': <Triangle size="24" variant="Bulk" />,
   Transactions: <StatusUp size="24" variant="Bulk" />,

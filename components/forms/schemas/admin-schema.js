@@ -23,3 +23,8 @@ export const projectSchema = {
   startDate: requiredDate('Start Date'),
   delivery: requiredDate('Delivery'),
 };
+
+export const filterSchema = {
+  field: stringValidation('Field'),
+  value: required('Value'),
+};
