@@ -95,7 +95,7 @@ const ProcessProjectForm = ({ action, id, project }) => {
           const { status } = response;
           if (statusIsSuccessful(status)) {
             toast.success('Information sent successfully');
-            Router.push('/admin/projects');
+            Router.push('/app/admin/projects');
             return;
           }
         })

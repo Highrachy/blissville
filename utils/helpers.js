@@ -202,3 +202,49 @@ export const processData = (data, item) => {
   }
   return '-';
 };
+
+export const getLocationFromAddress = (address) => {
+  let output = '';
+  if (address.street1) {
+    output += address.street1.trim();
+
+    if (address.street2) {
+      output += `, ${address.street2.trim()}`;
+    }
+
+    if (address.city) {
+      output += `, ${address.city.trim()}`;
+    }
+
+    if (address.state) {
+      output += `, ${address.state.trim()}.`;
+    }
+  }
+  return output.replaceAll(',,', ',');
+};
+
+export const getFormattedAddress = ({
+  street1,
+  street2,
+  city,
+  state,
+  country,
+  hideCountry,
+}) => (
+  <address>
+    {street1}
+    <br />
+    {street2 && (
+      <>
+        {street2} <br />{' '}
+      </>
+    )}
+    {city}, {state}
+    {!hideCountry && (
+      <>
+        <br />
+        {country}.
+      </>
+    )}
+  </address>
+);

@@ -21,6 +21,10 @@ export const USER_ROLES = {
   USER: 0,
   ADMIN: 10,
 };
+export const ROLE_NAME = {
+  [USER_ROLES['USER']]: 'user',
+  [USER_ROLES['ADMIN']]: 'admin',
+};
 
 export const DATA_TYPE = {
   STRING: 'string',

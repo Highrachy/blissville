@@ -5,7 +5,11 @@ import { ContentLoader } from '@/components/utils/LoadingItems';
 import { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Button from '@/components/forms/Button';
-import { camelToSentence, processData } from '@/utils/helpers';
+import {
+  camelToSentence,
+  getLocationFromAddress,
+  processData,
+} from '@/utils/helpers';
 import { Tab } from 'react-bootstrap';
 import classNames from 'classnames';
 import ReactMarkdown from 'react-markdown';
@@ -13,6 +17,7 @@ import Humanize from 'humanize-plus';
 import { GoPrimitiveDot } from 'react-icons/go';
 import ProcessButton from '@/components/utils/ProcessButton';
 import { Location } from 'iconsax-react';
+import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
 
 const pageOptions = {
   key: 'project',
@@ -60,7 +65,7 @@ const SingleProject = () => {
   });
 
   return (
-    <Backend title="Single Project">
+    <Backend title="Single Project" role={USER_ROLES.ADMIN}>
       <ContentLoader
         Icon={adminMenu['Projects']}
         query={query}
@@ -105,14 +110,10 @@ const ProjectHeader = ({
   slug,
   name,
   query,
+  status,
   type,
-  state1,
-  availableSoon,
-  availableUnits,
-  totalUnits,
+  ...projectInfo
 }) => {
-  const currentState = availableSoon ? 'Fully Booked' : 'Available Soon';
-  const currentStateButton = availableSoon ? 'primary' : 'dark';
   return (
     <section className="card mb-5">
       <div className="card-body p-5 pb-0">
@@ -124,23 +125,12 @@ const ProjectHeader = ({
                   {type} - {name}
                 </h4>
                 <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-2 pe-2">
-                  <Location /> {state1}
+                  <Location /> {getLocationFromAddress(projectInfo)}
                 </div>
                 <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-3 pe-2">
-                  {availableUnits > 0 ? (
-                    <span className="d-flex align-items-center fw-bold text-success">
-                      <GoPrimitiveDot /> {availableUnits}{' '}
-                      {Humanize.pluralize(totalUnits, 'unit')} available
-                    </span>
-                  ) : availableSoon ? (
-                    <span className="d-flex align-items-center fw-bold text-info">
-                      <GoPrimitiveDot /> Project is Available Soon
-                    </span>
-                  ) : (
-                    <span className="d-flex align-items-center fw-bold text-danger">
-                      <GoPrimitiveDot /> Project is fully booked
-                    </span>
-                  )}
+                  <span className="d-flex align-items-center fw-bold text-success">
+                    <GoPrimitiveDot /> {ROLE_NAME[status]}
+                  </span>
                 </div>
                 <div className="d-flex flex-wrap fs-6 mb-2">
                   <Button
@@ -158,7 +148,7 @@ const ProjectHeader = ({
                     color="none"
                     className="btn-xs btn-outline-primary"
                     href={{
-                      pathname: '/admin/projects/manage',
+                      pathname: '/admin/projects/new',
                       query: { id, action: 'edit' },
                     }}
                   >
@@ -169,7 +159,7 @@ const ProjectHeader = ({
                     color="info"
                     className="btn-xs"
                     href={{
-                      pathname: '/admin/projects/manage',
+                      pathname: '/admin/projects/new',
                       query: { id, action: 'duplicate' },
                     }}
                   >
@@ -178,7 +168,7 @@ const ProjectHeader = ({
                 </div>
               </div>
               {/* Action */}
-              <div className="d-flex my-2">
+              {/* <div className="d-flex my-2">
                 {availableUnits === 0 && (
                   <ProcessButton
                     afterSuccess={() => query.mutate()}
@@ -193,7 +183,7 @@ const ProjectHeader = ({
                     Mark as {currentState}
                   </ProcessButton>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -206,7 +196,7 @@ const ProjectHeader = ({
               onClick={() => setCurrentTab(key)}
             >
               <span
-                className={classNames('nav-link', {
+                className={classNames('nav-link tab-header', {
                   active: currentTab === key,
                 })}
               >

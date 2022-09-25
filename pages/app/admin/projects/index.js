@@ -6,10 +6,12 @@ import { adminMenu } from '@/data/admin/sideMenu';
 import { LocalImage } from '@/components/common/Image';
 import Button from '@/components/forms/Button';
 import { filterProjects } from '@/utils/filters';
+import { USER_ROLES } from '@/utils/constants';
 
 const Projects = () => (
-  <Backend>
+  <Backend role={USER_ROLES.ADMIN}>
     <PaginatedContent
+      addNewUrl={'/app/admin/projects/new'}
       endpoint={'api/projects'}
       pageName="Project"
       DataComponent={ProjectsRowList}

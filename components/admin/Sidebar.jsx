@@ -1,13 +1,16 @@
 import { adminMenu, userMenu } from '@/data/admin/sideMenu';
-import { USER_ROLES } from '@/utils/constants';
+import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
 import { storeMenuState } from '@/utils/localStorage';
+import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
   const currentSideMenu = role === USER_ROLES.ADMIN ? adminMenu : userMenu;
+  const router = useRouter();
 
   const handleMenuState = () => {
     const newState = !isFolded;
@@ -43,19 +46,30 @@ const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
         </div>
         <div className="sidebar-body">
           <ul className="nav">
-            {Object.entries(currentSideMenu).map(([title, icon], index) => (
-              <li key={index} className="nav-item">
-                <Link
-                  href={`/app/${role}/${changeSpaceToDash(title)}`}
-                  passHref
+            {Object.entries(currentSideMenu).map(([title, icon], index) => {
+              const currentPath = `/app/${ROLE_NAME[role]}/${changeSpaceToDash(
+                title
+              )}`;
+              const currentPathSplit = router.pathname.split('/')[3];
+              const isCurrentPage =
+                changeSpaceToDash(title) === currentPathSplit;
+
+              return (
+                <li
+                  key={index}
+                  className={classNames('nav-item', {
+                    active: isCurrentPage,
+                  })}
                 >
-                  <a className="nav-link">
-                    <span className="link-icon">{icon}</span>
-                    {!isFolded && <span className="link-title">{title}</span>}
-                  </a>
-                </Link>
-              </li>
-            ))}
+                  <Link href={currentPath} passHref>
+                    <a className="nav-link">
+                      <span className="link-icon">{icon}</span>
+                      {!isFolded && <span className="link-title">{title}</span>}
+                    </a>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </nav>
