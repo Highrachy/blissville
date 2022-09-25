@@ -180,6 +180,19 @@ export const createSchema = (object) => {
 
 export const arrayValidation = (label) => yup.array().label(label);
 
+//   email: yup.lazy(val => (Array.isArray(val) ? yup.array().of(yup.string()) : yup.string()))
+
+export const customSelectValidation = (label) =>
+  yup.mixed().when('isArray', {
+    is: Array.isArray,
+    then: yup
+      .array()
+      .label(label)
+      .min(1, `You must select at least one ${label}.`)
+      .of(yup.string().required()),
+    otherwise: required(label),
+  });
+
 export const multiSelectValidation = (label) =>
   yup
     .array()

@@ -28,22 +28,24 @@ const FormikForm = ({
     >
       {({ isSubmitting, handleSubmit: submitForm, ...props }) => (
         <Form>
-          {children}
+          <div className="row">
+            {children}
 
-          {useSubmitButton && (
-            <Button
-              color={buttonColor}
-              loading={isSubmitting}
-              onClick={submitForm}
-            >
-              {buttonText}
-            </Button>
-          )}
+            {useSubmitButton && (
+              <Button
+                color={buttonColor}
+                loading={isSubmitting}
+                onClick={submitForm}
+              >
+                {buttonText}
+              </Button>
+            )}
 
-          {persistForm && <Persist name={name} />}
-          {isDevEnvironment() && (showFormikState || showAllFormikState) && (
-            <DisplayFormikState {...props} showAll={showAllFormikState} />
-          )}
+            {persistForm && <Persist name={name} />}
+            {isDevEnvironment() && (showFormikState || showAllFormikState) && (
+              <DisplayFormikState {...props} showAll={showAllFormikState} />
+            )}
+          </div>
         </Form>
       )}
     </Formik>

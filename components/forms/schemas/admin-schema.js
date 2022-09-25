@@ -4,24 +4,43 @@ import {
   required,
   requiredDate,
   arrayValidation,
-  multiSelectValidation,
+  customSelectValidation,
+  positiveNumberValidation,
 } from './schema-helpers';
 
 export const projectSchema = {
   name: stringValidation('Project Name'),
   type: stringValidation('Project Type'),
-  image: optionalValidation(stringValidation('Project Image')),
+  image: stringValidation('Project Image'),
   description: stringValidation('Project Description'),
   street1: stringValidation('Street 1'),
   street2: optionalValidation(stringValidation('Street 2')),
   city: stringValidation('City'),
   state: stringValidation('State'),
-  features: multiSelectValidation('Shell Features'),
-  featuresStandard: optionalValidation(arrayValidation('Standard Features')),
-  featuresSupreme: optionalValidation(arrayValidation('Supreme Features')),
+  features: customSelectValidation('Shell Features'),
+  standardFeatures: optionalValidation(arrayValidation('Standard Features')),
+  supremeFeatures: optionalValidation(arrayValidation('Supreme Features')),
   paymentPlan: required('Payment Plan'),
   startDate: requiredDate('Start Date'),
   delivery: requiredDate('Delivery'),
+};
+
+export const propertySchema = {
+  name: stringValidation('Project Name'),
+  type: stringValidation('Project Type'),
+  description: stringValidation('Project Description'),
+  image: optionalValidation(stringValidation('Property Image')),
+  size: positiveNumberValidation('Size'),
+  totalUnits: positiveNumberValidation('Total Units'),
+  availableUnits: positiveNumberValidation('Available Units'),
+  baths: positiveNumberValidation('Baths'),
+  beds: positiveNumberValidation('Beds'),
+  toilets: positiveNumberValidation('Toilets'),
+  floors: customSelectValidation('Floors'),
+  parkingSpace: positiveNumberValidation('Parking Space'),
+  price: positiveNumberValidation('Price'),
+  standardPrice: optionalValidation(positiveNumberValidation('Standard Price')),
+  supremePrice: optionalValidation(positiveNumberValidation('Supreme Price')),
 };
 
 export const filterSchema = {

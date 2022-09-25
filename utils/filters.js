@@ -35,13 +35,39 @@ import { booleanOptions, valuesToOptions } from '@/utils/helpers';
 //     values: valuesToOptions(Object.values(TENANT_STATUS)),
 //   },
 // };
+
+// available: {
+//   field: FILTER_FIELDS.SELECT,
+//   values: booleanOptions('Open', 'Closed'),
+//   label: 'Status',
+//   type: DATA_TYPE.BOOLEAN,
+// },
 export const filterProjects = {
   name: {},
   type: {},
-  lastName: {},
   street1: {},
   city: {},
   state: {},
+  // status: {
+  //   field: FILTER_FIELDS.SELECT,
+  //   values: valuesToOptions(Object.values(TENANT_STATUS)),
+  // },
+};
+export const filterProperties = {
+  name: {},
+  type: {},
+  lastName: {},
+  size: {},
+  totalUnits: {},
+  availableUnits: {},
+  baths: {},
+  beds: {},
+  toilets: {},
+  floors: {},
+  parkingSpace: {},
+  price: { label: 'Shell Price' },
+  standardPrice: { label: 'Standard Price' },
+  supremePrice: { label: 'Supreme Price' },
   // status: {
   //   field: FILTER_FIELDS.SELECT,
   //   values: valuesToOptions(Object.values(TENANT_STATUS)),
