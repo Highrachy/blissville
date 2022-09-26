@@ -43,7 +43,7 @@ Button.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   color: PropTypes.oneOf(COLOR_STYLE),
-  href: PropTypes.string,
+  href: PropTypes.any,
   loading: PropTypes.bool,
   loadingText: PropTypes.any,
   showLoadingText: PropTypes.bool,

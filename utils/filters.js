@@ -53,6 +53,7 @@ export const filterProjects = {
   //   values: valuesToOptions(Object.values(TENANT_STATUS)),
   // },
 };
+
 export const filterProperties = {
   name: {},
   type: {},
@@ -72,4 +73,9 @@ export const filterProperties = {
   //   field: FILTER_FIELDS.SELECT,
   //   values: valuesToOptions(Object.values(TENANT_STATUS)),
   // },
+};
+
+export const filterFeatures = {
+  name: {},
+  price: {},
 };

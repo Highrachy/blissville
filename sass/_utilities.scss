@@ -458,3 +458,90 @@ div.nav-link {
     font-weight: 700 !important;
   }
 }
+
+.icon-md svg,
+.img-md {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  object-fit: cover;
+}
+
+.icon-md2 svg,
+.img-md2 {
+  height: 2.5rem !important;
+  width: 2.5rem !important;
+  object-fit: cover;
+}
+
+.icon-lg svg,
+.img-lg {
+  height: 4rem !important;
+  width: 4rem !important;
+  object-fit: cover;
+}
+.icon-xl svg,
+.img-xl {
+  height: 8rem !important;
+  width: 8rem !important;
+  object-fit: cover;
+}
+.icon-xxl svg,
+.img-xxl {
+  height: 12rem !important;
+  width: 12rem !important;
+  object-fit: cover;
+  @include media-breakpoint-up(lg) {
+    height: 16rem !important;
+    width: 16rem !important;
+    object-fit: cover;
+  }
+}
+
+.badge-dot,
+.badge-icon {
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent !important;
+  border: none;
+  padding-left: 0.75rem;
+  padding-right: 0;
+  font-size: 0.75rem;
+  position: relative;
+
+  &.badge-sm,
+  &.badge-md {
+    padding-left: 1rem;
+  }
+  &.badge-sm:before,
+  &.badge-md:before {
+    height: 8px;
+    width: 8px;
+    margin-top: 0;
+  }
+  &.badge-lg,
+  &.badge-xl {
+    padding-left: 1.5rem;
+  }
+  &.badge-lg:before,
+  &.badge-xl:before {
+    height: 12px;
+    width: 12px;
+    margin-top: 0;
+  }
+}
+
+.badge-dot {
+  &:before {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+    margin-top: 0;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}

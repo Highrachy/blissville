@@ -3,26 +3,25 @@ import PaginatedContent from '@/components/admin/PaginatedContent';
 import { Card } from 'react-bootstrap';
 import Backend from '@/components/admin/Backend';
 import { adminMenu } from '@/data/admin/sideMenu';
-import { LocalImage } from '@/components/common/Image';
 import Button from '@/components/forms/Button';
-import { filterProperties } from '@/utils/filters';
+import { filterFeatures } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
 
-const Properties = () => (
+const Features = () => (
   <Backend role={USER_ROLES.ADMIN}>
     <PaginatedContent
-      endpoint={'api/properties'}
-      pageName="Property"
-      pluralPageName="Properties"
-      DataComponent={PropertiesRowList}
-      PageIcon={adminMenu['Properties']}
+      addNewUrl={'/app/admin/features/new'}
+      endpoint={'api/features'}
+      pageName="Feature"
+      DataComponent={FeaturesRowList}
+      PageIcon={adminMenu['Features']}
       populate="*"
-      filterFields={filterProperties}
+      filterFields={filterFeatures}
     />
   </Backend>
 );
 
-export const PropertiesRowList = ({ results, offset, attachment }) => {
+export const FeaturesRowList = ({ results, offset, attachment }) => {
   return (
     <div className="container-fluid">
       <Card className="mt-2">
@@ -32,13 +31,14 @@ export const PropertiesRowList = ({ results, offset, attachment }) => {
               <tr>
                 <th>S/N</th>
                 <th>Name</th>
-                <th>Status</th>
+                <th>Price</th>
+                <th>Description</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {results.map(({ id, attributes }, index) => (
-                <PropertiesSingleRow
+                <FeaturesSingleRow
                   key={index}
                   number={offset + index + 1}
                   id={id}
@@ -54,37 +54,27 @@ export const PropertiesRowList = ({ results, offset, attachment }) => {
   );
 };
 
-export const PropertiesSingleRow = ({ number, attachment, ...props }) => {
-  const { id, name, type, image, status } = props;
+export const FeaturesSingleRow = ({ number, name, price, id, description }) => {
   return (
     <tr>
       <td>{number}</td>
-      <td>
-        <LocalImage
-          src={image}
-          name={`${name}-${number}`}
-          className="img-md2 me-2"
-          rounded
-        />
-        {name}
-      </td>
-      <td>
-        <span className={`badge badge-dot bg-red}`}>{status}</span>
-      </td>
+      <td>{name}</td>
+      <td>{price}</td>
+      <td>{description}</td>
       <td>
         <Button
           color="secondary"
           className="btn-xs"
           href={{
-            pathname: '/app/admin/properties/[id]',
-            query: { id },
+            pathname: '/app/admin/features/new',
+            query: { id, action: 'edit' },
           }}
         >
-          Manage Property
+          Edit Feature
         </Button>
       </td>
     </tr>
   );
 };
 
-export default Properties;
+export default Features;

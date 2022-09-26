@@ -6,6 +6,7 @@ import {
   arrayValidation,
   customSelectValidation,
   positiveNumberValidation,
+  numberValidation,
 } from './schema-helpers';
 
 export const projectSchema = {
@@ -18,8 +19,6 @@ export const projectSchema = {
   city: stringValidation('City'),
   state: stringValidation('State'),
   features: customSelectValidation('Shell Features'),
-  standardFeatures: optionalValidation(arrayValidation('Standard Features')),
-  supremeFeatures: optionalValidation(arrayValidation('Supreme Features')),
   paymentPlan: required('Payment Plan'),
   startDate: requiredDate('Start Date'),
   delivery: requiredDate('Delivery'),
@@ -41,6 +40,12 @@ export const propertySchema = {
   price: positiveNumberValidation('Price'),
   standardPrice: optionalValidation(positiveNumberValidation('Standard Price')),
   supremePrice: optionalValidation(positiveNumberValidation('Supreme Price')),
+};
+
+export const featureSchema = {
+  name: stringValidation('Feature Name'),
+  description: optionalValidation(stringValidation('Feature Description')),
+  price: numberValidation('Feature Price'),
 };
 
 export const filterSchema = {

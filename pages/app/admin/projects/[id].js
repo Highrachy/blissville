@@ -18,6 +18,7 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import ProcessButton from '@/components/utils/ProcessButton';
 import { Location } from 'iconsax-react';
 import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
+import { PropertiesRowList } from '../properties';
 
 const pageOptions = {
   key: 'project',
@@ -31,20 +32,21 @@ const allProjectTabs = [
     fields: [
       'name',
       'type',
-      'location',
-      'address',
+      'image',
       'description',
-      'totalUnits',
-      'availableUnits',
-      'baths',
-      'beds',
-      'toilets',
-      'availableSoon',
+      'street1',
+      'street2',
+      'city',
+      'state',
+      'features',
+      'paymentPlan',
+      'startDate',
+      'delivery',
     ],
   },
   {
-    key: 'Tenants Applications',
-    title: 'Tenant Applications',
+    key: 'Properties',
+    title: 'Properties',
     fields: [],
   },
 ];
@@ -127,12 +129,12 @@ const ProjectHeader = ({
                 <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-2 pe-2">
                   <Location /> {getLocationFromAddress(projectInfo)}
                 </div>
-                <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-3 pe-2">
+                {/* <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-3 pe-2">
                   <span className="d-flex align-items-center fw-bold text-success">
                     <GoPrimitiveDot /> {ROLE_NAME[status]}
                   </span>
-                </div>
-                <div className="d-flex flex-wrap fs-6 mb-2">
+                </div> */}
+                <div className="d-flex flex-wrap fs-6 my-2">
                   <Button
                     color="none"
                     className="btn-xs btn-outline-dark"
@@ -148,7 +150,7 @@ const ProjectHeader = ({
                     color="none"
                     className="btn-xs btn-outline-primary"
                     href={{
-                      pathname: '/admin/projects/new',
+                      pathname: '/app/admin/projects/new',
                       query: { id, action: 'edit' },
                     }}
                   >
@@ -168,22 +170,17 @@ const ProjectHeader = ({
                 </div>
               </div>
               {/* Action */}
-              {/* <div className="d-flex my-2">
-                {availableUnits === 0 && (
-                  <ProcessButton
-                    afterSuccess={() => query.mutate()}
-                    api={`projects/${id}`}
-                    buttonColor={currentStateButton}
-                    buttonSizeClassName="btn-sm"
-                    data={{ availableSoon: !availableSoon }}
-                    modalContent={`Are you sure you want to mark this aparment as ${currentState}`}
-                    modalTitle={`Mark as ${currentState}`}
-                    successMessage={`The applicant has been successfully updated to  ${currentState}`}
-                  >
-                    Mark as {currentState}
-                  </ProcessButton>
-                )}
-              </div> */}
+              <div className="d-flex">
+                <Button
+                  className="btn-sm"
+                  href={{
+                    pathname: '/app/admin/properties/new',
+                    query: { projectId: id },
+                  }}
+                >
+                  Add Property
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -211,40 +208,52 @@ const ProjectHeader = ({
 };
 
 const TabInformation = ({ project, title, data }) => {
-  const { tenants } = project;
+  console.log('project: ', project);
   return (
     <section>
-      <div className="card">
-        <div className="table-responsive">
-          <table className="table table-border">
-            <thead>
-              <tr>
-                <th colSpan="5">
-                  <h5 className="my-3">{title}</h5>
-                </th>
-              </tr>
-            </thead>
-            {!data || data.length === 0 ? (
-              <h1>There is no data to display</h1>
-            ) : (
+      {title === allProjectTabs[1].title ? (
+        <PropertiesRowList
+          results={project?.properties?.data || []}
+          offset={0}
+        />
+      ) : (
+        <div className="card">
+          <div className="table-responsive">
+            <table className="table table-border">
+              <thead>
+                <tr>
+                  <th colSpan="5">
+                    <h5 className="my-3">{title}</h5>
+                  </th>
+                </tr>
+              </thead>
+
               <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <th width="250">{camelToSentence(item)}</th>
-                    <td>
-                      {item === 'description' ? (
-                        <ReactMarkdown>{project[item]}</ReactMarkdown>
-                      ) : (
-                        processData(project[item])
-                      )}
+                {!data || data.length === 0 ? (
+                  <tr>
+                    <td colSpan="5">
+                      <h3> There is no data to display</h3>
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  data.map((item, index) => (
+                    <tr key={index}>
+                      <th width="250">{camelToSentence(item)}</th>
+                      <td>
+                        {item === 'description' ? (
+                          <ReactMarkdown>{project[item]}</ReactMarkdown>
+                        ) : (
+                          processData(project[item])
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
-            )}
-          </table>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };

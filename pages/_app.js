@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <ToastContainer autoClose={10000} transition={Slide} theme="colored" />
-      <NextNProgress color="#ed3237" />
+      <NextNProgress color="#446cb2" />
       <Head>
         <link
           rel="apple-touch-icon"

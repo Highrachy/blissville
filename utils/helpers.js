@@ -20,7 +20,7 @@ export const objectToOptions = (obj, defaultLabel = null, inverse = false) => {
 };
 
 export const valuesToOptions = (values, defaultLabel = null) => {
-  const output = values.map((value) => ({
+  const output = values?.map((value) => ({
     value: value.toString(),
     label: humanize.titleCase(value.toString()),
   }));
@@ -30,7 +30,7 @@ export const valuesToOptions = (values, defaultLabel = null) => {
     : output;
 };
 
-export const dataToOptions = (data, label, value = '_id') => {
+export const dataToOptions = (data, label, value = 'id') => {
   if (!data) return null;
   const output = Object.values(data).map((item) => ({
     value: item[value],

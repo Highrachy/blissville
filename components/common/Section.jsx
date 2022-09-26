@@ -4,6 +4,7 @@ const Section = ({
   children,
   className,
   centered,
+  title,
   altBg,
   altBg2,
   noPaddingTop,
@@ -20,6 +21,7 @@ const Section = ({
       })}
       {...props}
     >
+      {title && <h4>{title}</h4>}
       {children}
     </section>
   );

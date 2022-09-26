@@ -7,6 +7,7 @@ import { LocalImage } from '@/components/common/Image';
 import Button from '@/components/forms/Button';
 import { filterProjects } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
+import Link from 'next/link';
 
 const Projects = () => (
   <Backend role={USER_ROLES.ADMIN}>
@@ -19,6 +20,12 @@ const Projects = () => (
       populate="*"
       filterFields={filterProjects}
     />
+
+    <div className="container-fluid">
+      <div className="text-end mt-4">
+        <Link href="/app/admin/features">Manage Features</Link>
+      </div>
+    </div>
   </Backend>
 );
 
@@ -32,7 +39,8 @@ export const ProjectsRowList = ({ results, offset, attachment }) => {
               <tr>
                 <th>S/N</th>
                 <th>Name</th>
-                <th>Status</th>
+                <th>Location</th>
+                <th className="text-center">Properties</th>
                 <th></th>
               </tr>
             </thead>
@@ -54,8 +62,13 @@ export const ProjectsRowList = ({ results, offset, attachment }) => {
   );
 };
 
-export const ProjectsSingleRow = ({ number, attachment, ...props }) => {
-  const { id, name, type, image, status } = props;
+export const ProjectsSingleRow = ({
+  number,
+  attachment,
+  properties,
+  ...props
+}) => {
+  const { id, name, city, state, image } = props;
   return (
     <tr>
       <td>{number}</td>
@@ -69,8 +82,11 @@ export const ProjectsSingleRow = ({ number, attachment, ...props }) => {
         {name}
       </td>
       <td>
-        <span className={`badge badge-dot bg-red}`}>{status}</span>
+        <span className={`badge badge-dot text-dark`}>
+          {city}, {state}
+        </span>
       </td>
+      <td className="text-center">{properties?.data?.length}</td>
       <td>
         <Button
           color="secondary"

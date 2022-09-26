@@ -17,6 +17,7 @@ import { FLOORS, STATES, USER_ROLES } from '@/utils/constants';
 import CustomSelect from '@/components/forms/CustomSelect';
 import InputFormat from '@/components/forms/InputFormat';
 import Upload from '@/components/forms/Upload';
+import Select from '@/components/forms/Select';
 
 const pageOptions = {
   key: 'property',
@@ -24,7 +25,7 @@ const pageOptions = {
 
 const New = () => {
   const router = useRouter();
-  const { id, action } = router.query;
+  const { id, action, projectId } = router.query;
 
   const [query, result] = useSWRQuery({
     name: id ? [pageOptions.key, id] : id,
@@ -33,12 +34,17 @@ const New = () => {
 
   return (
     <Backend role={USER_ROLES.ADMIN} title="Add New Property">
-      <ProcessPropertyForm property={result} action={action} id={id} />
+      <ProcessPropertyForm
+        property={result}
+        action={action}
+        id={id}
+        projectId={projectId}
+      />
     </Backend>
   );
 };
 
-const ProcessPropertyForm = ({ action, id, property }) => {
+const ProcessPropertyForm = ({ action, id, property, projectId }) => {
   const testInitialValues = {
     name: 'Blissville Uno',
     type: '3 Bedroom Flat',
@@ -61,13 +67,13 @@ const ProcessPropertyForm = ({ action, id, property }) => {
     ? property.attributes
     : { ...testInitialValues };
   const isEdit = currentAction === 'Edit';
-
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
       floors: Array.isArray(values.features)
         ? values.floors?.join(',')
         : 'Ground Floor',
+      ...(!isEdit && { project: projectId }),
     };
 
     try {
@@ -99,13 +105,15 @@ const ProcessPropertyForm = ({ action, id, property }) => {
   };
 
   return (
-    <Section title={`${currentAction} Property`} noPaddingTop>
-      <PropertyForm
-        handleSubmit={handleSubmit}
-        initialValues={initialValues}
-        isEdit={isEdit}
-      />
-    </Section>
+    <div className="card p-5">
+      <Section title={`${currentAction} Property`} noPaddingTop>
+        <PropertyForm
+          handleSubmit={handleSubmit}
+          initialValues={initialValues}
+          isEdit={isEdit}
+        />
+      </Section>
+    </div>
   );
 };
 
@@ -124,6 +132,7 @@ const PropertyForm = ({ handleSubmit, initialValues, isEdit }) => (
         <Input label="Type" name="type" />
         <Upload
           label="Upload your image"
+          defaultImage="/assets/img/placeholder/image.png"
           changeText="Update Picture"
           imgOptions={{
             className: 'mb-3 icon-md',
@@ -135,73 +144,81 @@ const PropertyForm = ({ handleSubmit, initialValues, isEdit }) => (
           folder={'property'}
         />
         <MdEditor label="Description" name="description" height="10rem" />
-        <InputFormat
-          label="Size"
-          name="size"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <InputFormat
-          label="Total Units"
-          name="totalUnits"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <InputFormat
-          label="Available Units"
-          name="availableUnits"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <InputFormat
-          name="baths"
-          label="Baths"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <InputFormat
-          name="beds"
-          label="Beds"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <InputFormat
-          name="toilets"
-          label="Toilets"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <CustomSelect
-          name="floors"
-          label="Floors"
-          options={valuesToOptions(FLOORS)}
-          blankOption="Select Floors"
-          isMulti
-        />
-        <InputFormat
-          name="parkingSpace"
-          label="Parking Space"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <InputFormat
-          label="Price"
-          name="price"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <InputFormat
-          label="Standard Price"
-          name="standardPrice"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
-        <InputFormat
-          label="Supreme Price"
-          name="supremePrice"
-          prefix=""
-          formGroupClassName="col-sm-6"
-        />
+        <div className="row">
+          <InputFormat
+            label="Total Units"
+            name="totalUnits"
+            prefix=""
+            formGroupClassName="col-sm-6"
+          />
+          <InputFormat
+            label="Available Units"
+            name="availableUnits"
+            prefix=""
+            formGroupClassName="col-sm-6"
+          />
+        </div>
+
+        <div className="row">
+          <InputFormat
+            label="Size"
+            name="size"
+            prefix=""
+            suffix="msq"
+            formGroupClassName="col-sm-6"
+          />
+          <InputFormat
+            name="beds"
+            label="Beds"
+            prefix=""
+            formGroupClassName="col-sm-6"
+          />
+        </div>
+        <div className="row">
+          <InputFormat
+            name="baths"
+            label="Baths"
+            prefix=""
+            formGroupClassName="col-sm-6"
+          />
+          <InputFormat
+            name="toilets"
+            label="Toilets"
+            prefix=""
+            formGroupClassName="col-sm-6"
+          />
+        </div>
+        <div className="row">
+          <CustomSelect
+            name="floors"
+            label="Floors"
+            options={valuesToOptions(FLOORS)}
+            blankOption="Select Floors"
+            isMulti
+            formGroupClassName="col-sm-6"
+          />
+          <InputFormat
+            name="parkingSpace"
+            label="Parking Space"
+            prefix=""
+            formGroupClassName="col-sm-6"
+          />
+        </div>
+        <InputFormat label="Price" name="price" prefix="" />
+        <div className="row">
+          <InputFormat
+            label="Standard Price"
+            name="standardPrice"
+            prefix=""
+            formGroupClassName="col-sm-6"
+          />
+          <InputFormat
+            label="Supreme Price"
+            name="supremePrice"
+            prefix=""
+            formGroupClassName="col-sm-6"
+          />
+        </div>
         <FormikButton color="secondary">
           {isEdit ? 'Edit' : 'Save'} Property
         </FormikButton>

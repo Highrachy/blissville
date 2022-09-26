@@ -38,7 +38,7 @@ const New = () => {
   });
 
   return (
-    <Backend role={USER_ROLES.ADMIN} title="Add New Project">
+    <Backend role={USER_ROLES.ADMIN} title="Manage Projects">
       <ProcessProjectForm project={result} action={action} id={id} />
     </Backend>
   );
@@ -50,17 +50,27 @@ const ProcessProjectForm = ({ action, id, project }) => {
     type: '3 Bedroom Flat',
     description: 'A maids room, 4 baths, 5 toilets',
     street1:
-      'Blissville Projects, Prince Kemi Olusesi street, off Dreamwolrd Africana Way, Lekki.',
+      'Blissville Projects, Prince Kemi Olusesi street, off Dreamworld Africana Way',
     street2: '',
     city: 'Lekki',
     state: 'Lagos',
-    features: ['Adamawa', 'Anambra'],
-    standardFeatures: '',
-    supremeFeatures: '',
+    features: '',
     paymentPlan: 6,
     startDate: '2020-01-01',
     delivery: '2025-01-01',
   };
+  const [query, allFeatures] = useSWRQuery({
+    name: 'allFeatures',
+    endpoint: `api/features`,
+    axiosOptions: {
+      params: {
+        sort: 'name',
+      },
+    },
+  });
+
+  const featuresArray = allFeatures?.map((feature) => feature.attributes.name);
+
   const currentAction = action ? Humanize.capitalize(action) : 'New';
   const initialValues = project ? project.attributes : { ...testInitialValues };
   const isEdit = currentAction === 'Edit';
@@ -69,8 +79,8 @@ const ProcessProjectForm = ({ action, id, project }) => {
     const payload = {
       ...values,
       features: Array.isArray(values.features)
-        ? values.features?.join(',')
-        : 'testing123',
+        ? values.features?.join(', ')
+        : values.features,
     };
 
     try {
@@ -102,17 +112,25 @@ const ProcessProjectForm = ({ action, id, project }) => {
   };
 
   return (
-    <Section title={`${currentAction} Project`} noPaddingTop>
-      <ProjectForm
-        handleSubmit={handleSubmit}
-        initialValues={initialValues}
-        isEdit={isEdit}
-      />
-    </Section>
+    <div className="card p-5">
+      <Section title={`${currentAction} Project`} noPaddingTop>
+        <ProjectForm
+          handleSubmit={handleSubmit}
+          initialValues={initialValues}
+          isEdit={isEdit}
+          featuresArray={featuresArray}
+        />
+      </Section>
+    </div>
   );
 };
 
-const ProjectForm = ({ handleSubmit, initialValues, isEdit }) => (
+const ProjectForm = ({
+  handleSubmit,
+  initialValues,
+  isEdit,
+  featuresArray,
+}) => (
   <div className="row">
     <div className="col-12 col-sm-11 col-lg-10 col-xl-9">
       <FormikForm
@@ -128,7 +146,7 @@ const ProjectForm = ({ handleSubmit, initialValues, isEdit }) => (
         <Upload
           label="Upload your image"
           changeText="Update Picture"
-          // defaultImage="/assets/img/placeholder/image.png"
+          defaultImage="/assets/img/placeholder/image.png"
           imgOptions={{
             className: 'mb-3 icon-md',
             width: 200,
@@ -142,34 +160,22 @@ const ProjectForm = ({ handleSubmit, initialValues, isEdit }) => (
         <MdEditor label="Description" name="description" height="10rem" />
         <Input label="Street 1" name="street1" />
         <Input label="Street 2" name="street2" />
-        <Input label="City" name="city" />
-        <Select
-          formGroupClassName="col-md-6"
-          name="state"
-          label="State"
-          options={valuesToOptions(STATES)}
-          blankOption="Select State"
-          optional
-        />
+        <div className="row">
+          <Input label="City" name="city" formGroupClassName="col-md-6" />
+          <Select
+            formGroupClassName="col-md-6"
+            name="state"
+            label="State"
+            options={valuesToOptions(STATES)}
+            blankOption="Select State"
+            optional
+          />
+        </div>
         <CustomSelect
           name="features"
           label="Features"
-          options={valuesToOptions(STATES)}
+          options={valuesToOptions(featuresArray)}
           blankOption="Select Shell features"
-          isMulti
-        />
-        <CustomSelect
-          name="standardFeatures"
-          label="Standard Features"
-          options={valuesToOptions(STATES)}
-          blankOption="Select Standard features"
-          isMulti
-        />
-        <CustomSelect
-          name="supremeFeatures"
-          label="Supreme Features"
-          options={valuesToOptions(STATES)}
-          blankOption="Select Supreme features"
           isMulti
         />
         <Select
@@ -178,18 +184,22 @@ const ProjectForm = ({ handleSubmit, initialValues, isEdit }) => (
           options={generateNumOptions(36, 'month', { startFrom: 2 })}
           blankOption="Select Payment Plan"
         />
-        <DatePicker
-          label="Start Date"
-          name="startDate"
-          placeholder="YYYY-MM-DD"
-          helpText="Format: YYYY-MM-DD"
-        />
-        <DatePicker
-          label="Delivery"
-          name="delivery"
-          placeholder="YYYY-MM-DD"
-          helpText="Format: YYYY-MM-DD"
-        />
+        <div className="row">
+          <DatePicker
+            formGroupClassName="col-md-6"
+            label="Start Date"
+            name="startDate"
+            placeholder="YYYY-MM-DD"
+            helpText="Format: YYYY-MM-DD"
+          />
+          <DatePicker
+            formGroupClassName="col-md-6"
+            label="Delivery"
+            name="delivery"
+            placeholder="YYYY-MM-DD"
+            helpText="Format: YYYY-MM-DD"
+          />
+        </div>
         <FormikButton color="secondary">
           {isEdit ? 'Edit' : 'Save'} Project
         </FormikButton>

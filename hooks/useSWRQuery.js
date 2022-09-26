@@ -59,7 +59,7 @@ export const useSWRQuery = ({
   axiosOptions = {},
   showQuery,
   showResult,
-  showLogs,
+  showLogs = true,
 }) => {
   const currentEndpoint = `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`;
 
