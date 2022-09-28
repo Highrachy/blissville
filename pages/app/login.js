@@ -7,7 +7,7 @@ import React from 'react';
 
 const Login = () => {
   const handleSubmit = async (values, actions) => {
-    Router.push('/admin/dashboard');
+    Router.push('app/admin/dashboard');
     // const fetchOptions = {
     //   /**
     //    * The default method for a request with fetch is GET,

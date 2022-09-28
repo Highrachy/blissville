@@ -46,21 +46,7 @@ const New = () => {
 
 const ProcessPropertyForm = ({ action, id, property, projectId }) => {
   const testInitialValues = {
-    name: 'Blissville Uno',
-    type: '3 Bedroom Flat',
-    description: 'A maids room, 4 baths, 5 toilets',
-    size: 255,
-    totalUnits: 4,
-    availableUnits: 3,
-    baths: 3,
-    beds: 3,
-    toilets: 3,
-    floors: 'Ground Floor, 1st Floor',
-    parkingSpace: 2,
-    price: 5000000,
-    standardPrice: 15000000,
-    supremePrice: 15000000,
-    status: 'Available',
+    name: '3 Bedroom Flat',
   };
   const currentAction = action ? Humanize.capitalize(action) : 'New';
   const initialValues = property
@@ -73,6 +59,7 @@ const ProcessPropertyForm = ({ action, id, property, projectId }) => {
       floors: Array.isArray(values.features)
         ? values.floors?.join(',')
         : 'Ground Floor',
+      status: 'Available',
       ...(!isEdit && { project: projectId }),
     };
 

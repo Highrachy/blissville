@@ -146,7 +146,7 @@ const PropertyHeader = ({
                     color="none"
                     className="btn-xs btn-outline-primary"
                     href={{
-                      pathname: '/admin/properties/new',
+                      pathname: 'app/admin/properties/new',
                       query: { id, action: 'edit' },
                     }}
                   >
@@ -157,7 +157,7 @@ const PropertyHeader = ({
                     color="info"
                     className="btn-xs"
                     href={{
-                      pathname: '/admin/properties/new',
+                      pathname: 'app/admin/properties/new',
                       query: { id, action: 'duplicate' },
                     }}
                   >

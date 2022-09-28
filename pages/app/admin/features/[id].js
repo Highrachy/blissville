@@ -148,7 +148,7 @@ const ProjectHeader = ({
                     color="none"
                     className="btn-xs btn-outline-primary"
                     href={{
-                      pathname: '/admin/projects/new',
+                      pathname: 'app/admin/projects/new',
                       query: { id, action: 'edit' },
                     }}
                   >
@@ -159,7 +159,7 @@ const ProjectHeader = ({
                     color="info"
                     className="btn-xs"
                     href={{
-                      pathname: '/admin/projects/new',
+                      pathname: 'app/admin/projects/new',
                       query: { id, action: 'duplicate' },
                     }}
                   >

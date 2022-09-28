@@ -47,17 +47,6 @@ const New = () => {
 const ProcessProjectForm = ({ action, id, project }) => {
   const testInitialValues = {
     name: 'Blissville Uno',
-    type: '3 Bedroom Flat',
-    description: 'A maids room, 4 baths, 5 toilets',
-    street1:
-      'Blissville Projects, Prince Kemi Olusesi street, off Dreamworld Africana Way',
-    street2: '',
-    city: 'Lekki',
-    state: 'Lagos',
-    features: '',
-    paymentPlan: 6,
-    startDate: '2020-01-01',
-    delivery: '2025-01-01',
   };
   const [query, allFeatures] = useSWRQuery({
     name: 'allFeatures',
@@ -209,3 +198,22 @@ const ProjectForm = ({
 );
 
 export default New;
+
+if (content?.link) {
+  return (
+    <a
+      href={content.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="d-block"
+    >
+      <img src={content.image} alt={content.title} />
+    </a>
+  );
+} else {
+  return (
+    <div className="d-block">
+      <img src={content.image} alt={content.title} />
+    </div>
+  );
+}

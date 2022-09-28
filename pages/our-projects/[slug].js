@@ -17,9 +17,22 @@ import Sharer from '@/components/ui/Sharer';
 import Modal from '@/components/ui/Modal';
 import { ShareProjectIcon } from '@/components/Icons/Icons';
 import { properties } from '@/data/properties';
+import { useRouter } from 'next/router';
+import { getLocationFromAddress } from '@/utils/helpers';
 
-export default function SingleProjectPage() {
+export default function SingleProjectPage({ project }) {
   const [showModal, setShowModal] = React.useState(false);
+  const router = useRouter();
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  const { name, image, features } = project;
+  const allFeatures = features.split(',');
+
+  console.log('single project', project);
 
   return (
     <>
@@ -33,8 +46,8 @@ export default function SingleProjectPage() {
         <div className="container">
           <div className="row">
             <div className="col-sm-8">
-              <h2>BLISSVILLE DUOS</h2>
-              <p className="lead">70 Adetokunbo Ademola Street, VI, Lagos</p>
+              <h2>{name}</h2>
+              <p className="lead">{getLocationFromAddress(project)}</p>
             </div>
             <div className="col-sm-4 text-md-end mb-4 mb-md-0">
               <Button color="light" onClick={() => setShowModal(true)}>
@@ -59,7 +72,7 @@ export default function SingleProjectPage() {
         <div className="container">
           <div className="mb-3 img-project img-fill mb-md-5">
             <Image
-              src="/assets/img/property/property1.jpeg"
+              src={image}
               alt="Hero Image"
               layout="fill"
               objectFit="cover"
@@ -83,19 +96,11 @@ export default function SingleProjectPage() {
                 Blissville.
               </p>
               <ul className="my-4 row list-features">
-                <li className="col-md-4">Cable TV Distribution</li>
-                <li className="col-md-4">Intercom System</li>
-                <li className="col-md-4">Security Fence</li>
-                <li className="col-md-4">Guest Toilet</li>
-                <li className="col-md-4">Spacious Kitchen</li>
-                <li className="col-md-4">Dedicated Parking</li>
-                <li className="col-md-4">Gym</li>
-                <li className="col-md-4">Maids Room</li>
-                <li className="col-md-4">Intercom System</li>
-                <li className="col-md-4">Water Treatment</li>
-                <li className="col-md-4">Surveillance System</li>
-                <li className="col-md-4 green">Inverter System</li>
-                <li className="col-md-4 gold">Fire Detection</li>
+                {allFeatures.map((feature, index) => (
+                  <li key={index} className="col-md-4">
+                    {feature}
+                  </li>
+                ))}
               </ul>
               <ActionButtonGroup />
 
@@ -367,3 +372,31 @@ const Neighborhood = () => {
     </Section>
   );
 };
+
+export async function getStaticProps({ params }) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects?filters[slug][$eq]=${params.slug}`
+  );
+
+  const { data } = await res.json();
+
+  return {
+    props: { project: { id: data[0].id, ...data[0]['attributes'] } },
+    revalidate: 10,
+  };
+}
+
+export async function getStaticPaths() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/projects`);
+  const { data: projects } = await res.json();
+  return {
+    paths: projects.map((project) => {
+      return {
+        params: {
+          slug: project['attributes']['slug'],
+        },
+      };
+    }),
+    fallback: true,
+  };
+}
