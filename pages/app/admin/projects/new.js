@@ -198,22 +198,3 @@ const ProjectForm = ({
 );
 
 export default New;
-
-if (content?.link) {
-  return (
-    <a
-      href={content.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="d-block"
-    >
-      <img src={content.image} alt={content.title} />
-    </a>
-  );
-} else {
-  return (
-    <div className="d-block">
-      <img src={content.image} alt={content.title} />
-    </div>
-  );
-}

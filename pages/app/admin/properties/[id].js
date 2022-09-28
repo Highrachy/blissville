@@ -18,15 +18,15 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import ProcessButton from '@/components/utils/ProcessButton';
 import { Location } from 'iconsax-react';
 import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
+import TabContent, { TabContentHeader } from '@/components/admin/TabContent';
 
 const pageOptions = {
   key: 'property',
   pageName: 'Property',
 };
 
-const allPropertyTabs = [
+const allTabs = [
   {
-    key: 'Overview',
     title: 'Overview',
     fields: [
       'name',
@@ -40,16 +40,29 @@ const allPropertyTabs = [
     ],
   },
   {
-    key: 'Add Floor Plans',
-    title: 'Add Floor Plans',
+    title: 'Floor Plans',
     fields: [],
+    Component: () => (
+      <>
+        <TabContentHeader isTableContent={false} title="Floor Plans ***">
+          <ManageItem />
+        </TabContentHeader>
+      </>
+    ),
+  },
+  {
+    title: 'Gallery',
+    fields: [],
+    Component: () => <ManageItem />,
   },
 ];
+
+const ManageItem = () => <h2>Manage Item</h2>;
 
 const SingleProperty = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [currentTab, setCurrentTab] = React.useState(allPropertyTabs[0].key);
+  const [currentTab, setCurrentTab] = React.useState(allTabs[0].key);
 
   const [query, result] = useSWRQuery({
     name: id ? [pageOptions.key, id] : id,
@@ -62,7 +75,7 @@ const SingleProperty = () => {
   });
 
   return (
-    <Backend title="Single Property" role={USER_ROLES.ADMIN}>
+    <Backend title="Property" role={USER_ROLES.ADMIN}>
       <ContentLoader
         Icon={adminMenu['Properties']}
         query={query}
@@ -76,25 +89,12 @@ const SingleProperty = () => {
           id={id}
           query={query}
         />
-        <Tab.Container
-          activeKey={currentTab}
-          id="single-property-profile"
-          className="mb-3"
-        >
-          <Tab.Content>
-            {allPropertyTabs.map(({ key, title, fields }) => (
-              <Tab.Pane eventKey={key} key={key}>
-                <TabInformation
-                  id={id}
-                  title={title}
-                  property={{ id, ...result?.attributes }}
-                  data={fields}
-                  setCurrentTab={setCurrentTab}
-                />
-              </Tab.Pane>
-            ))}
-          </Tab.Content>
-        </Tab.Container>
+        <TabContent
+          name="properties"
+          allTabs={allTabs}
+          id={id}
+          result={result}
+        />
       </ContentLoader>
     </Backend>
   );
@@ -125,11 +125,11 @@ const PropertyHeader = ({
                 <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-2 pe-2">
                   <Location /> {getLocationFromAddress(project)}
                 </div>
-                {/* <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-3 pe-2">
+                <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-3 pe-2">
                   <span className="d-flex align-items-center fw-bold text-success">
                     <GoPrimitiveDot /> {ROLE_NAME[status]}
                   </span>
-                </div> */}
+                </div>
                 <div className="d-flex flex-wrap fs-6 my-2">
                   <Button
                     color="none"
@@ -183,7 +183,7 @@ const PropertyHeader = ({
         </div>
 
         <ul className="nav fs-5 pt-5 fw-bolder">
-          {allPropertyTabs.map(({ key }) => (
+          {allTabs.map(({ key }) => (
             <li
               key={key}
               className="nav-item"
@@ -199,45 +199,6 @@ const PropertyHeader = ({
             </li>
           ))}
         </ul>
-      </div>
-    </section>
-  );
-};
-
-const TabInformation = ({ property, title, data }) => {
-  const { tenants } = property;
-  return (
-    <section>
-      <div className="card">
-        <div className="table-responsive">
-          <table className="table table-border">
-            <thead>
-              <tr>
-                <th colSpan="5">
-                  <h5 className="my-3">{title}</h5>
-                </th>
-              </tr>
-            </thead>
-            {!data || data.length === 0 ? (
-              <h1>There is no data to display</h1>
-            ) : (
-              <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <th width="250">{camelToSentence(item)}</th>
-                    <td>
-                      {item === 'description' ? (
-                        <ReactMarkdown>{property[item]}</ReactMarkdown>
-                      ) : (
-                        processData(property[item])
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            )}
-          </table>
-        </div>
       </div>
     </section>
   );

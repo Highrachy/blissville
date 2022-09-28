@@ -117,3 +117,11 @@
     }
   }
 }
+
+.table-content {
+  padding: 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    padding: 2rem;
+  }
+}

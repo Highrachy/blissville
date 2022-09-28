@@ -607,7 +607,7 @@ $line-height-base: 1.8;
 
 // // scss-docs-start headings-variables
 // $headings-margin-bottom: $spacer * 0.5 !default;
-$headings-font-family: $headings-font;
+$headings-font-family: $headings-font, sans-serif;
 // $headings-font-style: null !default;
 $headings-font-weight: 600;
 $headings-line-height: 1.6;

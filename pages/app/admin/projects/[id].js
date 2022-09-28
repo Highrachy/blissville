@@ -5,29 +5,19 @@ import { ContentLoader } from '@/components/utils/LoadingItems';
 import { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Button from '@/components/forms/Button';
-import {
-  camelToSentence,
-  getLocationFromAddress,
-  processData,
-} from '@/utils/helpers';
-import { Tab } from 'react-bootstrap';
-import classNames from 'classnames';
-import ReactMarkdown from 'react-markdown';
-import Humanize from 'humanize-plus';
-import { GoPrimitiveDot } from 'react-icons/go';
-import ProcessButton from '@/components/utils/ProcessButton';
+import { getLocationFromAddress } from '@/utils/helpers';
 import { Location } from 'iconsax-react';
-import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
+import { USER_ROLES } from '@/utils/constants';
 import { PropertiesRowList } from '../properties';
+import TabContent from '@/components/admin/TabContent';
 
 const pageOptions = {
   key: 'project',
   pageName: 'Project',
 };
 
-const allProjectTabs = [
+const allTabs = [
   {
-    key: 'Overview',
     title: 'Overview',
     fields: [
       'name',
@@ -45,16 +35,16 @@ const allProjectTabs = [
     ],
   },
   {
-    key: 'Properties',
     title: 'Properties',
-    fields: [],
+    Component: ({ result }) => (
+      <PropertiesRowList results={result?.properties?.data || []} offset={0} />
+    ),
   },
 ];
 
 const SingleProject = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [currentTab, setCurrentTab] = React.useState(allProjectTabs[0].key);
 
   const [query, result] = useSWRQuery({
     name: id ? [pageOptions.key, id] : id,
@@ -67,39 +57,16 @@ const SingleProject = () => {
   });
 
   return (
-    <Backend title="Single Project" role={USER_ROLES.ADMIN}>
+    <Backend title="Projects" role={USER_ROLES.ADMIN}>
       <ContentLoader
         Icon={adminMenu['Projects']}
         query={query}
         results={result}
         name={pageOptions.pageName}
       >
-        <ProjectHeader
-          currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
-          {...result?.attributes}
-          id={id}
-          query={query}
-        />
-        <Tab.Container
-          activeKey={currentTab}
-          id="single-project-profile"
-          className="mb-3"
-        >
-          <Tab.Content>
-            {allProjectTabs.map(({ key, title, fields }) => (
-              <Tab.Pane eventKey={key} key={key}>
-                <TabInformation
-                  id={id}
-                  title={title}
-                  project={{ id, ...result?.attributes }}
-                  data={fields}
-                  setCurrentTab={setCurrentTab}
-                />
-              </Tab.Pane>
-            ))}
-          </Tab.Content>
-        </Tab.Container>
+        <ProjectHeader {...result?.attributes} id={id} query={query} />
+
+        <TabContent name="projects" allTabs={allTabs} id={id} result={result} />
       </ContentLoader>
     </Backend>
   );
@@ -184,78 +151,8 @@ const ProjectHeader = ({
             </div>
           </div>
         </div>
-
-        <ul className="nav fs-5 pt-5 fw-bolder">
-          {allProjectTabs.map(({ key }) => (
-            <li
-              key={key}
-              className="nav-item"
-              onClick={() => setCurrentTab(key)}
-            >
-              <span
-                className={classNames('nav-link tab-header', {
-                  active: currentTab === key,
-                })}
-              >
-                {key}
-              </span>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
 };
-
-const TabInformation = ({ project, title, data }) => {
-  console.log('project: ', project);
-  return (
-    <section>
-      {title === allProjectTabs[1].title ? (
-        <PropertiesRowList
-          results={project?.properties?.data || []}
-          offset={0}
-        />
-      ) : (
-        <div className="card">
-          <div className="table-responsive">
-            <table className="table table-border">
-              <thead>
-                <tr>
-                  <th colSpan="5">
-                    <h5 className="my-3">{title}</h5>
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {!data || data.length === 0 ? (
-                  <tr>
-                    <td colSpan="5">
-                      <h3> There is no data to display</h3>
-                    </td>
-                  </tr>
-                ) : (
-                  data.map((item, index) => (
-                    <tr key={index}>
-                      <th width="250">{camelToSentence(item)}</th>
-                      <td>
-                        {item === 'description' ? (
-                          <ReactMarkdown>{project[item]}</ReactMarkdown>
-                        ) : (
-                          processData(project[item])
-                        )}
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-    </section>
-  );
-};
-
 export default SingleProject;
