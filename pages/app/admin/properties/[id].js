@@ -6,12 +6,12 @@ import { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Button from '@/components/forms/Button';
 import { getLocationFromAddress } from '@/utils/helpers';
-import classNames from 'classnames';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Location } from 'iconsax-react';
 import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
 import TabContent, { TabContentHeader } from '@/components/admin/TabContent';
 import ManageGallery from '@/components/utils/ManageGallery';
+import ManageFloorPlan from '@/components/utils/ManageFloorPlan';
 
 const pageOptions = {
   key: 'property',
@@ -58,11 +58,18 @@ const SingleProperty = () => {
         </>
       ),
     },
-    // {
-    //   title: 'Gallery',
-    //   fields: [],
-    //   Component: () => <ManageGallery title="Gallery" />,
-    // },
+    {
+      title: 'Floor Plan',
+      Component: () => (
+        <>
+          <ManageFloorPlan
+            id={id}
+            data={result?.attributes?.floor_plans?.data}
+            query={query}
+          />
+        </>
+      ),
+    },
   ];
   const [currentTab, setCurrentTab] = React.useState(allTabs[0].key);
 

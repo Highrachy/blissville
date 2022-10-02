@@ -1,91 +1,88 @@
-import { getError, statusIsSuccessful } from '@/utils/helpers';
+import { getError, statusIsSuccessful, valuesToOptions } from '@/utils/helpers';
 import { getTokenFromStore } from '@/utils/localStorage';
 import axios from 'axios';
 import React from 'react';
 import { toast } from 'react-toastify';
 import Button from '../forms/Button';
 import FormikForm from '../forms/FormikForm';
-import Upload from '../forms/Upload';
-import Textarea from '@/components/forms/Textarea';
 import FormikButton from '@/components/forms/FormikButton';
 import DeleteButton from '@/components/utils/DeleteButton';
+import { floorPlanSchema } from '../forms/schemas/admin-schema';
+import Input from '../forms/Input';
+import Upload from '../forms/Upload';
 import { LocalImage } from '../common/Image';
-import { gallerySchema } from '../forms/schemas/admin-schema';
 
-const ManageGallery = ({ type, data, id, query }) => {
+const ManageFloorPlan = ({ data, id, query }) => {
   const [showAddNewForm, setShowAddNewForm] = React.useState(false);
-  const [selectedImage, setSelectedImage] = React.useState(null);
+  const [selectedFloorPlan, setSelectedFloorPlan] = React.useState(null);
 
   return (
     <div>
       <h3>
-        {!showAddNewForm ? 'View All Galleries' : 'Add New Gallery'}
+        {!showAddNewForm ? 'View All Floor Plan' : 'Add New Floor Plan'}
         <div className="text-end">
           <Button
             color={showAddNewForm ? 'danger' : 'primary'}
             className="btn-sm"
             onClick={() => {
-              setSelectedImage(null);
+              setSelectedFloorPlan(null);
               setShowAddNewForm(!showAddNewForm);
             }}
           >
-            {showAddNewForm ? 'View All Galleries' : 'Add New Gallery'}
+            {showAddNewForm ? 'View All Floor Plans' : 'Add New Floor Plan'}
           </Button>
         </div>
       </h3>
       {showAddNewForm ? (
-        <ManageGalleryForm
-          type={type}
-          typeId={id}
-          selectedImage={selectedImage}
+        <ManageFloorPlanForm
+          propertyId={id}
+          selectedFloorPlan={selectedFloorPlan}
           setShowAddNewForm={setShowAddNewForm}
           query={query}
         />
       ) : data.length > 0 ? (
         <div className="row row-cols-2 row-cols-md-3 g-4">
           {data.map(({ id, attributes }) => (
-            <SingleGallery
+            <SingleFloorPlan
               key={id}
               query={query}
               id={id}
-              typeToDelete={type}
               {...attributes}
               setShowAddNewForm={setShowAddNewForm}
-              setSelectedImage={setSelectedImage}
+              setSelectedFloorPlan={setSelectedFloorPlan}
             />
           ))}
         </div>
       ) : (
-        <p className="text-center">No Gallery Found</p>
+        <p className="text-center">No Floor Plan Found</p>
       )}
     </div>
   );
 };
 
-const ManageGalleryForm = ({
-  type,
-  typeId,
+const ManageFloorPlanForm = ({
+  propertyId,
   setShowAddNewForm,
   query,
-  selectedImage,
+  selectedFloorPlan,
 }) => {
   const handleSubmit = async (values, actions) => {
     const payload = values;
-    const isEdit = selectedImage !== null;
-    const id = selectedImage?.id;
+    const isEdit = selectedFloorPlan !== null;
+    const id = selectedFloorPlan?.id;
     try {
       axios({
         method: isEdit ? 'put' : 'post',
         url: isEdit
-          ? `${process.env.NEXT_PUBLIC_API_URL}/api/${type}-galleries/${id}`
-          : `${process.env.NEXT_PUBLIC_API_URL}/api/${type}-galleries`,
-        data: { data: { ...payload, [type]: typeId } },
+          ? `${process.env.NEXT_PUBLIC_API_URL}/api/floor-plans/${id}`
+          : `${process.env.NEXT_PUBLIC_API_URL}/api/floor-plans`,
+        data: { data: { ...payload, property: propertyId } },
         headers: { Authorization: getTokenFromStore() },
       })
         .then(function (response) {
           const { status } = response;
           if (statusIsSuccessful(status)) {
-            toast.success('Gallery has been successfully updated');
+            toast.success('Floor Plan has been successfully updated');
             setShowAddNewForm(false);
             query.mutate();
             return;
@@ -100,14 +97,15 @@ const ManageGalleryForm = ({
   };
   return (
     <FormikForm
-      schema={gallerySchema}
+      schema={floorPlanSchema}
       handleSubmit={handleSubmit}
-      initialValues={selectedImage}
-      name={`${type}-${typeId}-gallery`}
+      initialValues={selectedFloorPlan}
+      name={`floorplan-${propertyId}`}
       showFormikState
       showAllFormikState
     >
       <div className="row">
+        <Input label="Title" name="title" />
         <Upload
           label="Upload your image"
           changeText="Update Picture"
@@ -119,42 +117,38 @@ const ManageGalleryForm = ({
           }}
           name="image"
           uploadText={`Upload Picture`}
-          folder={type}
+          folder={'floor-plans'}
         />
-
-        <Textarea label="Description" name="description" rows={3} optional />
       </div>
       <FormikButton color="info" className="mt-5">
-        Save Image
+        Save Floor Plan
       </FormikButton>
     </FormikForm>
   );
 };
 
-const SingleGallery = ({
+const SingleFloorPlan = ({
   id,
-  image,
-  description,
-  setSelectedImage,
+  number,
+  setSelectedFloorPlan,
   setShowAddNewForm,
-  typeToDelete,
   query,
+  ...props
 }) => {
+  const { title, image } = props;
   return (
     <div className="col">
       <div className="gallery-listing overflow-hidden bg-gray-50 card h-100">
         <div className="img-wrapper">
           <LocalImage
             src={image}
-            name="gallery Image"
+            name="floor plan Image"
             className="card-img-top img-fluid"
           />
         </div>
         <div className="card-body p-4">
           <div className="row">
-            <div className="text-gray-700 text-sm font-secondary">
-              {description}
-            </div>
+            <div className="text-gray-700 text-sm font-secondary">{title}</div>
           </div>
 
           <hr className="dotted-border" />
@@ -162,15 +156,15 @@ const SingleGallery = ({
           <Button
             onClick={() => {
               setShowAddNewForm(true);
-              setSelectedImage({ id, image, description });
+              setSelectedFloorPlan({ id, ...props });
             }}
             className="mt-md-5 mt-4 btn-sm px-4 py-2 text-white text-sm fw-medium"
           >
-            Edit Gallery
+            Edit Floor Plan
           </Button>
           <DeleteButton
             afterSuccess={() => query.mutate()}
-            api={`${typeToDelete}-galleries/${id}`}
+            api={`floor-plans/${id}`}
             buttonSizeClassName="btn-sm"
           >
             Delete
@@ -181,4 +175,4 @@ const SingleGallery = ({
   );
 };
 
-export default ManageGallery;
+export default ManageFloorPlan;

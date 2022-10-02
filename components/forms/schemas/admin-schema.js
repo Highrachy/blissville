@@ -56,3 +56,16 @@ export const gallerySchema = {
   image: stringValidation('Image'),
   description: optionalValidation(stringValidation('Image Description')),
 };
+export const neighborhoodSchema = {
+  location: stringValidation('Location'),
+  category: stringValidation('Category'),
+  distance: stringValidation('Distance'),
+};
+export const floorPlanSchema = {
+  image: stringValidation('Image'),
+  title: stringValidation('Title'),
+};
+export const faqSchema = {
+  question: stringValidation('Question'),
+  answer: stringValidation('Answer'),
+};

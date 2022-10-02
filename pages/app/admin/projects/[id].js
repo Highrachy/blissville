@@ -11,6 +11,8 @@ import { USER_ROLES } from '@/utils/constants';
 import { PropertiesRowList } from '../properties';
 import TabContent from '@/components/admin/TabContent';
 import ManageGallery from '@/components/utils/ManageGallery';
+import ManageNeighborhood from '@/components/utils/ManageNeighborhood ';
+import ManageFAQs from '@/components/utils/ManageFAQs';
 
 const pageOptions = {
   key: 'project',
@@ -66,6 +68,30 @@ const SingleProject = () => {
             type="project"
             id={id}
             data={result?.attributes?.project_galleries?.data}
+            query={query}
+          />
+        </>
+      ),
+    },
+    {
+      title: 'Neighborhood',
+      Component: () => (
+        <>
+          <ManageNeighborhood
+            id={id}
+            data={result?.attributes?.neighborhoods?.data}
+            query={query}
+          />
+        </>
+      ),
+    },
+    {
+      title: 'FAQs',
+      Component: () => (
+        <>
+          <ManageFAQs
+            id={id}
+            data={result?.attributes?.faqs?.data}
             query={query}
           />
         </>
