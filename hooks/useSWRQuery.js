@@ -38,7 +38,7 @@ const fetchQuery =
 
 const getQueryOptions = (queryOptions = {}) => ({
   revalidateIfStale: true, // automatically revalidate even if there is stale data
-  revalidateOnFocus: true, // automatically revalidate when window gets focused
+  revalidateOnFocus: false, // automatically revalidate when window gets focused
   revalidateOnReconnect: true, // automatically revalidate when the browser regains a network connection
   refreshInterval: 0, // disable refresh
   onError: (error, key) => {

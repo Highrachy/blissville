@@ -52,3 +52,7 @@ export const filterSchema = {
   field: stringValidation('Field'),
   value: required('Value'),
 };
+export const gallerySchema = {
+  image: stringValidation('Image'),
+  description: optionalValidation(stringValidation('Image Description')),
+};

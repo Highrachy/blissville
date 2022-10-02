@@ -5,64 +5,22 @@ import { ContentLoader } from '@/components/utils/LoadingItems';
 import { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Button from '@/components/forms/Button';
-import {
-  camelToSentence,
-  getLocationFromAddress,
-  processData,
-} from '@/utils/helpers';
-import { Tab } from 'react-bootstrap';
+import { getLocationFromAddress } from '@/utils/helpers';
 import classNames from 'classnames';
-import ReactMarkdown from 'react-markdown';
-import Humanize from 'humanize-plus';
 import { GoPrimitiveDot } from 'react-icons/go';
-import ProcessButton from '@/components/utils/ProcessButton';
 import { Location } from 'iconsax-react';
 import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
 import TabContent, { TabContentHeader } from '@/components/admin/TabContent';
+import ManageGallery from '@/components/utils/ManageGallery';
 
 const pageOptions = {
   key: 'property',
   pageName: 'Property',
 };
 
-const allTabs = [
-  {
-    title: 'Overview',
-    fields: [
-      'name',
-      'type',
-      'description',
-      'totalUnits',
-      'availableUnits',
-      'baths',
-      'beds',
-      'toilets',
-    ],
-  },
-  {
-    title: 'Floor Plans',
-    fields: [],
-    Component: () => (
-      <>
-        <TabContentHeader isTableContent={false} title="Floor Plans ***">
-          <ManageItem />
-        </TabContentHeader>
-      </>
-    ),
-  },
-  {
-    title: 'Gallery',
-    fields: [],
-    Component: () => <ManageItem />,
-  },
-];
-
-const ManageItem = () => <h2>Manage Item</h2>;
-
 const SingleProperty = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [currentTab, setCurrentTab] = React.useState(allTabs[0].key);
 
   const [query, result] = useSWRQuery({
     name: id ? [pageOptions.key, id] : id,
@@ -73,6 +31,40 @@ const SingleProperty = () => {
       },
     },
   });
+  const allTabs = [
+    {
+      title: 'Overview',
+      fields: [
+        'name',
+        'type',
+        'description',
+        'totalUnits',
+        'availableUnits',
+        'baths',
+        'beds',
+        'toilets',
+      ],
+    },
+    {
+      title: 'Gallery',
+      Component: () => (
+        <>
+          <ManageGallery
+            type="property"
+            id={id}
+            data={result?.attributes?.property_galleries?.data}
+            query={query}
+          />
+        </>
+      ),
+    },
+    // {
+    //   title: 'Gallery',
+    //   fields: [],
+    //   Component: () => <ManageGallery title="Gallery" />,
+    // },
+  ];
+  const [currentTab, setCurrentTab] = React.useState(allTabs[0].key);
 
   return (
     <Backend title="Property" role={USER_ROLES.ADMIN}>
@@ -181,24 +173,6 @@ const PropertyHeader = ({
             </div>
           </div>
         </div>
-
-        <ul className="nav fs-5 pt-5 fw-bolder">
-          {allTabs.map(({ key }) => (
-            <li
-              key={key}
-              className="nav-item"
-              onClick={() => setCurrentTab(key)}
-            >
-              <span
-                className={classNames('nav-link tab-header', {
-                  active: currentTab === key,
-                })}
-              >
-                {key}
-              </span>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

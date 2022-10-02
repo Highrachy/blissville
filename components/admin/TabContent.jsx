@@ -57,7 +57,9 @@ const TabInformation = ({ result, title, data, Component }) => {
   return (
     <section>
       {Component ? (
-        <Component result={result} />
+        <TabContentHeader title={title} isTableContent={false}>
+          <Component result={result} />
+        </TabContentHeader>
       ) : (
         <TabContentHeader title={title}>
           {!data || data.length === 0 ? (

@@ -6,11 +6,11 @@ import { toast } from 'react-toastify';
 
 const FormikButton = ({ children, ...props }) => {
   const formikProps = useFormikContext();
-  const [loading, setLoading] = React.useState(false);
+  // const [loading, setLoading] = React.useState(false);
 
-  React.useEffect(() => {
-    setLoading(formikProps.isSubmitting);
-  }, [formikProps.isSubmitting]);
+  // React.useEffect(() => {
+  //   setLoading(formikProps.isSubmitting);
+  // }, [formikProps.isSubmitting]);
 
   const handleClick = () => {
     // formikProps.setSubmitting(true);
@@ -20,7 +20,7 @@ const FormikButton = ({ children, ...props }) => {
   };
 
   return (
-    <Button onClick={handleClick} {...props} loading={loading}>
+    <Button onClick={handleClick} {...props} loading={formikProps.isSubmitting}>
       {children}
     </Button>
   );

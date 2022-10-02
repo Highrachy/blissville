@@ -545,3 +545,10 @@ div.nav-link {
     background: currentColor;
   }
 }
+
+.gallery-listing {
+  img {
+    max-height: 15rem;
+    object-fit: cover;
+  }
+}

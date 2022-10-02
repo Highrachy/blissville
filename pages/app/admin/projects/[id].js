@@ -10,37 +10,12 @@ import { Location } from 'iconsax-react';
 import { USER_ROLES } from '@/utils/constants';
 import { PropertiesRowList } from '../properties';
 import TabContent from '@/components/admin/TabContent';
+import ManageGallery from '@/components/utils/ManageGallery';
 
 const pageOptions = {
   key: 'project',
   pageName: 'Project',
 };
-
-const allTabs = [
-  {
-    title: 'Overview',
-    fields: [
-      'name',
-      'type',
-      'image',
-      'description',
-      'street1',
-      'street2',
-      'city',
-      'state',
-      'features',
-      'paymentPlan',
-      'startDate',
-      'delivery',
-    ],
-  },
-  {
-    title: 'Properties',
-    Component: ({ result }) => (
-      <PropertiesRowList results={result?.properties?.data || []} offset={0} />
-    ),
-  },
-];
 
 const SingleProject = () => {
   const router = useRouter();
@@ -55,6 +30,48 @@ const SingleProject = () => {
       },
     },
   });
+
+  const allTabs = [
+    {
+      title: 'Overview',
+      fields: [
+        'name',
+        'type',
+        'image',
+        'description',
+        'street1',
+        'street2',
+        'city',
+        'state',
+        'features',
+        'paymentPlan',
+        'startDate',
+        'delivery',
+      ],
+    },
+    {
+      title: 'Properties',
+      Component: ({ result }) => (
+        <PropertiesRowList
+          results={result?.properties?.data || []}
+          offset={0}
+        />
+      ),
+    },
+    {
+      title: 'Gallery',
+      Component: () => (
+        <>
+          <ManageGallery
+            type="project"
+            id={id}
+            data={result?.attributes?.project_galleries?.data}
+            query={query}
+          />
+        </>
+      ),
+    },
+  ];
 
   return (
     <Backend title="Projects" role={USER_ROLES.ADMIN}>

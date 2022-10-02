@@ -83,9 +83,6 @@ const ProcessPropertyForm = ({ action, id, property, projectId }) => {
         .catch(function (error) {
           toast.error(getError(error));
         });
-
-      actions.setSubmitting(false);
-      actions.resetForm();
     } catch (error) {
       toast.error(getError(error));
     }
