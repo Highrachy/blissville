@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import Button from 'components/forms/Button';
 import { FiPlus } from 'react-icons/fi';
 
-const TopTitle = ({ children, buttonText, to }) => {
+const TopTitle = ({ children, buttonText, to, href }) => {
+  const link = to || href;
   return (
-    <div className="container-fluid mb-4">
+    <div className="container-fluid mb-3">
       <h3 className="text-color position-relative">
         {children}
-        {buttonText && to && (
+        {link && (
           <Button
             color="dark"
-            href={to}
+            href={link}
             className="position-absolute end-0 top-0"
           >
             {<FiPlus />}{' '}
@@ -27,11 +28,13 @@ TopTitle.propTypes = {
   buttonText: PropTypes.string,
   children: PropTypes.node.isRequired,
   to: PropTypes.any,
+  href: PropTypes.any,
 };
 
 TopTitle.defaultProps = {
-  buttonText: null,
+  buttonText: 'Add New',
   to: null,
+  href: null,
 };
 
 export default TopTitle;

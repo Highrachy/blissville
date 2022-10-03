@@ -10,8 +10,9 @@ import DeleteButton from '@/components/utils/DeleteButton';
 import { neighborhoodSchema } from '../forms/schemas/admin-schema';
 import Input from '../forms/Input';
 import Select from '../forms/Select';
-import { Card } from 'react-bootstrap';
+import Humanize from 'humanize-plus';
 import InputFormat from '../forms/InputFormat';
+import { TabContentHeader } from '../admin/TabContent';
 
 const NEIGHBORHOOD_CATEGORIES = [
   'Hospitals',
@@ -27,64 +28,57 @@ const NEIGHBORHOOD_CATEGORIES = [
 const ManageNeighborhood = ({ data, id, query }) => {
   const [showAddNewForm, setShowAddNewForm] = React.useState(false);
   const [selectedNeighborhood, setSelectedNeighborhood] = React.useState(null);
-
+  const currentAction = selectedNeighborhood?.action
+    ? Humanize.capitalize(selectedNeighborhood?.action)
+    : 'New';
+  const title = !showAddNewForm
+    ? 'Neighborhood'
+    : `${currentAction} Neighborhood`;
+  const buttonText = showAddNewForm ? 'View All' : 'Add New';
+  const ActionButton = (
+    <Button
+      color={showAddNewForm ? 'danger' : 'primary'}
+      className="btn-sm"
+      onClick={() => {
+        setSelectedNeighborhood(null);
+        setShowAddNewForm(!showAddNewForm);
+      }}
+    >
+      {buttonText} Neighborhood
+    </Button>
+  );
   return (
-    <div>
-      <h3>
-        {!showAddNewForm ? 'View All Neighborhood' : 'Add New Neighborhood'}
-        <div className="text-end">
-          <Button
-            color={showAddNewForm ? 'danger' : 'primary'}
-            className="btn-sm"
-            onClick={() => {
-              setSelectedNeighborhood(null);
-              setShowAddNewForm(!showAddNewForm);
-            }}
-          >
-            {showAddNewForm ? 'View All Neighborhood' : 'Add New Neighborhood'}
-          </Button>
-        </div>
-      </h3>
+    <TabContentHeader title={title} actionButton={ActionButton}>
       {showAddNewForm ? (
-        <ManageNeighborhoodForm
-          projectId={id}
-          selectedNeighborhood={selectedNeighborhood}
-          setShowAddNewForm={setShowAddNewForm}
-          query={query}
-        />
+        <tr>
+          <td colSpan="5">
+            <ManageNeighborhoodForm
+              projectId={id}
+              selectedNeighborhood={selectedNeighborhood}
+              setShowAddNewForm={setShowAddNewForm}
+              query={query}
+              currentAction={currentAction}
+            />
+          </td>
+        </tr>
       ) : data?.length > 0 ? (
-        <Card className="mt-2">
-          <div className="table-responsive">
-            <table className="table table-border table-hover">
-              <thead>
-                <tr>
-                  <th>S/N</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Description</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map(({ id, attributes }, index) => (
-                  <SingleNeighborhood
-                    key={id}
-                    number={index + 1}
-                    query={query}
-                    id={id}
-                    {...attributes}
-                    setShowAddNewForm={setShowAddNewForm}
-                    setSelectedNeighborhood={setSelectedNeighborhood}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
+        <>
+          {data.map(({ id, attributes }, index) => (
+            <SingleNeighborhood
+              key={id}
+              number={index + 1}
+              query={query}
+              id={id}
+              {...attributes}
+              setShowAddNewForm={setShowAddNewForm}
+              setSelectedNeighborhood={setSelectedNeighborhood}
+            />
+          ))}
+        </>
       ) : (
         <p className="text-center">No Neighborhood Found</p>
       )}
-    </div>
+    </TabContentHeader>
   );
 };
 
@@ -93,10 +87,12 @@ const ManageNeighborhoodForm = ({
   setShowAddNewForm,
   query,
   selectedNeighborhood,
+  currentAction,
 }) => {
+  console.log('selectedNeighborhood: ', selectedNeighborhood);
   const handleSubmit = async (values, actions) => {
     const payload = values;
-    const isEdit = selectedNeighborhood !== null;
+    const isEdit = currentAction === 'Edit';
     const id = selectedNeighborhood?.id;
     try {
       axios({
@@ -177,16 +173,16 @@ const SingleNeighborhood = ({
         <Button
           onClick={() => {
             setShowAddNewForm(true);
-            setSelectedNeighborhood({ id, ...props });
+            setSelectedNeighborhood({ id, ...props, action: 'edit' });
           }}
-          className="btn-sm"
+          className="btn-xs me-2"
         >
-          Edit Neighborhood
+          Edit
         </Button>
         <DeleteButton
           afterSuccess={() => query.mutate()}
           api={`neighborhoods/${id}`}
-          buttonSizeClassName="btn-sm"
+          buttonSizeClassName="btn-xs me-2"
         >
           Delete
         </DeleteButton>

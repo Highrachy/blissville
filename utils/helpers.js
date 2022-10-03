@@ -203,20 +203,22 @@ export const processData = (data, item) => {
   return '-';
 };
 
-export const getLocationFromAddress = (address) => {
+export const getLocationFromAddress = (address, shortForm = false) => {
   let output = '';
-  if (address.street1) {
+  if (shortForm) return `${address?.city}, ${address?.state}`;
+
+  if (address?.street1 && !shortForm) {
     output += address.street1.trim();
 
-    if (address.street2) {
+    if (address?.street2) {
       output += `, ${address.street2.trim()}`;
     }
 
-    if (address.city) {
+    if (address?.city) {
       output += `, ${address.city.trim()}`;
     }
 
-    if (address.state) {
+    if (address?.state) {
       output += `, ${address.state.trim()}.`;
     }
   }

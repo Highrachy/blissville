@@ -3,6 +3,18 @@
   background-color: $gray-500 !important;
 }
 
+.btn-none {
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  &.btn-link {
+    border: none !important;
+    &.text-sm {
+      font-size: 0.875rem !important;
+    }
+  }
+}
+
 .btn-secondary,
 .btn-warning {
   color: white !important;
@@ -26,6 +38,7 @@
 .btn-xs {
   font-size: 0.75rem;
   padding: 0.25rem 0.75rem;
+  border-radius: 2px;
 }
 
 .btn-dark,

@@ -8,10 +8,13 @@ import Button from '@/components/forms/Button';
 import { getLocationFromAddress } from '@/utils/helpers';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Location } from 'iconsax-react';
-import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
+import { ROLE_NAME, STATUS_NAME, USER_ROLES } from '@/utils/constants';
 import TabContent, { TabContentHeader } from '@/components/admin/TabContent';
 import ManageGallery from '@/components/utils/ManageGallery';
 import ManageFloorPlan from '@/components/utils/ManageFloorPlan';
+import Link from 'next/link';
+import { LocalImage } from '@/components/common/Image';
+import DeleteButton from '@/components/utils/DeleteButton';
 
 const pageOptions = {
   key: 'property',
@@ -107,76 +110,109 @@ const PropertyHeader = ({
   name,
   query,
   status,
+  image,
   type,
   ...propertyInfo
 }) => {
   const project = propertyInfo?.project?.data?.attributes;
+  const projectId = propertyInfo?.project?.data?.id;
   return (
     <section className="card mb-5">
-      <div className="card-body p-5 pb-0">
+      <div className="card-body p-5">
         <div className="d-flex flex-wrap flex-sm-nowrap">
+          <div className="">
+            <div className="d-block me-3 position-relative">
+              <LocalImage
+                src={image}
+                name={name}
+                className="img-xl"
+                rounded
+                responsiveImage={false}
+              />
+            </div>
+          </div>
           <div className="flex-grow-1">
-            <div className="d-flex justify-content-between align-items-start flex-wrap mb-3">
+            <div className="d-flex justify-content-between align-items-start flex-wrap">
               <div className="d-flex flex-column">
-                <h4 className="d-flex align-items-center mb-2">
-                  {name} - {project?.name}
-                </h4>
-                <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-2 pe-2">
-                  <Location /> {getLocationFromAddress(project)}
-                </div>
-                <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-3 pe-2">
-                  <span className="d-flex align-items-center fw-bold text-success">
-                    <GoPrimitiveDot /> {ROLE_NAME[status]}
-                  </span>
-                </div>
-                <div className="d-flex flex-wrap fs-6 my-2">
-                  <Button
-                    color="none"
-                    className="btn-xs btn-outline-dark"
+                <h4 className="d-flex align-items-center mb-2">{name}</h4>
+                <div className="d-flex text-sm flex-wrap align-items-center fs-6 mb-2 pe-2">
+                  <Link
                     href={{
-                      pathname: '/properties/[slug]',
+                      pathname: '/app/admin/projects/[id]',
+                      query: { id: projectId },
+                    }}
+                    passHref
+                  >
+                    <a className="text-underline text-muted fw-bold">
+                      {project.name}
+                    </a>
+                  </Link>
+                </div>
+                {/* <div className="d-flex text-muted flex-wrap align-items-center fs-6 mb-3 pe-2">
+                  <span className="d-flex align-items-center fw-bold text-primary">
+                    <GoPrimitiveDot /> {STATUS_NAME[status]}
+                  </span>
+                </div> */}
+                <div className="d-flex flex-wrap fs-6 my-2">
+                  <Link
+                    href={{
+                      pathname: '/our-properties/[slug]',
                       query: { slug },
                     }}
+                    passHref
                   >
-                    View on Website
-                  </Button>
-                  &nbsp;&nbsp;&nbsp;
-                  <Button
-                    color="none"
-                    className="btn-xs btn-outline-primary"
+                    <a className="text-underline text-muted text-sm me-3">
+                      View on Website
+                    </a>
+                  </Link>
+                  |
+                  <Link
                     href={{
-                      pathname: 'app/admin/properties/new',
-                      query: { id, action: 'edit' },
+                      pathname: '/app/admin/properties/new',
+                      query: { id, projectId, action: 'edit' },
                     }}
+                    passHref
                   >
-                    Edit Property
-                  </Button>
-                  &nbsp;&nbsp;&nbsp;
-                  <Button
-                    color="info"
-                    className="btn-xs"
+                    <a className="text-underline text-success text-sm mx-3">
+                      Edit Property
+                    </a>
+                  </Link>
+                  |
+                  <Link
                     href={{
-                      pathname: 'app/admin/properties/new',
-                      query: { id, action: 'duplicate' },
+                      pathname: '/app/admin/properties/new',
+                      query: { id, projectId, action: 'duplicate' },
                     }}
+                    passHref
                   >
-                    Duplicate Property
-                  </Button>
+                    <a className="text-underline text-info text-sm mx-3">
+                      Duplicate Property
+                    </a>
+                  </Link>
+                  |
+                  <DeleteButton
+                    afterSuccess={() => query.mutate()}
+                    api={`properties/${id}`}
+                    buttonSizeClassName="text-danger btn-link text-sm mx-3"
+                    buttonColor="none"
+                  >
+                    Delete Property
+                  </DeleteButton>
                 </div>
               </div>
               {/* Action */}
-              <div className="d-flex">
+              {/* <div className="d-flex">
                 <Button
                   color="dark"
                   className="btn-sm"
                   href={{
                     pathname: '/app/admin/projects/[id]',
-                    query: { id: propertyInfo?.project?.data?.id },
+                    query: { id: projectId },
                   }}
                 >
                   View Project
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

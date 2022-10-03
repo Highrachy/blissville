@@ -54,7 +54,7 @@ $orange: $warning-500;
 $yellow: $warning-400;
 $green: $secondary-600;
 $teal: $secondary-700;
-$cyan: #0dcaf0;
+$cyan: #008ab8;
 // // scss-docs-end color-variables
 
 $text-color: $gray-800;
@@ -312,10 +312,10 @@ $green-900: $secondary-900;
 $primary: $blue;
 $secondary: $green;
 // $success: $green !default;
-// $info: $cyan !default;
-$warning: $warning-500;
+$info: $cyan;
+$warning: $warning-700;
 // $danger: $red !default;
-$danger: $error-500;
+$danger: $error-700;
 $dark: $gray-800;
 // // scss-docs-end theme-color-variables
 
@@ -638,7 +638,7 @@ $lead-font-weight: 300;
 
 // $sub-sup-font-size: 0.75em !default;
 
-// $text-muted: $gray-600 !default;
+$text-muted: $gray-700 !default;
 
 // $initialism-font-size: $small-font-size !default;
 

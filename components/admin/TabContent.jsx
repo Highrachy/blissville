@@ -53,13 +53,17 @@ const TabHeader = ({ allTabs, setCurrentTab, currentTab }) => (
   </ul>
 );
 
-const TabInformation = ({ result, title, data, Component }) => {
+const TabInformation = ({ result, title, data, Component, useTableHeader }) => {
   return (
     <section>
       {Component ? (
-        <TabContentHeader title={title} isTableContent={false}>
+        useTableHeader ? (
+          <TabContentHeader title={title} isTableContent={false}>
+            <Component result={result} />
+          </TabContentHeader>
+        ) : (
           <Component result={result} />
-        </TabContentHeader>
+        )
       ) : (
         <TabContentHeader title={title}>
           {!data || data.length === 0 ? (
@@ -89,17 +93,23 @@ const TabInformation = ({ result, title, data, Component }) => {
 };
 
 export const TabContentHeader = ({
+  actionButton,
   children,
   title,
   isTableContent = true,
 }) => (
-  <div className="card">
+  <div className="card position-relative">
     <div className="table-responsive">
       <table className="table table-border">
         <thead>
           <tr>
             <th colSpan="5">
-              <h5 className="my-3">{title}</h5>
+              <h5 className="my-3">
+                {title}
+                {actionButton && (
+                  <div className="float-end">{actionButton}</div>
+                )}
+              </h5>
             </th>
           </tr>
         </thead>

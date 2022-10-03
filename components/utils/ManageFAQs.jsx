@@ -11,66 +11,61 @@ import { faqSchema } from '../forms/schemas/admin-schema';
 import Input from '../forms/Input';
 import MdEditor from '../forms/MdEditor';
 import { Card } from 'react-bootstrap';
+import { TabContentHeader } from '../admin/TabContent';
 
 const ManageFAQs = ({ data, id, query }) => {
   const [showAddNewForm, setShowAddNewForm] = React.useState(false);
   const [selectedFAQ, setSelectedFAQ] = React.useState(null);
 
+  const currentAction = selectedFAQ?.action
+    ? Humanize.capitalize(selectedFAQ?.action)
+    : 'New';
+  const title = !showAddNewForm ? 'All FAQs' : `${currentAction} FAQ`;
+  const buttonText = showAddNewForm ? 'View All' : 'Add New';
+  const ActionButton = (
+    <Button
+      color={showAddNewForm ? 'danger' : 'primary'}
+      className="btn-sm"
+      onClick={() => {
+        setSelectedFAQ(null);
+        setShowAddNewForm(!showAddNewForm);
+      }}
+    >
+      {buttonText} FAQ
+    </Button>
+  );
+
   return (
-    <div>
-      <h3>
-        {!showAddNewForm ? 'View All FAQ' : 'Add New FAQ'}
-        <div className="text-end">
-          <Button
-            color={showAddNewForm ? 'danger' : 'primary'}
-            className="btn-sm"
-            onClick={() => {
-              setSelectedFAQ(null);
-              setShowAddNewForm(!showAddNewForm);
-            }}
-          >
-            {showAddNewForm ? 'View All FAQ' : 'Add New FAQ'}
-          </Button>
-        </div>
-      </h3>
+    <TabContentHeader title={title} actionButton={ActionButton}>
       {showAddNewForm ? (
-        <ManageFAQsForm
-          projectId={id}
-          selectedFAQ={selectedFAQ}
-          setShowAddNewForm={setShowAddNewForm}
-          query={query}
-        />
+        <tr>
+          <td colSpan="5">
+            <ManageFAQsForm
+              projectId={id}
+              selectedFAQ={selectedFAQ}
+              setShowAddNewForm={setShowAddNewForm}
+              query={query}
+            />
+          </td>
+        </tr>
       ) : data?.length > 0 ? (
-        <Card className="mt-2">
-          <div className="table-responsive">
-            <table className="table table-border table-hover">
-              <thead>
-                <tr>
-                  <th>S/N</th>
-                  <th>Question</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map(({ id, attributes }, index) => (
-                  <SingleFAQ
-                    key={id}
-                    number={index + 1}
-                    query={query}
-                    id={id}
-                    {...attributes}
-                    setShowAddNewForm={setShowAddNewForm}
-                    setSelectedFAQ={setSelectedFAQ}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
+        <>
+          {data.map(({ id, attributes }, index) => (
+            <SingleFAQ
+              key={id}
+              number={index + 1}
+              query={query}
+              id={id}
+              {...attributes}
+              setShowAddNewForm={setShowAddNewForm}
+              setSelectedFAQ={setSelectedFAQ}
+            />
+          ))}
+        </>
       ) : (
         <p className="text-center">No FAQ Found</p>
       )}
-    </div>
+    </TabContentHeader>
   );
 };
 
@@ -121,7 +116,7 @@ const ManageFAQsForm = ({
       <Input name="question" label="Question" />
       <MdEditor label="Answer" name="answer" height="10rem" />
 
-      <FormikButton color="info" className="mt-5">
+      <FormikButton color="secondary" className="mt-3">
         Save FAQ
       </FormikButton>
     </FormikForm>
@@ -152,14 +147,14 @@ const SingleFAQ = ({
             setShowAddNewForm(true);
             setSelectedFAQ({ id, ...props });
           }}
-          className="btn-sm"
+          className="btn-xs me-2"
         >
           Edit FAQ
         </Button>
         <DeleteButton
           afterSuccess={() => query.mutate()}
           api={`FAQs/${id}`}
-          buttonSizeClassName="btn-sm"
+          buttonSizeClassName="btn-xs me-2"
         >
           Delete
         </DeleteButton>

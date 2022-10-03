@@ -11,28 +11,36 @@ import { floorPlanSchema } from '../forms/schemas/admin-schema';
 import Input from '../forms/Input';
 import Upload from '../forms/Upload';
 import { LocalImage } from '../common/Image';
+import { TabContentHeader } from '../admin/TabContent';
 
 const ManageFloorPlan = ({ data, id, query }) => {
   const [showAddNewForm, setShowAddNewForm] = React.useState(false);
   const [selectedFloorPlan, setSelectedFloorPlan] = React.useState(null);
+  const currentAction = selectedFloorPlan?.action
+    ? Humanize.capitalize(selectedFloorPlan?.action)
+    : 'New';
+  const title = !showAddNewForm ? 'Floor Plan' : `${currentAction} Floor Plan`;
+  const buttonText = showAddNewForm ? 'View All' : 'Add New';
+
+  const ActionButton = (
+    <Button
+      color={showAddNewForm ? 'danger' : 'primary'}
+      className="btn-sm"
+      onClick={() => {
+        setSelectedFloorPlan(null);
+        setShowAddNewForm(!showAddNewForm);
+      }}
+    >
+      {buttonText} Floor Plan
+    </Button>
+  );
 
   return (
-    <div>
-      <h3>
-        {!showAddNewForm ? 'View All Floor Plan' : 'Add New Floor Plan'}
-        <div className="text-end">
-          <Button
-            color={showAddNewForm ? 'danger' : 'primary'}
-            className="btn-sm"
-            onClick={() => {
-              setSelectedFloorPlan(null);
-              setShowAddNewForm(!showAddNewForm);
-            }}
-          >
-            {showAddNewForm ? 'View All Floor Plans' : 'Add New Floor Plan'}
-          </Button>
-        </div>
-      </h3>
+    <TabContentHeader
+      title={title}
+      actionButton={ActionButton}
+      isTableContent={false}
+    >
       {showAddNewForm ? (
         <ManageFloorPlanForm
           propertyId={id}
@@ -40,7 +48,7 @@ const ManageFloorPlan = ({ data, id, query }) => {
           setShowAddNewForm={setShowAddNewForm}
           query={query}
         />
-      ) : data.length > 0 ? (
+      ) : data?.length > 0 ? (
         <div className="row row-cols-2 row-cols-md-3 g-4">
           {data.map(({ id, attributes }) => (
             <SingleFloorPlan
@@ -56,7 +64,7 @@ const ManageFloorPlan = ({ data, id, query }) => {
       ) : (
         <p className="text-center">No Floor Plan Found</p>
       )}
-    </div>
+    </TabContentHeader>
   );
 };
 
@@ -120,7 +128,7 @@ const ManageFloorPlanForm = ({
           folder={'floor-plans'}
         />
       </div>
-      <FormikButton color="info" className="mt-5">
+      <FormikButton color="secondary" className="mt-3">
         Save Floor Plan
       </FormikButton>
     </FormikForm>
@@ -138,7 +146,7 @@ const SingleFloorPlan = ({
   const { title, image } = props;
   return (
     <div className="col">
-      <div className="gallery-listing overflow-hidden bg-gray-50 card h-100">
+      <div className="floorplan-listing overflow-hidden bg-gray-50 card h-100">
         <div className="img-wrapper">
           <LocalImage
             src={image}

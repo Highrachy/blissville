@@ -11,28 +11,36 @@ import FormikButton from '@/components/forms/FormikButton';
 import DeleteButton from '@/components/utils/DeleteButton';
 import { LocalImage } from '../common/Image';
 import { gallerySchema } from '../forms/schemas/admin-schema';
+import { TabContentHeader } from '../admin/TabContent';
 
 const ManageGallery = ({ type, data, id, query }) => {
   const [showAddNewForm, setShowAddNewForm] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState(null);
+  const currentAction = selectedImage?.action
+    ? Humanize.capitalize(selectedImage?.action)
+    : 'New';
+  const title = !showAddNewForm ? 'Gallery' : `${currentAction} Gallery`;
+  const buttonText = showAddNewForm ? 'View All' : 'Add New';
+
+  const ActionButton = (
+    <Button
+      color={showAddNewForm ? 'danger' : 'primary'}
+      className="btn-sm"
+      onClick={() => {
+        setSelectedImage(null);
+        setShowAddNewForm(!showAddNewForm);
+      }}
+    >
+      {buttonText} Gallery
+    </Button>
+  );
 
   return (
-    <div>
-      <h3>
-        {!showAddNewForm ? 'View All Galleries' : 'Add New Gallery'}
-        <div className="text-end">
-          <Button
-            color={showAddNewForm ? 'danger' : 'primary'}
-            className="btn-sm"
-            onClick={() => {
-              setSelectedImage(null);
-              setShowAddNewForm(!showAddNewForm);
-            }}
-          >
-            {showAddNewForm ? 'View All Galleries' : 'Add New Gallery'}
-          </Button>
-        </div>
-      </h3>
+    <TabContentHeader
+      title={title}
+      actionButton={ActionButton}
+      isTableContent={false}
+    >
       {showAddNewForm ? (
         <ManageGalleryForm
           type={type}
@@ -41,7 +49,7 @@ const ManageGallery = ({ type, data, id, query }) => {
           setShowAddNewForm={setShowAddNewForm}
           query={query}
         />
-      ) : data.length > 0 ? (
+      ) : data?.length > 0 ? (
         <div className="row row-cols-2 row-cols-md-3 g-4">
           {data.map(({ id, attributes }) => (
             <SingleGallery
@@ -58,7 +66,7 @@ const ManageGallery = ({ type, data, id, query }) => {
       ) : (
         <p className="text-center">No Gallery Found</p>
       )}
-    </div>
+    </TabContentHeader>
   );
 };
 
@@ -124,7 +132,7 @@ const ManageGalleryForm = ({
 
         <Textarea label="Description" name="description" rows={3} optional />
       </div>
-      <FormikButton color="info" className="mt-5">
+      <FormikButton color="secondary" className="mt-3">
         Save Image
       </FormikButton>
     </FormikForm>
@@ -164,14 +172,14 @@ const SingleGallery = ({
               setShowAddNewForm(true);
               setSelectedImage({ id, image, description });
             }}
-            className="mt-md-5 mt-4 btn-sm px-4 py-2 text-white text-sm fw-medium"
+            className="btn-xs me-2"
           >
             Edit Gallery
           </Button>
           <DeleteButton
             afterSuccess={() => query.mutate()}
             api={`${typeToDelete}-galleries/${id}`}
-            buttonSizeClassName="btn-sm"
+            buttonSizeClassName="btn-xs me-2"
           >
             Delete
           </DeleteButton>

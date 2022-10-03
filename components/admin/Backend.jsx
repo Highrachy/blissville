@@ -27,7 +27,7 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
         role={role}
       />
       <div
-        className={`content-wrapper px-3 px-md-6 py-md-5 py-2 min-vh-100 bg-gray ${
+        className={`content-wrapper px-3 px-md-5 py-md-5 py-2 min-vh-100 bg-gray ${
           isFolded ? 'content-folded' : ''
         }`}
       >

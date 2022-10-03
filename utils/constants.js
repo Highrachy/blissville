@@ -26,6 +26,15 @@ export const ROLE_NAME = {
   [USER_ROLES['ADMIN']]: 'admin',
 };
 
+export const STATUS = {
+  CREATED: 0,
+  AVAILABLE: 10,
+};
+export const STATUS_NAME = {
+  [STATUS['CREATED']]: 'Created',
+  [STATUS['AVAILABLE']]: 'Available',
+};
+
 export const DATA_TYPE = {
   STRING: 'string',
   NUMBER: 'number',
