@@ -89,7 +89,6 @@ const ManageNeighborhoodForm = ({
   selectedNeighborhood,
   currentAction,
 }) => {
-  console.log('selectedNeighborhood: ', selectedNeighborhood);
   const handleSubmit = async (values, actions) => {
     const payload = values;
     const isEdit = currentAction === 'Edit';

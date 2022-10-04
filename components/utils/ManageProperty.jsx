@@ -1,4 +1,9 @@
-import { getError, statusIsSuccessful, valuesToOptions } from '@/utils/helpers';
+import {
+  generateNumOptions,
+  getError,
+  statusIsSuccessful,
+  valuesToOptions,
+} from '@/utils/helpers';
 import { getTokenFromStore } from '@/utils/localStorage';
 import axios from 'axios';
 import React from 'react';
@@ -17,6 +22,7 @@ import { FLOORS } from '@/utils/constants';
 import { LocalImage } from '../common/Image';
 import Humanize from 'humanize-plus';
 import { TabContentHeader } from '../admin/TabContent';
+import Select from '../forms/Select';
 
 const ManageProperty = ({ data, id, query }) => {
   const [showAddNewForm, setShowAddNewForm] = React.useState(false);
@@ -222,6 +228,21 @@ const PropertyFormFields = ({ isEdit }) => (
       <InputFormat
         label="Supreme Price"
         name="supremePrice"
+        prefix=""
+        formGroupClassName="col-sm-6"
+      />
+    </div>
+    <div className="row">
+      <Select
+        label="Payment Plan"
+        name="paymentPlan"
+        options={generateNumOptions(36, 'month', { startFrom: 2 })}
+        blankOption="Select Payment Plan"
+        formGroupClassName="col-sm-6"
+      />
+      <InputFormat
+        label="Payment Plan Increment"
+        name="paymentPlanIncrement"
         prefix=""
         formGroupClassName="col-sm-6"
       />

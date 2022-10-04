@@ -2,6 +2,7 @@ import humanize from 'humanize-plus';
 import { LocalImage } from '@/components/common/Image';
 import Link from 'next/link';
 import { getShortDate } from './date-helpers';
+import classNames from 'classnames';
 
 export const isDevEnvironment = () =>
   !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
@@ -250,3 +251,40 @@ export const getFormattedAddress = ({
     )}
   </address>
 );
+
+const PACKAGE = {
+  ALL: 'all',
+  SHELL: 'shell',
+  STANDARD: 'standard',
+  SUPREME: 'supreme',
+};
+
+export const listFeatures = (project, type = PACKAGE.ALL) => {
+  const features = {
+    [PACKAGE.SHELL]: project.features,
+    [PACKAGE.STANDARD]: project.standardFeatures,
+    [PACKAGE.SUPREME]: project.supremeFeatures,
+  };
+  const output = [];
+  // loop features and split string by , and push to output
+  Object.entries(features).forEach(([key, value]) => {
+    value?.split(',').forEach((feature) => {
+      output.push(
+        <li
+          key={feature}
+          className={classNames('col-md-4', {
+            invalid:
+              type !== PACKAGE.ALL &&
+              ((type === PACKAGE.SHELL && key !== PACKAGE.SHELL) ||
+                (type === PACKAGE.STANDARD && key === PACKAGE.SUPREME)),
+            standard: key === PACKAGE.STANDARD,
+            supreme: key === PACKAGE.SUPREME,
+          })}
+        >
+          {feature}
+        </li>
+      );
+    });
+  });
+  return <ul className="my-4 row list-features">{output}</ul>;
+};

@@ -6,7 +6,14 @@ import {
   SupremePackageIcon,
 } from '../Icons/Icons';
 
-const ComparePackages = () => {
+const ComparePackages = ({ project }) => {
+  const { features, standardFeatures, supremeFeatures } = project;
+  const allFeatures = [
+    ...features?.split(','),
+    ...standardFeatures?.split(','),
+    ...supremeFeatures?.split(','),
+  ];
+
   return (
     <section>
       <div className="table-responsive">
@@ -26,162 +33,21 @@ const ComparePackages = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="font-secondary">Cable TV Distribution</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Intercom System</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Security Fence</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Guest Toilet</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Spacious Kitchen</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Dedicated Parking</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Gym</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Water Treatment</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Maids Room</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Intercom System</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Surveillance System</td>
-              <td className="text-center">
-                <ShellPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Inverter System</td>
-              <td className="text-center">
-                <NoPackageIcon />
-              </td>
-              <td className="text-center">
-                <StandardPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
-            <tr>
-              <td className="font-secondary">Fire Detection</td>
-              <td className="text-center">
-                <NoPackageIcon />
-              </td>
-              <td className="text-center">
-                <NoPackageIcon />
-              </td>
-              <td className="text-center">
-                <SupremePackageIcon />
-              </td>
-            </tr>
+            {allFeatures.map((feature) => (
+              <tr key={feature}>
+                <td className="font-secondary">{feature}</td>
+                <td className="text-center">
+                  {features.includes(feature) && <ShellPackageIcon />}
+                </td>
+                <td className="text-center">
+                  {(features.includes(feature) ||
+                    standardFeatures.includes(feature)) && (
+                    <StandardPackageIcon />
+                  )}
+                </td>
+                <td className="text-center">{<SupremePackageIcon />}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -40,6 +40,10 @@ export const propertySchema = {
   price: positiveNumberValidation('Price'),
   standardPrice: optionalValidation(positiveNumberValidation('Standard Price')),
   supremePrice: optionalValidation(positiveNumberValidation('Supreme Price')),
+  paymentPlan: optionalValidation(numberValidation('Payment Plan')),
+  paymentPlanIncrement: optionalValidation(
+    numberValidation('Payment Plan Increment')
+  ),
 };
 
 export const featureSchema = {

@@ -38,7 +38,6 @@ const New = () => {
 };
 
 const ProcessPropertyForm = ({ action, property, projectId }) => {
-  console.log('property: ', property);
   const currentAction = action ? Humanize.capitalize(action) : 'New';
 
   return (

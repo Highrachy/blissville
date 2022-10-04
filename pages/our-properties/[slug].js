@@ -1,4 +1,5 @@
 import React from 'react';
+import Humanize from 'humanize-plus';
 import Image from 'next/image';
 import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
@@ -28,8 +29,22 @@ import Textarea from '@/components/forms/Textarea';
 import ComparePackages from '@/components/layouts/ComparePackages';
 import PaymentPlanSlider from '@/components/common/PaymentPlanSlider';
 import { Convertshape, Magicpen } from 'iconsax-react';
+import { useRouter } from 'next/router';
+import {
+  getLocationFromAddress,
+  listFeatures,
+  moneyFormatInNaira,
+} from '@/utils/helpers';
 
-export default function SinglePropertyPage() {
+export default function SinglePropertyPage({ property }) {
+  const router = useRouter();
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Navigation />
@@ -39,14 +54,14 @@ export default function SinglePropertyPage() {
         bgImage="/assets/img/bg/investors.jpeg"
       />
 
-      <PropertyInformation />
-      <TabInformation />
+      <PropertyInformation property={property} />
+      <TabInformation property={property} />
 
       <Gallery />
       <Neighborhood />
       <section className="container">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-12">
             {projectFaqs.map(({ name, faqs: allFaqs }, index) => (
               <div className="mt-5 col-12 faqs-section" key={index}>
                 <h4>{name}</h4>
@@ -54,7 +69,7 @@ export default function SinglePropertyPage() {
               </div>
             ))}
           </div>
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <div className="my-4 mb-5">
               <div className="border rounded p-4 mt-0 mt-md-6">
                 <h6 className="">Compare Property</h6>
@@ -68,7 +83,7 @@ export default function SinglePropertyPage() {
                 </Button>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -86,24 +101,27 @@ export default function SinglePropertyPage() {
   );
 }
 
-const PropertyInformation = () => {
+const PropertyInformation = ({ property }) => {
   const [showModal, setShowModal] = React.useState(false);
+  const { name, price, image, type, floors, size, parkingSpace, paymentPlan } =
+    property;
+  const project = property.project.data.attributes;
   return (
     <Section>
       <div className="container">
         <div className="row">
           <div className="col-sm-8">
-            <h2>3 Bedroom Apartment</h2>
+            <h2>{name}</h2>
             <p className="fw-bold text-gray-700">
               <BuildingIcon />
               &nbsp;
-              <Link href="/our-projects/3-bedroom-apartment" passHref>
-                <a className="text-reset">Blissville Uno</a>
+              <Link href={`/our-projects/${project.slug}`} passHref>
+                <a className="text-reset">{project.name}</a>
               </Link>{' '}
-              &nbsp;- 70 Adetokunbo Ademola Street, VI, Lagos
+              &nbsp;- {getLocationFromAddress(project)}
             </p>
 
-            <h3 className="text-primary">₦35,000,000</h3>
+            <h3 className="text-primary">{moneyFormatInNaira(price)}</h3>
           </div>
           <div className="col-sm-4 text-md-end mb-4 mb-md-0">
             <Button color="light" onClick={() => setShowModal(true)}>
@@ -130,8 +148,8 @@ const PropertyInformation = () => {
           <div className="col-md-8">
             <div className="mb-3 img-property img-fill">
               <Image
-                src="/assets/img/property/property1.jpeg"
-                alt="Hero Image"
+                src={image}
+                alt={name}
                 layout="fill"
                 objectFit="cover"
                 className="img-fluid rounded"
@@ -161,40 +179,41 @@ const PropertyInformation = () => {
               <ul className="list-dotted list-unstyled">
                 <li>
                   <span className="list-dotted__label">Property Name </span>
-                  <span className="list-dotted__value">Blissville Duos</span>
+                  <span className="list-dotted__value">{name}</span>
                 </li>
                 <li>
                   <span className="list-dotted__label">Property Type </span>
-                  <span className="list-dotted__value">
-                    3 Bedroom Apartments
-                  </span>
+                  <span className="list-dotted__value">{type}</span>
                 </li>
                 <li>
                   <span className="list-dotted__label">Prices From </span>
-                  <span className="list-dotted__value">₦ 35 Million</span>
+                  <span className="list-dotted__value">
+                    {moneyFormatInNaira(price)}
+                  </span>
                 </li>
                 <li>
                   <span className="list-dotted__label">Floor </span>
-                  <span className="list-dotted__value">2nd & 3rd Floor</span>
+                  <span className="list-dotted__value">{floors}</span>
                 </li>
                 <li>
                   <span className="list-dotted__label">Size </span>
-                  <span className="list-dotted__value">155msq</span>
+                  <span className="list-dotted__value">{size} msq</span>
                 </li>
                 <li>
                   <span className="list-dotted__label">Parking Space </span>
-                  <span className="list-dotted__value">2 Cars</span>
+                  <span className="list-dotted__value">
+                    {parkingSpace} {Humanize.pluralize(parkingSpace, 'Car')}
+                  </span>
                 </li>
                 <li>
                   <span className="list-dotted__label">Payment Plan</span>
-                  <span className="list-dotted__value">12 Months</span>
+                  <span className="list-dotted__value">
+                    {paymentPlan} {Humanize.pluralize(paymentPlan, 'Month')}
+                  </span>
                 </li>
                 <li className="text-center">
-                  <Button
-                    href="/our-projects/3-bedroom-apartments"
-                    color="light"
-                  >
-                    Schedule Visit{' '}
+                  <Button color="light" href="/our-properties/compare">
+                    Compare Property <Convertshape variant="Bulk" />
                   </Button>
                 </li>
               </ul>
@@ -205,34 +224,9 @@ const PropertyInformation = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-8">
-            <p className="lead">
-              You can now experience true tranquility with our elevated
-              apartment units and penthouses. Each unit is a 3 bedroom 185MSq
-              with maids room, four bathrooms and five toilets, living room,
-              dining space, kitchen, pantry, guest toilet and dedicated parking
-              lots. <br />
-              The standard apartments sit on the 2nd floor while the penthouses
-              are on the 3rd floor. They are similar in design with three
-              bedrooms each and an adjoining staff room. Owners of the
-              apartments enjoy all the benefits that come with leaving in
-              Blissville.
-            </p>
-            <ul className="my-4 row list-features">
-              <li className="col-md-4">Cable TV Distribution</li>
-              <li className="col-md-4">Intercom System</li>
-              <li className="col-md-4">Security Fence</li>
-              <li className="col-md-4">Guest Toilet</li>
-              <li className="col-md-4">Spacious Kitchen</li>
-              <li className="col-md-4">Dedicated Parking</li>
-              <li className="col-md-4">Gym</li>
-              <li className="col-md-4">Maids Room</li>
-              <li className="col-md-4">Intercom System</li>
-              <li className="col-md-4">Water Treatment</li>
-              <li className="col-md-4">Surveillance System</li>
-              <li className="col-md-4 green">Inverter System</li>
-              <li className="col-md-4 gold">Fire Detection</li>
-            </ul>
-            <ActionButtonGroup />
+            <article className="lead">{property.description}</article>
+            {listFeatures(project)}
+            <ActionButtonGroup price={price} />
 
             <div className="mb-5"></div>
           </div>
@@ -286,6 +280,14 @@ const PropertyInformation = () => {
                 />
               </FormikForm>
             </div>
+
+            <Button
+              href="/our-projects/3-bedroom-apartments"
+              color="secondary"
+              className="mt-5"
+            >
+              Schedule Visit{' '}
+            </Button>
           </div>
         </div>
       </div>
@@ -293,12 +295,12 @@ const PropertyInformation = () => {
   );
 };
 
-const TabInformation = () => {
+const TabInformation = ({ property }) => {
+  const project = property.project.data.attributes;
   const [showComparePropertyModal, setShowComparePropertyModal] =
     React.useState(false);
   const [currentTab, setCurrentTab] = React.useState(packages[0]['name']);
-
-  const [customPlan, setCustomPlan] = React.useState(false);
+  const [customPlan, setCustomPlan] = React.useState(1);
 
   return (
     <Section altBg>
@@ -337,129 +339,97 @@ const TabInformation = () => {
                 size="lg"
               >
                 <section className="row">
-                  <ComparePackages />
+                  <ComparePackages project={project} />
                 </section>
               </Modal>
-              {packages.map(({ name, description }) => (
-                <Tab.Pane eventKey={name} key={name}>
-                  <div className="my-5">
-                    <div className="row">
-                      <div className="col-md-8">
-                        <h3>{name}</h3>
-                      </div>
-                      <div className="col-md-4 text-md-end">
-                        <Button
-                          color="light"
-                          className="btn-outline-light mb-5 mb-md-0"
-                          onClick={() => setShowComparePropertyModal(true)}
-                        >
-                          Compare All Packages <CompareIcon />
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-8">
-                        <section>
-                          <p className="">{description}</p>
-                          <ul className="my-4 row list-features">
-                            <li className="col-md-4">Cable TV Distribution</li>
-                            <li className="col-md-4">Intercom System</li>
-                            <li className="col-md-4">Security Fence</li>
-                            <li className="col-md-4">Guest Toilet</li>
-                            <li className="col-md-4">Spacious Kitchen</li>
-                            <li className="col-md-4">Dedicated Parking</li>
-                            <li className="col-md-4">Gym</li>
-                            <li className="col-md-4">Maids Room</li>
-                            <li className="col-md-4">Intercom System</li>
-                            <li className="col-md-4">Water Treatment</li>
-                            <li className="col-md-4">Surveillance System</li>
-                            <li
-                              className={classNames('col-md-4', {
-                                invalid: packages[0]['name'] === name,
-                                standard: packages[1]['name'] === name,
-                                supreme: packages[2]['name'] === name,
-                              })}
-                            >
-                              Inverter System
-                            </li>
-                            <li
-                              className={classNames('col-md-4', {
-                                invalid: packages[0]['name'] === name,
-                                invalid: packages[1]['name'] === name,
-                                supreme: packages[2]['name'] === name,
-                              })}
-                            >
-                              Fire Detection
-                            </li>
-                          </ul>
-                        </section>
-                      </div>
-                    </div>
+              {packages.map(({ name, description, key }, index) => {
+                const allPrices = ['price', 'standardPrice', 'supremePrice'];
+                const currentTabPrice = property[allPrices[index]];
 
-                    <div className="row">
-                      <h4>
-                        Available Payment Plans
-                        <div className="float-md-end">
-                          <Dropdown>
-                            <Dropdown.Toggle
-                              variant="light"
-                              id="dropdown-basic"
-                            >
-                              Select Month
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                              <Dropdown.Item href="#/action-1">
-                                <span onClick={() => setCustomPlan(true)}>
-                                  3 Months
-                                </span>
-                              </Dropdown.Item>
-                              <Dropdown.Item href="#/action-2">
-                                <span onClick={() => setCustomPlan(true)}>
-                                  4 Months
-                                </span>
-                              </Dropdown.Item>
-                              <Dropdown.Item href="#/action-3">
-                                <span onClick={() => setCustomPlan(true)}>
-                                  5 Months
-                                </span>
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
+                return (
+                  <Tab.Pane eventKey={name} key={name}>
+                    <div className="my-5">
+                      <div className="row">
+                        <div className="col-md-8">
+                          <h3>{name}</h3>
                         </div>
-                      </h4>
-
-                      <div className="col-md-4">
-                        <PaymentPlanCard
-                          name="Outright Payment"
-                          price="₦35,000,000"
-                          monthly="₦0"
-                          total="₦35,000,000"
-                        />
+                        <div className="col-md-4 text-md-end">
+                          <Button
+                            color="light"
+                            className="btn-outline-light mb-5 mb-md-0"
+                            onClick={() => setShowComparePropertyModal(true)}
+                          >
+                            Compare All Packages <CompareIcon />
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-8">
+                          <section>
+                            <p className="">{description}</p>
+                            {listFeatures(project, key)}
+                          </section>
+                        </div>
                       </div>
 
-                      <div className="col-md-4">
-                        <PaymentPlanCard
-                          name="6 Months Plan"
-                          price="₦10,000,000"
-                          monthly="₦5,200,000"
-                          total="₦36,000,000"
-                          customPlan={customPlan}
-                        />
-                      </div>
+                      <div className="row">
+                        <h4>
+                          Available Payment Plans
+                          <div className="float-md-end">
+                            <Dropdown>
+                              <Dropdown.Toggle
+                                variant="light"
+                                id="dropdown-basic"
+                              >
+                                Select Month
+                              </Dropdown.Toggle>
 
-                      <div className="col-md-4">
+                              <Dropdown.Menu>
+                                {/* loop from 1 to paymentPlan */}
+
+                                {Array.from(
+                                  { length: property.paymentPlan - 1 },
+                                  (_, i) => i + 1
+                                ).map(
+                                  (plan) =>
+                                    plan !== customPlan && (
+                                      <Dropdown.Item
+                                        key={plan}
+                                        onClick={() => setCustomPlan(plan)}
+                                      >
+                                        {plan} Months
+                                      </Dropdown.Item>
+                                    )
+                                )}
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </div>
+                        </h4>
+
                         <PaymentPlanCard
-                          name="Outright Payment"
-                          price="₦10,000,000"
-                          monthly="₦2,454,545"
-                          total="₦37,000,000"
+                          month={0}
+                          price={currentTabPrice}
+                          property={property}
+                          dimDisplay={customPlan !== 1}
+                        />
+
+                        <PaymentPlanCard
+                          month={customPlan}
+                          price={currentTabPrice}
+                          property={property}
+                          customPlan={customPlan !== 1}
+                        />
+                        <PaymentPlanCard
+                          month={property.paymentPlan}
+                          price={currentTabPrice}
+                          property={property}
+                          dimDisplay={customPlan !== 1}
                         />
                       </div>
                     </div>
-                  </div>
-                </Tab.Pane>
-              ))}
+                  </Tab.Pane>
+                );
+              })}
             </Tab.Content>
           </Tab.Container>
         </div>
@@ -468,20 +438,45 @@ const TabInformation = () => {
   );
 };
 
-const PaymentPlanCard = ({ name, price, monthly, total, customPlan }) => {
+const PaymentPlanCard = ({
+  property,
+  month,
+  price,
+  customPlan,
+  dimDisplay,
+}) => {
   const [showModal, setShowModal] = React.useState(false);
+  const monthName =
+    month === 0
+      ? 'Outright Payment'
+      : `${month}  ${Humanize.pluralize(month, 'Month')} Plan`;
+  const { initialPayment, paymentPlanIncrement } = property;
+  const totalPayment =
+    parseInt(price, 10) + parseInt(paymentPlanIncrement * month, 10);
+  const currentInitialPayment = month === 0 ? totalPayment : initialPayment;
+  const monthlyPayment =
+    month === 0 ? 0 : (totalPayment - currentInitialPayment) / month;
+
   return (
-    <>
+    <div
+      className={classNames('col-sm-4 d-flex align-items-stretch', {
+        dim: dimDisplay,
+      })}
+    >
       <Modal
         title="Customize Plan"
         show={showModal}
         onHide={() => setShowModal(false)}
       >
         <section className="row">
-          <PaymentPlanSlider />
+          <PaymentPlanSlider
+            min={currentInitialPayment}
+            max={totalPayment}
+            month={month}
+          />
         </section>
       </Modal>
-      <div className="card position-relative text-center px-4 py-5 mb-4">
+      <div className="card w-100 position-relative text-center px-4 py-5 mb-4">
         {customPlan && (
           <div className="custom-plan">
             <svg
@@ -502,35 +497,49 @@ const PaymentPlanCard = ({ name, price, monthly, total, customPlan }) => {
             </svg>
           </div>
         )}
-        <h5 className="mb-3">{name}</h5>
+        <h5 className="mb-3">{monthName}</h5>
         <ul className="list-dotted list-unstyled px-4">
           <li>
             <span className="list-dotted__label">Initial Payment</span>
-            <span className="list-dotted__value">{price}</span>
+            <span className="list-dotted__value">
+              {moneyFormatInNaira(currentInitialPayment)}
+            </span>
           </li>
           <li>
             <span className="list-dotted__label">Monthly Payment</span>
             <span className="list-dotted__value">
-              {customPlan ? monthly : '3 Months'}
+              {' '}
+              {moneyFormatInNaira(monthlyPayment)}
             </span>
           </li>
           <li>
             <span className="list-dotted__label">Total</span>
-            <span className="list-dotted__value text-xl fw-bold">{total}</span>
+            <span className="list-dotted__value text-xl fw-bold">
+              {moneyFormatInNaira(totalPayment)}
+            </span>
           </li>
-          <li>
-            <div className="d-grid gap-2 mx-auto">
-              <Button color="secondary" onClick={() => setShowModal(true)}>
-                Get Started
+          <li className="d-block">
+            <div className="">
+              <Button
+                color="secondary"
+                className="w-100"
+                onClick={() => setShowModal(true)}
+              >
+                Buy Now
               </Button>
-              <Button color="outline-light" onClick={() => setShowModal(true)}>
-                <Magicpen variant="Bulk" /> Customize Plan
-              </Button>
+              {month !== 0 && (
+                <div
+                  className="mt-4 text-sm text-link"
+                  onClick={() => setShowModal(true)}
+                >
+                  <Magicpen variant="Bulk" /> Customize this Plan
+                </div>
+              )}
             </div>
           </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -598,3 +607,28 @@ const Neighborhood = () => {
     </Section>
   );
 };
+
+export async function getStaticProps({ params }) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties?populate=deep&filters[slug][$eq]=${params.slug}`
+  );
+
+  const { data } = await res.json();
+
+  return { props: { property: { id: data[0].id, ...data[0]['attributes'] } } };
+}
+
+export async function getStaticPaths() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`);
+  const { data: propertyLists } = await res.json();
+  return {
+    paths: propertyLists.map((propertyList) => {
+      return {
+        params: {
+          slug: propertyList['attributes']['slug'],
+        },
+      };
+    }),
+    fallback: true,
+  };
+}

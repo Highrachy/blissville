@@ -144,7 +144,7 @@ const PropertyHeader = ({
                     passHref
                   >
                     <a className="text-underline text-muted fw-bold">
-                      {project.name}
+                      {project?.name}
                     </a>
                   </Link>
                 </div>
@@ -200,19 +200,6 @@ const PropertyHeader = ({
                   </DeleteButton>
                 </div>
               </div>
-              {/* Action */}
-              {/* <div className="d-flex">
-                <Button
-                  color="dark"
-                  className="btn-sm"
-                  href={{
-                    pathname: '/app/admin/projects/[id]',
-                    query: { id: projectId },
-                  }}
-                >
-                  View Project
-                </Button>
-              </div> */}
             </div>
           </div>
         </div>

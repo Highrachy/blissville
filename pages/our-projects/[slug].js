@@ -18,7 +18,7 @@ import Modal from '@/components/ui/Modal';
 import { ShareProjectIcon } from '@/components/Icons/Icons';
 import { properties } from '@/data/properties';
 import { useRouter } from 'next/router';
-import { getLocationFromAddress } from '@/utils/helpers';
+import { getLocationFromAddress, listFeatures } from '@/utils/helpers';
 
 export default function SingleProjectPage({ project }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -29,10 +29,7 @@ export default function SingleProjectPage({ project }) {
     return <div>Loading...</div>;
   }
 
-  const { name, image, features } = project;
-  const allFeatures = features.split(',');
-
-  console.log('single project', project);
+  const { name, image } = project;
 
   return (
     <>
@@ -95,13 +92,7 @@ export default function SingleProjectPage({ project }) {
                 apartments enjoy all the benefits that come with leaving in
                 Blissville.
               </p>
-              <ul className="my-4 row list-features">
-                {allFeatures.map((feature, index) => (
-                  <li key={index} className="col-md-4">
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+              {listFeatures(project)}
               <ActionButtonGroup />
 
               <div className="mb-5"></div>

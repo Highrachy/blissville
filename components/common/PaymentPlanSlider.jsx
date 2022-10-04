@@ -2,35 +2,40 @@ import React from 'react';
 import Slider from 'rc-slider';
 import Humanize from 'humanize-plus';
 import Image from 'next/image';
+import { moneyFormatInNaira } from '@/utils/helpers';
 
-const PaymentPlanSlider = () => {
-  const defaultValue = 100_000_000;
+const PaymentPlanSlider = ({ min, max, month }) => {
+  const maximum = parseInt(max, 10);
+  const minimum = parseInt(min, 10);
+  const defaultValue = minimum;
   const [value, setValue] = React.useState(defaultValue);
+  const monthlyPayment = (maximum - value) / month;
 
   return (
     <div className="overflow-hidden bg-gray-50">
       <div className="p-4 py-md-5 text-center">
-        <h6>You will get up to</h6>
-        <h3 className="text-primary">
-          ₦ {Humanize.intComma(value + value * 0.45)}
-        </h3>
+        <h6>With an initial payment of</h6>
+        <h3 className="text-primary">₦ {Humanize.intComma(value)}</h3>
         <p className="text-gray-700 text-sm font-secondary fw-medium">
-          when you invest{' '}
-          <span className="text-secondary">₦ {Humanize.intComma(value)}</span>
+          you will pay{' '}
+          <span className="text-secondary">
+            ₦ {Humanize.intComma(monthlyPayment)}
+          </span>{' '}
+          monthly for {month} months
         </p>
         <Slider
           defaultValue={defaultValue}
-          min={5_000_000}
-          max={500_000_000}
-          step={1_000_000}
+          min={minimum}
+          max={maximum}
+          step={100_000}
           onChange={(value) => setValue(value)}
         />
         <div className="d-flex justify-content-between mt-4">
           <span className="text-gray-700 text-sm font-secondary fw-medium">
-            ₦ 5,000,000
+            {moneyFormatInNaira(minimum)}
           </span>
           <span className="text-gray-700 text-sm font-secondary fw-medium">
-            ₦ 500,000,000
+            {moneyFormatInNaira(maximum)}
           </span>
         </div>
       </div>

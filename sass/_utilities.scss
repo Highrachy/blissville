@@ -9,7 +9,7 @@
     border-top: 1px dotted $gray-500 !important;
     padding: 1.25rem 0;
     font-weight: 500;
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     font-family: $font-secondary;
     @include media-breakpoint-up(md) {
@@ -548,4 +548,8 @@ div.nav-link {
     max-height: 15rem;
     object-fit: cover;
   }
+}
+
+.dim {
+  opacity: 0.5;
 }
