@@ -62,7 +62,9 @@ const ManageFloorPlan = ({ data, id, query }) => {
           ))}
         </div>
       ) : (
-        <p className="text-center">No Floor Plan Found</p>
+        <p className="text-center my-6 text-xl text-muted">
+          No Floor Plan Found
+        </p>
       )}
     </TabContentHeader>
   );

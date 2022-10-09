@@ -35,6 +35,7 @@ import {
   listFeatures,
   moneyFormatInNaira,
 } from '@/utils/helpers';
+import { Gallery, Neighborhood } from 'pages/our-projects/[slug]';
 
 export default function SinglePropertyPage({ property }) {
   const router = useRouter();
@@ -57,8 +58,18 @@ export default function SinglePropertyPage({ property }) {
       <PropertyInformation property={property} />
       <TabInformation property={property} />
 
-      <Gallery />
-      <Neighborhood />
+      <Gallery
+        galleries={[
+          ...(property?.property_galleries.data || []),
+          ...(property?.project?.data?.attributes?.project_galleries.data ||
+            []),
+        ]}
+      />
+      <Neighborhood
+        neighborhoods={
+          property?.project?.data?.attributes?.neighborhoods?.data || []
+        }
+      />
       <section className="container">
         <div className="row">
           <div className="col-md-12">
@@ -540,71 +551,6 @@ const PaymentPlanCard = ({
         </ul>
       </div>
     </div>
-  );
-};
-
-const Gallery = ({ className }) => (
-  <Section className={className}>
-    <div className="container">
-      <h3>Gallery</h3>
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-5 gx-4">
-        {[1, 2, 3, 4].map((key) => (
-          <div key={key} className="col">
-            <Image
-              src={`/assets/img/property/property1.jpeg`}
-              alt="Hero Image"
-              width={636}
-              height={432}
-              className="card-img-top col"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  </Section>
-);
-
-const Neighborhood = () => {
-  const locations = {
-    Hospital: 'The new Circle Mall',
-    Grocery: 'Prince Ebeano Supermarket',
-    Entertainment: 'Dreamworld Africana Amusement Park',
-    'Famous Places': 'Lekki Conservation Center',
-    Financial: 'Several bank branches & ATMs',
-    Others: 'Plazas and Filling/service stations',
-  };
-
-  return (
-    <Section noPaddingBottom>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-7 col-lg-6">
-            <h3>Neighborhood</h3>
-
-            <ul className="list-location">
-              {Object.entries(locations).map(([category, place]) => (
-                <li key={category}>
-                  <h5 className="text-gray-800 mb-0">{place}</h5>
-                  <p className="text-md font-secondary mt-n1">
-                    1.5km - {category}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="col-md-5 col-lg-6">
-            <div className="mt-5">
-              <Image
-                src="/assets/img/maps/single-project.png"
-                alt="Hero Image"
-                width={626}
-                height={578}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </Section>
   );
 };
 

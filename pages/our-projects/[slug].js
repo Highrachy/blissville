@@ -30,6 +30,7 @@ export default function SingleProjectPage({ project }) {
   }
 
   const { name, image } = project;
+  console.log('project: ', project);
 
   return (
     <>
@@ -141,10 +142,11 @@ export default function SingleProjectPage({ project }) {
           </div>
         </div>
       </Section>
-      <TabInformation />
+      <TabInformation project={project} />
 
-      <Gallery />
-      <Neighborhood />
+      <Gallery galleries={project?.project_galleries?.data || []} />
+      <Neighborhood neighborhoods={project?.neighborhoods?.data || []} />
+
       <section className="container">
         <div className="row">
           {projectFaqs.map(({ name, faqs: allFaqs }, index) => (
@@ -169,7 +171,7 @@ export default function SingleProjectPage({ project }) {
   );
 }
 
-const TabInformation = () => {
+const TabInformation = ({ project }) => {
   const [currentTab, setCurrentTab] = React.useState(properties[0]['name']);
 
   return (
@@ -271,7 +273,7 @@ const TabInformation = () => {
                             <Button
                               color="secondary"
                               className="me-2 my-2"
-                              href="/our-properties/3-bedroom-apartment"
+                              href={`/our-properties/${project?.properties?.data[0]?.attributes?.slug}`}
                             >
                               I am Interested
                             </Button>
@@ -299,36 +301,46 @@ const TabInformation = () => {
   );
 };
 
-const Gallery = ({ className }) => (
-  <Section className={className}>
-    <div className="container">
-      <h3>Gallery</h3>
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-5 gx-4">
-        {[1, 2, 3, 4].map((key) => (
-          <div key={key} className="col">
-            <Image
-              src={`/assets/img/property/property1.jpeg`}
-              alt="Hero Image"
-              width={636}
-              height={432}
-              className="card-img-top col"
-            />
-          </div>
-        ))}
+export const Gallery = ({ galleries, className }) => {
+  if (!galleries || galleries.length === 0) {
+    return null;
+  }
+  return (
+    <Section className={className}>
+      <div className="container">
+        <h3>Gallery</h3>
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-5 gx-4">
+          {galleries.map((gallery, index) => (
+            <div key={index} className="col">
+              <Image
+                src={gallery?.attributes?.image}
+                alt="Hero Image"
+                width={600}
+                height={600}
+                objectFit="cover"
+                className="card-img-top col"
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </Section>
-);
+    </Section>
+  );
+};
 
-const Neighborhood = () => {
-  const locations = {
-    Hospital: 'The new Circle Mall',
-    Grocery: 'Prince Ebeano Supermarket',
-    Entertainment: 'Dreamworld Africana Amusement Park',
-    'Famous Places': 'Lekki Conservation Center',
-    Financial: 'Several bank branches & ATMs',
-    Others: 'Plazas and Filling/service stations',
-  };
+export const Neighborhood = ({ neighborhoods }) => {
+  // const locations = {
+  //   Hospital: 'The new Circle Mall',
+  //   Grocery: 'Prince Ebeano Supermarket',
+  //   Entertainment: 'Dreamworld Africana Amusement Park',
+  //   'Famous Places': 'Lekki Conservation Center',
+  //   Financial: 'Several bank branches & ATMs',
+  //   Others: 'Plazas and Filling/service stations',
+  // };
+
+  if (!neighborhoods || neighborhoods.length === 0) {
+    return null;
+  }
 
   return (
     <Section noPaddingBottom>
@@ -338,14 +350,16 @@ const Neighborhood = () => {
             <h3>Neighborhood</h3>
 
             <ul className="list-location">
-              {Object.entries(locations).map(([category, place]) => (
-                <li key={category}>
-                  <h5 className="text-gray-800 mb-0">{place}</h5>
-                  <p className="text-md font-secondary mt-n1">
-                    1.5km - {category}
-                  </p>
-                </li>
-              ))}
+              {neighborhoods.map(
+                ({ attributes: { location, category, distance } }) => (
+                  <li key={category}>
+                    <h5 className="text-gray-800 mb-0">{location}</h5>
+                    <p className="text-md font-secondary mt-n1">
+                      {distance}km - {category}
+                    </p>
+                  </li>
+                )
+              )}
             </ul>
           </div>
           <div className="col-md-5 col-lg-6">
@@ -366,7 +380,7 @@ const Neighborhood = () => {
 
 export async function getStaticProps({ params }) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/projects?filters[slug][$eq]=${params.slug}`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*&filters[slug][$eq]=${params.slug}`
   );
 
   const { data } = await res.json();

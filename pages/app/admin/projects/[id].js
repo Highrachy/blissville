@@ -61,6 +61,7 @@ const SingleProject = () => {
             id={id}
             data={result?.attributes?.properties?.data}
             query={query}
+            project={result?.attributes}
           />
         </>
       ),
@@ -151,7 +152,7 @@ const ProjectHeader = ({
             <div className="d-flex justify-content-between align-items-start flex-wrap">
               <div className="d-flex flex-column">
                 <h4 className="d-flex align-items-center mb-2">
-                  {type} - {name}
+                  {name} - {type}
                 </h4>
                 <div className="d-flex text-sm flex-wrap align-items-center mb-2 pe-2">
                   {getLocationFromAddress(projectInfo)}

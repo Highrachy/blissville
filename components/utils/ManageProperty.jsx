@@ -24,7 +24,7 @@ import Humanize from 'humanize-plus';
 import { TabContentHeader } from '../admin/TabContent';
 import Select from '../forms/Select';
 
-const ManageProperty = ({ data, id, query }) => {
+const ManageProperty = ({ data, id, query, project }) => {
   const [showAddNewForm, setShowAddNewForm] = React.useState(false);
   const [selectedProperty, setSelectedProperty] = React.useState(null);
   const currentAction = selectedProperty?.action
@@ -59,6 +59,7 @@ const ManageProperty = ({ data, id, query }) => {
                 query.mutate();
               }}
               currentAction={currentAction}
+              project={project}
             />
           </td>
         </tr>
@@ -77,7 +78,7 @@ const ManageProperty = ({ data, id, query }) => {
           ))}
         </>
       ) : (
-        <p className="text-center">No Property Found</p>
+        <p className="text-center my-6 text-xl text-muted">No Property Found</p>
       )}
     </TabContentHeader>
   );
@@ -88,8 +89,11 @@ export const ManagePropertyForm = ({
   initialValues,
   currentAction,
   afterSubmit,
+  project,
 }) => {
   const isEdit = currentAction === 'Edit';
+  console.log('project', project);
+  const paymentPlan = project?.paymentPlan / 3 || 12;
 
   const handleSubmit = async (values, actions) => {
     const payload = {
@@ -99,6 +103,8 @@ export const ManagePropertyForm = ({
         : 'Ground Floor',
       ...(!isEdit && { project: projectId }),
     };
+
+    console.log('payload', payload);
 
     const id = initialValues?.id;
     try {
@@ -134,12 +140,18 @@ export const ManagePropertyForm = ({
       showFormikState
       showAllFormikState
     >
-      <PropertyFormFields isEdit={isEdit} />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-9">
+            <PropertyFormFields isEdit={isEdit} paymentPlan={paymentPlan} />
+          </div>
+        </div>
+      </div>
     </FormikForm>
   );
 };
 
-const PropertyFormFields = ({ isEdit }) => (
+const PropertyFormFields = ({ isEdit, paymentPlan }) => (
   <>
     <Input label="Property Name" name="name" />
     <Input label="Type" name="type" />
@@ -232,17 +244,40 @@ const PropertyFormFields = ({ isEdit }) => (
         formGroupClassName="col-sm-6"
       />
     </div>
+    <Select
+      label="Payment Plan"
+      name="paymentPlan"
+      options={generateNumOptions(paymentPlan + 1, 'month', {
+        startFrom: 0,
+        firstOptionText: 'Outright Payment',
+        step: 3,
+      })}
+      blankOption="Select Payment Plan"
+    />
     <div className="row">
-      <Select
-        label="Payment Plan"
-        name="paymentPlan"
-        options={generateNumOptions(36, 'month', { startFrom: 2 })}
-        blankOption="Select Payment Plan"
+      <InputFormat
+        label="Payment Plan Increment per Month"
+        name="paymentPlanIncrement"
+        prefix=""
         formGroupClassName="col-sm-6"
       />
       <InputFormat
-        label="Payment Plan Increment"
-        name="paymentPlanIncrement"
+        label="Initial Payment (Shell)"
+        name="initialPayment"
+        prefix=""
+        formGroupClassName="col-sm-6"
+      />
+    </div>
+    <div className="row">
+      <InputFormat
+        label="Initial Payment (Standard)"
+        name="standardInitialPayment"
+        prefix=""
+        formGroupClassName="col-sm-6"
+      />
+      <InputFormat
+        label="Initial Payment (Supreme)"
+        name="supremeInitialPayment"
         prefix=""
         formGroupClassName="col-sm-6"
       />

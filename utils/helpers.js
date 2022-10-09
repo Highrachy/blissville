@@ -53,6 +53,7 @@ export const generateNumOptions = (
     startFrom: 0,
     firstOptionText: null,
     pluralizeText: false,
+    step: 1,
   }
 ) => {
   const startFrom =
@@ -61,7 +62,7 @@ export const generateNumOptions = (
   const pluralizeText = options.pluralizeText || true;
 
   return [...Array(number).keys()].map((value) => {
-    const num = value + startFrom;
+    const num = value * options.step + startFrom;
     return {
       value: num.toString(),
       label:

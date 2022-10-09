@@ -98,16 +98,20 @@ HelpText.propTypes = {
 
 export const DisplayFormikState = (props) => {
   const displayFormikValues = (
-    <div className="my-5">
-      <pre className="form-control text-small p-3">
-        {props.showAll ? (
-          <div>
-            <strong>props</strong> = {JSON.stringify(props, null, 2)}
-          </div>
-        ) : (
-          JSON.stringify(props.values, null, 2)
-        )}
-      </pre>
+    <div className="formik-values">
+      <div className="container">
+        <div className="col-md-9">
+          <pre className="form-control text-small p-3">
+            {props.showAll ? (
+              <>
+                <strong>props</strong> = {JSON.stringify(props, null, 2)}
+              </>
+            ) : (
+              JSON.stringify(props.values, null, 2)
+            )}
+          </pre>
+        </div>
+      </div>
     </div>
   );
   if (!isDevEnvironment()) return null;

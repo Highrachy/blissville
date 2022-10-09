@@ -64,7 +64,7 @@ const ManageGallery = ({ type, data, id, query }) => {
           ))}
         </div>
       ) : (
-        <p className="text-center">No Gallery Found</p>
+        <p className="text-center my-6 text-xl text-muted">No Gallery Found</p>
       )}
     </TabContentHeader>
   );

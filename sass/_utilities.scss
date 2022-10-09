@@ -553,3 +553,9 @@ div.nav-link {
 .dim {
   opacity: 0.5;
 }
+
+.formik-values {
+  margin: 3rem 0;
+  max-width: 65vw !important;
+  overflow: scroll;
+}

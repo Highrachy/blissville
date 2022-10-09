@@ -46,7 +46,7 @@ const New = () => {
 
 const ProcessProjectForm = ({ action, id, project }) => {
   const testInitialValues = {
-    name: 'Blissville Uno',
+    name: '',
   };
   const [query, allFeatures] = useSWRQuery({
     name: 'allFeatures',
@@ -68,9 +68,19 @@ const ProcessProjectForm = ({ action, id, project }) => {
     const payload = {
       ...values,
       features: Array.isArray(values.features)
-        ? values.features?.join(', ')
+        ? values.features?.join(',')
         : values.features,
+      standardFeatures: Array.isArray(values.standardFeatures)
+        ? values.standardFeatures?.join(',')
+        : values.standardFeatures,
+      supremeFeatures: Array.isArray(values.supremeFeatures)
+        ? values.supremeFeatures?.join(',')
+        : values.supremeFeatures,
+      startDate: values.startDate.date,
+      delivery: values.delivery.date,
     };
+
+    console.log('payload', payload);
 
     try {
       axios({
@@ -86,17 +96,18 @@ const ProcessProjectForm = ({ action, id, project }) => {
           if (statusIsSuccessful(status)) {
             toast.success('Information sent successfully');
             Router.push('/app/admin/projects');
+            actions.setSubmitting(false);
+            actions.resetForm();
             return;
           }
         })
         .catch(function (error) {
           toast.error(getError(error));
+          actions.setSubmitting(false);
         });
-
-      actions.setSubmitting(false);
-      actions.resetForm();
     } catch (error) {
       toast.error(getError(error));
+      actions.setSubmitting(false);
     }
   };
 
@@ -131,9 +142,9 @@ const ProjectForm = ({
         showAllFormikState
       >
         <Input label="Project Name" name="name" />
-        <Input label="Type" name="type" />
+        <Input label="Property Type" name="type" />
         <Upload
-          label="Upload your image"
+          label="Upload Project's image"
           changeText="Update Picture"
           defaultImage="/assets/img/placeholder/image.png"
           imgOptions={{
@@ -157,7 +168,6 @@ const ProjectForm = ({
             label="State"
             options={valuesToOptions(STATES)}
             blankOption="Select State"
-            optional
           />
         </div>
         <CustomSelect
@@ -165,6 +175,20 @@ const ProjectForm = ({
           label="Features"
           options={valuesToOptions(featuresArray)}
           blankOption="Select Shell features"
+          isMulti
+        />
+        <CustomSelect
+          name="standardFeatures"
+          label="Standard Features"
+          options={valuesToOptions(featuresArray)}
+          blankOption="Select Standard features"
+          isMulti
+        />
+        <CustomSelect
+          name="supremeFeatures"
+          label="Supreme Features"
+          options={valuesToOptions(featuresArray)}
+          blankOption="Select Supreme features"
           isMulti
         />
         <Select
@@ -183,7 +207,7 @@ const ProjectForm = ({
           />
           <DatePicker
             formGroupClassName="col-md-6"
-            label="Delivery"
+            label="Delivery Date"
             name="delivery"
             placeholder="YYYY-MM-DD"
             helpText="Format: YYYY-MM-DD"

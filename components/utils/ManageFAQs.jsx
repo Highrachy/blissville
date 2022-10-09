@@ -63,7 +63,7 @@ const ManageFAQs = ({ data, id, query }) => {
           ))}
         </>
       ) : (
-        <p className="text-center">No FAQ Found</p>
+        <p className="text-center my-6 text-xl text-muted">No FAQ Found</p>
       )}
     </TabContentHeader>
   );

@@ -19,6 +19,8 @@ export const projectSchema = {
   city: stringValidation('City'),
   state: stringValidation('State'),
   features: customSelectValidation('Shell Features'),
+  standardFeatures: customSelectValidation('Standard Features'),
+  supremeFeatures: customSelectValidation('Supreme Features'),
   paymentPlan: required('Payment Plan'),
   startDate: requiredDate('Start Date'),
   delivery: requiredDate('Delivery'),
@@ -38,11 +40,20 @@ export const propertySchema = {
   floors: customSelectValidation('Floors'),
   parkingSpace: positiveNumberValidation('Parking Space'),
   price: positiveNumberValidation('Price'),
-  standardPrice: optionalValidation(positiveNumberValidation('Standard Price')),
-  supremePrice: optionalValidation(positiveNumberValidation('Supreme Price')),
+  standardPrice: optionalValidation(numberValidation('Standard Price')),
+  supremePrice: optionalValidation(numberValidation('Supreme Price')),
   paymentPlan: optionalValidation(numberValidation('Payment Plan')),
   paymentPlanIncrement: optionalValidation(
     numberValidation('Payment Plan Increment')
+  ),
+  initialPayment: optionalValidation(
+    positiveNumberValidation('Initial Payment Price')
+  ),
+  standardInitialPayment: optionalValidation(
+    numberValidation('Standard Initial Payment')
+  ),
+  supremeInitialPayment: optionalValidation(
+    numberValidation('Supreme Initial Payment')
   ),
 };
 

@@ -76,7 +76,9 @@ const ManageNeighborhood = ({ data, id, query }) => {
           ))}
         </>
       ) : (
-        <p className="text-center">No Neighborhood Found</p>
+        <p className="text-center my-6 text-xl text-muted">
+          No Neighborhood Found
+        </p>
       )}
     </TabContentHeader>
   );
