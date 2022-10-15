@@ -18,6 +18,10 @@
   position: relative;
   width: 100% !important;
   height: 100% !important;
+
+  .project-listing & {
+    min-height: 24rem;
+  }
 }
 
 .img-project {

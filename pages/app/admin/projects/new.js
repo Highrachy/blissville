@@ -11,6 +11,7 @@ import { getTokenFromStore } from '@/utils/localStorage';
 import {
   generateNumOptions,
   getError,
+  objectToOptions,
   statusIsSuccessful,
   valuesToOptions,
 } from '@/utils/helpers';
@@ -19,10 +20,11 @@ import Router, { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Humanize from 'humanize-plus';
 import Select from '@/components/forms/Select';
-import { STATES, USER_ROLES } from '@/utils/constants';
+import { PROJECT_STATUS_NAME, STATES, USER_ROLES } from '@/utils/constants';
 import CustomSelect from '@/components/forms/CustomSelect';
 import DatePicker from '@/components/forms/DatePicker';
 import Upload from '@/components/forms/Upload';
+import InputFormat from '@/components/forms/InputFormat';
 
 const pageOptions = {
   key: 'project',
@@ -68,19 +70,17 @@ const ProcessProjectForm = ({ action, id, project }) => {
     const payload = {
       ...values,
       features: Array.isArray(values.features)
-        ? values.features?.join(',')
+        ? values.features?.join(', ')
         : values.features,
       standardFeatures: Array.isArray(values.standardFeatures)
-        ? values.standardFeatures?.join(',')
+        ? values.standardFeatures?.join(', ')
         : values.standardFeatures,
       supremeFeatures: Array.isArray(values.supremeFeatures)
-        ? values.supremeFeatures?.join(',')
+        ? values.supremeFeatures?.join(', ')
         : values.supremeFeatures,
       startDate: values.startDate.date,
       delivery: values.delivery.date,
     };
-
-    console.log('payload', payload);
 
     try {
       axios({
@@ -95,7 +95,7 @@ const ProcessProjectForm = ({ action, id, project }) => {
           const { status } = response;
           if (statusIsSuccessful(status)) {
             toast.success('Information sent successfully');
-            Router.push('/app/admin/projects');
+            Router.push(`/app/admin/projects${isEdit ? `/${id}` : ''}`);
             actions.setSubmitting(false);
             actions.resetForm();
             return;
@@ -194,9 +194,14 @@ const ProjectForm = ({
         <Select
           label="Payment Plan"
           name="paymentPlan"
-          options={generateNumOptions(36, 'month', { startFrom: 2 })}
+          options={generateNumOptions(13, 'month', {
+            startFrom: 0,
+            firstOptionText: 'Outright Payment',
+            step: 3,
+          })}
           blankOption="Select Payment Plan"
         />
+        <InputFormat label="Starting Price" name="startingPrice" prefix="" />
         <div className="row">
           <DatePicker
             formGroupClassName="col-md-6"
@@ -211,6 +216,15 @@ const ProjectForm = ({
             name="delivery"
             placeholder="YYYY-MM-DD"
             helpText="Format: YYYY-MM-DD"
+          />
+        </div>
+        <div className="row">
+          <Select
+            formGroupClassName="col-md-6"
+            name="status"
+            label="Status"
+            options={objectToOptions(PROJECT_STATUS_NAME, null, true)}
+            blankOption="Select Project Status"
           />
         </div>
         <FormikButton color="secondary">

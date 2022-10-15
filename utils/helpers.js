@@ -81,7 +81,7 @@ export const moneyFormatInNaira = (value) => commaNumber(value, true);
 
 export const commaNumber = (value, prependCurrency = false) => {
   const number = parseInt(value, 10);
-  const currency = prependCurrency ? '₦' : '';
+  const currency = prependCurrency ? '₦ ' : '';
   const sign = number < 0 ? '— ' : '';
   return sign + currency + humanize.intComma(Math.abs(number));
 };
@@ -167,7 +167,7 @@ export const processData = (data, item) => {
     return data ? 'Yes' : 'No';
   }
   if (isValidNumber(data)) {
-    return data;
+    return commaNumber(data);
   }
   if (isValidDate(data)) {
     try {

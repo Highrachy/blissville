@@ -1,6 +1,7 @@
 import {
   generateNumOptions,
   getError,
+  moneyFormatInNaira,
   statusIsSuccessful,
   valuesToOptions,
 } from '@/utils/helpers';
@@ -309,7 +310,7 @@ const SingleProperty = ({
         />
         {name}
       </td>
-      <td>{price}</td>
+      <td>{moneyFormatInNaira(price)}</td>
       <td>
         <Button
           href={{

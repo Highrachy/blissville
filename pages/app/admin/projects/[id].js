@@ -7,7 +7,7 @@ import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Button from '@/components/forms/Button';
 import { getLocationFromAddress } from '@/utils/helpers';
 import { Location } from 'iconsax-react';
-import { USER_ROLES } from '@/utils/constants';
+import { PROJECT_STATUS_NAME, USER_ROLES } from '@/utils/constants';
 import { PropertiesRowList } from '../properties';
 import TabContent from '@/components/admin/TabContent';
 import ManageGallery from '@/components/utils/ManageGallery';
@@ -42,16 +42,24 @@ const SingleProject = () => {
       fields: [
         'name',
         'type',
+        'startingPrice',
         'description',
         'street1',
         'street2',
         'city',
         'state',
         'features',
+        'standardFeatures',
+        'supremeFeatures',
         'paymentPlan',
+        'status',
         'startDate',
         'delivery',
       ],
+      processField: {
+        status: (value) => PROJECT_STATUS_NAME[value],
+        paymentPlan: (value) => `${value} Months`,
+      },
     },
     {
       title: 'Properties',
@@ -160,12 +168,24 @@ const ProjectHeader = ({
                 <div className="d-flex flex-wrap my-2 text-muted">
                   <Link
                     href={{
+                      pathname: '/our-projects/[slug]',
+                      query: { slug },
+                    }}
+                    passHref
+                  >
+                    <a className="text-underline text-muted text-sm me-3">
+                      View on Website
+                    </a>
+                  </Link>
+                  |
+                  <Link
+                    href={{
                       pathname: '/app/admin/projects/new',
                       query: { id, action: 'edit' },
                     }}
                     passHref
                   >
-                    <a className="text-underline text-success text-sm me-3">
+                    <a className="text-underline text-success text-sm mx-3">
                       Edit Project
                     </a>
                   </Link>
@@ -179,18 +199,6 @@ const ProjectHeader = ({
                   >
                     <a className="text-underline text-info text-sm mx-3">
                       Duplicate Project
-                    </a>
-                  </Link>
-                  |
-                  <Link
-                    href={{
-                      pathname: '/our-projects/[slug]',
-                      query: { slug },
-                    }}
-                    passHref
-                  >
-                    <a className="text-underline text-warning text-sm ms-3">
-                      View on Website
                     </a>
                   </Link>
                 </div>

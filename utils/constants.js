@@ -26,6 +26,23 @@ export const ROLE_NAME = {
   [USER_ROLES['ADMIN']]: 'admin',
 };
 
+export const PROJECT_STATUS = {
+  IN_VIEW: 0,
+  STARTED: 1,
+  IN_PROGRESS: 2,
+  ALMOST_COMPLETED: 3,
+  COMPLETED: 4,
+  NOT_AVAILABLE: 5,
+};
+export const PROJECT_STATUS_NAME = {
+  [PROJECT_STATUS['IN_VIEW']]: 'In View',
+  [PROJECT_STATUS['STARTED']]: 'Started',
+  [PROJECT_STATUS['IN_PROGRESS']]: 'In Progress',
+  [PROJECT_STATUS['ALMOST_COMPLETED']]: 'Almost Completed',
+  [PROJECT_STATUS['COMPLETED']]: 'Completed',
+  [PROJECT_STATUS['NOT_AVAILABLE']]: 'Not Available',
+};
+
 export const STATUS = {
   CREATED: 0,
   AVAILABLE: 10,

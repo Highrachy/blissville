@@ -16,9 +16,13 @@ import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 import Sharer from '@/components/ui/Sharer';
 import Modal from '@/components/ui/Modal';
 import { ShareProjectIcon } from '@/components/Icons/Icons';
-import { properties } from '@/data/properties';
 import { useRouter } from 'next/router';
-import { getLocationFromAddress, listFeatures } from '@/utils/helpers';
+import {
+  getLocationFromAddress,
+  listFeatures,
+  moneyFormatInNaira,
+} from '@/utils/helpers';
+import { getShortDate } from '@/utils/date-helpers';
 
 export default function SingleProjectPage({ project }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -29,7 +33,16 @@ export default function SingleProjectPage({ project }) {
     return <div>Loading...</div>;
   }
 
-  const { name, image } = project;
+  const {
+    name,
+    image,
+    description,
+    startingPrice,
+    type,
+    delivery,
+    city,
+    state,
+  } = project;
   console.log('project: ', project);
 
   return (
@@ -81,20 +94,9 @@ export default function SingleProjectPage({ project }) {
         <div className="container">
           <div className="row">
             <div className="col-md-8">
-              <p className="lead">
-                You can now experience true tranquility with our elevated
-                apartment units and penthouses. Each unit is a 3 bedroom 185MSq
-                with maids room, four bathrooms and five toilets, living room,
-                dining space, kitchen, pantry, guest toilet and dedicated
-                parking lots. <br />
-                The standard apartments sit on the 2nd floor while the
-                penthouses are on the 3rd floor. They are similar in design with
-                three bedrooms each and an adjoining staff room. Owners of the
-                apartments enjoy all the benefits that come with leaving in
-                Blissville.
-              </p>
+              <div className="lead">{description}</div>
               {listFeatures(project)}
-              <ActionButtonGroup />
+              <ActionButtonGroup price={startingPrice} />
 
               <div className="mb-5"></div>
             </div>
@@ -104,25 +106,25 @@ export default function SingleProjectPage({ project }) {
                 <ul className="list-dotted list-unstyled">
                   <li>
                     <span className="list-dotted__label">Property Type </span>
-                    <span className="list-dotted__value">
-                      Apartment/ Condos
-                    </span>
+                    <span className="list-dotted__value">{type}</span>
                   </li>
                   <li>
                     <span className="list-dotted__label">Location </span>
-                    <span className="list-dotted__value">Lekki, Lagos</span>
-                  </li>
-                  <li>
-                    <span className="list-dotted__label">Total Units </span>
-                    <span className="list-dotted__value">5 Units</span>
+                    <span className="list-dotted__value">
+                      {city}, {state}
+                    </span>
                   </li>
                   <li>
                     <span className="list-dotted__label">Prices From </span>
-                    <span className="list-dotted__value">₦ 35 Million</span>
+                    <span className="list-dotted__value">
+                      {moneyFormatInNaira(startingPrice)}
+                    </span>
                   </li>
                   <li>
                     <span className="list-dotted__label">Delivery </span>
-                    <span className="list-dotted__value">July, 2024</span>
+                    <span className="list-dotted__value">
+                      {getShortDate(delivery)}
+                    </span>
                   </li>
                   <li>
                     <span className="list-dotted__label">Status</span>
@@ -172,7 +174,11 @@ export default function SingleProjectPage({ project }) {
 }
 
 const TabInformation = ({ project }) => {
-  const [currentTab, setCurrentTab] = React.useState(properties[0]['name']);
+  const properties = project?.properties?.data || [];
+  console.log('properties', properties);
+  const [currentTab, setCurrentTab] = React.useState(
+    properties[0]?.attributes?.['name']
+  );
 
   return (
     <Section altBg>
@@ -184,7 +190,7 @@ const TabInformation = ({ project }) => {
             className="mb-3"
           >
             <ul className="nav nav-tab gap-1 nav-fill">
-              {properties.map(({ name }) => (
+              {properties.map(({ attributes: { name } }) => (
                 <li
                   key={name}
                   className={classNames('nav-item position-relative', {
@@ -206,15 +212,17 @@ const TabInformation = ({ project }) => {
             <Tab.Content>
               {properties.map(
                 ({
-                  name,
-                  type,
-                  description,
-                  floorplan,
-                  floor,
-                  size,
-                  beds,
-                  baths,
-                  price,
+                  attributes: {
+                    name,
+                    type,
+                    description,
+                    image,
+                    floor,
+                    size,
+                    beds,
+                    baths,
+                    price,
+                  },
                 }) => (
                   <Tab.Pane eventKey={name} key={name}>
                     <div className="my-5">
@@ -282,7 +290,7 @@ const TabInformation = ({ project }) => {
                         </div>
                         <div className="col-md-7 order-0 order-md-1">
                           <Image
-                            src={`/assets/img/floor-plans/${floorplan}`}
+                            src={image}
                             alt="Floor Plan"
                             width={856}
                             height={856}

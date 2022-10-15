@@ -18,7 +18,7 @@ const TabContent = ({ allTabs, id, name, result }) => {
         currentTab={currentTab}
       />
       <Tab.Content>
-        {allTabs.map(({ title, fields, Component }) => (
+        {allTabs.map(({ title, fields, Component, processField }) => (
           <Tab.Pane eventKey={title} key={title}>
             <TabInformation
               id={id}
@@ -27,6 +27,7 @@ const TabContent = ({ allTabs, id, name, result }) => {
               data={fields}
               Component={Component}
               setCurrentTab={setCurrentTab}
+              processField={processField}
             />
           </Tab.Pane>
         ))}
@@ -53,7 +54,15 @@ const TabHeader = ({ allTabs, setCurrentTab, currentTab }) => (
   </ul>
 );
 
-const TabInformation = ({ result, title, data, Component, useTableHeader }) => {
+const TabInformation = ({
+  result,
+  title,
+  data,
+  Component,
+  processField,
+  useTableHeader,
+}) => {
+  console.log('processField', processField);
   return (
     <section>
       {Component ? (
@@ -79,8 +88,10 @@ const TabInformation = ({ result, title, data, Component, useTableHeader }) => {
                 <td>
                   {item === 'description' ? (
                     <ReactMarkdown>{result[item]}</ReactMarkdown>
+                  ) : processField?.[item] ? (
+                    processField?.[item](result[item])
                   ) : (
-                    processData(result[item])
+                    processData(result[item], 'image')
                   )}
                 </td>
               </tr>

@@ -1,6 +1,8 @@
+import { moneyFormatInNaira } from '@/utils/helpers';
 import Image from 'next/image';
 import React from 'react';
 import Button from '../forms/Button';
+import Humanize from 'humanize-plus';
 
 const SingleProject = ({ type = 1 }) => {
   return (
@@ -62,6 +64,49 @@ const SingleProject = ({ type = 1 }) => {
               </li>
             </ul>
           </aside>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const SingleProjectGrid = ({ id, attributes }) => {
+  const { name, type, image, city, state, startingPrice, slug, properties } =
+    attributes;
+  const noOfProperties = properties?.data?.length;
+  return (
+    <div className="col-md-6 col-sm-12 mb-4">
+      <div className="project-listing overflow-hidden bg-gray-50 card">
+        <div className="img-fill">
+          <Image src={image} alt="Hero Image" layout="fill" objectFit="cover" />
+        </div>
+        <div className="card-body p-4">
+          <div className="row">
+            <h5 className="card-title fw-medium">
+              {name} - {type}
+            </h5>
+            <div className="text-gray-700 text-sm font-secondary">
+              {noOfProperties}{' '}
+              {Humanize.pluralize(noOfProperties, 'property', 'properties')} |{' '}
+              <span className="fw-medium">
+                {city}, {state}
+              </span>
+            </div>
+            <div className="text-md text-primary fw-bold">
+              <small className="text-xs">From </small>{' '}
+              {moneyFormatInNaira(startingPrice)}
+            </div>
+          </div>
+
+          <hr className="dotted-border" />
+
+          <Button
+            href={`/our-projects/${slug}`}
+            className="btn-sm"
+            color="secondary"
+          >
+            View Project
+          </Button>
         </div>
       </div>
     </div>

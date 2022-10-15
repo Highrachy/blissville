@@ -11,6 +11,7 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { benefits } from '@/data/benefits';
 import SingleProject from '@/components/common/SingleProjectNew';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
+import { SingleProjectGrid } from '@/components/common/SingleProject';
 
 export default function OurProjects({ projects }) {
   console.log('projects: ', projects);
@@ -22,6 +23,16 @@ export default function OurProjects({ projects }) {
         subHeader="Powered By Highrachy"
         bgImage="/assets/img/bg/investors.jpeg"
       />
+      <Section>
+        <div className="container">
+          <h3 className="mt-3 mt-lg-6">Our Projects</h3>
+          <div className="row">
+            {projects.map((project, key) => (
+              <SingleProjectGrid key={key} {...project} />
+            ))}
+          </div>
+        </div>
+      </Section>
       <Section>
         <div className="container">
           <h3 className="mt-3 mt-lg-6">Our Projects</h3>
@@ -42,7 +53,9 @@ export default function OurProjects({ projects }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/projects`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*`
+  );
   const { data } = await res.json();
 
   return {
@@ -52,3 +65,6 @@ export async function getStaticProps() {
     revalidate: 10,
   };
 }
+
+// 8 * 3
+// 24

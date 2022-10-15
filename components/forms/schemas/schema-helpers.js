@@ -188,7 +188,7 @@ export const customSelectValidation = (label) =>
           .label(label)
           .min(1, `You must select at least one ${label}.`)
           .of(yup.string().required())
-      : required(label)
+      : yup.string(label).nullable()
   );
 
 export const multiSelectValidation = (label) =>

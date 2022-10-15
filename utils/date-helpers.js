@@ -13,13 +13,13 @@ import {
  * Date and Time
  * @param {*} date
  */
+// https://date-fns.org/v2.29.3/docs/format
 export const getDate = (date) => format(parseISO(date), 'MMMM DD, YYYY');
 export const getDateTime = (date) =>
   format(parseISO(date), 'ddd, MMM D, YYYY h:mm A');
 export const getShortDateTime = (date) =>
-  format(parseISO(date), 'Do MMM YYYY h:mm A');
-export const getShortDate = (date) =>
-  format(parseISO(date), 'ddd, MMM D, YYYY');
+  format(parseISO(date), 'do MMM YYYY h:mm A');
+export const getShortDate = (date) => format(parseISO(date), 'do MMM,  yyyy');
 export const getTinyDate = (date) =>
   isValidDate(date) && format(parseISO(date), 'MMM D, YYYY');
 export const getLongDate = (date) =>

@@ -21,9 +21,11 @@ export const projectSchema = {
   features: customSelectValidation('Shell Features'),
   standardFeatures: customSelectValidation('Standard Features'),
   supremeFeatures: customSelectValidation('Supreme Features'),
+  startingPrice: positiveNumberValidation('Starting Price'),
   paymentPlan: required('Payment Plan'),
   startDate: requiredDate('Start Date'),
   delivery: requiredDate('Delivery'),
+  status: required('Status'),
 };
 
 export const propertySchema = {
