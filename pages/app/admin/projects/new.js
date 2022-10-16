@@ -226,6 +226,11 @@ const ProjectForm = ({
             options={objectToOptions(PROJECT_STATUS_NAME, null, true)}
             blankOption="Select Project Status"
           />
+          <Input
+            label="Project Slogan"
+            name="slogan"
+            formGroupClassName="col-md-6"
+          />
         </div>
         <FormikButton color="secondary">
           {isEdit ? 'Edit' : 'Save'} Project

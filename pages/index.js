@@ -18,7 +18,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 
 export default function Home({ slides, projects, properties }) {
-  console.log('properties: ', properties);
   return (
     <>
       <TopNavigation />
@@ -42,7 +41,7 @@ const HeroSection = ({ slides }) => (
     modules={[Navigation]}
     className="hero-container"
   >
-    {slides.map(({ image, slug, startingPrice, name }, index) => (
+    {slides.map(({ image, slug, startingPrice, name, slogan }, index) => (
       <SwiperSlide
         key={index}
         className="hero-image"
@@ -53,8 +52,8 @@ const HeroSection = ({ slides }) => (
       >
         <div className="hero-content">
           <div className="container">
-            <p className="lead text-hero-lead mb-1 mb-md-3">
-              A PLACE TO CALL HOME
+            <p className="lead text-hero-lead text-uppercase mb-1 mb-md-3">
+              {slogan || 'A PLACE TO CALL HOME'}
             </p>
             <h1 className="text-display mb-2 mb-md-4">{name}</h1>
             <ActionButtonGroup
@@ -153,6 +152,7 @@ export async function getStaticProps() {
     name: attributes.name,
     image: attributes.image,
     slug: attributes.slug,
+    slogan: attributes.slogan,
     startingPrice: attributes.startingPrice || 30_000_000,
   }));
 

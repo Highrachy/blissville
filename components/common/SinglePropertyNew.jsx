@@ -8,7 +8,6 @@ import { BathIcon, BedIcon, SizeIcon } from '../Icons/Icons';
 const SingleProperty = ({ id, attributes }) => {
   const { name, slug, image, beds, baths, size, price } = attributes;
   const project = attributes.project.data.attributes;
-  console.log('project: ', project);
   return (
     <div className="col-md-4 col-sm-12">
       <div className="property-listing overflow-hidden bg-gray-50 card">

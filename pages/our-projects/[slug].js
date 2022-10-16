@@ -11,7 +11,6 @@ import SingleProject from '@/components/common/SingleProject';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { Tab } from 'react-bootstrap';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
-import { projectFaqs } from '@/data/faqs';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 import Sharer from '@/components/ui/Sharer';
 import Modal from '@/components/ui/Modal';
@@ -23,8 +22,9 @@ import {
   moneyFormatInNaira,
 } from '@/utils/helpers';
 import { getShortDate } from '@/utils/date-helpers';
+import axios from 'axios';
 
-export default function SingleProjectPage({ project }) {
+export default function SingleProjectPage({ project, featuredProperties }) {
   const [showModal, setShowModal] = React.useState(false);
   const router = useRouter();
   // If the page is not yet generated, this will be displayed
@@ -43,6 +43,12 @@ export default function SingleProjectPage({ project }) {
     city,
     state,
   } = project;
+
+  const faqs = project?.faqs?.data;
+  const allFaqs = faqs?.map(({ attributes: { question, answer } }) => ({
+    question,
+    answer,
+  }));
 
   return (
     <>
@@ -150,15 +156,11 @@ export default function SingleProjectPage({ project }) {
 
       <section className="container">
         <div className="row">
-          {projectFaqs.map(({ name, faqs: allFaqs }, index) => (
-            <div className="mt-5 col-12 faqs-section" key={index}>
-              <h4>{name}</h4>
-              <FAQsAccordion faqs={allFaqs} />
-            </div>
-          ))}
+          <h4>FAQs</h4>
+          <FAQsAccordion faqs={allFaqs} />
         </div>
       </section>
-      <FeaturedProperties />
+      <FeaturedProperties properties={featuredProperties} />
 
       <div className="container pb-7">
         <h3 className="mt-3 mt-lg-6">Other Projects</h3>
@@ -174,9 +176,14 @@ export default function SingleProjectPage({ project }) {
 
 const TabInformation = ({ project }) => {
   const properties = project?.properties?.data || [];
+
   const [currentTab, setCurrentTab] = React.useState(
     properties[0]?.attributes?.['name']
   );
+
+  if (properties.length === 0) {
+    return null;
+  }
 
   return (
     <Section altBg>
@@ -187,26 +194,28 @@ const TabInformation = ({ project }) => {
             id="single-tenant-profile"
             className="mb-3"
           >
-            <ul className="nav nav-tab gap-1 nav-fill">
-              {properties.map(({ attributes: { name } }) => (
-                <li
-                  key={name}
-                  className={classNames('nav-item position-relative', {
-                    active: currentTab === name,
-                  })}
-                  onClick={() => setCurrentTab(name)}
-                >
-                  <span className="active-indicator"></span>
-                  <div
-                    className={classNames('nav-link py-4', {
+            {properties.length > 1 && (
+              <ul className="nav nav-tab gap-1 nav-fill">
+                {properties.map(({ attributes: { name } }) => (
+                  <li
+                    key={name}
+                    className={classNames('nav-item position-relative', {
                       active: currentTab === name,
                     })}
+                    onClick={() => setCurrentTab(name)}
                   >
-                    {name}
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    <span className="active-indicator"></span>
+                    <div
+                      className={classNames('nav-link py-4', {
+                        active: currentTab === name,
+                      })}
+                    >
+                      {name}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
             <Tab.Content>
               {properties.map(
                 ({
@@ -273,14 +282,14 @@ const TabInformation = ({ project }) => {
                               </li>
                               <li>
                                 <span className="list-dotted__value text-primary h2">
-                                  {price}
+                                  {moneyFormatInNaira(price)}
                                 </span>
                               </li>
                             </ul>
                             <Button
                               color="secondary"
                               className="me-2 my-2"
-                              href={`/our-properties//${slug}/${project?.properties?.data[0]?.attributes?.slug}/${project?.properties?.data[0]?.attributes?.id}`}
+                              href={`/our-properties/${slug}/${project?.properties?.data[0]?.attributes?.slug}/${project?.properties?.data[0]?.attributes?.id}`}
                             >
                               I am Interested
                             </Button>
@@ -290,9 +299,11 @@ const TabInformation = ({ project }) => {
                         <div className="col-md-7 order-0 order-md-1">
                           <Image
                             src={image}
+                            className="rounded"
                             alt="Floor Plan"
                             width={856}
                             height={856}
+                            objectFit="cover"
                           />
                         </div>
                       </div>
@@ -392,8 +403,23 @@ export async function getStaticProps({ params }) {
 
   const { data } = await res.json();
 
+  const propertiesRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+    {
+      params: {
+        populate: '*',
+        'pagination[pageSize]': 3,
+        sort: 'createdAt:desc',
+        'filters[project][id][$ne]': data[0].id,
+      },
+    }
+  );
+
   return {
-    props: { project: { id: data[0].id, ...data[0]['attributes'] } },
+    props: {
+      project: { id: data[0].id, ...data[0]['attributes'] },
+      featuredProperties: propertiesRes.data.data,
+    },
     revalidate: 10,
   };
 }
@@ -401,6 +427,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/projects`);
   const { data: projects } = await res.json();
+
   return {
     paths: projects.map((project) => {
       return {

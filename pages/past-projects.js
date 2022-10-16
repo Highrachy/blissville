@@ -3,24 +3,32 @@ import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
-import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
-import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
+import { SingleProjectGrid } from '@/components/common/SingleProject';
 import axios from 'axios';
-import Section from '@/components/common/Section';
+import { PROJECT_STATUS } from '@/utils/constants';
 
-export default function OurProjects({ properties, projects }) {
+export default function PastProjects({ projects, properties }) {
   return (
     <>
       <Navigation />
       <PageHeader
-        title="Our Properties"
+        title="Past Projects"
         subHeader="Powered By Highrachy"
         bgImage="/assets/img/bg/investors.jpeg"
       />
-      <FeaturedProperties properties={properties} />
-      <Section noPaddingBottom>
-        <ProjectsSlideshow projects={projects} />
-      </Section>
+      <section>
+        <div className="container">
+          <h3 className="mt-3 mt-lg-6">Past Projects</h3>
+          <div className="row">
+            {projects.length === 0 && (
+              <div className="text-center my-7 fs-5">No projects found</div>
+            )}
+            {projects.map((project, key) => (
+              <SingleProjectGrid key={key} {...project} />
+            ))}
+          </div>
+        </div>
+      </section>
       <ScheduleVisit />
       <Footer />
     </>
@@ -32,28 +40,17 @@ export async function getStaticProps() {
     `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*`,
     {
       params: {
-        'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
-      },
-    }
-  );
-
-  const propertiesRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/properties?populate=*`,
-    {
-      params: {
-        sort: 'createdAt:desc',
+        'filters[status][$eq]': PROJECT_STATUS.NOT_AVAILABLE,
       },
     }
   );
 
   const projects = projectRes.data.data;
-  const properties = propertiesRes.data.data;
 
   return {
     props: {
       projects,
-      properties,
     },
     revalidate: 10,
   };

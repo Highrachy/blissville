@@ -268,11 +268,11 @@ export const listFeatures = (project, type = PACKAGE.ALL) => {
   };
   const output = [];
   // loop features and split string by , and push to output
-  Object.entries(features).forEach(([key, value]) => {
+  Object.entries(features).forEach(([key, value], index) => {
     value?.split(',').forEach((feature) => {
       output.push(
         <li
-          key={feature}
+          key={`${feature}-${index}`}
           className={classNames('col-md-4', {
             invalid:
               type !== PACKAGE.ALL &&

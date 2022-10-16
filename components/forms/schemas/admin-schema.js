@@ -26,6 +26,7 @@ export const projectSchema = {
   startDate: requiredDate('Start Date'),
   delivery: requiredDate('Delivery'),
   status: required('Status'),
+  slogan: optionalValidation(required('Slogan')),
 };
 
 export const propertySchema = {

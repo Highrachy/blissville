@@ -10,6 +10,7 @@ export const portfolio = {
   children: {
     'our-projects': 'Our Projects',
     'our-properties': 'Our Properties',
+    'past-projects': 'Past Projects',
   },
 };
 
