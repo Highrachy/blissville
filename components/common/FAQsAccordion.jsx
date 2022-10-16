@@ -46,6 +46,7 @@ ContextAwareToggle.defaultProps = {
 };
 
 const FAQsAccordion = ({ faqs }) => {
+  if (faqs.length === 0) return null;
   return (
     <Accordion defaultActiveKey={0}>
       {faqs.map((faq, index) => (

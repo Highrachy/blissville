@@ -93,7 +93,7 @@ export const ManagePropertyForm = ({
   project,
 }) => {
   const isEdit = currentAction === 'Edit';
-  const paymentPlan = project?.paymentPlan / 3 || 12;
+  const paymentPlan = project?.paymentPlan / 6 || 12;
 
   const handleSubmit = async (values, actions) => {
     const payload = {
@@ -248,7 +248,7 @@ const PropertyFormFields = ({ isEdit, paymentPlan }) => (
       options={generateNumOptions(paymentPlan + 1, 'month', {
         startFrom: 0,
         firstOptionText: 'Outright Payment',
-        step: 3,
+        step: 6,
       })}
       blankOption="Select Payment Plan"
     />

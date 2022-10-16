@@ -194,10 +194,10 @@ const ProjectForm = ({
         <Select
           label="Payment Plan"
           name="paymentPlan"
-          options={generateNumOptions(13, 'month', {
+          options={generateNumOptions(9, 'month', {
             startFrom: 0,
             firstOptionText: 'Outright Payment',
-            step: 3,
+            step: 6,
           })}
           blankOption="Select Payment Plan"
         />

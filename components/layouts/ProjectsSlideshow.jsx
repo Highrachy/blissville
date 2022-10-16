@@ -5,7 +5,7 @@ import { Pagination, Autoplay, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const OurProjects = ({ projects }) => {
+const OurProjects = ({ projects, title }) => {
   return (
     <section
       className="bg-image-top"
@@ -14,7 +14,7 @@ const OurProjects = ({ projects }) => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <h3 className="mb-5 mt-4 mt-md-7">Our Projects</h3>
+            <h3 className="mb-5 mt-4 mt-md-7">{title || 'Our Projects'}</h3>
           </div>
         </div>
         <div className="row">

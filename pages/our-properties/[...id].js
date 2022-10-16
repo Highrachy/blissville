@@ -16,10 +16,14 @@ import { projectFaqs } from '@/data/faqs';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 import Sharer from '@/components/ui/Sharer';
 import Modal from '@/components/ui/Modal';
+import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
 import {
+  BathIcon,
+  BedIcon,
   BuildingIcon,
   CompareIcon,
   ShareProjectIcon,
+  SizeIcon,
 } from '@/components/Icons/Icons';
 import { packages } from '@/data/packages';
 import Link from 'next/link';
@@ -28,7 +32,7 @@ import Input from '@/components/forms/Input';
 import Textarea from '@/components/forms/Textarea';
 import ComparePackages from '@/components/layouts/ComparePackages';
 import PaymentPlanSlider from '@/components/common/PaymentPlanSlider';
-import { Convertshape, Magicpen } from 'iconsax-react';
+import { Car, Convertshape, Magicpen } from 'iconsax-react';
 import { useRouter } from 'next/router';
 import {
   getLocationFromAddress,
@@ -36,8 +40,14 @@ import {
   moneyFormatInNaira,
 } from '@/utils/helpers';
 import { Gallery, Neighborhood } from 'pages/our-projects/[slug]';
+import axios from 'axios';
 
-export default function SinglePropertyPage({ property }) {
+export default function SinglePropertyPage({
+  property,
+  projects,
+  similarProperties,
+  featuredProperties,
+}) {
   const router = useRouter();
 
   // If the page is not yet generated, this will be displayed
@@ -45,6 +55,12 @@ export default function SinglePropertyPage({ property }) {
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+
+  const faqs = property?.project?.data?.attributes?.faqs?.data || [];
+  const allFaqs = faqs?.map(({ attributes: { question, answer } }) => ({
+    question,
+    answer,
+  }));
 
   return (
     <>
@@ -58,6 +74,11 @@ export default function SinglePropertyPage({ property }) {
       <PropertyInformation property={property} />
       <TabInformation property={property} />
 
+      <FeaturedProperties
+        properties={similarProperties}
+        title="Other Properties"
+      />
+
       <Gallery
         galleries={[
           ...(property?.property_galleries.data || []),
@@ -70,42 +91,17 @@ export default function SinglePropertyPage({ property }) {
           property?.project?.data?.attributes?.neighborhoods?.data || []
         }
       />
-      <section className="container">
+      <section className="container mt-6">
         <div className="row">
-          <div className="col-md-12">
-            {projectFaqs.map(({ name, faqs: allFaqs }, index) => (
-              <div className="mt-5 col-12 faqs-section" key={index}>
-                <h4>{name}</h4>
-                <FAQsAccordion faqs={allFaqs} />
-              </div>
-            ))}
-          </div>
-          {/* <div className="col-md-6">
-            <div className="my-4 mb-5">
-              <div className="border rounded p-4 mt-0 mt-md-6">
-                <h6 className="">Compare Property</h6>
-                <hr className="dotted-border" />
-                <p>
-                  Compare everything about this property with another property
-                  to simplify your decision of buying one.
-                </p>
-                <Button color="secondary" href="/our-properties/compare">
-                  Compare Property <Convertshape variant="Bulk" />
-                </Button>
-              </div>
-            </div>
-          </div> */}
+          <h4>FAQs</h4>
+          <FAQsAccordion faqs={allFaqs} />
         </div>
       </section>
-
-      <FeaturedProperties />
-
-      <div className="container pb-7">
-        <h3 className="mt-3 mt-lg-6">Other Projects</h3>
-        <div className="row">
-          <SingleProject type="2" />
-        </div>
-      </div>
+      <FeaturedProperties properties={featuredProperties} />
+      <Section noPaddingBottom>
+        <ProjectsSlideshow projects={projects} title="Other Projects" />
+      </Section>
+      <div className="mt-7"></div>
       <ScheduleVisit />
       <Footer />
     </>
@@ -114,8 +110,18 @@ export default function SinglePropertyPage({ property }) {
 
 const PropertyInformation = ({ property }) => {
   const [showModal, setShowModal] = React.useState(false);
-  const { name, price, image, type, floors, size, parkingSpace, paymentPlan } =
-    property;
+  const {
+    name,
+    price,
+    image,
+    type,
+    floors,
+    size,
+    beds,
+    baths,
+    parkingSpace,
+    paymentPlan,
+  } = property;
   const project = property.project.data.attributes;
   return (
     <Section>
@@ -167,21 +173,20 @@ const PropertyInformation = ({ property }) => {
               />
             </div>
             <div className="row d-none d-md-flex">
-              {/* map div 4 times */}
-              {[1, 2, 3, 4].map((key) => (
-                <div className="col-sm-3" key={key}>
-                  <div className="mb-3">
-                    <Image
-                      src="/assets/img/property/property1.jpeg"
-                      alt="Hero Image"
-                      width="1024"
-                      height="768"
-                      objectFit="cover"
-                      className="img-fluid rounded"
-                    />
-                  </div>
-                </div>
-              ))}
+              <FeatureCard
+                number={size}
+                title="Msq"
+                icon={<SizeIcon />}
+                pluralize={false}
+              />
+              <FeatureCard number={baths} title="Bath" icon={<BathIcon />} />
+              <FeatureCard number={beds} title="Bed" icon={<BedIcon />} />
+              <FeatureCard
+                number={parkingSpace}
+                title="Parking"
+                icon={<Car variant="Bold" />}
+                pluralize={false}
+              />
             </div>
           </div>
           <div className="col-md-4">
@@ -223,7 +228,7 @@ const PropertyInformation = ({ property }) => {
                   </span>
                 </li>
                 <li className="text-center">
-                  <Button color="light" href="/our-properties/compare">
+                  <Button color="primary" href="/our-properties/compare">
                     Compare Property <Convertshape variant="Bulk" />
                   </Button>
                 </li>
@@ -310,8 +315,10 @@ const TabInformation = ({ property }) => {
   const project = property.project.data.attributes;
   const [showComparePropertyModal, setShowComparePropertyModal] =
     React.useState(false);
+  const halfPaymentPlan =
+    property.paymentPlan > 0 ? property.paymentPlan / 2 : 0;
   const [currentTab, setCurrentTab] = React.useState(packages[0]['name']);
-  const [customPlan, setCustomPlan] = React.useState(1);
+  const [customPlan, setCustomPlan] = React.useState(halfPaymentPlan);
 
   return (
     <Section altBg>
@@ -386,55 +393,58 @@ const TabInformation = ({ property }) => {
                       <div className="row">
                         <h4>
                           Available Payment Plans
-                          <div className="float-md-end">
-                            <Dropdown>
-                              <Dropdown.Toggle
-                                variant="light"
-                                id="dropdown-basic"
-                              >
-                                Select Month
-                              </Dropdown.Toggle>
+                          {property.paymentPlan > 6 && (
+                            <div className="float-md-end">
+                              <Dropdown>
+                                <Dropdown.Toggle
+                                  variant="light"
+                                  id="dropdown-basic"
+                                >
+                                  Select Plan
+                                </Dropdown.Toggle>
 
-                              <Dropdown.Menu>
-                                {/* loop from 1 to paymentPlan */}
-
-                                {Array.from(
-                                  { length: property.paymentPlan - 1 },
-                                  (_, i) => i + 1
-                                ).map(
-                                  (plan) =>
-                                    plan !== customPlan && (
-                                      <Dropdown.Item
-                                        key={plan}
-                                        onClick={() => setCustomPlan(plan)}
-                                      >
-                                        {plan} Months
-                                      </Dropdown.Item>
-                                    )
-                                )}
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </div>
+                                <Dropdown.Menu>
+                                  {/* loop from 3 in multiple of 3 to paymentPlan */}
+                                  {Array.from(
+                                    { length: property.paymentPlan / 3 - 1 },
+                                    (_, i) => i + 1
+                                  ).map(
+                                    (plan) =>
+                                      plan * 3 !== customPlan && (
+                                        <Dropdown.Item
+                                          key={plan}
+                                          onClick={() =>
+                                            setCustomPlan(plan * 3)
+                                          }
+                                        >
+                                          {plan * 3} Months
+                                        </Dropdown.Item>
+                                      )
+                                  )}
+                                </Dropdown.Menu>
+                              </Dropdown>
+                            </div>
+                          )}
                         </h4>
 
                         <PaymentPlanCard
                           month={0}
                           price={currentTabPrice}
                           property={property}
-                          dimDisplay={customPlan !== 1}
+                          dimDisplay={customPlan !== halfPaymentPlan}
                         />
 
                         <PaymentPlanCard
                           month={customPlan}
                           price={currentTabPrice}
                           property={property}
-                          customPlan={customPlan !== 1}
+                          customPlan={customPlan !== halfPaymentPlan}
                         />
                         <PaymentPlanCard
                           month={property.paymentPlan}
                           price={currentTabPrice}
                           property={property}
-                          dimDisplay={customPlan !== 1}
+                          dimDisplay={customPlan !== halfPaymentPlan}
                         />
                       </div>
                     </div>
@@ -448,6 +458,30 @@ const TabInformation = ({ property }) => {
     </Section>
   );
 };
+
+const FeatureCard = ({ number, title, icon, pluralize = true }) => (
+  <aside className="col-sm-3">
+    <div className={`card h-100 position-relative bg-gray`}>
+      <div className="card-body px-md-4 px-3">
+        <div className="d-flex align-items-center justify-content-between">
+          <div>
+            <h4 className="mb-0 widget__color lh-1 mt-3 mb-2 text-muted">
+              {number}
+            </h4>
+            <p className="mb-0 text-sm text-muted">
+              {pluralize ? Humanize.pluralize(number, title) : title}
+            </p>
+          </div>
+        </div>
+        <div
+          className={`widget__icon-tint dark position-absolute bottom-0 end-0`}
+        >
+          {icon}
+        </div>
+      </div>
+    </div>
+  </aside>
+);
 
 const PaymentPlanCard = ({
   property,
@@ -555,13 +589,54 @@ const PaymentPlanCard = ({
 };
 
 export async function getStaticProps({ params }) {
+  const id = params['id'][2];
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/properties?populate=deep&filters[id][$eq]=${params['id'][2]}`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties?populate=deep&filters[id][$eq]=${id}`
   );
 
   const { data } = await res.json();
+  const projectId = data[0].attributes.project.data.id;
 
-  return { props: { property: { id: data[0].id, ...data[0]['attributes'] } } };
+  const propertiesRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+    {
+      params: {
+        populate: '*',
+        'pagination[pageSize]': 3,
+        sort: 'createdAt:desc',
+        'filters[project][id][$ne]': projectId,
+      },
+    }
+  );
+  const similarPropertiesRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+    {
+      params: {
+        populate: '*',
+        'filters[project][id][$eq]': projectId,
+        'filters[id][$ne]': id,
+      },
+    }
+  );
+
+  const projectRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
+    {
+      params: {
+        'pagination[pageSize]': 3,
+        sort: 'createdAt:desc',
+      },
+    }
+  );
+
+  return {
+    props: {
+      property: { id: data[0].id, ...data[0]['attributes'] },
+      featuredProperties: propertiesRes.data.data,
+      similarProperties: similarPropertiesRes.data.data,
+      projects: projectRes.data.data,
+    },
+  };
 }
 
 export async function getStaticPaths() {

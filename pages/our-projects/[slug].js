@@ -161,13 +161,6 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         </div>
       </section>
       <FeaturedProperties properties={featuredProperties} />
-
-      <div className="container pb-7">
-        <h3 className="mt-3 mt-lg-6">Other Projects</h3>
-        <div className="row">
-          <SingleProject type="2" />
-        </div>
-      </div>
       <ScheduleVisit />
       <Footer />
     </>
@@ -324,7 +317,7 @@ export const Gallery = ({ galleries, className }) => {
     return null;
   }
   return (
-    <Section className={className}>
+    <Section className={className} noPaddingBottom>
       <div className="container">
         <h3>Gallery</h3>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-5 gx-4">
