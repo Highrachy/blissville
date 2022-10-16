@@ -17,15 +17,14 @@ import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 
-export default function Home({ slides, projects }) {
-  console.log('projects: ', projects);
-
+export default function Home({ slides, projects, properties }) {
+  console.log('properties: ', properties);
   return (
     <>
       <TopNavigation />
       <HeroSection slides={slides} />
       <ExecutiveSummary />
-      <FeaturedProperties />
+      <FeaturedProperties properties={properties} />
       <BenefitSlider />
       <ProjectsSlideshow projects={projects} />
       <InvestToday showButton />
@@ -139,6 +138,16 @@ export async function getStaticProps() {
     }
   );
 
+  const propertiesRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties?populate=*`,
+    {
+      params: {
+        'pagination[pageSize]': 3,
+        sort: 'createdAt:desc',
+      },
+    }
+  );
+
   const slides = slideRes.data.data.map(({ id, attributes }) => ({
     id,
     name: attributes.name,
@@ -148,10 +157,12 @@ export async function getStaticProps() {
   }));
 
   const projects = projectRes.data.data;
+  const properties = propertiesRes.data.data;
   return {
     props: {
       slides,
       projects,
+      properties,
     },
     revalidate: 10,
   };

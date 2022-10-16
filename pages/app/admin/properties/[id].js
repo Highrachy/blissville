@@ -156,10 +156,7 @@ const PropertyHeader = ({
                 </div> */}
                 <div className="d-flex flex-wrap fs-6 my-2">
                   <Link
-                    href={{
-                      pathname: '/our-properties/[slug]',
-                      query: { slug },
-                    }}
+                    href={`/our-properties/${project.slug}/${slug}/${id}`}
                     passHref
                   >
                     <a className="text-underline text-muted text-sm me-3">

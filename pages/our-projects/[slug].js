@@ -213,6 +213,7 @@ const TabInformation = ({ project }) => {
                   attributes: {
                     name,
                     type,
+                    slug,
                     description,
                     image,
                     floor,
@@ -279,7 +280,7 @@ const TabInformation = ({ project }) => {
                             <Button
                               color="secondary"
                               className="me-2 my-2"
-                              href={`/our-properties/${project?.properties?.data[0]?.attributes?.slug}`}
+                              href={`/our-properties//${slug}/${project?.properties?.data[0]?.attributes?.slug}/${project?.properties?.data[0]?.attributes?.id}`}
                             >
                               I am Interested
                             </Button>

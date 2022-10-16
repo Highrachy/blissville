@@ -28,20 +28,29 @@ const TextArea = ({
   tooltipHeader,
   tooltipText,
   tooltipPosition,
+  floatingLabel,
   ...others
 }) => {
+  const inputLabel = (
+    <Label
+      className={labelClassName}
+      labelLink={labelLink}
+      floatingLabel={floatingLabel}
+      name={name}
+      optional={optional}
+      text={label}
+      tooltipHeader={tooltipHeader}
+      tooltipPosition={tooltipPosition}
+      tooltipText={tooltipText}
+    />
+  );
   return (
-    <div className={classNames('mb-4', formGroupClassName, { row: inline })}>
-      <Label
-        className={labelClassName}
-        labelLink={labelLink}
-        name={name}
-        optional={optional}
-        text={label}
-        tooltipHeader={tooltipHeader}
-        tooltipPosition={tooltipPosition}
-        tooltipText={tooltipText}
-      />
+    <div
+      className={classNames('mb-4', formGroupClassName, {
+        'form-floating': floatingLabel,
+      })}
+    >
+      {!floatingLabel && inputLabel}
       <Field
         aria-describedby={name}
         autoComplete={autoComplete}
@@ -56,6 +65,7 @@ const TextArea = ({
         placeholder={placeholder || label}
         {...others}
       />
+      {floatingLabel && inputLabel}
       <FeedbackMessage
         formik={formik}
         helpText={helpText}
