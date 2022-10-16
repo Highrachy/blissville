@@ -3,7 +3,7 @@ import { KeyIcon, PhoneIcon } from '@/components/Icons/Icons';
 import ActionButton from '@/components/common/ActionButton';
 import { moneyFormatInNaira } from '@/utils/helpers';
 
-const ActionButtonGroup = ({ price = 35_000_000 }) => {
+const ActionButtonGroup = ({ price = 35_000_000, href = '#' }) => {
   return (
     <div className="d-flex">
       <ActionButton
@@ -11,7 +11,7 @@ const ActionButtonGroup = ({ price = 35_000_000 }) => {
         Icon={<KeyIcon />}
         topText="Prices From"
         bottomText={moneyFormatInNaira(price)}
-        href="#"
+        href={href}
       />
       <ActionButton
         color="secondary"

@@ -1,9 +1,10 @@
+import { moneyFormatInNaira } from '@/utils/helpers';
 import Image from 'next/image';
 import React from 'react';
 import Button from '../forms/Button';
 
 const SingleProject = ({ id, attributes }) => {
-  const { name, type, image, city, state, price, slug } = attributes;
+  const { name, type, image, city, state, startingPrice, slug } = attributes;
   return (
     <div className="card rounded p-2 m-0 mb-5">
       <div className="row g-0">
@@ -39,7 +40,9 @@ const SingleProject = ({ id, attributes }) => {
               </li>
               <li>
                 <span className="list-dotted__label">Prices From </span>
-                <span className="list-dotted__value">₦ 45 Million</span>
+                <span className="list-dotted__value">
+                  {moneyFormatInNaira(startingPrice)}
+                </span>
               </li>
               <li>
                 <span className="list-dotted__label">Delivery </span>

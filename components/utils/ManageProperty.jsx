@@ -93,7 +93,6 @@ export const ManagePropertyForm = ({
   project,
 }) => {
   const isEdit = currentAction === 'Edit';
-  console.log('project', project);
   const paymentPlan = project?.paymentPlan / 3 || 12;
 
   const handleSubmit = async (values, actions) => {
@@ -104,8 +103,6 @@ export const ManagePropertyForm = ({
         : 'Ground Floor',
       ...(!isEdit && { project: projectId }),
     };
-
-    console.log('payload', payload);
 
     const id = initialValues?.id;
     try {
@@ -161,7 +158,7 @@ const PropertyFormFields = ({ isEdit, paymentPlan }) => (
       defaultImage="/assets/img/placeholder/image.png"
       changeText="Update Picture"
       imgOptions={{
-        className: 'mb-3 icon-md',
+        className: 'mb-3 img-xxl',
         width: 200,
         height: 300,
       }}

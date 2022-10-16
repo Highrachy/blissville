@@ -1,16 +1,11 @@
-import Image from 'next/image';
 import React from 'react';
-import SingleProject from '../common/SingleProject';
+import SingleProject from '../common/SingleProjectNew';
 
-import { Pagination, Navigation, Autoplay, A11y, EffectCube } from 'swiper';
+import { Pagination, Autoplay, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-const OurProjects = () => {
+const OurProjects = ({ projects }) => {
   return (
     <section
       className="bg-image-top"
@@ -35,15 +30,13 @@ const OurProjects = () => {
             slidesPerView={1}
             spaceBetween={10}
             pagination={{ clickable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
             loop={true}
           >
-            <SwiperSlide key="1">
-              <SingleProject type="1" />
-            </SwiperSlide>
-            <SwiperSlide key="2">
-              <SingleProject type="2" />
-            </SwiperSlide>
+            {projects.map((project, index) => (
+              <SwiperSlide key={project.attributes.name + index}>
+                <SingleProject {...project} />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>

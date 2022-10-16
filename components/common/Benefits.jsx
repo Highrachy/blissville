@@ -11,11 +11,8 @@ import {
 } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Image from 'next/image';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-// import 'swiper/css/navigation';
 // import 'swiper/css/effect-cube';
 
 export const BenefitSlider = () => {
@@ -34,8 +31,8 @@ export const BenefitSlider = () => {
         slidesPerView={1}
         spaceBetween={10}
         pagination={{ clickable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
         // slidesPerGroup={3}
         breakpoints={{
           640: {
@@ -68,8 +65,8 @@ const Benefits = ({ className, topThree }) => {
       <div className="container">
         <h3 className="my-4">Why Choose Blissville</h3>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 gy-5 gx-5">
-          {allBenefits.map((benefit, index) => (
-            <SingleBenefits key={index} {...benefit} />
+          {allBenefits.map((benefit) => (
+            <SingleBenefits key={benefit.title} {...benefit} />
           ))}
         </div>
       </div>
@@ -80,7 +77,14 @@ const Benefits = ({ className, topThree }) => {
 export const SingleBenefits = ({ icon, title, text }) => (
   <div className="col h-100 d-flex align-items-stretch">
     <div className="benefits-card">
-      <div className="bg-icon">{icon}</div>
+      <div className="bg-icon" key={title} id={title}>
+        <Image
+          alt={title}
+          src={`/assets/img/benefits/${icon}.png`}
+          width={46}
+          height={46}
+        />
+      </div>
       <h6 className="text-uppercase mt-4 mb-2 font-secondary text-primary">
         {title}
       </h6>

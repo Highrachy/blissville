@@ -43,7 +43,6 @@ export default function SingleProjectPage({ project }) {
     city,
     state,
   } = project;
-  console.log('project: ', project);
 
   return (
     <>
@@ -175,7 +174,6 @@ export default function SingleProjectPage({ project }) {
 
 const TabInformation = ({ project }) => {
   const properties = project?.properties?.data || [];
-  console.log('properties', properties);
   const [currentTab, setCurrentTab] = React.useState(
     properties[0]?.attributes?.['name']
   );

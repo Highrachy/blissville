@@ -59,22 +59,18 @@
 }
 .hero-image {
   width: 100%;
+  min-height: 30rem;
   @include media-breakpoint-up(md) {
     min-height: 74rem;
   }
-  min-height: 30rem;
-  background: linear-gradient(
-      0deg,
-      rgba(15, 17, 20, 0.5),
-      rgba(15, 17, 20, 0.5)
-    ),
-    url('/assets/img/home/hero-image.png');
-  background-size: cover;
 }
 
 .hero-content {
   position: absolute;
-  // transform: translate(-50%, -50%);
+  bottom: 2rem;
+  @include media-breakpoint-up(md) {
+    bottom: 45%;
+  }
   color: $white;
   width: 100%;
   z-index: 1;

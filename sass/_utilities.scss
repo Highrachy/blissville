@@ -34,14 +34,21 @@
 .fw-medium {
   font-weight: 500 !important;
 }
+
 .icon-sm {
-  height: 1.2rem;
-  width: 1.2rem;
+  &,
+  & svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
 }
 
-.icon-md svg {
-  height: 1.5rem;
-  width: 1.5rem;
+.icon-md {
+  &,
+  & svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
 }
 
 .icon-md2 svg {
@@ -558,4 +565,14 @@ div.nav-link {
   margin: 3rem 0;
   max-width: 65vw !important;
   overflow: scroll;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important;
+
+  &:after {
+    font-size: 2rem !important;
+    opacity: 0.8;
+  }
 }

@@ -121,7 +121,7 @@ const ManageFloorPlanForm = ({
           changeText="Update Picture"
           defaultImage="/assets/img/placeholder/image.png"
           imgOptions={{
-            className: 'mb-3 icon-md',
+            className: 'mb-3 img-xxl',
             width: 200,
             height: 300,
           }}

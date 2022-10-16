@@ -5,8 +5,8 @@ import { ContentLoader } from '@/components/utils/LoadingItems';
 import { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Button from '@/components/forms/Button';
-import { getLocationFromAddress } from '@/utils/helpers';
-import { Location } from 'iconsax-react';
+import { getLocationFromAddress, moneyFormatInNaira } from '@/utils/helpers';
+import { GalleryTick } from 'iconsax-react';
 import { PROJECT_STATUS_NAME, USER_ROLES } from '@/utils/constants';
 import { PropertiesRowList } from '../properties';
 import TabContent from '@/components/admin/TabContent';
@@ -16,6 +16,8 @@ import ManageFAQs from '@/components/utils/ManageFAQs';
 import { LocalImage } from '@/components/common/Image';
 import Link from 'next/link';
 import ManageProperty from '@/components/utils/ManageProperty';
+import ProcessButton from '@/components/utils/ProcessButton';
+import Separator from '@/components/common/Separator';
 
 const pageOptions = {
   key: 'project',
@@ -36,6 +38,8 @@ const SingleProject = () => {
     },
   });
 
+  const featured = result?.attributes?.featured;
+
   const allTabs = [
     {
       title: 'Overview',
@@ -55,10 +59,28 @@ const SingleProject = () => {
         'status',
         'startDate',
         'delivery',
+        'featured',
       ],
       processField: {
         status: (value) => PROJECT_STATUS_NAME[value],
         paymentPlan: (value) => `${value} Months`,
+        featured: (value) => (
+          <ProcessButton
+            afterSuccess={() => query.mutate()}
+            api={`projects/${id}`}
+            buttonColor={featured ? 'danger' : 'success'}
+            buttonSizeClassName="btn-sm"
+            data={{ featured: !featured }}
+            modalContent={`Are you sure you want to show this on the home page`}
+            modalTitle={featured ? 'Remove from Home Page' : 'Add to Home Page'}
+            successMessage={`The information has been successfully updated`}
+          >
+            {featured ? 'Remove from Home Page' : 'Add to Home Page'}
+          </ProcessButton>
+        ),
+      },
+      renameField: {
+        featured: 'Show on HomePage',
       },
     },
     {
@@ -139,6 +161,8 @@ const ProjectHeader = ({
   status,
   type,
   image,
+  startingPrice,
+  featured,
   ...projectInfo
 }) => {
   return (
@@ -159,11 +183,20 @@ const ProjectHeader = ({
           <div className="flex-grow-1">
             <div className="d-flex justify-content-between align-items-start flex-wrap">
               <div className="d-flex flex-column">
-                <h4 className="d-flex align-items-center mb-2">
-                  {name} - {type}
-                </h4>
+                <h5 className="d-flex align-items-center mt-n2">
+                  {name} - {type} &nbsp;{' '}
+                  {featured && (
+                    <span className="text-primary">
+                      <GalleryTick variant="Bulk" />
+                    </span>
+                  )}
+                </h5>
                 <div className="d-flex text-sm flex-wrap align-items-center mb-2 pe-2">
                   {getLocationFromAddress(projectInfo)}
+                </div>
+                <div className="d-flex text-sm flex-wrap align-items-center pe-2 text-primary fw-bold">
+                  <span className="text-muted">From </span>&nbsp;{' '}
+                  {moneyFormatInNaira(startingPrice)} &nbsp;
                 </div>
                 <div className="d-flex flex-wrap my-2 text-muted">
                   <Link
@@ -177,7 +210,7 @@ const ProjectHeader = ({
                       View on Website
                     </a>
                   </Link>
-                  |
+                  <Separator />
                   <Link
                     href={{
                       pathname: '/app/admin/projects/new',
@@ -189,7 +222,7 @@ const ProjectHeader = ({
                       Edit Project
                     </a>
                   </Link>
-                  |
+                  <Separator />
                   <Link
                     href={{
                       pathname: '/app/admin/projects/new',

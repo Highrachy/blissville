@@ -18,19 +18,22 @@ const TabContent = ({ allTabs, id, name, result }) => {
         currentTab={currentTab}
       />
       <Tab.Content>
-        {allTabs.map(({ title, fields, Component, processField }) => (
-          <Tab.Pane eventKey={title} key={title}>
-            <TabInformation
-              id={id}
-              title={title}
-              result={{ id, ...result?.attributes }}
-              data={fields}
-              Component={Component}
-              setCurrentTab={setCurrentTab}
-              processField={processField}
-            />
-          </Tab.Pane>
-        ))}
+        {allTabs.map(
+          ({ title, fields, Component, processField, renameField }) => (
+            <Tab.Pane eventKey={title} key={title}>
+              <TabInformation
+                id={id}
+                title={title}
+                result={{ id, ...result?.attributes }}
+                data={fields}
+                Component={Component}
+                setCurrentTab={setCurrentTab}
+                processField={processField}
+                renameField={renameField}
+              />
+            </Tab.Pane>
+          )
+        )}
       </Tab.Content>
     </Tab.Container>
   );
@@ -60,9 +63,9 @@ const TabInformation = ({
   data,
   Component,
   processField,
+  renameField,
   useTableHeader,
 }) => {
-  console.log('processField', processField);
   return (
     <section>
       {Component ? (
@@ -84,7 +87,9 @@ const TabInformation = ({
           ) : (
             data.map((item, index) => (
               <tr key={index}>
-                <th width="250">{camelToSentence(item)}</th>
+                <th width="250">
+                  {renameField?.[item] || camelToSentence(item)}
+                </th>
                 <td>
                   {item === 'description' ? (
                     <ReactMarkdown>{result[item]}</ReactMarkdown>

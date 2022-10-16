@@ -15,6 +15,7 @@ import ManageFloorPlan from '@/components/utils/ManageFloorPlan';
 import Link from 'next/link';
 import { LocalImage } from '@/components/common/Image';
 import DeleteButton from '@/components/utils/DeleteButton';
+import Separator from '@/components/common/Separator';
 
 const pageOptions = {
   key: 'property',
@@ -165,7 +166,7 @@ const PropertyHeader = ({
                       View on Website
                     </a>
                   </Link>
-                  |
+                  <Separator />
                   <Link
                     href={{
                       pathname: '/app/admin/properties/new',
@@ -177,7 +178,7 @@ const PropertyHeader = ({
                       Edit Property
                     </a>
                   </Link>
-                  |
+                  <Separator />
                   <Link
                     href={{
                       pathname: '/app/admin/properties/new',
@@ -189,7 +190,7 @@ const PropertyHeader = ({
                       Duplicate Property
                     </a>
                   </Link>
-                  |
+                  <Separator />
                   <DeleteButton
                     afterSuccess={() => query.mutate()}
                     api={`properties/${id}`}

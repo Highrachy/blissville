@@ -44,7 +44,7 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
               </a>
             </Link>
             <div
-              className="btn-link icon-md2"
+              className="btn-link img-md"
               onClick={() => setIsFolded(!isFolded)}
             >
               <svg

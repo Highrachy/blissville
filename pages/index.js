@@ -1,7 +1,7 @@
 import Footer from '@/components/common/Footer';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
-import Navigation from '@/components/layouts/Navigation';
+import TopNavigation from '@/components/layouts/Navigation';
 import Image from 'next/image';
 import { BenefitSlider } from '@/components/common/Benefits';
 import { TestimonialSection } from '@/components/common/Testimonials';
@@ -13,16 +13,21 @@ import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 import { ArrowRight } from '@/components/Icons/Icons';
 import Fade from 'react-reveal/Fade';
 import { Bounce } from 'react-reveal';
+import axios from 'axios';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
 
-export default function Home() {
+export default function Home({ slides, projects }) {
+  console.log('projects: ', projects);
+
   return (
     <>
-      <Navigation />
-      <HeroSection />
+      <TopNavigation />
+      <HeroSection slides={slides} />
       <ExecutiveSummary />
       <FeaturedProperties />
       <BenefitSlider />
-      <ProjectsSlideshow />
+      <ProjectsSlideshow projects={projects} />
       <InvestToday showButton />
       <TestimonialSection />
       <ScheduleVisit />
@@ -31,20 +36,37 @@ export default function Home() {
   );
 }
 
-const HeroSection = () => (
-  <div className="hero-container">
-    <div className="hero-image">
-      <div className="hero-content bottom-0">
-        <div className="container">
-          <p className="lead text-hero-lead mb-1 mb-md-3">
-            A PLACE TO CALL HOME
-          </p>
-          <h1 className="text-display mb-2 mb-md-4">BLISSVILLE UNO</h1>
-          <ActionButtonGroup />
+const HeroSection = ({ slides }) => (
+  <Swiper
+    loop={true}
+    navigation={true}
+    modules={[Navigation]}
+    className="hero-container"
+  >
+    {slides.map(({ image, slug, startingPrice, name }, index) => (
+      <SwiperSlide
+        key={index}
+        className="hero-image"
+        style={{
+          background: `linear-gradient(0deg, rgba(15, 17, 20, 0.5), rgba(15, 17, 20, 0.5)), url(${image})`,
+          backgroundSize: 'cover',
+        }}
+      >
+        <div className="hero-content">
+          <div className="container">
+            <p className="lead text-hero-lead mb-1 mb-md-3">
+              A PLACE TO CALL HOME
+            </p>
+            <h1 className="text-display mb-2 mb-md-4">{name}</h1>
+            <ActionButtonGroup
+              price={startingPrice}
+              href={`/our-projects/${slug}`}
+            />
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
 );
 
 const ExecutiveSummary = () => (
@@ -94,3 +116,43 @@ const ExecutiveSummary = () => (
     </div>
   </Section>
 );
+
+export async function getStaticProps() {
+  const slideRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
+    {
+      params: {
+        // 'pagination[page]': 1,
+        'pagination[pageSize]': 2,
+        'filters[featured][$eq]': 'true',
+      },
+    }
+  );
+
+  const projectRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
+    {
+      params: {
+        'pagination[pageSize]': 3,
+        sort: 'createdAt:desc',
+      },
+    }
+  );
+
+  const slides = slideRes.data.data.map(({ id, attributes }) => ({
+    id,
+    name: attributes.name,
+    image: attributes.image,
+    slug: attributes.slug,
+    startingPrice: attributes.startingPrice || 30_000_000,
+  }));
+
+  const projects = projectRes.data.data;
+  return {
+    props: {
+      slides,
+      projects,
+    },
+    revalidate: 10,
+  };
+}

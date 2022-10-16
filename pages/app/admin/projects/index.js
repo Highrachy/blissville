@@ -8,6 +8,7 @@ import Button from '@/components/forms/Button';
 import { filterProjects } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
 import Link from 'next/link';
+import { GalleryTick } from 'iconsax-react';
 
 const Projects = () => (
   <Backend role={USER_ROLES.ADMIN}>
@@ -68,7 +69,7 @@ export const ProjectsSingleRow = ({
   properties,
   ...props
 }) => {
-  const { id, name, city, state, image } = props;
+  const { id, name, city, state, image, featured } = props;
   return (
     <tr>
       <td>{number}</td>
@@ -79,7 +80,12 @@ export const ProjectsSingleRow = ({
           className="img-md2 me-2"
           rounded
         />
-        {name}
+        {name} &nbsp;
+        {featured && (
+          <span className="icon-sm text-primary">
+            <GalleryTick variant="Bulk" />
+          </span>
+        )}
       </td>
       <td>
         <span className={`badge badge-dot text-dark`}>

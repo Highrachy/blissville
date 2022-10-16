@@ -3,6 +3,10 @@ import NextNProgress from 'nextjs-progressbar';
 import React from 'react';
 import '../sass/App.scss';
 import { ToastContainer, Slide } from 'react-toastify';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 function MyApp({ Component, pageProps }) {
   return (

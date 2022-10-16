@@ -14,7 +14,6 @@ import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { SingleProjectGrid } from '@/components/common/SingleProject';
 
 export default function OurProjects({ projects }) {
-  console.log('projects: ', projects);
   return (
     <>
       <Navigation />
@@ -65,6 +64,3 @@ export async function getStaticProps() {
     revalidate: 10,
   };
 }
-
-// 8 * 3
-// 24
