@@ -77,7 +77,7 @@ export const gallerySchema = {
 export const neighborhoodSchema = {
   location: stringValidation('Location'),
   category: stringValidation('Category'),
-  distance: stringValidation('Distance'),
+  distance: required('Distance'),
 };
 export const floorPlanSchema = {
   image: stringValidation('Image'),

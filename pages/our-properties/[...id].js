@@ -91,12 +91,14 @@ export default function SinglePropertyPage({
           property?.project?.data?.attributes?.neighborhoods?.data || []
         }
       />
-      <section className="container mt-6">
-        <div className="row">
-          <h4>FAQs</h4>
-          <FAQsAccordion faqs={allFaqs} />
-        </div>
-      </section>
+      {allFaqs.length > 0 && (
+        <section className="container mt-6">
+          <div className="row">
+            <h4>FAQs</h4>
+            <FAQsAccordion faqs={allFaqs} />
+          </div>
+        </section>
+      )}
       <FeaturedProperties properties={featuredProperties} />
       <Section noPaddingBottom>
         <ProjectsSlideshow projects={projects} title="Other Projects" />
@@ -111,6 +113,7 @@ export default function SinglePropertyPage({
 const PropertyInformation = ({ property }) => {
   const [showModal, setShowModal] = React.useState(false);
   const {
+    id,
     name,
     price,
     image,
@@ -228,7 +231,7 @@ const PropertyInformation = ({ property }) => {
                   </span>
                 </li>
                 <li className="text-center">
-                  <Button color="primary" href="/our-properties/compare">
+                  <Button color="info" href={`/compare-properties/${id}`}>
                     Compare Property <Convertshape variant="Bulk" />
                   </Button>
                 </li>

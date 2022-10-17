@@ -159,7 +159,7 @@ const ProjectForm = ({
         />
         <MdEditor label="Description" name="description" height="10rem" />
         <Input label="Street 1" name="street1" />
-        <Input label="Street 2" name="street2" />
+        <Input label="Street 2" name="street2" optional />
         <div className="row">
           <Input label="City" name="city" formGroupClassName="col-md-6" />
           <Select
@@ -219,17 +219,18 @@ const ProjectForm = ({
           />
         </div>
         <div className="row">
+          <Input
+            label="Project Slogan"
+            name="slogan"
+            formGroupClassName="col-md-6"
+            optional
+          />
           <Select
             formGroupClassName="col-md-6"
             name="status"
             label="Status"
             options={objectToOptions(PROJECT_STATUS_NAME, null, true)}
             blankOption="Select Project Status"
-          />
-          <Input
-            label="Project Slogan"
-            name="slogan"
-            formGroupClassName="col-md-6"
           />
         </div>
         <FormikButton color="secondary">

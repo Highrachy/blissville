@@ -154,13 +154,16 @@ export default function SingleProjectPage({ project, featuredProperties }) {
       <Gallery galleries={project?.project_galleries?.data || []} />
       <Neighborhood neighborhoods={project?.neighborhoods?.data || []} />
 
-      <section className="container">
-        <div className="row">
-          <h4>FAQs</h4>
-          <FAQsAccordion faqs={allFaqs} />
-        </div>
-      </section>
+      {allFaqs.length > 0 && (
+        <section className="container">
+          <div className="row">
+            <h4>FAQs</h4>
+            <FAQsAccordion faqs={allFaqs} />
+          </div>
+        </section>
+      )}
       <FeaturedProperties properties={featuredProperties} />
+      <div className="mt-7"></div>
       <ScheduleVisit />
       <Footer />
     </>
@@ -212,13 +215,14 @@ const TabInformation = ({ project }) => {
             <Tab.Content>
               {properties.map(
                 ({
+                  id,
                   attributes: {
                     name,
                     type,
                     slug,
                     description,
                     image,
-                    floor,
+                    floors,
                     size,
                     beds,
                     baths,
@@ -246,7 +250,7 @@ const TabInformation = ({ project }) => {
                                   Floor:
                                 </span>
                                 <span className="list-dotted__value">
-                                  {floor}
+                                  {floors}
                                 </span>
                               </li>
                               <li>
@@ -254,7 +258,7 @@ const TabInformation = ({ project }) => {
                                   Size:
                                 </span>
                                 <span className="list-dotted__value">
-                                  {size}
+                                  {size} Msq
                                 </span>
                               </li>
                               <li>
@@ -282,7 +286,7 @@ const TabInformation = ({ project }) => {
                             <Button
                               color="secondary"
                               className="me-2 my-2"
-                              href={`/our-properties/${slug}/${project?.properties?.data[0]?.attributes?.slug}/${project?.properties?.data[0]?.attributes?.id}`}
+                              href={`/our-properties/${slug}/${project?.properties?.data[0]?.attributes?.slug}/${id}`}
                             >
                               I am Interested
                             </Button>

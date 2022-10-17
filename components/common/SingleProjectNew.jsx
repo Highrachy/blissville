@@ -1,10 +1,23 @@
+import { PROJECT_STATUS_NAME, STATUS_NAME } from '@/utils/constants';
+import { getShortDate } from '@/utils/date-helpers';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import Image from 'next/image';
 import React from 'react';
 import Button from '../forms/Button';
 
 const SingleProject = ({ id, attributes }) => {
-  const { name, type, image, city, state, startingPrice, slug } = attributes;
+  const {
+    name,
+    type,
+    image,
+    city,
+    state,
+    delivery,
+    status,
+    startingPrice,
+    slug,
+  } = attributes;
+  console.log('status', status);
   return (
     <div className="card rounded p-2 m-0 mb-5">
       <div className="row g-0">
@@ -47,13 +60,13 @@ const SingleProject = ({ id, attributes }) => {
               <li>
                 <span className="list-dotted__label">Delivery </span>
                 <span className="list-dotted__value">
-                  {type === '1' ? 'April, 2022' : 'July, 2024'}
+                  {getShortDate(delivery)}
                 </span>
               </li>
               <li>
                 <span className="list-dotted__label">Status</span>
                 <span className="list-dotted__value">
-                  {type === '1' ? 'Completed' : 'In Progress'}
+                  {PROJECT_STATUS_NAME[status]}
                 </span>
               </li>
               <li>

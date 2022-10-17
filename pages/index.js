@@ -121,7 +121,7 @@ export async function getStaticProps() {
     {
       params: {
         // 'pagination[page]': 1,
-        'pagination[pageSize]': 2,
+        'pagination[pageSize]': 3,
         'filters[featured][$eq]': 'true',
       },
     }
