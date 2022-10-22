@@ -7,7 +7,9 @@ import { PageHeader } from '@/components/common/Header';
 import classNames from 'classnames';
 import Button from '@/components/forms/Button';
 import Section from '@/components/common/Section';
-import ScheduleVisit from '@/components/common/ScheduleVisit';
+import ScheduleVisit, {
+  ScheduleVisitationButton,
+} from '@/components/common/ScheduleVisit';
 import SingleProject from '@/components/common/SingleProject';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { Dropdown, Tab } from 'react-bootstrap';
@@ -38,9 +40,13 @@ import {
   getLocationFromAddress,
   listFeatures,
   moneyFormatInNaira,
+  statusIsSuccessful,
 } from '@/utils/helpers';
 import { Gallery, Neighborhood } from 'pages/our-projects/[slug]';
 import axios from 'axios';
+import { askInfoSchema } from '@/components/forms/schemas/page-schema';
+import { getTokenFromStore } from '@/utils/localStorage';
+import FormikButton from '@/components/forms/FormikButton';
 
 export default function SinglePropertyPage({
   property,
@@ -231,9 +237,7 @@ const PropertyInformation = ({ property }) => {
                   </span>
                 </li>
                 <li className="text-center">
-                  <Button color="info" href={`/compare-properties/${id}`}>
-                    Compare Property <Convertshape variant="Bulk" />
-                  </Button>
+                  <ScheduleVisitationButton visiting={`Property - ${name}`} />
                 </li>
               </ul>
             </div>
@@ -266,51 +270,79 @@ const PropertyInformation = ({ property }) => {
                 </div>
               </div>
 
-              <FormikForm
-                schema={{}}
-                handleSubmit={{}}
-                buttonColor="light"
-                name="ask-info-form"
-                buttonText="Request Info"
-                persistForm
-              >
-                <div className="row">
-                  <Input floatingLabel name="name" label="Full Name" />
-                  <Input
-                    floatingLabel
-                    name="email"
-                    type="email"
-                    label="Email Address"
-                  />
-                </div>
-                <div className="row">
-                  <Input
-                    floatingLabel
-                    name="phone"
-                    label="Phone Number"
-                    optional
-                  />
-                </div>
-                <Textarea
-                  floatingLabel
-                  name="message"
-                  label="Your Message"
-                  placeholder="Tell me more about this property"
-                />
-              </FormikForm>
+              <AskInfoForm name={name} projectName={project.name} />
             </div>
-
-            <Button
-              href="/our-projects/3-bedroom-apartments"
-              color="secondary"
-              className="mt-5"
-            >
-              Schedule Visit{' '}
-            </Button>
+            <aside className="mt-5">
+              <Button
+                color="light"
+                className="w-100"
+                href={`/compare-properties/${id}`}
+              >
+                Compare Property <Convertshape variant="Bulk" />
+              </Button>
+            </aside>
           </div>
         </div>
       </div>
     </Section>
+  );
+};
+
+const AskInfoForm = ({ name, projectName }) => {
+  const handleSubmit = async (values, actions) => {
+    const payload = {
+      values,
+      source: `Property Page - ${name}`,
+      subject: `Enquiry about ${projectName} - ${name}`,
+    };
+    try {
+      axios({
+        method: 'post',
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
+        data: { data: payload },
+        headers: { Authorization: getTokenFromStore() },
+      })
+        .then(function (response) {
+          const { status } = response;
+          if (statusIsSuccessful(status)) {
+            toast.success('Information sent successfully');
+            actions.resetForm({ values: {} });
+            actions.setSubmitting(false);
+          }
+        })
+        .catch(function (error) {
+          toast.error(getError(error));
+        });
+    } catch (error) {
+      toast.error(getError(error));
+    }
+  };
+  return (
+    <FormikForm
+      schema={askInfoSchema}
+      handleSubmit={handleSubmit}
+      name="ask-info-form"
+      buttonText="Send Message"
+      persistForm
+    >
+      <div className="row">
+        <Input floatingLabel name="name" label="Full Name" />
+        <Input floatingLabel name="email" type="email" label="Email Address" />
+      </div>
+      <div className="row">
+        <Input floatingLabel name="phone" label="Phone Number" optional />
+      </div>
+      <Textarea
+        floatingLabel
+        name="message"
+        label="Your Message"
+        placeholder="Tell me more about this property"
+        rows={5}
+      />
+      <FormikButton color="info" className="mt-5 text-white btn-wide">
+        Schedule Visit
+      </FormikButton>
+    </FormikForm>
   );
 };
 
@@ -393,7 +425,7 @@ const TabInformation = ({ property }) => {
                         </div>
                       </div>
 
-                      <div className="row">
+                      <div className="row mt-5">
                         <h4>
                           Available Payment Plans
                           {property.paymentPlan > 6 && (

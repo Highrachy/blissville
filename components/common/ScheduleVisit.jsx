@@ -1,7 +1,15 @@
+import { getError, statusIsSuccessful, valuesToOptions } from '@/utils/helpers';
+import { getTokenFromStore } from '@/utils/localStorage';
+import axios from 'axios';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
+import { toast } from 'react-toastify';
+import DatePicker from '../forms/DatePicker';
+import FormikButton from '../forms/FormikButton';
+import Input from '../forms/Input';
+import { visitationSchema } from '../forms/schemas/page-schema';
 import { EmailIcon, PhoneIcon } from '../Icons/Icons';
+import FormikModalButton from '../utils/FormikModalButton';
 import Parallax from './Parallax';
 import Section from './Section';
 
@@ -56,16 +64,97 @@ const ScheduleVisit = () => (
                 </div>
               </div>
             </div>
-            <Link href="/contact-us" passHref>
-              <a className="btn btn-success text-white btn-wide">
-                Schedule a Visit Now
-              </a>
-            </Link>
+            <ScheduleVisitationButton
+              visiting="General Visitation"
+              wideButton={true}
+            />
           </div>
         </div>
       </div>
     </Section>
   </Parallax>
 );
+
+export const ScheduleVisitationButton = ({ visiting, wideButton = false }) => {
+  const handleSubmit = async (values, actions) => {
+    const payload = {
+      ...values,
+      visitDate: values.visitDate.date,
+      visiting: `Project - ${visiting}`,
+    };
+    try {
+      axios({
+        method: 'post',
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/visitations`,
+        data: { data: payload },
+        headers: { Authorization: getTokenFromStore() },
+      })
+        .then(function (response) {
+          const { status } = response;
+          if (statusIsSuccessful(status)) {
+            toast.success('Visitation has been successfully scheduled');
+            actions.resetForm({ values: {} });
+            actions.setSubmitting(false);
+            return true;
+          }
+        })
+        .catch(function (error) {
+          toast.error(getError(error));
+        });
+    } catch (error) {
+      toast.error(getError(error));
+    }
+  };
+
+  return (
+    <FormikModalButton
+      color="info"
+      className={`btn text-white ${wideButton ? 'btn-wide' : ''}`}
+      name="schedule-visit"
+      schema={visitationSchema}
+      initialValues={{}}
+      modalContent={<VisitationForm />}
+      handleSubmit={handleSubmit}
+    >
+      Schedule Visit
+    </FormikModalButton>
+  );
+};
+
+const VisitationForm = () => {
+  return (
+    <>
+      <Input
+        isValidMessage="Name looks good"
+        label="Name"
+        name="name"
+        placeholder="Name"
+      />
+      <Input
+        isValidMessage="Email address seems valid"
+        label="Email"
+        name="email"
+        placeholder="Email Address"
+      />
+      <Input
+        isValidMessage="Phone number looks good"
+        label="Phone"
+        name="phone"
+        placeholder="Phone"
+      />
+
+      <DatePicker
+        label="Visitation Date"
+        name="visitDate"
+        minDate={new Date()}
+        placeholder="Visit Date"
+      />
+
+      <FormikButton color="info" className="mt-5 text-white btn-wide">
+        Schedule Visit
+      </FormikButton>
+    </>
+  );
+};
 
 export default ScheduleVisit;

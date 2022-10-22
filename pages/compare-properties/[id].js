@@ -258,7 +258,7 @@ const ComparePropertiesSection = ({
                     <Button
                       color="secondary"
                       className="btn-sm"
-                      href={`/our-properties/${property.slug}/${project.slug}/${property.id}`}
+                      href={`/our-properties/${project.slug}/${property.slug}/${property.id}`}
                     >
                       I am Interested
                     </Button>
@@ -267,7 +267,7 @@ const ComparePropertiesSection = ({
                     <Button
                       color="secondary"
                       className="btn-sm"
-                      href={`/our-properties/${property2.slug}/${project2.slug}/${property2.id}`}
+                      href={`/our-properties/${project2.slug}/${property2.slug}/${property2.id}`}
                     >
                       I am Interested
                     </Button>

@@ -17,44 +17,46 @@ import Image from 'next/image';
 
 export const BenefitSlider = () => {
   return (
-    <div className="container mb-5">
-      <h3 className="my-4">Why Choose Blissville</h3>
-      <Swiper
-        // install Swiper modules
-        modules={[Autoplay, Pagination, A11y]}
-        autoHeight={true}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: true,
-        }}
-        navigation={false}
-        slidesPerView={1}
-        spaceBetween={10}
-        pagination={{ clickable: true }}
-        // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={() => console.log('slide change')}
-        // slidesPerGroup={3}
-        breakpoints={{
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          991: {
-            slidesPerView: 3,
-            spaceBetween: 50,
-          },
-        }}
-        loop={true}
-        loopFillGroupWithBlank={true}
-        grabCursor={true}
-      >
-        {benefits.map((benefit, index) => (
-          <SwiperSlide key={index}>
-            <SingleBenefits key={index} {...benefit} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+    <Section>
+      <div className="container">
+        <h4 className="my-4">Why Choose Blissville</h4>
+        <Swiper
+          // install Swiper modules
+          modules={[Autoplay, Pagination, A11y]}
+          autoHeight={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: true,
+          }}
+          navigation={false}
+          slidesPerView={1}
+          spaceBetween={10}
+          pagination={{ clickable: true }}
+          // onSwiper={(swiper) => console.log(swiper)}
+          // onSlideChange={() => console.log('slide change')}
+          // slidesPerGroup={3}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            991: {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+          }}
+          loop={true}
+          loopFillGroupWithBlank={true}
+          grabCursor={true}
+        >
+          {benefits.map((benefit, index) => (
+            <SwiperSlide key={index}>
+              <SingleBenefits key={index} {...benefit} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </Section>
   );
 };
 

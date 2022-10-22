@@ -20,6 +20,11 @@ const FormikModalButton = ({
 }) => {
   const [showModal, setShowModal] = React.useState(false);
 
+  const processSubmit = async (values, actions) => {
+    await handleSubmit(values, actions);
+    setShowModal(false);
+  };
+
   return (
     <>
       <Button
@@ -42,7 +47,7 @@ const FormikModalButton = ({
             <div>
               <FormikForm
                 schema={schema}
-                handleSubmit={handleSubmit}
+                handleSubmit={processSubmit}
                 initialValues={initialValues}
                 name={name}
                 showFormikState={showFormikState}

@@ -6,7 +6,9 @@ import { PageHeader } from '@/components/common/Header';
 import classNames from 'classnames';
 import Button from '@/components/forms/Button';
 import Section from '@/components/common/Section';
-import ScheduleVisit from '@/components/common/ScheduleVisit';
+import ScheduleVisit, {
+  ScheduleVisitationButton,
+} from '@/components/common/ScheduleVisit';
 import SingleProject from '@/components/common/SingleProject';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { Tab } from 'react-bootstrap';
@@ -136,12 +138,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                     <span className="list-dotted__value">In Progress</span>
                   </li>
                   <li>
-                    <Button
-                      href="/our-projects/3-bedroom-apartments"
-                      color="light"
-                    >
-                      Schedule Visit{' '}
-                    </Button>
+                    <ScheduleVisitationButton visiting={name} />
                   </li>
                 </ul>
               </div>
@@ -286,11 +283,11 @@ const TabInformation = ({ project }) => {
                             <Button
                               color="secondary"
                               className="me-2 my-2"
-                              href={`/our-properties/${slug}/${project?.properties?.data[0]?.attributes?.slug}/${id}`}
+                              href={`/our-properties/${project.slug}/${slug}/${id}`}
                             >
                               I am Interested
                             </Button>
-                            <Button color="light">Schedule visit</Button>
+                            <ScheduleVisitationButton visiting={name} />
                           </section>
                         </div>
                         <div className="col-md-7 order-0 order-md-1">

@@ -128,92 +128,80 @@ const ContactInfo = () => (
 );
 
 const ContactUsForm = () => {
-  const handleSubmit = async (values, actions) => {
-    const fetchOptions = {
-      /**
-       * The default method for a request with fetch is GET,
-       * so we must tell it to use the POST HTTP method.
-       */
-      method: 'POST',
-      /**
-       * These headers will be added to the request and tell
-       * the API that the request body is JSON and that we can
-       * accept JSON responses.
-       */
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      /**
-       * The body of our POST request is the JSON string that
-       * we created above.
-       */
-      body: JSON.stringify({ data: values }),
-    };
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
-      fetchOptions
-    );
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      toast.error(errorMessage);
-    } else {
-      toast.success('Information sent successfully');
-    }
-    actions.setSubmitting(false);
-  };
-
   return (
     <Section className="container">
       <div className="row justify-content-center">
         <div className="col-md-10">
-          <FormikForm
-            schema={contactUsSchema}
-            handleSubmit={handleSubmit}
-            name="contact-us-form"
-            buttonText="Send Message"
-            persistForm
-          >
-            <div className="text-center">
-              <h3>Contact Us</h3>
-              <p className="lead">
-                We&apos;ll update you within the next 24 hours
-              </p>
-            </div>
-            <div className="row">
-              <Input
-                name="name"
-                formGroupClassName="col-sm-6"
-                label="Full Name"
-              />
-              <Input
-                name="email"
-                formGroupClassName="col-sm-6"
-                type="email"
-                label="Email Address"
-              />
-            </div>
-            <div className="row">
-              <Input
-                formGroupClassName="col-sm-6"
-                name="phone"
-                label="Phone Number"
-                optional
-              />
-
-              <Input
-                name="subject"
-                formGroupClassName="col-sm-6"
-                label="Subject"
-              />
-            </div>
-            <Textarea name="message" label="Your Message" />
-          </FormikForm>
+          <div className="text-center">
+            <h3>Contact Us</h3>
+            <p className="lead">
+              We&apos;ll update you within the next 24 hours
+            </p>
+          </div>
+          <ContactForm />
         </div>
       </div>
     </Section>
+  );
+};
+
+const ContactForm = () => {
+  const handleSubmit = async (values, actions) => {
+    const payload = {
+      values,
+    };
+    try {
+      axios({
+        method: 'post',
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
+        data: { data: payload },
+        headers: { Authorization: getTokenFromStore() },
+      })
+        .then(function (response) {
+          const { status } = response;
+          if (statusIsSuccessful(status)) {
+            toast.success('Information sent successfully');
+            actions.resetForm({ values: {} });
+            actions.setSubmitting(false);
+            return true;
+          }
+        })
+        .catch(function (error) {
+          toast.error(getError(error));
+        });
+    } catch (error) {
+      toast.error(getError(error));
+    }
+  };
+  return (
+    <FormikForm
+      schema={contactUsSchema}
+      handleSubmit={handleSubmit}
+      name="contact-us-form"
+      buttonText="Send Message"
+      persistForm
+    >
+      <div className="row">
+        <Input name="name" formGroupClassName="col-sm-6" label="Full Name" />
+        <Input
+          name="email"
+          formGroupClassName="col-sm-6"
+          type="email"
+          label="Email Address"
+        />
+      </div>
+      <div className="row">
+        <Input
+          formGroupClassName="col-sm-6"
+          name="phone"
+          label="Phone Number"
+          optional
+        />
+
+        <Input name="subject" formGroupClassName="col-sm-6" label="Subject" />
+      </div>
+      <Textarea name="message" label="Your Message" />
+    </FormikForm>
   );
 };
 
