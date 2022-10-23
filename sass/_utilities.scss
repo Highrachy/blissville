@@ -1,6 +1,11 @@
-.dotted-border {
+.dotted-border,
+.dotted-border-muted {
   border: none !important;
   border-bottom: 1px dotted $gray-800 !important;
+}
+
+.dotted-border-muted {
+  border-bottom: 1px dotted $gray-500 !important;
 }
 
 .list-dotted {
@@ -575,4 +580,8 @@ div.nav-link {
     font-size: 2rem !important;
     opacity: 0.8;
   }
+}
+
+.form-floating > textarea.form-control {
+  height: auto;
 }

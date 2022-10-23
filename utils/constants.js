@@ -52,6 +52,17 @@ export const STATUS_NAME = {
   [STATUS['AVAILABLE']]: 'Available',
 };
 
+export const INTEREST_STATUS = {
+  INTERESTED: 0,
+  CANCELLED: 1,
+  ASSIGNED: 2,
+};
+export const INTEREST_STATUS_NAME = {
+  [INTEREST_STATUS['INTERESTED']]: 'Interested',
+  [INTEREST_STATUS['CANCELLED']]: 'Cancelled',
+  [INTEREST_STATUS['ASSIGNED']]: 'Assigned',
+};
+
 export const DATA_TYPE = {
   STRING: 'string',
   NUMBER: 'number',

@@ -17,7 +17,6 @@ const SingleProject = ({ id, attributes }) => {
     startingPrice,
     slug,
   } = attributes;
-  console.log('status', status);
   return (
     <div className="card rounded p-2 m-0 mb-5">
       <div className="row g-0">

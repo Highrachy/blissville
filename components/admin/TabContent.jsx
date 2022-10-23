@@ -41,21 +41,26 @@ const TabContent = ({ allTabs, id, name, result }) => {
 
 export default TabContent;
 
-const TabHeader = ({ allTabs, setCurrentTab, currentTab }) => (
-  <ul className="nav fs-5 pt-5 fw-bolder">
-    {allTabs.map(({ title }) => (
-      <li key={title} className="nav-item" onClick={() => setCurrentTab(title)}>
-        <span
-          className={classNames('nav-link tab-header', {
-            active: currentTab === title,
-          })}
+const TabHeader = ({ allTabs, setCurrentTab, currentTab }) =>
+  allTabs?.length > 1 ? (
+    <ul className="nav fs-5 pt-5 fw-bolder">
+      {allTabs.map(({ title }) => (
+        <li
+          key={title}
+          className="nav-item"
+          onClick={() => setCurrentTab(title)}
         >
-          {title}
-        </span>
-      </li>
-    ))}
-  </ul>
-);
+          <span
+            className={classNames('nav-link tab-header', {
+              active: currentTab === title,
+            })}
+          >
+            {title}
+          </span>
+        </li>
+      ))}
+    </ul>
+  ) : null;
 
 const TabInformation = ({
   result,
@@ -96,7 +101,7 @@ const TabInformation = ({
                   ) : processField?.[item] ? (
                     processField?.[item](result[item])
                   ) : (
-                    processData(result[item], 'image')
+                    processData(result[item], item)
                   )}
                 </td>
               </tr>

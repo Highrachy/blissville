@@ -167,8 +167,23 @@ export const processData = (data, item) => {
     return data ? 'Yes' : 'No';
   }
   if (isValidNumber(data)) {
-    return commaNumber(data);
+    if (
+      item?.toLowerCase().includes('payment') ||
+      item?.toLowerCase().includes('price')
+    ) {
+      return moneyFormatInNaira(data);
+    }
+
+    if (
+      !data.toString().startsWith('0') &&
+      !data.toString().startsWith('234') &&
+      !data.toString().startsWith('+')
+    ) {
+      return commaNumber(data);
+    }
+    return data;
   }
+
   if (isValidDate(data)) {
     try {
       return getShortDate(data);
@@ -289,3 +304,14 @@ export const listFeatures = (project, type = PACKAGE.ALL) => {
   });
   return <ul className="my-4 row list-features">{output}</ul>;
 };
+
+export const getPaymentPlan = (paymentPlan) => {
+  if (paymentPlan === 0) return 'Outright Payment';
+  return `${paymentPlan} months payment plan`;
+};
+
+export const getMonthlyPayment = (total, initial, month) =>
+  month === 0 ? 0 : moneyFormatInNaira(Math.round((total - initial) / month));
+
+export const getFullName = (user) =>
+  `${user?.title} ${user?.firstName} ${user?.lastName}`;

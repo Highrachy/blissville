@@ -15,6 +15,7 @@ const FormikModalButton = ({
   modalTitle,
   name,
   schema,
+  size,
   showAllFormikState,
   showFormikState,
 }) => {
@@ -39,6 +40,7 @@ const FormikModalButton = ({
       <Modal
         title={modalTitle || children}
         show={showModal}
+        size={size}
         onHide={() => setShowModal(false)}
         className={modalClassName}
       >
@@ -71,6 +73,7 @@ FormikModalButton.defaultProps = {
   modalContent: 'Are you sure you want to continue?',
   modalTitle: '',
   schema: {},
+  size: 'md',
   showAllFormikState: false,
   showFormikState: false,
 };
@@ -86,6 +89,7 @@ FormikModalButton.propTypes = {
   modalTitle: PropTypes.string,
   name: PropTypes.string.isRequired,
   schema: PropTypes.object,
+  size: PropTypes.string,
   showAllFormikState: PropTypes.bool,
   showFormikState: PropTypes.bool,
 };
