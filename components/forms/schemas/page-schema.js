@@ -36,3 +36,7 @@ export const interestSchema = {
   phone: optionalValidation(required('Phone Number')),
   paymentStartDate: minDateValidation('Visitation Date', new Date()),
 };
+
+export const rescheduleVisitationSchema = {
+  visitDate: minDateValidation('Visitation Date', new Date()),
+};

@@ -1,4 +1,5 @@
 import { footerLinks } from '@/data/index';
+import { PHONE_NUMBER } from '@/utils/constants';
 import Link from 'next/link';
 
 const Footer = () => (
@@ -39,7 +40,7 @@ const Footer = () => (
                 </p>
                 <p>Email: nnamdi@highrachy.com</p>
                 <p>
-                  <span>Phone:</span> +234 802 833 7440
+                  <span>Phone:</span> {PHONE_NUMBER.WITH_COUNTRY_CODE}
                 </p>
               </div>
             </div>

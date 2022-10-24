@@ -48,6 +48,10 @@ export const filterProjects = {
   street1: {},
   city: {},
   state: {},
+  featured: {
+    type: DATA_TYPE.BOOLEAN,
+  },
+
   // status: {
   //   field: FILTER_FIELDS.SELECT,
   //   values: valuesToOptions(Object.values(TENANT_STATUS)),

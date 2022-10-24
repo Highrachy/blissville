@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { socialMediaLinks } from '../data';
 import Footer from '@/components/common/Footer';
 import Navigation from '@/components/layouts/Navigation';
+import { PHONE_NUMBER } from '@/utils/constants';
 
 const ContactUs = () => {
   return (
@@ -70,8 +71,8 @@ const ContactInfo = () => (
                     <PhoneIcon />
                   </span>
                   <p>
-                    <a href="#" className="text-reset">
-                      +234 802 833 7440
+                    <a href={PHONE_NUMBER.HREF} className="text-reset">
+                      {PHONE_NUMBER.WITH_COUNTRY_CODE}
                     </a>
                   </p>
                 </div>

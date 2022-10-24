@@ -4,7 +4,11 @@ import { adminMenu } from '@/data/admin/sideMenu';
 import { ContentLoader } from '@/components/utils/LoadingItems';
 import { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
-import { INTEREST_STATUS_NAME, USER_ROLES } from '@/utils/constants';
+import {
+  INTEREST_STATUS,
+  INTEREST_STATUS_NAME,
+  USER_ROLES,
+} from '@/utils/constants';
 import TabContent, { TabContentHeader } from '@/components/admin/TabContent';
 import Link from 'next/link';
 import { LocalImage } from '@/components/common/Image';
@@ -61,38 +65,39 @@ const SingleInterest = () => {
             output.paymentPlan
           ),
         status: (value) => INTEREST_STATUS_NAME[value],
-        action: () => (
-          <>
-            <ProcessButton
-              afterSuccess={() => query.mutate()}
-              api={`interests/${id}`}
-              buttonColor={'success'}
-              buttonSizeClassName="btn-sm"
-              data={{ status: 2 }}
-              modalContent={`Are you sure you want to assign this property to ${getFullName(
-                output
-              )}?`}
-              successMessage={`The information has been successfully updated`}
-            >
-              Assign Property
-            </ProcessButton>
-            &nbsp; &nbsp;
-            <ProcessButton
-              afterSuccess={() => query.mutate()}
-              api={`interests/${id}`}
-              buttonColor={'danger'}
-              buttonSizeClassName="btn-sm"
-              data={{ status: 1 }}
-              modalContent={`Are you sure you want to cancel this property to ${getFullName(
-                output
-              )}?`}
-              modalTitle={'Reject Property'}
-              successMessage={`The information has been successfully updated`}
-            >
-              Cancel Interest
-            </ProcessButton>
-          </>
-        ),
+        action: () =>
+          output.status === 0 && (
+            <>
+              <ProcessButton
+                afterSuccess={() => query.mutate()}
+                api={`interests/${id}`}
+                buttonColor={'success'}
+                buttonSizeClassName="btn-sm"
+                data={{ status: INTEREST_STATUS.ASSIGNED }}
+                modalContent={`Are you sure you want to assign this property to ${getFullName(
+                  output
+                )}?`}
+                successMessage={`The information has been successfully updated`}
+              >
+                Assign Property
+              </ProcessButton>
+              &nbsp; &nbsp;
+              <ProcessButton
+                afterSuccess={() => query.mutate()}
+                api={`interests/${id}`}
+                buttonColor={'danger'}
+                buttonSizeClassName="btn-sm"
+                data={{ status: INTEREST_STATUS.CANCELLED }}
+                modalContent={`Are you sure you want to cancel this property to ${getFullName(
+                  output
+                )}?`}
+                modalTitle={'Reject Property'}
+                successMessage={`The information has been successfully updated`}
+              >
+                Cancel Interest
+              </ProcessButton>
+            </>
+          ),
       },
       renameField: {
         paymentStartDate: 'Proposed Start Date',

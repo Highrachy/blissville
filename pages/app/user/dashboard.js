@@ -273,7 +273,7 @@ export const Widget = ({
   const link = `/app/${role}/${name}`;
 
   return (
-    <section className={`widget ${className}`}>
+    <section className={`widget ${className} mb-4`}>
       <Link href={link} passHref>
         <a className="text-reset">
           <div className={`card h-100 position-relative ${color}`}>

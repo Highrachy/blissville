@@ -60,6 +60,7 @@ const SingleProject = () => {
         'startDate',
         'delivery',
         'featured',
+        'slogan',
       ],
       processField: {
         status: (value) => PROJECT_STATUS_NAME[value],
@@ -71,11 +72,13 @@ const SingleProject = () => {
             buttonColor={featured ? 'danger' : 'success'}
             buttonSizeClassName="btn-sm"
             data={{ featured: !featured }}
-            modalContent={`Are you sure you want to show this on the home page`}
-            modalTitle={featured ? 'Remove from Home Page' : 'Add to Home Page'}
+            modalContent={`Are you sure you want to ${
+              featured ? 'remove' : 'show'
+            } this on the home page`}
+            modalTitle={featured ? 'Remove from Slideshow' : 'Add to Slideshow'}
             successMessage={`The information has been successfully updated`}
           >
-            {featured ? 'Remove from Home Page' : 'Add to Home Page'}
+            {featured ? 'Remove from Slideshow' : 'Add to Home Page Slideshow'}
           </ProcessButton>
         ),
       },

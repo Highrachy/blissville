@@ -1,6 +1,13 @@
 import React from 'react';
 import Backend from '@/components/admin/Backend';
-import { Buildings, StatusUp, Briefcase, People } from 'iconsax-react';
+import {
+  Buildings,
+  StatusUp,
+  Briefcase,
+  People,
+  Gallery,
+  Calendar,
+} from 'iconsax-react';
 import 'chart.js/auto';
 import { Widget } from '../user/dashboard';
 import { USER_ROLES } from '@/utils/constants';
@@ -46,6 +53,16 @@ const widgetLists = [
     color: 'danger',
     Icon: <People variant="Bulk" />,
   },
+  {
+    name: 'slideshows',
+    color: 'info',
+    Icon: <Gallery variant="Bulk" />,
+  },
+  {
+    name: 'visitations',
+    color: 'danger',
+    Icon: <Calendar variant="Bulk" />,
+  },
 ];
 
 const WidgetList = () => {
@@ -60,6 +77,8 @@ const WidgetList = () => {
             transactions: { total: 28 },
             projects: { total: 3 },
             users: { total: 15 },
+            slideshows: { total: 3 },
+            visitations: { total: 4 },
           }}
           {...widget}
           role="admin"

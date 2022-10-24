@@ -198,7 +198,7 @@ export const processData = (data, item) => {
           <a target="_blank" rel="noopener noreferrer">
             <LocalImage
               src={data}
-              name={item}
+              name="image"
               className="img-xxl img-cover"
               rounded
             />
@@ -315,3 +315,18 @@ export const getMonthlyPayment = (total, initial, month) =>
 
 export const getFullName = (user) =>
   `${user?.title} ${user?.firstName} ${user?.lastName}`;
+
+export const convertToNormalText = (text) => {
+  const textWithoutUnderscore = text.replace(/_/g, ' ');
+  const capitalizedText = humanize.capitalizeAll(textWithoutUnderscore);
+  return capitalizedText;
+};
+
+export const statusToName = (status) =>
+  Object.entries(status).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [value]: convertToNormalText(key.toLowerCase()),
+    }),
+    {}
+  );

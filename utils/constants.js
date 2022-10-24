@@ -1,3 +1,11 @@
+import { statusToName } from './helpers';
+
+export const PHONE_NUMBER = {
+  OFFICIAL: '0905 555 5146',
+  HREF: 'tel:+2349055555146',
+  WITH_COUNTRY_CODE: ' +234 905 555 5146',
+};
+
 export const COLOR_STYLE = [
   'none',
   'primary',
@@ -21,10 +29,7 @@ export const USER_ROLES = {
   USER: 0,
   ADMIN: 10,
 };
-export const ROLE_NAME = {
-  [USER_ROLES['USER']]: 'user',
-  [USER_ROLES['ADMIN']]: 'admin',
-};
+export const ROLE_NAME = statusToName(USER_ROLES);
 
 export const PROJECT_STATUS = {
   IN_VIEW: 0,
@@ -34,34 +39,29 @@ export const PROJECT_STATUS = {
   COMPLETED: 4,
   NOT_AVAILABLE: 5,
 };
-export const PROJECT_STATUS_NAME = {
-  [PROJECT_STATUS['IN_VIEW']]: 'In View',
-  [PROJECT_STATUS['STARTED']]: 'Started',
-  [PROJECT_STATUS['IN_PROGRESS']]: 'In Progress',
-  [PROJECT_STATUS['ALMOST_COMPLETED']]: 'Almost Completed',
-  [PROJECT_STATUS['COMPLETED']]: 'Completed',
-  [PROJECT_STATUS['NOT_AVAILABLE']]: 'Not Available',
-};
+export const PROJECT_STATUS_NAME = statusToName(PROJECT_STATUS);
 
 export const STATUS = {
   CREATED: 0,
   AVAILABLE: 10,
 };
-export const STATUS_NAME = {
-  [STATUS['CREATED']]: 'Created',
-  [STATUS['AVAILABLE']]: 'Available',
-};
+export const STATUS_NAME = statusToName(STATUS);
 
 export const INTEREST_STATUS = {
   INTERESTED: 0,
   CANCELLED: 1,
   ASSIGNED: 2,
 };
-export const INTEREST_STATUS_NAME = {
-  [INTEREST_STATUS['INTERESTED']]: 'Interested',
-  [INTEREST_STATUS['CANCELLED']]: 'Cancelled',
-  [INTEREST_STATUS['ASSIGNED']]: 'Assigned',
+export const INTEREST_STATUS_NAME = statusToName(INTEREST_STATUS);
+
+export const VISITATION_STATUS = {
+  SCHEDULED: 0,
+  RESCHEDULED: 1,
+  CONFIRMED: 2,
+  VISITED: 3,
+  CANCELLED: 4,
 };
+export const VISITATION_STATUS_NAME = statusToName(VISITATION_STATUS);
 
 export const DATA_TYPE = {
   STRING: 'string',

@@ -138,7 +138,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                     <span className="list-dotted__value">In Progress</span>
                   </li>
                   <li>
-                    <ScheduleVisitationButton visiting={name} />
+                    <ScheduleVisitationButton visiting={`Project - ${name}`} />
                   </li>
                 </ul>
               </div>

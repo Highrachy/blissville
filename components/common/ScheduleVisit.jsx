@@ -1,3 +1,4 @@
+import { PHONE_NUMBER } from '@/utils/constants';
 import { getError, statusIsSuccessful, valuesToOptions } from '@/utils/helpers';
 import { getTokenFromStore } from '@/utils/localStorage';
 import axios from 'axios';
@@ -48,8 +49,8 @@ const ScheduleVisit = () => (
                   <p className=" schedule-visit__phone mb-2 mb-md-3">
                     <PhoneIcon />
                     &nbsp;
-                    <a className="text-white" href="tel:+2348028337440">
-                      +0802-833-7440
+                    <a className="text-white" href={PHONE_NUMBER.HREF}>
+                      {PHONE_NUMBER.WITH_COUNTRY_CODE}
                     </a>
                   </p>
                   <p className="mb-2 mb-md-3 schedule-visit__email">
@@ -80,7 +81,7 @@ export const ScheduleVisitationButton = ({ visiting, wideButton = false }) => {
     const payload = {
       ...values,
       visitDate: values.visitDate.date,
-      visiting: `Project - ${visiting}`,
+      visiting: `${visiting}`,
     };
     try {
       axios({
@@ -149,7 +150,7 @@ const VisitationForm = () => {
         placeholder="Visit Date"
       />
 
-      <FormikButton color="info" className="mt-5 text-white btn-wide">
+      <FormikButton color="info" className="mt-3 text-white btn-wide">
         Schedule Visit
       </FormikButton>
     </>

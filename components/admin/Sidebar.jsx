@@ -47,9 +47,9 @@ const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
         <div className="sidebar-body">
           <ul className="nav">
             {Object.entries(currentSideMenu).map(([title, icon], index) => {
-              const currentPath = `/app/${ROLE_NAME[role]}/${changeSpaceToDash(
-                title
-              )}`;
+              const currentPath = `/app/${ROLE_NAME[
+                role
+              ].toLowerCase()}/${changeSpaceToDash(title)}`;
               const currentPathSplit = router.pathname.split('/')[3];
               const isCurrentPage =
                 changeSpaceToDash(title) === currentPathSplit;
