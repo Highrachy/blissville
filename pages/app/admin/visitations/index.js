@@ -8,11 +8,11 @@ import { filterVisitations } from '@/utils/filters';
 import {
   USER_ROLES,
   VISITATION_STATUS,
+  VISITATION_STATUS_COLOR,
   VISITATION_STATUS_NAME,
 } from '@/utils/constants';
 import { getShortDate } from '@/utils/date-helpers';
 import { Calendar } from 'iconsax-react';
-import FormikModalButton from '@/components/utils/FormikModalButton';
 import FormikButton from '@/components/forms/FormikButton';
 import DatePicker from '@/components/forms/DatePicker';
 import { rescheduleVisitationSchema } from '@/components/forms/schemas/page-schema';
@@ -23,7 +23,6 @@ import axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 import { toast } from 'react-toastify';
-import ProcessButton from '@/components/utils/ProcessButton';
 import FormikForm from '@/components/forms/FormikForm';
 
 const Visitations = () => (
@@ -50,9 +49,9 @@ export const VisitationsRowList = ({ results, offset, attachment, query }) => {
               <tr>
                 <th>S/N</th>
                 <th>Name</th>
-                <th>Date</th>
-                <th>Status</th>
                 <th>Purpose</th>
+                <th>Status</th>
+                <th>Date</th>
                 <th></th>
               </tr>
             </thead>
@@ -81,9 +80,15 @@ export const VisitationsSingleRow = (visitation) => {
     <tr>
       <td>{number}</td>
       <td>{name}</td>
-      <td>{getShortDate(visitDate)}</td>
-      <td>{VISITATION_STATUS_NAME[status]}</td>
       <td>{visiting}</td>
+      <td>
+        <span
+          className={`badge badge-dot text-${VISITATION_STATUS_COLOR[status]}`}
+        >
+          {VISITATION_STATUS_NAME[status]}
+        </span>
+      </td>
+      <td>{getShortDate(visitDate)}</td>
       <td>
         <ManageVisitationButton visitation={visitation} />
       </td>

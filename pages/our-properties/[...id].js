@@ -49,6 +49,8 @@ import { askInfoSchema } from '@/components/forms/schemas/page-schema';
 import { getTokenFromStore } from '@/utils/localStorage';
 import FormikButton from '@/components/forms/FormikButton';
 import BuyNowButton from '@/components/utils/BuyNowButton';
+import { getError } from '@/utils/helpers';
+import { toast } from 'react-toastify';
 
 export default function SinglePropertyPage({
   property,
@@ -283,8 +285,8 @@ const PropertyInformation = ({ property }) => {
 const AskInfoForm = ({ name, projectName }) => {
   const handleSubmit = async (values, actions) => {
     const payload = {
-      values,
-      source: `Property Page - ${name}`,
+      ...values,
+      source: `Property Page`,
       subject: `Enquiry about ${projectName} - ${name}`,
     };
     try {
@@ -315,7 +317,6 @@ const AskInfoForm = ({ name, projectName }) => {
       handleSubmit={handleSubmit}
       name="ask-info-form"
       buttonText="Send Message"
-      persistForm
     >
       <div className="row">
         <Input floatingLabel name="name" label="Full Name" />
@@ -459,6 +460,7 @@ const TabInformation = ({ property }) => {
                           price={currentTabPrice}
                           property={property}
                           dimDisplay={customPlan !== halfPaymentPlan}
+                          packageName={name}
                         />
 
                         <PaymentPlanCard
@@ -466,12 +468,14 @@ const TabInformation = ({ property }) => {
                           price={currentTabPrice}
                           property={property}
                           customPlan={customPlan !== halfPaymentPlan}
+                          packageName={name}
                         />
                         <PaymentPlanCard
                           month={property.paymentPlan}
                           price={currentTabPrice}
                           property={property}
                           dimDisplay={customPlan !== halfPaymentPlan}
+                          packageName={name}
                         />
                       </div>
                     </div>
@@ -516,6 +520,7 @@ const PaymentPlanCard = ({
   price,
   customPlan,
   dimDisplay,
+  packageName,
 }) => {
   const [showModal, setShowModal] = React.useState(false);
   const monthName =
@@ -579,6 +584,7 @@ const PaymentPlanCard = ({
                 paymentPlan={month}
                 initialPayment={currentInitialPayment}
                 price={totalPayment}
+                packageName={packageName}
               />
               {month !== 0 && (
                 <div

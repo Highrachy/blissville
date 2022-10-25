@@ -363,7 +363,7 @@ div.nav-link {
   position: relative;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.3);
-  // background: url(../public/assets/img/property/property1.jpeg) center;
+  background: url(../public/assets/img/property/property1.jpeg) center;
   background-size: cover;
 }
 
@@ -587,7 +587,23 @@ div.nav-link {
 }
 
 .confirmation-text {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: $gray-800;
+  padding: 0 2rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: $gray-700;
+  font-weight: normal;
+  margin-bottom: 2rem !important;
+}
+
+td {
+  &.td-block {
+    font-weight: bold;
+    color: $dark;
+    span {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: normal;
+      margin-top: -3px;
+    }
+  }
 }

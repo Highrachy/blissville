@@ -310,38 +310,40 @@ const SingleProperty = ({
       <td>{moneyFormatInNaira(price)}</td>
       <td>
         <Button
+          color="none"
           href={{
             pathname: '/app/admin/properties/[id]',
             query: { id },
           }}
-          className="btn-xs mx-1"
-          color="dark"
+          className="btn-xs btn-none text-success mx-1"
         >
           Manage
         </Button>
         <Button
+          color="none"
           onClick={() => {
             setShowAddNewForm(true);
             setSelectedProperty({ id, ...props, action: 'edit' });
           }}
-          className="btn-xs mx-1"
+          className="btn-xs btn-none text-warning mx-1"
         >
           Edit
         </Button>
         <Button
+          color="none"
           onClick={() => {
             setShowAddNewForm(true);
             setSelectedProperty({ id, ...props, action: 'duplicate' });
           }}
-          className="btn-xs mx-1"
-          color="info"
+          className="btn-xs btn-none text-info mx-1"
         >
           Duplicate
         </Button>
         <DeleteButton
+          buttonColor="none"
           afterSuccess={() => query.mutate()}
           api={`properties/${id}`}
-          buttonSizeClassName="btn-xs mx-1"
+          buttonSizeClassName="btn-xs btn-none text-danger mx-1"
         >
           Delete
         </DeleteButton>

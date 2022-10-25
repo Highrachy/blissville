@@ -2,29 +2,27 @@ import React from 'react';
 import PaginatedContent from '@/components/admin/PaginatedContent';
 import { Card } from 'react-bootstrap';
 import Backend from '@/components/admin/Backend';
-import { filterInterests } from '@/utils/filters';
+import { filterUsers } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
 import { getShortDate } from '@/utils/date-helpers';
-import { EmptyWalletChange } from 'iconsax-react';
 import Button from '@/components/forms/Button';
 import { getFullName } from '@/utils/helpers';
-import { INTEREST_STATUS_NAME } from '@/utils/constants';
-import { LocalImage } from '@/components/common/Image';
+import { adminMenu } from '@/data/admin/sideMenu';
 
-const Interests = () => (
+const Users = () => (
   <Backend role={USER_ROLES.ADMIN}>
     <PaginatedContent
-      endpoint={'api/interests'}
-      pageName="Interest"
-      DataComponent={InterestsRowList}
-      PageIcon={<EmptyWalletChange />}
+      endpoint={'api/local-users'}
+      pageName="User"
+      DataComponent={UsersRowList}
+      PageIcon={adminMenu['Users']}
       populate="*"
-      filterFields={filterInterests}
+      filterFields={filterUsers}
     />
   </Backend>
 );
 
-export const InterestsRowList = ({ results, offset, attachment }) => {
+export const UsersRowList = ({ results, offset, attachment }) => {
   return (
     <div className="container-fluid">
       <Card className="mt-2">
@@ -34,15 +32,13 @@ export const InterestsRowList = ({ results, offset, attachment }) => {
               <tr>
                 <th>S/N</th>
                 <th>Name</th>
-                <th>Date</th>
-                <th>Property</th>
-                <th>Status</th>
+                <th>Phone</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {results.map(({ id, attributes }, index) => (
-                <InterestsSingleRow
+                <UsersSingleRow
                   key={index}
                   number={offset + index + 1}
                   id={id}
@@ -58,53 +54,38 @@ export const InterestsRowList = ({ results, offset, attachment }) => {
   );
 };
 
-export const InterestsSingleRow = ({
+export const UsersSingleRow = ({
   number,
   id,
   email,
   phone,
   status,
-  paymentStartDate,
-  property,
-  ...interestInfo
+  ...userInfo
 }) => {
   return (
     <tr>
       <td>{number}</td>
       <td className="td-block">
-        {getFullName(interestInfo)}
+        {getFullName(userInfo)}
         <span>{email}</span>
       </td>
       <td className="td-block">
-        {getShortDate(paymentStartDate)}{' '}
-        <span>
-          <small>{phone}</small>
-        </span>
+        <small>{phone}</small>
       </td>
-      <td>
-        <LocalImage
-          src={property.data.attributes.image}
-          name={property.data.attributes.name}
-          className="img-md2 me-2"
-          rounded
-        />
-        {property.data.attributes.name}
-      </td>
-      <td>{INTEREST_STATUS_NAME[status]}</td>
       <td>
         <Button
           color="secondary"
           className="btn-xs"
           href={{
-            pathname: '/app/admin/interests/[id]',
+            pathname: '/app/admin/users/[id]',
             query: { id },
           }}
         >
-          Manage Interest
+          Manage User
         </Button>
       </td>
     </tr>
   );
 };
 
-export default Interests;
+export default Users;

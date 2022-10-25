@@ -7,6 +7,8 @@ import {
   People,
   Gallery,
   Calendar,
+  Message,
+  EmptyWalletChange,
 } from 'iconsax-react';
 import 'chart.js/auto';
 import { Widget } from '../user/dashboard';
@@ -55,13 +57,23 @@ const widgetLists = [
   },
   {
     name: 'slideshows',
-    color: 'info',
+    color: 'danger',
     Icon: <Gallery variant="Bulk" />,
   },
   {
     name: 'visitations',
-    color: 'danger',
+    color: 'primary',
     Icon: <Calendar variant="Bulk" />,
+  },
+  {
+    name: 'messages',
+    color: 'warning',
+    Icon: <Message variant="Bulk" />,
+  },
+  {
+    name: 'interests',
+    color: 'secondary',
+    Icon: <EmptyWalletChange variant="Bulk" />,
   },
 ];
 
@@ -79,6 +91,8 @@ const WidgetList = () => {
             users: { total: 15 },
             slideshows: { total: 3 },
             visitations: { total: 4 },
+            interests: { total: 1 },
+            messages: { total: 4 },
           }}
           {...widget}
           role="admin"

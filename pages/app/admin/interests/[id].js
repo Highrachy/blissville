@@ -51,8 +51,9 @@ const SingleInterest = () => {
         'paymentPlan',
         'initialPayment',
         'paymentStartDate',
-        'status',
         'monthlyPayment',
+        'status',
+        'package',
         'action',
       ],
       processField: {
@@ -73,6 +74,7 @@ const SingleInterest = () => {
                 api={`interests/${id}`}
                 buttonColor={'success'}
                 buttonSizeClassName="btn-sm"
+                modalTitle="Assign Property"
                 data={{ status: INTEREST_STATUS.ASSIGNED }}
                 modalContent={`Are you sure you want to assign this property to ${getFullName(
                   output

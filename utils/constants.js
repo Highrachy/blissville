@@ -1,4 +1,8 @@
-import { statusToName } from './helpers';
+import {
+  generateStatus,
+  generateStatusColor,
+  mapStatusToName,
+} from './helpers';
 
 export const PHONE_NUMBER = {
   OFFICIAL: '0905 555 5146',
@@ -25,43 +29,46 @@ export const FILTER_FIELDS = {
   SELECT: 'select',
 };
 
-export const USER_ROLES = {
-  USER: 0,
-  ADMIN: 10,
+const ALL_USER_ROLES = {
+  USER: { id: 0 },
+  ADMIN: { id: 10 },
 };
-export const ROLE_NAME = statusToName(USER_ROLES);
+export const USER_ROLES = generateStatus(ALL_USER_ROLES);
+export const ROLE_NAME = mapStatusToName(ALL_USER_ROLES);
 
-export const PROJECT_STATUS = {
-  IN_VIEW: 0,
-  STARTED: 1,
-  IN_PROGRESS: 2,
-  ALMOST_COMPLETED: 3,
-  COMPLETED: 4,
-  NOT_AVAILABLE: 5,
+const ALL_PROJECT_STATUS = {
+  IN_VIEW: { id: 0, color: 'warning' },
+  STARTED: { id: 1, color: 'dark' },
+  IN_PROGRESS: { id: 2, color: 'info' },
+  ALMOST_COMPLETED: { id: 3, color: 'primary' },
+  COMPLETED: { id: 4, color: 'success' },
+  NOT_AVAILABLE: { id: 5, color: 'danger' },
 };
-export const PROJECT_STATUS_NAME = statusToName(PROJECT_STATUS);
+export const PROJECT_STATUS = generateStatus(ALL_PROJECT_STATUS);
+export const PROJECT_STATUS_COLOR = generateStatusColor(ALL_PROJECT_STATUS);
+export const PROJECT_STATUS_NAME = mapStatusToName(ALL_PROJECT_STATUS);
 
-export const STATUS = {
-  CREATED: 0,
-  AVAILABLE: 10,
+const ALL_INTEREST_STATUS = {
+  INTERESTED: { id: 0, color: 'primary' },
+  CANCELLED: { id: 1, color: 'danger' },
+  ASSIGNED: { id: 2, color: 'success' },
 };
-export const STATUS_NAME = statusToName(STATUS);
+export const INTEREST_STATUS = generateStatus(ALL_INTEREST_STATUS);
+export const INTEREST_STATUS_COLOR = generateStatusColor(ALL_INTEREST_STATUS);
+export const INTEREST_STATUS_NAME = mapStatusToName(ALL_INTEREST_STATUS);
 
-export const INTEREST_STATUS = {
-  INTERESTED: 0,
-  CANCELLED: 1,
-  ASSIGNED: 2,
+export const ALL_VISITATION_STATUS = {
+  SCHEDULED: { id: 0, color: 'dark' },
+  RESCHEDULED: { id: 1, color: 'info' },
+  CONFIRMED: { id: 2, color: 'primary' },
+  VISITED: { id: 3, color: 'success' },
+  CANCELLED: { id: 4, color: 'danger' },
 };
-export const INTEREST_STATUS_NAME = statusToName(INTEREST_STATUS);
-
-export const VISITATION_STATUS = {
-  SCHEDULED: 0,
-  RESCHEDULED: 1,
-  CONFIRMED: 2,
-  VISITED: 3,
-  CANCELLED: 4,
-};
-export const VISITATION_STATUS_NAME = statusToName(VISITATION_STATUS);
+export const VISITATION_STATUS = generateStatus(ALL_VISITATION_STATUS);
+export const VISITATION_STATUS_COLOR = generateStatusColor(
+  ALL_VISITATION_STATUS
+);
+export const VISITATION_STATUS_NAME = mapStatusToName(ALL_VISITATION_STATUS);
 
 export const DATA_TYPE = {
   STRING: 'string',

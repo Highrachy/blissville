@@ -307,7 +307,7 @@ export const listFeatures = (project, type = PACKAGE.ALL) => {
 
 export const getPaymentPlan = (paymentPlan) => {
   if (paymentPlan === 0) return 'Outright Payment';
-  return `${paymentPlan} months payment plan`;
+  return `${paymentPlan} Months`;
 };
 
 export const getMonthlyPayment = (total, initial, month) =>
@@ -322,11 +322,29 @@ export const convertToNormalText = (text) => {
   return capitalizedText;
 };
 
-export const statusToName = (status) =>
+export const generateStatus = (status) =>
   Object.entries(status).reduce(
     (acc, [key, value]) => ({
       ...acc,
-      [value]: convertToNormalText(key.toLowerCase()),
+      [key]: value.id.toString(),
+    }),
+    {}
+  );
+
+export const generateStatusColor = (status) =>
+  Object.entries(status).reduce(
+    (acc, [_, value]) => ({
+      ...acc,
+      [value.id]: value?.color || 'none',
+    }),
+    {}
+  );
+
+export const mapStatusToName = (status) =>
+  Object.entries(status).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [value.id]: value?.name || convertToNormalText(key.toLowerCase()),
     }),
     {}
   );

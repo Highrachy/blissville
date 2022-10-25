@@ -22,6 +22,7 @@ const BuyNowButton = ({
   paymentPlan,
   initialPayment,
   property,
+  packageName,
 }) => {
   const handleSubmit = async (values, actions) => {
     const payload = {
@@ -31,6 +32,7 @@ const BuyNowButton = ({
       paymentPlan,
       initialPayment,
       property: property.id,
+      package: packageName,
     };
 
     try {
@@ -64,13 +66,14 @@ const BuyNowButton = ({
       name="schedule-visit"
       schema={interestSchema}
       initialValues={{}}
-      size="lg"
+      size="md"
       modalContent={
         <InterestForm
           price={price}
           paymentPlan={paymentPlan}
           initialPayment={initialPayment}
           property={property}
+          packageName={packageName}
         />
       }
       handleSubmit={handleSubmit}
@@ -82,79 +85,67 @@ const BuyNowButton = ({
 
 export default BuyNowButton;
 
-const InterestForm = ({ price, paymentPlan, initialPayment, property }) => {
+const InterestForm = ({
+  price,
+  paymentPlan,
+  initialPayment,
+  property,
+  packageName,
+}) => {
   const { image, name } = property;
   return (
     <div className="container">
-      <div className="d-flex flex-wrap flex-sm-nowrap">
-        <div className="">
-          <div className="d-block me-3 position-relative">
-            <Image
-              src={image}
-              alt="Hero Image"
-              width={200}
-              height={130}
-              className="rounded"
-            />
-          </div>
+      <div className="row">
+        <div className="text-center">
+          <Image
+            src={image}
+            alt="Hero Image"
+            width={200}
+            height={130}
+            className="rounded"
+          />
+          <h5>{name}</h5>
+          <p className="mb-3 mt-n2 text-sm text-muted">{packageName}</p>
         </div>
-        <div className="flex-grow-1">
-          <div className="d-flex justify-content-between align-items-start flex-wrap">
-            <div className="d-flex flex-column">
-              <h5 className="mb-2">{name}</h5>
-              <h4 className="mb-2 text-primary text-xl fw-bold">
-                {moneyFormatInNaira(price)}
-              </h4>
-              <p className="text-muted mb-2">{getPaymentPlan(paymentPlan)}</p>
-            </div>
-          </div>
+        <div className="table-responsive">
+          <table className="table table-border">
+            <thead>
+              <tr>
+                <th>Price</th>
+                <th className="text-primary text-xl fw-bold">
+                  {moneyFormatInNaira(price)}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Payment Plan</td>
+                <td>{getPaymentPlan(paymentPlan)}</td>
+              </tr>
+              <tr>
+                <td>Initial Payment</td>
+                <td>{moneyFormatInNaira(initialPayment)}</td>
+              </tr>
+              <tr>
+                <td>Monthly Payment</td>
+                <td>{getMonthlyPayment(price, initialPayment, paymentPlan)}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-
+      <h4 className="mt-5 mb-3">Interest Form</h4>
       <div className="row">
-        <ul className="list-dotted list-unstyled">
-          <li>
-            <span className="list-dotted__label">Initial Payment</span>
-            <span className="list-dotted__value">
-              {moneyFormatInNaira(initialPayment)}
-            </span>
-          </li>
-          <li>
-            <span className="list-dotted__label">Monthly Payment</span>
-            <span className="list-dotted__value">
-              {getMonthlyPayment(price, initialPayment, paymentPlan)}
-            </span>
-          </li>
-          <li></li>
-          {/* <li>
-            <span className="list-dotted__label">Total</span>
-            <span className="list-dotted__value text-xl fw-bold">
-              {moneyFormatInNaira(price)}
-            </span>
-          </li> */}
-        </ul>
-      </div>
-      <h4 className="mt-n4 mb-3">Interest Form</h4>
-      <div className="row">
-        <Input label="Title" name="title" formGroupClassName="col-sm-6" />
-        <Input
-          label="First Name"
-          name="firstName"
-          formGroupClassName="col-sm-6"
-        />
+        <Input label="Title" name="title" />
+        <Input label="First Name" name="firstName" />
       </div>
       <div className="row">
-        <Input
-          label="Last Name"
-          name="lastName"
-          formGroupClassName="col-sm-6"
-        />
+        <Input label="Last Name" name="lastName" />
         <Input
           isValidMessage="Email address seems valid"
           label="Email"
           name="email"
           placeholder="Email Address"
-          formGroupClassName="col-sm-6"
         />
       </div>
       <div className="row">
@@ -162,19 +153,17 @@ const InterestForm = ({ price, paymentPlan, initialPayment, property }) => {
           isValidMessage="Phone number looks good"
           label="Phone"
           name="phone"
-          formGroupClassName="col-sm-6"
         />
         <DatePicker
-          label="Payment Start Date"
+          label="Proposed Payment Start Date"
           name="paymentStartDate"
           minDate={new Date()}
           placeholder="Start Date"
-          formGroupClassName="col-sm-6"
         />
       </div>
 
-      <FormikButton color="info" className="mt-5 text-white btn-wide">
-        Buy Now
+      <FormikButton color="info" className="mt-3 text-white btn-wide">
+        Submit
       </FormikButton>
     </div>
   );

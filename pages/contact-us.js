@@ -15,6 +15,10 @@ import { socialMediaLinks } from '../data';
 import Footer from '@/components/common/Footer';
 import Navigation from '@/components/layouts/Navigation';
 import { PHONE_NUMBER } from '@/utils/constants';
+import axios from 'axios';
+import { getTokenFromStore } from '@/utils/localStorage';
+import { getError, statusIsSuccessful } from '@/utils/helpers';
+import FormikButton from '@/components/forms/FormikButton';
 
 const ContactUs = () => {
   return (
@@ -149,7 +153,8 @@ const ContactUsForm = () => {
 const ContactForm = () => {
   const handleSubmit = async (values, actions) => {
     const payload = {
-      values,
+      ...values,
+      source: 'Contact Us Page',
     };
     try {
       axios({
@@ -162,9 +167,8 @@ const ContactForm = () => {
           const { status } = response;
           if (statusIsSuccessful(status)) {
             toast.success('Information sent successfully');
-            actions.resetForm({ values: {} });
+            actions.resetForm();
             actions.setSubmitting(false);
-            return true;
           }
         })
         .catch(function (error) {
@@ -180,7 +184,6 @@ const ContactForm = () => {
       handleSubmit={handleSubmit}
       name="contact-us-form"
       buttonText="Send Message"
-      persistForm
     >
       <div className="row">
         <Input name="name" formGroupClassName="col-sm-6" label="Full Name" />
@@ -202,6 +205,9 @@ const ContactForm = () => {
         <Input name="subject" formGroupClassName="col-sm-6" label="Subject" />
       </div>
       <Textarea name="message" label="Your Message" />
+      <FormikButton color="success" className="mt-2 text-white btn-wide">
+        Send Message
+      </FormikButton>
     </FormikForm>
   );
 };

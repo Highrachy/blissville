@@ -4,6 +4,8 @@ import {
   optionalValidation,
   required,
   minDateValidation,
+  password,
+  confirmPassword,
 } from './schema-helpers';
 
 export const contactUsSchema = {
@@ -39,4 +41,9 @@ export const interestSchema = {
 
 export const rescheduleVisitationSchema = {
   visitDate: minDateValidation('Visitation Date', new Date()),
+};
+
+export const setPasswordSchema = {
+  password,
+  confirmPassword,
 };
