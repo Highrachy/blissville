@@ -30,8 +30,8 @@ export const FILTER_FIELDS = {
 };
 
 const ALL_USER_ROLES = {
-  USER: { id: 0 },
-  ADMIN: { id: 10 },
+  USER: { id: 0, name: 'user' },
+  ADMIN: { id: 10, name: 'admin' },
 };
 export const USER_ROLES = generateStatus(ALL_USER_ROLES);
 export const ROLE_NAME = mapStatusToName(ALL_USER_ROLES);

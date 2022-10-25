@@ -42,6 +42,10 @@ export const interestSchema = {
 export const rescheduleVisitationSchema = {
   visitDate: minDateValidation('Visitation Date', new Date()),
 };
+export const loginSchema = {
+  email,
+  password,
+};
 
 export const setPasswordSchema = {
   password,

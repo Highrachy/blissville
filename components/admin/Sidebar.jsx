@@ -2,15 +2,18 @@ import { adminMenu, userMenu } from '@/data/admin/sideMenu';
 import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
 import { storeMenuState } from '@/utils/localStorage';
 import classNames from 'classnames';
+import { UserContext } from 'context/user';
+import { Logout } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
   const currentSideMenu = role === USER_ROLES.ADMIN ? adminMenu : userMenu;
   const router = useRouter();
+  const { logoutUser } = useContext(UserContext);
 
   const handleMenuState = () => {
     const newState = !isFolded;
@@ -47,9 +50,9 @@ const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
         <div className="sidebar-body">
           <ul className="nav">
             {Object.entries(currentSideMenu).map(([title, icon], index) => {
-              const currentPath = `/app/${ROLE_NAME[
-                role
-              ].toLowerCase()}/${changeSpaceToDash(title)}`;
+              const currentPath = `/app/${
+                ROLE_NAME[role]?.toLowerCase() || 'user'
+              }/${changeSpaceToDash(title)}`;
               const currentPathSplit = router.pathname.split('/')[3];
               const isCurrentPage =
                 changeSpaceToDash(title) === currentPathSplit;
@@ -70,6 +73,14 @@ const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
                 </li>
               );
             })}
+            <li key="logout" className="nav-item" onClick={() => logoutUser()}>
+              <a href="#" className="nav-link">
+                <span className="link-icon">
+                  <Logout size="24" variant="Bulk" />
+                </span>
+                {!isFolded && <span className="link-title">Logout</span>}
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

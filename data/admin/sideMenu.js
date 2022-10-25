@@ -24,7 +24,6 @@ export const adminMenu = {
   Referrals: <UserAdd size="24" variant="Bulk" />,
   Support: <MessageQuestion size="24" variant="Bulk" />,
   'Edit Profile': <UserEdit size="24" variant="Bulk" />,
-  Logout: <Logout size="24" variant="Bulk" />,
 };
 
 export const userMenu = {
@@ -35,5 +34,4 @@ export const userMenu = {
   Referrals: <UserAdd size="24" variant="Bulk" />,
   Support: <MessageQuestion size="24" variant="Bulk" />,
   'Edit Profile': <UserEdit size="24" variant="Bulk" />,
-  Logout: <Logout size="24" variant="Bulk" />,
 };

@@ -1,9 +1,16 @@
 import useWindowSize from '@/hooks/useWindowSize';
-import { USER_ROLES } from '@/utils/constants';
-import { getMenuStateFromStore } from '@/utils/localStorage';
+import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
+import {
+  getMenuStateFromStore,
+  getPermissionFromStore,
+  getTokenFromStore,
+} from '@/utils/localStorage';
+import axios from 'axios';
+import { UserContext } from 'context/user';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useContext } from 'react';
 import Sidebar from './Sidebar';
 import TopTitle from './TopTitle';
 
@@ -14,9 +21,45 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
   const menuState = getMenuStateFromStore();
 
   const [isFolded, setIsFolded] = React.useState(true);
+  const { logoutUser, loginUser, user } = useContext(UserContext);
+  const router = useRouter();
+  const token = getTokenFromStore(true);
+
+  React.useEffect(() => {
+    async function confirmPreviousLogin() {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
+        {
+          headers: {
+            Authorization: getTokenFromStore(),
+          },
+        }
+      );
+      if (response.status !== 200) {
+        router.push('/app');
+      } else {
+        loginUser(response.data);
+      }
+    }
+
+    if (!token) {
+      router.push('/app');
+      logoutUser();
+    } else {
+      confirmPreviousLogin();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
   React.useEffect(() => {
     isDesktop && setIsFolded(menuState);
   }, [menuState, isDesktop]);
+
+  const currentRole = user?.permission || getPermissionFromStore() || role;
+
+  if (!user) {
+    return <p> Loading... </p>;
+  }
 
   return (
     <section className="admin-container">
@@ -24,7 +67,7 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
         isFolded={isFolded}
         setIsFolded={setIsFolded}
         isDesktop={isDesktop}
-        role={role}
+        role={currentRole}
       />
       <div
         className={`content-wrapper px-3 px-md-5 py-md-5 py-2 min-vh-100 bg-gray ${

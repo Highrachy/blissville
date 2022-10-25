@@ -2,6 +2,7 @@ import Head from 'next/head';
 import NextNProgress from 'nextjs-progressbar';
 import React from 'react';
 import '../sass/App.scss';
+import UserProvider from 'context/user';
 import { ToastContainer, Slide } from 'react-toastify';
 // Import Swiper styles
 import 'swiper/css';
@@ -10,7 +11,7 @@ import 'swiper/css/navigation';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <UserProvider>
       <ToastContainer autoClose={10000} transition={Slide} theme="colored" />
       <NextNProgress color="#446cb2" />
       <Head>
@@ -34,7 +35,7 @@ function MyApp({ Component, pageProps }) {
         {/* <link rel="manifest" href="/site.webmanifest" /> */}
       </Head>
       <Component {...pageProps} />
-    </>
+    </UserProvider>
   );
 }
 
