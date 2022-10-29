@@ -311,11 +311,10 @@ $green-900: $secondary-900;
 // // scss-docs-start theme-color-variables
 $primary: $blue;
 $secondary: $green;
-// $success: $green !default;
+$success: $secondary-500;
 $info: $cyan;
 $warning: $warning-700;
-// $danger: $red !default;
-$danger: $error-700;
+$danger: $red;
 $dark: $gray-800;
 // // scss-docs-end theme-color-variables
 

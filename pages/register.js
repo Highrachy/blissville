@@ -1,38 +1,37 @@
-import Overlay from '@/components/common/Overlay';
+import React from 'react';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
-import { loginSchema } from '@/components/forms/schemas/page-schema';
-import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
+import { registerSchema } from '@/components/forms/schemas/page-schema';
+import { ROLE_NAME } from '@/utils/constants';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
-import { getPermissionFromStore } from '@/utils/localStorage';
 import axios from 'axios';
-import { UserContext } from 'context/user';
-import Image from 'next/image';
 import Router from 'next/router';
-import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
+import AuthPage from '@/components/common/AuthPage';
+import FormikButton from '@/components/forms/FormikButton';
+import Alert from '@/components/utils/Alert';
 
 const Register = () => {
-  const { loginUser } = useContext(UserContext);
-  const permission = getPermissionFromStore();
-
-  React.useEffect(() => {
-    if (permission || permission === USER_ROLES.USER)
-      Router.push(`app/${ROLE_NAME[permission]}/dashboard`);
-  }, [permission]);
-
-  const handleSubmit = async ({ email: identifier, password }, actions) => {
+  const [emailAddress, setEmailAddress] = React.useState(null);
+  const handleSubmit = async (values, actions) => {
+    const payload = {
+      ...values,
+      username: values.email,
+    };
+    delete payload.confirmPassword;
     try {
       axios({
         method: 'post',
-        url: `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`,
-        data: { identifier, password },
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`,
+        data: payload,
       })
         .then(function (response) {
           const { data, status } = response;
           if (statusIsSuccessful(status)) {
-            loginUser(data.user, data.jwt);
-            Router.push(`app/${ROLE_NAME[data.user.permission]}/dashboard`);
+            setEmailAddress(values.email);
+            toast.success('Registration successful');
+            actions.resetForm({});
+            actions.setSubmitting(false);
           }
         })
         .catch(function (error) {
@@ -44,83 +43,63 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-fluid">
-      {/*Auth fluid left content */}
-      <div className="auth-fluid-form-box">
-        <div className="align-items-center d-flex h-100">
-          <div className="card-body">
-            {/* Logo */}
-            <div className="auth-brand text-center text-lg-start">
-              <Image
-                src="/assets/img/logo.png"
-                alt="blissville logo"
-                width={147}
-                height={46}
-              />
-            </div>
-            {/* title*/}
-            <h4 className="mt-6 mb-3">Sign In</h4>
-
-            <FormikForm
-              schema={loginSchema}
-              handleSubmit={handleSubmit}
-              name="sign-in-form"
-              butttonText="Register"
-              useSubmitButton
-            >
-              <div>
-                <Input
-                  name="firstName"
-                  formGroupClassName="col-sm-6"
-                  label="First Name"
-                />
-                <Input
-                  name="lastName"
-                  formGroupClassName="col-sm-6"
-                  label="Last Name"
-                />
-              </div>
-              <div className="row">
-                <Input
-                  name="email"
-                  formGroupClassName="col-sm-6"
-                  type="email"
-                  label="Email Address"
-                />
-                <Input
-                  formGroupClassName="col-sm-6"
-                  name="phone"
-                  label="Phone Number"
-                  optional
-                />
-              </div>
-              <div className="row">
-                <Input
-                  formGroupClassName="col-md-6"
-                  isValidMessage="Password seems good"
-                  label="Password"
-                  name="password"
-                  placeholder="Password"
-                  type="password"
-                />
-                <Input
-                  formGroupClassName="col-md-6"
-                  isValidMessage="Awesome. Password matches"
-                  label="Confirm Password"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  type="password"
-                />
-              </div>
-            </FormikForm>
-          </div>
-          {/* end .card-body */}
+    <AuthPage page="Registration" title="Create a new account" bigForm>
+      <FormikForm
+        schema={registerSchema}
+        handleSubmit={handleSubmit}
+        name="register-form"
+        showAllFormikState
+      >
+        {emailAddress && (
+          <Alert type="success" handleClose={() => setEmailAddress(null)}>
+            Registration successful. Your email confirmation has been sent to{' '}
+            <span className="fw-semibold">{emailAddress}</span>. Please check
+            your spam folder if email is not found.{' '}
+          </Alert>
+        )}
+        <div className="row">
+          <Input
+            name="firstName"
+            label="First Name"
+            formGroupClassName="col-md-6"
+          />
+          <Input
+            name="lastName"
+            label="Last Name"
+            formGroupClassName="col-md-6"
+          />
         </div>
-      </div>
-      <div className="auth-fluid-right text-center">
-        <Overlay />
-      </div>
-    </div>
+        <div className="row">
+          <Input
+            name="email"
+            type="email"
+            label="Email Address"
+            formGroupClassName="col-md-6"
+          />
+          <Input
+            name="phone"
+            label="Phone"
+            optional
+            formGroupClassName="col-md-6"
+          />
+        </div>
+        <div className="row">
+          <Input
+            name="password"
+            type="password"
+            label="Password"
+            formGroupClassName="col-md-6"
+          />
+          <Input
+            name="confirmPassword"
+            type="password"
+            label="Confirm Password"
+            formGroupClassName="col-md-6"
+          />
+        </div>
+        <FormikButton color="success">Register Now</FormikButton>
+      </FormikForm>
+    </AuthPage>
   );
 };
 
