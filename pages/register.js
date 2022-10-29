@@ -2,20 +2,23 @@ import React from 'react';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
 import { registerSchema } from '@/components/forms/schemas/page-schema';
-import { ROLE_NAME } from '@/utils/constants';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import AuthPage from '@/components/common/AuthPage';
 import FormikButton from '@/components/forms/FormikButton';
 import Alert from '@/components/utils/Alert';
+import { getReferralFromStore } from '@/utils/localStorage';
 
 const Register = () => {
   const [emailAddress, setEmailAddress] = React.useState(null);
+  const referredBy = getReferralFromStore();
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
       username: values.email,
+      referredBy: referredBy?.id,
+      confirmed: false,
     };
     delete payload.confirmPassword;
     try {
@@ -43,6 +46,12 @@ const Register = () => {
 
   return (
     <AuthPage page="Registration" title="Create a new account" bigForm>
+      {referredBy && (
+        <div className="text-muted-light font-secondary text-sm mt-n1 mb-5">
+          Referred By {referredBy.firstName} with referral code:{' '}
+          <span className="text-uppercase">{referredBy.referralCode}</span>
+        </div>
+      )}
       <FormikForm
         schema={registerSchema}
         handleSubmit={handleSubmit}
@@ -56,6 +65,7 @@ const Register = () => {
             your spam folder if email is not found.{' '}
           </Alert>
         )}
+
         <div className="row">
           <Input
             name="firstName"

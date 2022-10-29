@@ -31,9 +31,7 @@ const ReferralModal = ({ referralCode, inviteCode }) => {
         });
   }, [referralCode]);
   React.useEffect(() => {
-    console.log('in use effect');
     inviteCode &&
-      // Axios.get(`${BASE_API_URL}/referral/${inviteCode}`)
       axios
         .get(
           `${process.env.NEXT_PUBLIC_API_URL}/api/referrals/${inviteCode}?populate=*`
@@ -43,7 +41,6 @@ const ReferralModal = ({ referralCode, inviteCode }) => {
             status,
             data: { data },
           } = response;
-          console.log('response -', response);
           if (status === 200) {
             const output = {
               ...data.attributes.user.data.attributes,
@@ -53,7 +50,6 @@ const ReferralModal = ({ referralCode, inviteCode }) => {
                 emai: data.attributes.email,
               },
             };
-            console.log('result', output);
             setReferral(output);
             setShowReferralModal(true);
             storeReferral(output);

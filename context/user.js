@@ -9,7 +9,6 @@ export const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  console.log('user', user);
 
   async function loginUser(user, jwt = null) {
     setUser(user);

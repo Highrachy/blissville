@@ -31,10 +31,16 @@ import { REFERRAL_STATUS_COLOR, REFERRAL_STATUS_NAME } from '@/utils/constants';
 const Referrals = () => {
   const { user } = useContext(UserContext);
   const [copied, setCopied] = React.useState(false);
+  const id = user?.id;
 
   const [query, result] = useSWRQuery({
-    name: 'referrals',
+    name: id ? ['referrals', id] : id,
     endpoint: `api/referrals`,
+    axiosOptions: {
+      params: {
+        'filters[user][id][$eq]': id,
+      },
+    },
   });
 
   React.useEffect(() => {

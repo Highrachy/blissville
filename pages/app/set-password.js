@@ -41,7 +41,6 @@ const Login = () => {
               .then(function (response) {
                 const { data, status } = response;
                 if (statusIsSuccessful(status)) {
-                  console.log('data', data);
                   toast.success('Your password has been successfully updated');
                   loginUser(data.user, data.jwt);
                   actions.resetForm({});
