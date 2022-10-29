@@ -31,7 +31,6 @@ export const visitationSchema = {
 };
 
 export const interestSchema = {
-  title: stringValidation('Title'),
   firstName: stringValidation('First Name'),
   lastName: stringValidation('Last Name'),
   email,

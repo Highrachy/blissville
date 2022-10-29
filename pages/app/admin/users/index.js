@@ -8,16 +8,19 @@ import { getShortDate } from '@/utils/date-helpers';
 import Button from '@/components/forms/Button';
 import { getFullName } from '@/utils/helpers';
 import { adminMenu } from '@/data/admin/sideMenu';
+import TopTitle from '@/components/admin/TopTitle';
 
 const Users = () => (
   <Backend role={USER_ROLES.ADMIN}>
     <PaginatedContent
-      endpoint={'api/local-users'}
+      endpoint={'api/users'}
       pageName="User"
       DataComponent={UsersRowList}
       PageIcon={adminMenu['Users']}
       populate="*"
       filterFields={filterUsers}
+      hideTitle
+      // params={{ start: 0, limit: 3 }}
     />
   </Backend>
 );
@@ -25,6 +28,7 @@ const Users = () => (
 export const UsersRowList = ({ results, offset, attachment }) => {
   return (
     <div className="container-fluid">
+      <TopTitle>{results?.length} Users</TopTitle>
       <Card className="mt-2">
         <div className="table-responsive">
           <table className="table table-border table-hover">
@@ -37,11 +41,10 @@ export const UsersRowList = ({ results, offset, attachment }) => {
               </tr>
             </thead>
             <tbody>
-              {results.map(({ id, attributes }, index) => (
+              {results.map((attributes, index) => (
                 <UsersSingleRow
                   key={index}
                   number={offset + index + 1}
-                  id={id}
                   {...attributes}
                   attachment={attachment}
                 />

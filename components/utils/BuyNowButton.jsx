@@ -40,7 +40,6 @@ const BuyNowButton = ({
         method: 'post',
         url: `${process.env.NEXT_PUBLIC_API_URL}/api/interests`,
         data: { data: payload },
-        headers: { Authorization: getTokenFromStore() },
       })
         .then(function (response) {
           const { status } = response;
@@ -105,7 +104,9 @@ const InterestForm = ({
             className="rounded"
           />
           <h5>{name}</h5>
-          <p className="mb-3 mt-n2 text-sm text-muted">{packageName}</p>
+          <p className="mb-3 mt-n2 text-sm text-muted">
+            {packageName} ({getPaymentPlan(paymentPlan)})
+          </p>
         </div>
         <div className="table-responsive">
           <table className="table table-border">
@@ -118,10 +119,6 @@ const InterestForm = ({
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Payment Plan</td>
-                <td>{getPaymentPlan(paymentPlan)}</td>
-              </tr>
               <tr>
                 <td>Initial Payment</td>
                 <td>{moneyFormatInNaira(initialPayment)}</td>
@@ -136,24 +133,23 @@ const InterestForm = ({
       </div>
       <h4 className="mt-5 mb-3">Interest Form</h4>
       <div className="row">
-        <Input label="Title" name="title" />
         <Input label="First Name" name="firstName" />
+        <Input label="Last Name" name="lastName" />
       </div>
       <div className="row">
-        <Input label="Last Name" name="lastName" />
         <Input
           isValidMessage="Email address seems valid"
           label="Email"
           name="email"
           placeholder="Email Address"
         />
-      </div>
-      <div className="row">
         <Input
           isValidMessage="Phone number looks good"
           label="Phone"
           name="phone"
         />
+      </div>
+      <div className="row">
         <DatePicker
           label="Proposed Payment Start Date"
           name="paymentStartDate"

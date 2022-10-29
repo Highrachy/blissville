@@ -11,7 +11,9 @@ import React, { useContext } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
-  const currentSideMenu = role === USER_ROLES.ADMIN ? adminMenu : userMenu;
+  console.log('role', role);
+  const currentSideMenu =
+    role.toString() === USER_ROLES.ADMIN ? adminMenu : userMenu;
   const router = useRouter();
   const { logoutUser } = useContext(UserContext);
 

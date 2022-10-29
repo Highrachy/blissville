@@ -1,5 +1,4 @@
 import AuthPage from '@/components/common/AuthPage';
-import Overlay from '@/components/common/Overlay';
 import FormikButton from '@/components/forms/FormikButton';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
@@ -10,7 +9,7 @@ import { getError, statusIsSuccessful } from '@/utils/helpers';
 import { getPermissionFromStore } from '@/utils/localStorage';
 import axios from 'axios';
 import { UserContext } from 'context/user';
-import Image from 'next/image';
+
 import Router from 'next/router';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';

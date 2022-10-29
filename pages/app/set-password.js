@@ -1,95 +1,102 @@
-import Overlay from '@/components/common/Overlay';
+import AuthPage from '@/components/common/AuthPage';
 import FormikButton from '@/components/forms/FormikButton';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
 import { setPasswordSchema } from '@/components/forms/schemas/page-schema';
-import Image from 'next/image';
-import Router from 'next/router';
-import React from 'react';
+import Alert from '@/components/utils/Alert';
+import { ROLE_NAME } from '@/utils/constants';
+import { getError, statusIsSuccessful } from '@/utils/helpers';
+import axios from 'axios';
+import { UserContext } from 'context/user';
+import Router, { useRouter } from 'next/router';
+import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 
 const Login = () => {
-  const handleSubmit = async (values, actions) => {
-    Router.push('/app/user/dashboard');
-    // const fetchOptions = {
-    //   /**
-    //    * The default method for a request with fetch is GET,
-    //    * so we must tell it to use the POST HTTP method.
-    //    */
-    //   method: 'POST',
-    //   /**
-    //    * These headers will be added to the request and tell
-    //    * the API that the request body is JSON and that we can
-    //    * accept JSON responses.
-    //    */
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json',
-    //   },
-    //   /**
-    //    * The body of our POST request is the JSON string that
-    //    * we created above.
-    //    */
-    //   body: JSON.stringify({ data: values }),
-    // };
-    // const response = await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
-    //   fetchOptions
-    // );
-    // if (!response.ok) {
-    //   const errorMessage = await response.text();
-    //   toast.error(errorMessage);
-    // } else {
-    //   toast.success('Information sent successfully');
-    // }
-    // actions.setSubmitting(false);
-    // actions.resetForm();
+  const [error, setError] = React.useState(false);
+  const { query } = useRouter();
+  const { loginUser } = useContext(UserContext);
+  const { id, token } = query;
+
+  const handleSubmit = async ({ password }, actions) => {
+    const payload = {
+      id,
+      password,
+      token,
+    };
+    try {
+      axios({
+        method: 'post',
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/administrative/set-password`,
+        data: payload,
+      })
+        .then(function (response) {
+          const { data, status } = response;
+          if (statusIsSuccessful(status)) {
+            axios({
+              method: 'post',
+              url: `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`,
+              data: { identifier: data.userInfo.email, password },
+            })
+              .then(function (response) {
+                const { data, status } = response;
+                if (statusIsSuccessful(status)) {
+                  console.log('data', data);
+                  toast.success('Your password has been successfully updated');
+                  loginUser(data.user, data.jwt);
+                  actions.resetForm({});
+                  actions.setSubmitting(false);
+                  Router.push(
+                    `/app/${ROLE_NAME[data.user.permission]}/dashboard`
+                  );
+                }
+              })
+              .catch(function (error) {
+                toast.error(getError(error));
+              });
+          }
+        })
+        .catch(function (error) {
+          toast.error(getError(error));
+        });
+    } catch (error) {
+      toast.error(getError(error));
+    }
   };
 
   return (
-    <div className="auth-fluid">
-      {/*Auth fluid left content */}
-      <div className="auth-fluid-form-box">
-        <div className="align-items-center d-flex h-100">
-          <div className="card-body">
-            {/* Logo */}
-            <div className="auth-brand text-center text-lg-start">
-              <Image
-                src="/assets/img/logo.png"
-                alt="blissville logo"
-                width={147}
-                height={46}
-              />
-            </div>
-            {/* title*/}
-            <h4 className="mt-6 mb-3">Set Password</h4>
-
-            <FormikForm
-              schema={setPasswordSchema}
-              handleSubmit={handleSubmit}
-              name="set-password-form"
-              butttonText="Login"
-            >
-              <Input name="password" type="password" label="Password" />
-              <Input
-                name="confirmPassword"
-                type="password"
-                label="Confirm Password"
-              />
-              <FormikButton
-                color="success"
-                className="mt-3 text-white btn-wide"
-              >
-                Submit
-              </FormikButton>
-            </FormikForm>
+    <AuthPage page="Set Password" title="Set Password">
+      <FormikForm
+        schema={setPasswordSchema}
+        handleSubmit={handleSubmit}
+        name="sign-in-form"
+      >
+        {token && id ? (
+          <>
+            {error && (
+              <div className="mb-3">
+                <Alert handleClose={() => setError(false)}>
+                  Invalid Email or Password
+                </Alert>
+              </div>
+            )}
+            <Input name="password" type="password" label="Password" />
+            <Input
+              name="confirmPassword"
+              type="password"
+              label="Confirm Password"
+            />
+            <FormikButton color="success">Set Password</FormikButton>
+          </>
+        ) : (
+          <div className="mb-3">
+            <Alert noClose>
+              Invalid URL. Please check your email for the correct link.
+            </Alert>
           </div>
-          {/* end .card-body */}
-        </div>
-      </div>
-      <div className="auth-fluid-right text-center">
-        <Overlay />
-      </div>
-    </div>
+        )}
+      </FormikForm>
+    </AuthPage>
   );
 };
 

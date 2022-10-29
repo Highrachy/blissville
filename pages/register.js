@@ -5,7 +5,6 @@ import { registerSchema } from '@/components/forms/schemas/page-schema';
 import { ROLE_NAME } from '@/utils/constants';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 import axios from 'axios';
-import Router from 'next/router';
 import { toast } from 'react-toastify';
 import AuthPage from '@/components/common/AuthPage';
 import FormikButton from '@/components/forms/FormikButton';

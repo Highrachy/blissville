@@ -3,7 +3,7 @@ import PaginatedContent from '@/components/admin/PaginatedContent';
 import { Card } from 'react-bootstrap';
 import Backend from '@/components/admin/Backend';
 import { filterInterests } from '@/utils/filters';
-import { USER_ROLES } from '@/utils/constants';
+import { INTEREST_STATUS_COLOR, USER_ROLES } from '@/utils/constants';
 import { getShortDate } from '@/utils/date-helpers';
 import { EmptyWalletChange } from 'iconsax-react';
 import Button from '@/components/forms/Button';
@@ -90,7 +90,13 @@ export const InterestsSingleRow = ({
         />
         {property.data.attributes.name}
       </td>
-      <td>{INTEREST_STATUS_NAME[status]}</td>
+      <td>
+        <span
+          className={`badge badge-dot text-${INTEREST_STATUS_COLOR[status]}`}
+        >
+          {INTEREST_STATUS_NAME[status]}
+        </span>
+      </td>
       <td>
         <Button
           color="secondary"
