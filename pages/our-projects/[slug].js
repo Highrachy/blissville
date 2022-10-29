@@ -395,7 +395,15 @@ export async function getStaticProps({ params }) {
     `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*&filters[slug][$eq]=${params.slug}`
   );
 
-  const { data } = await res.json();
+  let { data } = await res.json();
+
+  if (!data || data.length === 0) {
+    const resAll = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*`
+    );
+    const { data: allData } = await resAll.json();
+    data = allData;
+  }
 
   const propertiesRes = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,

@@ -70,6 +70,17 @@ export const VISITATION_STATUS_COLOR = generateStatusColor(
 );
 export const VISITATION_STATUS_NAME = mapStatusToName(ALL_VISITATION_STATUS);
 
+const ALL_REFERRAL_STATUS = {
+  INVITE_SENT: { id: 0, color: 'danger' },
+  REGISTERED: { id: 1, color: 'warning' },
+  PENDING_REWARD: { id: 2, color: 'info' },
+  PROCESSING_REWARD: { id: 3, color: 'primary' },
+  REWARDED: { id: 4, color: 'success' },
+};
+export const REFERRAL_STATUS = generateStatus(ALL_REFERRAL_STATUS);
+export const REFERRAL_STATUS_COLOR = generateStatusColor(ALL_REFERRAL_STATUS);
+export const REFERRAL_STATUS_NAME = mapStatusToName(ALL_REFERRAL_STATUS);
+
 export const DATA_TYPE = {
   STRING: 'string',
   NUMBER: 'number',

@@ -27,6 +27,22 @@
   cursor: pointer;
 }
 
+.link-text {
+  color: $gray-600 !important;
+  cursor: pointer;
+  &:hover {
+    color: $primary;
+  }
+  &.link-primary {
+    color: $primary;
+  }
+  &.link-danger {
+    &:hover {
+      color: $danger;
+    }
+  }
+}
+
 .text-xl {
   font-size: 1.5rem;
 }

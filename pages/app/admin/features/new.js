@@ -24,11 +24,6 @@ const New = () => {
   const router = useRouter();
   const { id, action } = router.query;
 
-  const [query, result] = useSWRQuery({
-    name: id ? [pageOptions.key, id] : id,
-    endpoint: `api/features/${id}`,
-  });
-
   return (
     <Backend role={USER_ROLES.ADMIN} title="Project Feature">
       <ProcessFeatureForm feature={result} action={action} id={id} />

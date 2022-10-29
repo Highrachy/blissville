@@ -16,8 +16,11 @@ import { Bounce } from 'react-reveal';
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
+import ReferralModal from '@/components/ui/ReferralModal';
+import { useRouter } from 'next/router';
 
 export default function Home({ slides, projects, properties }) {
+  const { query } = useRouter();
   return (
     <>
       <TopNavigation />
@@ -30,6 +33,7 @@ export default function Home({ slides, projects, properties }) {
       <TestimonialSection />
       <ScheduleVisit />
       <Footer />
+      <ReferralModal referralCode={query.ref} inviteCode={query.inviteCode} />
     </>
   );
 }
