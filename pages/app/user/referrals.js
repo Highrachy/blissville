@@ -180,7 +180,7 @@ const Referrals = () => {
           </section>
 
           {/* referral Rewards */}
-          <DashboardTable title="Referral Rewards">
+          {/* <DashboardTable title="Referral Rewards">
             <tr>
               <th width="300">
                 <span className="fw-semibold">JJ Okocha</span>
@@ -193,7 +193,7 @@ const Referrals = () => {
                 <span className="fw-semibold">₦ 50,000</span>
               </td>
             </tr>
-          </DashboardTable>
+          </DashboardTable> */}
         </div>
         <div className="col-md-6">
           {/* summary */}
@@ -247,30 +247,32 @@ const Referrals = () => {
           </section>
 
           {/* Invite History */}
-          <DashboardTable title="Invite History">
-            {result.map(({ attributes: referral }, index) => (
-              <tr key={index}>
-                <th width="300">
-                  <span className="fw-semibold">{referral.email}</span>
-                  <br />
-                  <span
-                    className={`fw-semibold text-${
-                      REFERRAL_STATUS_COLOR[referral.status]
-                    } text-xs`}
-                  >
-                    {REFERRAL_STATUS_NAME[referral.status]}
-                  </span>
-                </th>
-                <td className="text-end">
-                  <span className="fw-semibold">
-                    {referral.totalReward > 0
-                      ? moneyFormatInNaira(referral.totalReward)
-                      : '-'}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </DashboardTable>
+          {result.length > 0 && (
+            <DashboardTable title="Invite History">
+              {result.map(({ attributes: referral }, index) => (
+                <tr key={index}>
+                  <th width="300">
+                    <span className="fw-semibold">{referral.email}</span>
+                    <br />
+                    <span
+                      className={`fw-semibold text-${
+                        REFERRAL_STATUS_COLOR[referral.status]
+                      } text-xs`}
+                    >
+                      {REFERRAL_STATUS_NAME[referral.status]}
+                    </span>
+                  </th>
+                  <td className="text-end">
+                    <span className="fw-semibold">
+                      {referral.totalReward > 0
+                        ? moneyFormatInNaira(referral.totalReward)
+                        : '-'}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </DashboardTable>
+          )}
         </div>
       </div>
     </Backend>

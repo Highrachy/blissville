@@ -1,27 +1,66 @@
 import Backend from '@/components/admin/Backend';
 import Button from '@/components/forms/Button';
+import { BuildingIcon } from '@/components/Icons/Icons';
+import { ContentLoader } from '@/components/utils/LoadingItems';
+import { useSWRQuery } from '@/hooks/useSWRQuery';
+import { UserContext } from 'context/user';
 import Image from 'next/image';
-import React from 'react';
+import Link from 'next/link';
+import React, { useContext } from 'react';
+import { adminMenu } from '@/data/admin/sideMenu';
+import { moneyFormatInNaira } from '@/utils/helpers';
+import MakePayment from '@/components/utils/MakePayment';
 
 const MyProperties = () => {
+  const { user } = useContext(UserContext);
+  console.log('user', user);
+  const id = user?.id;
+
+  const [query, result] = useSWRQuery({
+    name: id ? ['assigned-properties', id] : id,
+    endpoint: `api/assigned-properties`,
+    axiosOptions: {
+      params: {
+        'filters[user][id][$eq]': id,
+        populate: '*',
+      },
+    },
+  });
+
+  console.log('result', result);
   return (
     <Backend title="My Properties">
-      <SingleProperty />
+      <ContentLoader
+        Icon={adminMenu['My Properties']}
+        query={query}
+        results={result}
+        name={'My Property'}
+      >
+        {result.map((item) => (
+          <SingleProperty key={item.id} {...item} userId={id} />
+        ))}
+      </ContentLoader>
     </Backend>
   );
 };
 
 export default MyProperties;
 
-const SingleProperty = ({ type = 1 }) => {
-  const now = 67;
+const SingleProperty = ({ id, attributes, userId }) => {
+  const { price, initialPayment } = attributes;
+  // return <pre>{JSON.stringify(attributes, null, 2)}</pre>;
+  const property = {
+    ...attributes.property.data.attributes,
+    id: attributes.property.data.id,
+  };
+  const now = 10;
   return (
     <div className="card rounded m-0">
       <div className="row g-0">
         <div className="col-lg-6">
           <div className="img-fill">
             <Image
-              src={`/assets/img/property/property${type}.jpeg`}
+              src={property.image}
               alt="Hero Image"
               layout="fill"
               objectFit="cover"
@@ -31,13 +70,22 @@ const SingleProperty = ({ type = 1 }) => {
         <div className="col-lg-6">
           <aside className="px-5 py-5">
             <h4>
-              3 Bedroom Apartments{' '}
-              <small className="badge bg-light">Shell</small>
+              {property.name}&nbsp;
+              <small className="badge text-xs mt-n3 bg-light">
+                {attributes.package.split(' ')[0]}
+              </small>
             </h4>
-            <p className="text-gray-700 font-secondary mb-2">
-              Blissville Duos - Lekki, Lagos
+            {/* <p className="text-gray-700 font-secondary mb-2">
+              <BuildingIcon />
+              &nbsp;
+              <Link href={`/our-projects/${project.slug}`} passHref>
+                <a className="text-reset">{project.name}</a>
+              </Link>{' '}
+              &nbsp;- {getLocationFromAddress(project)}
+            </p> */}
+            <p className="text-primary fw-bold text-xl">
+              {moneyFormatInNaira(price)}
             </p>
-            <p className="text-primary fw-bold text-xl">₦ 40,000,000</p>
             <hr className="dotted-border" />
             <p className="text-gray-700 mb-3 text-sm mt-4">
               Next Payment:{' '}
@@ -63,23 +111,21 @@ const SingleProperty = ({ type = 1 }) => {
 
             <p className="text-gray-700 mt-3 mb-5">
               Current Payment:{' '}
-              <span className="fw-bold text-gray-800">₦ 18,000,000</span>
+              <span className="fw-bold text-gray-800">
+                {moneyFormatInNaira(initialPayment)}
+              </span>
             </p>
 
             <Button
-              href="/our-projects/3-bedroom-apartments"
               className="me-3 mb-3 btn-sm"
-              color="secondary"
+              href={`/our-properties/test-project/${property.slug}/${property.id}`}
             >
-              View Project
+              View Property
             </Button>
-            <Button
-              href="/our-projects/3-bedroom-apartments"
-              className="me-3 btn-sm"
-              color="warning"
-            >
-              Customize Project
-            </Button>
+            <MakePayment
+              amount={initialPayment}
+              info={{ userId, assignedPropertyId: id }}
+            />
           </aside>
         </div>
       </div>

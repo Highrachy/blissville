@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Backend from '@/components/admin/Backend';
 import Link from 'next/link';
 import Humanize from 'humanize-plus';
@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Button from '@/components/forms/Button';
 import SingleProperty from '@/components/common/SingleProperty';
 import classNames from 'classnames';
+import { UserContext } from 'context/user';
 
 const PROPERTY_COLOR = '#446CB2';
 const PENDING_PAYMENT_COLOR = '#F59E0B';
@@ -16,13 +17,14 @@ const REFERRAL_COLOR = '#26A65B';
 const EMPTY_COLOR = '#CAD0D9';
 
 const Dashboard = () => {
+  const { user } = useContext(UserContext);
   const pageOptions = {
     key: 'dashboard',
     pageName: 'Dashboard',
   };
 
   return (
-    <Backend title="Welcome back, Haruna">
+    <Backend title={`Welcome back, ${user?.firstName ? user.firstName : ''}`}>
       <div className="row mb-4">
         <div className="col-sm-6 mb-4 mb-md-0">
           <div className="card h-100 bg-gray-50 p-4">

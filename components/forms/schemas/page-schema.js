@@ -6,6 +6,9 @@ import {
   minDateValidation,
   password,
   confirmPassword,
+  moneyRange,
+  positiveNumberValidation,
+  requiredDate,
 } from './schema-helpers';
 
 export const contactUsSchema = {
@@ -62,6 +65,18 @@ export const setPasswordSchema = {
 export const referralSchema = {
   referralName: optionalValidation(stringValidation('Name')),
   email,
+};
+
+export const onlinePaymentSchema = {
+  amount: moneyRange('Amount', 'amount', 10_000, 1_000_000),
+};
+
+export const offlinePaymentSchema = {
+  amount: positiveNumberValidation('Amount', 'amount'),
+  bank: required('Bank'),
+  paymentDate: requiredDate('Payment Date'),
+  evidence: optionalValidation(required('Evidence')),
+  type: required('Payment Type'),
 };
 
 // // refCode used for referral link

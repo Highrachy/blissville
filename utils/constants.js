@@ -81,6 +81,16 @@ export const REFERRAL_STATUS = generateStatus(ALL_REFERRAL_STATUS);
 export const REFERRAL_STATUS_COLOR = generateStatusColor(ALL_REFERRAL_STATUS);
 export const REFERRAL_STATUS_NAME = mapStatusToName(ALL_REFERRAL_STATUS);
 
+const ALL_TRANSACTION_STATUS = {
+  PENDING: { id: 0, color: 'danger' },
+  CONFIRMED: { id: 1, color: 'success' },
+};
+export const TRANSACTION_STATUS = generateStatus(ALL_TRANSACTION_STATUS);
+export const TRANSACTION_STATUS_COLOR = generateStatusColor(
+  ALL_TRANSACTION_STATUS
+);
+export const TRANSACTION_STATUS_NAME = mapStatusToName(ALL_TRANSACTION_STATUS);
+
 export const DATA_TYPE = {
   STRING: 'string',
   NUMBER: 'number',

@@ -17,6 +17,7 @@ import {
   getFullName,
   getMonthlyPayment,
   getPaymentPlan,
+  moneyFormatInNaira,
 } from '@/utils/helpers';
 import ProcessButton from '@/components/utils/ProcessButton';
 
@@ -49,6 +50,7 @@ const SingleInterest = () => {
         'email',
         'phone',
         'paymentPlan',
+        'price',
         'initialPayment',
         'paymentStartDate',
         'monthlyPayment',
@@ -59,6 +61,16 @@ const SingleInterest = () => {
       processField: {
         fullName: () => getFullName(output),
         paymentPlan: (value) => getPaymentPlan(value),
+        price: (value) => (
+          <span className="fw-bold text-lg text-primary">
+            {moneyFormatInNaira(value)}
+          </span>
+        ),
+        initialPayment: (value) => (
+          <span className="fw-semibold text-md">
+            {moneyFormatInNaira(value)}
+          </span>
+        ),
         monthlyPayment: () =>
           getMonthlyPayment(
             output.price,

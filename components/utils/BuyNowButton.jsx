@@ -6,7 +6,7 @@ import {
   moneyFormatInNaira,
   statusIsSuccessful,
 } from '@/utils/helpers';
-import { getTokenFromStore } from '@/utils/localStorage';
+import { getReferralFromStore, getTokenFromStore } from '@/utils/localStorage';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import DatePicker from '../forms/DatePicker';
@@ -24,6 +24,7 @@ const BuyNowButton = ({
   property,
   packageName,
 }) => {
+  const referredBy = getReferralFromStore();
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
@@ -33,6 +34,7 @@ const BuyNowButton = ({
       initialPayment,
       property: property.id,
       package: packageName,
+      referredBy: referredBy?.id,
     };
 
     try {
