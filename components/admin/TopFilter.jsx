@@ -52,7 +52,9 @@ const FilterComponent = ({ pageName, setFilter, filterFields }) => {
         <BiFilter /> &nbsp; Filter {pageName}
       </div>
       <aside
-        className={`dropdown-menu dropdown-filter ${openFilter ? 'show' : ''}`}
+        className={`dropdown-menu p-3 dropdown-filter ${
+          openFilter ? 'show' : ''
+        }`}
         aria-labelledby="filterLink"
       >
         <h5 className="filter-header border-bottom">Filter Options</h5>

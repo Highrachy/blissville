@@ -9,6 +9,7 @@ import { getError, statusIsSuccessful } from '@/utils/helpers';
 import { getPermissionFromStore } from '@/utils/localStorage';
 import axios from 'axios';
 import { UserContext } from 'context/user';
+import Link from 'next/link';
 
 import Router from 'next/router';
 import React, { useContext } from 'react';
@@ -71,6 +72,14 @@ const Login = () => {
         <Input name="password" type="password" label="Password" />
 
         <FormikButton color="success">Login</FormikButton>
+        <div className="my-5">
+          <Link href="/register">
+            <a className="text-sm text-gray-800">
+              Don&apos;t have an account?{' '}
+              <span className="text-primary-700">Register Now</span>
+            </a>
+          </Link>
+        </div>
       </FormikForm>
     </AuthPage>
   );

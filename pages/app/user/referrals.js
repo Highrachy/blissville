@@ -39,6 +39,7 @@ const Referrals = () => {
     axiosOptions: {
       params: {
         'filters[user][id][$eq]': id,
+        sort: 'createdAt:desc',
       },
     },
   });

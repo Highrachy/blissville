@@ -37,7 +37,20 @@ export const contactUs = {
   url: 'contact-us',
   children: {},
 };
+export const login = {
+  title: 'Login',
+  url: 'login',
+  children: {},
+};
 
-const navigation = [home, aboutUs, portfolio, faqs, investors, contactUs];
+const navigation = [
+  home,
+  aboutUs,
+  portfolio,
+  faqs,
+  investors,
+  contactUs,
+  login,
+];
 
 export default navigation;

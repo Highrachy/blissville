@@ -2,9 +2,14 @@ import {
   APPLICANT_STAGE,
   DATA_TYPE,
   FILTER_FIELDS,
+  INTEREST_STATUS,
   TENANT_STATUS,
 } from '@/utils/constants';
-import { booleanOptions, valuesToOptions } from '@/utils/helpers';
+import {
+  booleanOptions,
+  objectToOptions,
+  valuesToOptions,
+} from '@/utils/helpers';
 
 // export const filterTenants = {
 //   tenantFullName: {},
@@ -82,4 +87,13 @@ export const filterProperties = {
 export const filterFeatures = {
   name: {},
   price: {},
+};
+
+export const filterInterests = {
+  firstName: {},
+  lastName: {},
+  status: {
+    field: FILTER_FIELDS.SELECT,
+    values: objectToOptions(INTEREST_STATUS),
+  },
 };

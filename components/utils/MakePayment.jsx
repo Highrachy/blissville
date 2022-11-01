@@ -1,8 +1,7 @@
-import Axios from 'axios';
+import axios from 'axios';
 import Modal from 'components/ui/Modal';
 import Button from 'components/forms/Button';
 import React from 'react';
-import { BASE_API_URL } from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import { Formik, Form } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
@@ -112,18 +111,19 @@ const OnlinePayment = ({ setPaymentType, amount, info }) => {
           };
           console.log('payload', payload);
 
-          Axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/payment/initialize`,
-            payload,
-            {
-              headers: {
-                Authorization: getTokenFromStore(),
-              },
-            }
-          )
+          axios
+            .post(
+              `${process.env.NEXT_PUBLIC_API_URL}/api/payment/initialize`,
+              payload,
+              {
+                headers: {
+                  Authorization: getTokenFromStore(),
+                },
+              }
+            )
             .then(function (response) {
               const { status, data } = response;
-              console.log('response', response);
+
               if (statusIsSuccessful(status)) {
                 window.location.href = data.data.authorization_url;
               }
@@ -259,7 +259,7 @@ export const OfflinePaymentForm = ({
           }
         }
 
-        Axios({
+        axios({
           method: isUpdating ? 'put' : 'post',
           url: `${process.env.NEXT_PUBLIC_API_URL}/api/offline-payments`,
           data: isUpdating

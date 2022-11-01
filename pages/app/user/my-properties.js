@@ -53,7 +53,7 @@ const SingleProperty = ({ id, attributes, userId }) => {
     ...attributes.property.data.attributes,
     id: attributes.property.data.id,
   };
-  const now = 10;
+  const now = 0;
   return (
     <div className="card rounded m-0">
       <div className="row g-0">
