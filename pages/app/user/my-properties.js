@@ -1,6 +1,5 @@
 import Backend from '@/components/admin/Backend';
 import Button from '@/components/forms/Button';
-import { BuildingIcon } from '@/components/Icons/Icons';
 import { ContentLoader } from '@/components/utils/LoadingItems';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import { UserContext } from 'context/user';
@@ -8,8 +7,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import { adminMenu } from '@/data/admin/sideMenu';
-import { moneyFormatInNaira } from '@/utils/helpers';
+import { getLocationFromAddress, moneyFormatInNaira } from '@/utils/helpers';
 import MakePayment from '@/components/utils/MakePayment';
+import { differenceInDays, isPastDate } from '@/utils/date-helpers';
+import Humanize from 'humanize-plus';
 
 const MyProperties = () => {
   const { user } = useContext(UserContext);
@@ -27,14 +28,13 @@ const MyProperties = () => {
     },
   });
 
-  console.log('result', result);
   return (
     <Backend title="My Properties">
       <ContentLoader
         Icon={adminMenu['My Properties']}
         query={query}
         results={result}
-        name={'My Property'}
+        name={'Assigned Property'}
       >
         {result.map((item) => (
           <SingleProperty key={item.id} {...item} userId={id} />
@@ -47,15 +47,19 @@ const MyProperties = () => {
 export default MyProperties;
 
 const SingleProperty = ({ id, attributes, userId }) => {
-  const { price, initialPayment } = attributes;
-  // return <pre>{JSON.stringify(attributes, null, 2)}</pre>;
+  const { price, initialPayment, expectedNextPayment, paymentDueDate } =
+    attributes;
   const property = {
     ...attributes.property.data.attributes,
     id: attributes.property.data.id,
   };
+  const project = {
+    ...attributes.project.data.attributes,
+    id: attributes.project.data.id,
+  };
   const now = 0;
   return (
-    <div className="card rounded m-0">
+    <div className="card rounded m-0 mb-5">
       <div className="row g-0">
         <div className="col-lg-6">
           <div className="img-fill">
@@ -69,31 +73,31 @@ const SingleProperty = ({ id, attributes, userId }) => {
         </div>
         <div className="col-lg-6">
           <aside className="px-5 py-5">
-            <h4>
-              {property.name}&nbsp;
-              <small className="badge text-xs mt-n3 bg-light">
-                {attributes.package.split(' ')[0]}
-              </small>
-            </h4>
-            {/* <p className="text-gray-700 font-secondary mb-2">
-              <BuildingIcon />
-              &nbsp;
-              <Link href={`/our-projects/${project.slug}`} passHref>
-                <a className="text-reset">{project.name}</a>
-              </Link>{' '}
-              &nbsp;- {getLocationFromAddress(project)}
-            </p> */}
-            <p className="text-primary fw-bold text-xl">
+            <div className="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
+              <div>
+                <h5 className="mb-0">{property.name}&nbsp;</h5>
+                <p className="small mb-2 mb-sm-0">
+                  <Link href={`/our-projects/${project.slug}`} passHref>
+                    <a className="text-reset">{project.name}</a>
+                  </Link>{' '}
+                  &nbsp;- {getLocationFromAddress(project, true)}
+                </p>
+              </div>
+              <span className="h6 fw-light">
+                <small className="badge text-xs mt-n3 bg-light">
+                  {attributes.package.split(' ')[0]}
+                </small>
+              </span>
+            </div>
+            <p className="text-primary fw-bold text-xl mb-0">
               {moneyFormatInNaira(price)}
             </p>
             <hr className="dotted-border" />
-            <p className="text-gray-700 mb-3 text-sm mt-4">
-              Next Payment:{' '}
-              <span className="fw-bold text-danger">Due in 7 days</span>
-            </p>
             <div
               className="text-primary text-xs"
-              style={{ marginLeft: `${now - 4}%` }}
+              style={{
+                marginLeft: `${now > 10 ? Math.max(now - 4, 10) : now}%`,
+              }}
             >
               {now}%
             </div>
@@ -101,7 +105,7 @@ const SingleProperty = ({ id, attributes, userId }) => {
               <div
                 className="progress-bar"
                 role="progressbar"
-                aria-label="Example 1px high"
+                aria-label="Payment Progress"
                 style={{ width: `${now}%` }}
                 aria-valuenow={now}
                 aria-valuemin={0}
@@ -109,16 +113,17 @@ const SingleProperty = ({ id, attributes, userId }) => {
               />
             </div>
 
-            <p className="text-gray-700 mt-3 mb-5">
-              Current Payment:{' '}
+            <p className="text-gray-800 mt-3 text-sm mb-5">
+              Next Payment:{' '}
               <span className="fw-bold text-gray-800">
-                {moneyFormatInNaira(initialPayment)}
+                {moneyFormatInNaira(expectedNextPayment)}
               </span>
+              <OverdueBadge date={paymentDueDate} />
             </p>
 
             <Button
               className="me-3 mb-3 btn-sm"
-              href={`/our-properties/test-project/${property.slug}/${property.id}`}
+              href={`/our-properties/${project.slug}/${property.slug}/${property.id}`}
             >
               View Property
             </Button>
@@ -129,6 +134,20 @@ const SingleProperty = ({ id, attributes, userId }) => {
           </aside>
         </div>
       </div>
+    </div>
+  );
+};
+
+export const OverdueBadge = ({ date }) => {
+  const days = Math.abs(differenceInDays(date)) || 0;
+  const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
+  return isPastDate(date) ? (
+    <div className="badge badge-overdue badge-overdue__danger">
+      Overdue: <strong>{daysInWords} ago</strong>
+    </div>
+  ) : (
+    <div className="badge  badge-overdue badge-overdue__success">
+      Due: <strong>{daysInWords}</strong>
     </div>
   );
 };

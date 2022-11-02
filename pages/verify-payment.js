@@ -17,48 +17,82 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import { PHONE_NUMBER } from '@/utils/constants';
+import { PAYMENT_SOURCE, PHONE_NUMBER } from '@/utils/constants';
 
 const Invoice = () => {
   const { query } = useRouter();
   const [transaction, setTransaction] = React.useState(null);
   const { reference } = query || null;
 
-  React.useEffect(() => {
-    Axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/payment/verify/${reference}`
-    )
-      .then(function (response) {
-        const { status, data } = response;
-        console.log('response', response);
-        const payment = data?.data;
-        console.log('transaction', transaction);
-
-        let url;
-
-        if (statusIsSuccessful(status)) {
-          Axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/assigned-properties/1?populate=*`
-          )
-            .then(function (response) {
-              const { status, data } = response;
-              if (statusIsSuccessful(status)) {
-                const assignedProperty = data?.data?.attributes;
-                setTransaction({
-                  payment,
-                  property: assignedProperty?.property?.data?.attributes,
-                });
-                // check if it exists in transaction and add it
-              }
-            })
-            .catch(function (error) {
-              toast.error(getError(error));
-            });
+  const confirmTransaction = async (payment, assignedProperty) => {
+    try {
+      const payload = {
+        assignedProperty: assignedProperty.id,
+        amount: payment.amount,
+        reference: payment.reference,
+        paymentSource: PAYMENT_SOURCE.PAYSTACK,
+      };
+      const { data: transactionExists } = await Axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
+        {
+          params: {
+            'filters[reference][$eq]': payload.reference,
+          },
         }
-      })
-      .catch(function (error) {
-        toast.error(getError(error));
-      });
+      );
+      console.log('transactionExists', transactionExists);
+      if (transactionExists.data.length === 0) {
+        await Axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
+          { data: payload }
+        );
+      }
+    } catch (error) {
+      toast.error(getError(error));
+    }
+  };
+
+  React.useEffect(() => {
+    reference &&
+      Axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/payment/verify/${reference}`
+      )
+        .then(function (response) {
+          const { status, data } = response;
+
+          if (statusIsSuccessful(status)) {
+            const payment = data?.data;
+            const { value } =
+              payment.metadata.custom_fields[
+                payment.metadata.custom_fields.length - 1
+              ];
+            const assignedPropertyId = JSON.parse(value)?.assignedPropertyId;
+
+            Axios.get(
+              `${process.env.NEXT_PUBLIC_API_URL}/api/assigned-properties/${assignedPropertyId}?populate=*`
+            )
+              .then(async function (response) {
+                const { status, data } = response;
+                if (statusIsSuccessful(status)) {
+                  const assignedProperty = {
+                    id: data?.data?.id,
+                    ...data?.data?.attributes,
+                  };
+                  setTransaction({
+                    payment,
+                    property: assignedProperty?.property?.data?.attributes,
+                  });
+                  await confirmTransaction(payment, assignedProperty);
+                }
+              })
+              .catch(function (error) {
+                toast.error(getError(error));
+              });
+          }
+        })
+        .catch(function (error) {
+          toast.error(getError(error));
+        });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
 

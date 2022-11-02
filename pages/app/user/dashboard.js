@@ -10,6 +10,7 @@ import Button from '@/components/forms/Button';
 import SingleProperty from '@/components/common/SingleProperty';
 import classNames from 'classnames';
 import { UserContext } from 'context/user';
+import { useSWRQuery } from '@/hooks/useSWRQuery';
 
 const PROPERTY_COLOR = '#446CB2';
 const PENDING_PAYMENT_COLOR = '#F59E0B';
@@ -23,6 +24,10 @@ const Dashboard = () => {
     pageName: 'Dashboard',
   };
 
+  const [query, result] = useSWRQuery({
+    name: [pageOptions.key],
+    endpoint: 'api/administrative/user-dashboard',
+  });
   return (
     <Backend title={`Welcome back, ${user?.firstName ? user.firstName : ''}`}>
       <div className="row mb-4">
@@ -32,7 +37,7 @@ const Dashboard = () => {
             <p className="text-gray-700 fw-semibold text-sm">Your Net Worth</p>
             <div className="row">
               <div className="col-sm-6">
-                <WidgetChart />
+                <WidgetChart result={result} />
               </div>
               <div className="col-sm-6">
                 <div className="d-flex flex-column justify-content-end h-100 mt-4 mt-md-0">
@@ -57,7 +62,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <WidgetList />
+        <WidgetList result2={result} />
       </div>
 
       <div className="row">
@@ -166,7 +171,7 @@ const CustomizeYourHomeBanner = () => {
     </section>
   );
 };
-const WidgetChart = () => {
+const WidgetChart = ({ result }) => {
   const accountOverview = {
     totalAmountPaid: 3000,
     contributionReward: 1000,
@@ -210,19 +215,15 @@ const WidgetChart = () => {
   );
 };
 
-const WidgetList = () => {
+const WidgetList = ({ result2 }) => {
+  console.log('result2', result2);
   return (
     <div className="col-sm-6">
       <div className="row g-4">
         {widgetLists.map((widget, index) => (
           <Widget
             key={index}
-            result={{
-              properties: { total: 1 },
-              transactions: { total: 2 },
-              wishlist: { total: 0 },
-              referrals: { total: 1 },
-            }}
+            number={result2?.[widget?.key || widget?.name]}
             {...widget}
           />
         ))}
@@ -234,6 +235,7 @@ const WidgetList = () => {
 const widgetLists = [
   {
     name: 'properties',
+    key: 'assignedProperty',
     color: 'primary',
     Icon: <Buildings variant="Bulk" />,
   },
@@ -268,11 +270,13 @@ export const Widget = ({
   name,
   color,
   Icon,
+  number,
   result,
   className = 'col-6',
   role = 'user',
 }) => {
   const link = `/app/${role}/${name}`;
+  console.log('result', result);
 
   return (
     <section className={`widget ${className} mb-4`}>
@@ -289,7 +293,7 @@ export const Widget = ({
                     </h6>
                   </div>
                   <h2 className="mb-0  widget__color">
-                    {result?.[name]?.total || 0}
+                    {number || result?.[name]?.total || 0}
                   </h2>
                 </div>
               </div>

@@ -527,10 +527,26 @@ const PaymentPlanCard = ({
     month === 0
       ? 'Outright Payment'
       : `${month}  ${Humanize.pluralize(month, 'Month')} Plan`;
-  const { initialPayment, paymentPlanIncrement } = property;
+  const {
+    initialPayment,
+    standardInitialPayment,
+    supremeInitialPayment,
+    paymentPlanIncrement,
+  } = property;
+
+  console.log('packageName', packageName);
+
+  let packageInitialPayment = initialPayment;
+  if (packageName === packages[1].name) {
+    packageInitialPayment = standardInitialPayment;
+  } else if (packageName === packages[2].name) {
+    packageInitialPayment = supremeInitialPayment;
+  }
+
   const totalPayment =
     parseInt(price, 10) + parseInt(paymentPlanIncrement * month, 10);
-  const currentInitialPayment = month === 0 ? totalPayment : initialPayment;
+  const currentInitialPayment =
+    month === 0 ? totalPayment : packageInitialPayment;
   const monthlyPayment = getMonthlyPayment(
     totalPayment,
     currentInitialPayment,

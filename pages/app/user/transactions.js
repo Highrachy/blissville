@@ -16,7 +16,7 @@ const Transactions = () => {
 export default Transactions;
 
 const TabInformation = () => {
-  const allTabs = ['Upcoming Payments', 'Past Payments'];
+  const allTabs = ['Upcoming Payments', 'Past Payments', 'Offline Payments'];
   const [currentTab, setCurrentTab] = React.useState(allTabs[0]);
 
   return (

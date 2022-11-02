@@ -36,6 +36,13 @@ const ALL_USER_ROLES = {
 export const USER_ROLES = generateStatus(ALL_USER_ROLES);
 export const ROLE_NAME = mapStatusToName(ALL_USER_ROLES);
 
+const ALL_PAYMENT_SOURCES = {
+  OFFLINE_PAYMENT: { id: 0 },
+  PAYSTACK: { id: 1 },
+};
+export const PAYMENT_SOURCE = generateStatus(ALL_PAYMENT_SOURCES);
+export const PAYMENT_SOURCE_NAME = mapStatusToName(ALL_PAYMENT_SOURCES);
+
 const ALL_PROJECT_STATUS = {
   IN_VIEW: { id: 0, color: 'warning' },
   STARTED: { id: 1, color: 'dark' },
@@ -90,6 +97,17 @@ export const TRANSACTION_STATUS_COLOR = generateStatusColor(
   ALL_TRANSACTION_STATUS
 );
 export const TRANSACTION_STATUS_NAME = mapStatusToName(ALL_TRANSACTION_STATUS);
+
+const ASSIGNED_PROPERTY = {
+  AWAITING_FIRST_PAYMENT: { id: 0, color: 'warning' },
+  ACTIVE: { id: 1, color: 'primary' },
+  OVERDUE: { id: 2, color: 'danger' },
+  COMPLETE_PAYMENT: { id: 3, color: 'success' },
+};
+export const ASSIGNED_PROPERTY_STATUS = generateStatus(ASSIGNED_PROPERTY);
+export const ASSIGNED_PROPERTY_STATUS_COLOR =
+  generateStatusColor(ASSIGNED_PROPERTY);
+export const ASSIGNED_PROPERTY_STATUS_NAME = mapStatusToName(ASSIGNED_PROPERTY);
 
 export const DATA_TYPE = {
   STRING: 'string',

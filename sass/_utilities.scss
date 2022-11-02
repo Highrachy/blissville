@@ -615,3 +615,20 @@ td {
     font-size: 0.9rem;
   }
 }
+
+.badge-overdue {
+  padding: 0.4rem 1.15rem;
+  font-size: 10px;
+  border-radius: 1rem;
+  float: right;
+
+  &__success {
+    background: $secondary-200;
+    color: $secondary-700;
+  }
+
+  &__danger {
+    background: $error-50;
+    color: $red;
+  }
+}

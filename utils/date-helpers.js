@@ -37,9 +37,9 @@ export const getTimeOfDay = (date) => {
     'Night'
   );
 };
-export const isPastDate = (date) => isPast(date);
+export const isPastDate = (date) => isPast(parseISO(date));
 export const differenceInDays = (date) =>
-  differenceInCalendarDays(Date.now(), date);
+  differenceInCalendarDays(Date.now(), parseISO(date));
 
 export const formatFilterDate = (date) => format(parseISO(date), 'YYYY-MM-DD');
 export const convertToUTC = (date) =>
