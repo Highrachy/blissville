@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Modal from 'components/ui/Modal';
 import Button from 'components/forms/Button';
-import React from 'react';
+import React, { useContext } from 'react';
 import { getTokenFromStore } from 'utils/localStorage';
 import { Formik, Form } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
@@ -26,6 +26,7 @@ import {
   onlinePaymentSchema,
 } from '../forms/schemas/page-schema';
 import Upload from '../forms/Upload';
+import { UserContext } from 'context/user';
 
 const KEY = {
   ONLINE: 'online',
@@ -233,7 +234,7 @@ export const OfflinePaymentForm = ({
   info,
   offlinePayment,
 }) => {
-  const [receipt, setReceipt] = React.useState('');
+  const { user } = useContext(UserContext);
   const isUpdating = !!offlinePayment?.id;
   const bankOptions = dataToOptions(BANK_ACCOUNTS, 'bankName', 'bankName');
 
@@ -249,15 +250,8 @@ export const OfflinePaymentForm = ({
           ...values,
           assignedProperty: info?.assignedPropertyId,
           paymentDate: values.paymentDate.date,
+          user: user?.id,
         };
-
-        if (isUpdating) {
-          delete payload.offerId;
-
-          if (!receipt) {
-            delete payload.receipt;
-          }
-        }
 
         axios({
           method: isUpdating ? 'put' : 'post',
@@ -276,7 +270,6 @@ export const OfflinePaymentForm = ({
                 }`
               );
               hideForm();
-              // refreshQuery('payment', true);
               actions.setSubmitting(false);
               actions.resetForm();
             }

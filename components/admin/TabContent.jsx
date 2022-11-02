@@ -4,7 +4,7 @@ import { Tab } from 'react-bootstrap';
 import classNames from 'classnames';
 import ReactMarkdown from 'react-markdown';
 
-const TabContent = ({ allTabs, id, name, result }) => {
+const TabContent = ({ allTabs, id = 'tab-content', name, result = [] }) => {
   const [currentTab, setCurrentTab] = React.useState(allTabs[0].title);
   return (
     <Tab.Container
