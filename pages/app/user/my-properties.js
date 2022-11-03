@@ -124,7 +124,9 @@ const SingleProperty = ({ id, attributes, userId }) => {
 
             <Button
               className="me-3 mb-3 btn-sm"
-              href={`/our-properties/${project.slug}/${property.slug}/${property.id}`}
+              href={`/our-properties/${project?.slug || 'project-name'}/${
+                property?.slug || 'property-name'
+              }/${property.id}`}
             >
               View Property
             </Button>

@@ -2,9 +2,6 @@ import React from 'react';
 import PaginatedContent from '@/components/admin/PaginatedContent';
 import { Card } from 'react-bootstrap';
 import Backend from '@/components/admin/Backend';
-import { adminMenu } from '@/data/admin/sideMenu';
-import Button from '@/components/forms/Button';
-import { filterTransactions } from '@/utils/filters';
 import {
   USER_ROLES,
   TRANSACTION_STATUS,
@@ -13,21 +10,7 @@ import {
 } from '@/utils/constants';
 import { getShortDate } from '@/utils/date-helpers';
 import { Calendar } from 'iconsax-react';
-import FormikButton from '@/components/forms/FormikButton';
-import DatePicker from '@/components/forms/DatePicker';
-import { rescheduleTransactionSchema } from '@/components/forms/schemas/page-schema';
-import Modal from '@/components/ui/Modal';
-
-// forms
-import axios from 'axios';
-import { getTokenFromStore } from '@/utils/localStorage';
-import {
-  getError,
-  moneyFormatInNaira,
-  statusIsSuccessful,
-} from '@/utils/helpers';
-import { toast } from 'react-toastify';
-import FormikForm from '@/components/forms/FormikForm';
+import { moneyFormatInNaira } from '@/utils/helpers';
 import ProcessButton from '@/components/utils/ProcessButton';
 
 const Transactions = () => (
@@ -38,7 +21,7 @@ const Transactions = () => (
       DataComponent={TransactionsRowList}
       PageIcon={<Calendar />}
       populate="*"
-      filterFields={filterTransactions}
+      // filterFields={filterTransactions}
     />
   </Backend>
 );

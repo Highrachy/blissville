@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import Backend from '@/components/admin/Backend';
 import { adminMenu } from '@/data/admin/sideMenu';
 import Button from '@/components/forms/Button';
-import { filterFeatures } from '@/utils/filters';
+// import { filterFeatures } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
 
 const Features = () => (
@@ -16,7 +16,7 @@ const Features = () => (
       DataComponent={FeaturesRowList}
       PageIcon={adminMenu['Features']}
       populate="*"
-      filterFields={filterFeatures}
+      // filterFields={filterFeatures}
     />
   </Backend>
 );

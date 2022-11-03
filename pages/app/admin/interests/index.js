@@ -2,7 +2,7 @@ import React from 'react';
 import PaginatedContent from '@/components/admin/PaginatedContent';
 import { Card } from 'react-bootstrap';
 import Backend from '@/components/admin/Backend';
-import { filterInterests } from '@/utils/filters';
+// import { filterInterests } from '@/utils/filters';
 import { INTEREST_STATUS_COLOR, USER_ROLES } from '@/utils/constants';
 import { getShortDate } from '@/utils/date-helpers';
 import { EmptyWalletChange } from 'iconsax-react';
@@ -19,7 +19,7 @@ const Interests = () => (
       DataComponent={InterestsRowList}
       PageIcon={<EmptyWalletChange />}
       populate="*"
-      filterFields={filterInterests}
+      // filterFields={filterInterests}
     />
   </Backend>
 );

@@ -3,14 +3,9 @@ import { PageHeader } from '@/components/common/Header';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
 import Navigation from '@/components/layouts/Navigation';
-import { STATUS_NAME } from '@/utils/constants';
-import {
-  getLocationFromAddress,
-  listFeatures,
-  moneyFormatInNaira,
-} from '@/utils/helpers';
+import { getLocationFromAddress, moneyFormatInNaira } from '@/utils/helpers';
 import axios from 'axios';
-import { ArrowCircleLeft, ArrowLeft, ArrowLeft2 } from 'iconsax-react';
+import { ArrowLeft } from 'iconsax-react';
 import Image from 'next/image';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
@@ -34,8 +29,8 @@ const CompareProperties = ({ property, otherProperties }) => {
         />
       ) : (
         <SelectPropertyToCompare
-          property={property}
-          otherProperties={otherProperties}
+          property={property || {}}
+          otherProperties={otherProperties || []}
           setSelectedProperty={setSelectedProperty}
         />
       )}
@@ -258,7 +253,9 @@ const ComparePropertiesSection = ({
                     <Button
                       color="secondary"
                       className="btn-sm"
-                      href={`/our-properties/${project.slug}/${property.slug}/${property.id}`}
+                      href={`/our-properties/${
+                        project?.slug || 'project-name'
+                      }/${property?.slug || 'property-name'}/${property?.id}`}
                     >
                       I am Interested
                     </Button>
@@ -267,7 +264,9 @@ const ComparePropertiesSection = ({
                     <Button
                       color="secondary"
                       className="btn-sm"
-                      href={`/our-properties/${project2.slug}/${property2.slug}/${property2.id}`}
+                      href={`/our-properties/${
+                        project2?.slug || 'project-name'
+                      }/${property2?.slug || 'property-name'}/${property2?.id}`}
                     >
                       I am Interested
                     </Button>

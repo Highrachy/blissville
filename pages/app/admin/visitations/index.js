@@ -2,9 +2,9 @@ import React from 'react';
 import PaginatedContent from '@/components/admin/PaginatedContent';
 import { Card } from 'react-bootstrap';
 import Backend from '@/components/admin/Backend';
-import { adminMenu } from '@/data/admin/sideMenu';
+// import { adminMenu } from '@/data/admin/sideMenu';
 import Button from '@/components/forms/Button';
-import { filterVisitations } from '@/utils/filters';
+// import { filterVisitations } from '@/utils/filters';
 import {
   USER_ROLES,
   VISITATION_STATUS,
@@ -34,7 +34,7 @@ const Visitations = () => (
       DataComponent={VisitationsRowList}
       PageIcon={<Calendar />}
       populate="*"
-      filterFields={filterVisitations}
+      // filterFields={filterVisitations}
     />
   </Backend>
 );

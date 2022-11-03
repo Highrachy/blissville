@@ -2,9 +2,7 @@ import React from 'react';
 import PaginatedContent from '@/components/admin/PaginatedContent';
 import { Card } from 'react-bootstrap';
 import Backend from '@/components/admin/Backend';
-import { filterUsers } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
-import { getShortDate } from '@/utils/date-helpers';
 import Button from '@/components/forms/Button';
 import { getFullName } from '@/utils/helpers';
 import { adminMenu } from '@/data/admin/sideMenu';
@@ -18,7 +16,7 @@ const Users = () => (
       DataComponent={UsersRowList}
       PageIcon={adminMenu['Users']}
       populate="*"
-      filterFields={filterUsers}
+      // filterFields={filterUsers}
       hideTitle
       // params={{ start: 0, limit: 3 }}
     />

@@ -697,7 +697,11 @@ export async function getStaticPaths() {
     paths: propertyLists.map((propertyList) => {
       return {
         params: {
-          id: ['', '', propertyList['id'].toString()],
+          id: [
+            'property-name',
+            'property-name',
+            propertyList['id']?.toString(),
+          ],
         },
       };
     }),

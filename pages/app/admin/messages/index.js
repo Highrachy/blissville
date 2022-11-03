@@ -3,7 +3,6 @@ import Backend from '@/components/admin/Backend';
 import PaginatedContent from '@/components/admin/PaginatedContent';
 import { Card } from 'react-bootstrap';
 import { getShortDate } from '@/utils/date-helpers';
-import { filterMessages } from '@/utils/filters';
 import ProcessButton from '@/components/utils/ProcessButton';
 import Humanize from 'humanize-plus';
 import { Message } from 'iconsax-react';
@@ -17,7 +16,7 @@ const Messages = () => (
       DataComponent={MessagesRowList}
       PageIcon={<Message />}
       sort="createdAt:desc"
-      filterFields={filterMessages}
+      // filterFields={filterMessages}
     />
   </Backend>
 );

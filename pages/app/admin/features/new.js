@@ -11,10 +11,10 @@ import { getTokenFromStore } from '@/utils/localStorage';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 import { toast } from 'react-toastify';
 import Router, { useRouter } from 'next/router';
-import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Humanize from 'humanize-plus';
 import { USER_ROLES } from '@/utils/constants';
 import InputFormat from '@/components/forms/InputFormat';
+import { useSWRQuery } from '@/hooks/useSWRQuery';
 
 const pageOptions = {
   key: 'feature',
@@ -23,6 +23,11 @@ const pageOptions = {
 const New = () => {
   const router = useRouter();
   const { id, action } = router.query;
+
+  const [query, result] = useSWRQuery({
+    name: id ? [pageOptions.key, id] : id,
+    endpoint: `api/features/${id}`,
+  });
 
   return (
     <Backend role={USER_ROLES.ADMIN} title="Project Feature">

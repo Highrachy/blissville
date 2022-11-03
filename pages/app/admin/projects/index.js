@@ -5,7 +5,7 @@ import Backend from '@/components/admin/Backend';
 import { adminMenu } from '@/data/admin/sideMenu';
 import { LocalImage } from '@/components/common/Image';
 import Button from '@/components/forms/Button';
-import { filterProjects } from '@/utils/filters';
+// import { filterProjects } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
 import Link from 'next/link';
 import { GalleryTick } from 'iconsax-react';
@@ -19,7 +19,7 @@ const Projects = () => (
       DataComponent={ProjectsRowList}
       PageIcon={adminMenu['Projects']}
       populate="*"
-      filterFields={filterProjects}
+      // filterFields={filterProjects}
     />
 
     <div className="container-fluid">

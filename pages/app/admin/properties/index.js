@@ -5,7 +5,7 @@ import Backend from '@/components/admin/Backend';
 import { adminMenu } from '@/data/admin/sideMenu';
 import { LocalImage } from '@/components/common/Image';
 import Button from '@/components/forms/Button';
-import { filterProperties } from '@/utils/filters';
+// import { filterProperties } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
 
 const Properties = () => (
@@ -17,7 +17,7 @@ const Properties = () => (
       DataComponent={PropertiesRowList}
       PageIcon={adminMenu['Properties']}
       populate="*"
-      filterFields={filterProperties}
+      // filterFields={filterProperties}
     />
   </Backend>
 );
