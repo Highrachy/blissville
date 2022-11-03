@@ -11,6 +11,8 @@ import SingleProperty from '@/components/common/SingleProperty';
 import classNames from 'classnames';
 import { UserContext } from 'context/user';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
+import { TransactionHistory, UpcomingPayments } from './transactions';
+import { moneyFormatInNaira } from '@/utils/helpers';
 
 const PROPERTY_COLOR = '#446CB2';
 const PENDING_PAYMENT_COLOR = '#F59E0B';
@@ -28,33 +30,48 @@ const Dashboard = () => {
     name: [pageOptions.key],
     endpoint: 'api/administrative/user-dashboard',
   });
+
+  const { paymentBreakdown } = result || {
+    amountPaid: 0,
+    expectedNextPayment: 0,
+    referral: 0,
+  };
+
   return (
     <Backend title={`Welcome back, ${user?.firstName ? user.firstName : ''}`}>
       <div className="row mb-4">
         <div className="col-sm-6 mb-4 mb-md-0">
           <div className="card h-100 bg-gray-50 p-4">
-            <h4>₦ 7,000,000</h4>
+            <h4>{moneyFormatInNaira(paymentBreakdown?.amountPaid || 0)}</h4>
             <p className="text-gray-700 fw-semibold text-sm">Your Net Worth</p>
             <div className="row">
               <div className="col-sm-6">
-                <WidgetChart result={result} />
+                <WidgetChart paymentBreakdown={paymentBreakdown} />
               </div>
               <div className="col-sm-6">
                 <div className="d-flex flex-column justify-content-end h-100 mt-4 mt-md-0">
                   <ChartLegend
                     name="Amount Paid"
                     color="primary"
-                    price="6,500,000"
+                    price={moneyFormatInNaira(
+                      paymentBreakdown?.amountPaid || 0
+                    )}
                   />
                   <ChartLegend
                     name="Referral Bonus"
                     color="success"
-                    price="5,000"
+                    price={moneyFormatInNaira(paymentBreakdown?.referral || 0)}
                   />
                   <ChartLegend
                     name="Pending Payment"
                     color="warning"
-                    price="-2,000,000"
+                    price={
+                      paymentBreakdown?.expectedNextPayment || 0 > 0
+                        ? `-${moneyFormatInNaira(
+                            paymentBreakdown?.expectedNextPayment
+                          )}`
+                        : 0
+                    }
                   />
                 </div>
               </div>
@@ -62,83 +79,18 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <WidgetList result2={result} />
+        <WidgetList result={result} />
       </div>
 
       <div className="row">
         <div className="col-sm-6">
-          <DashboardTable title="Upcoming Payments" className="mb-4">
-            <tr>
-              <th width="300">
-                <span className="fw-semibold">Aug 17th, 2021</span>
-                <br />
-                <span className="fw-light text-gray-700 text-xs">
-                  3 Bedroom Apartments - Ikoyi
-                </span>
-              </th>
-              <td className="text-end">
-                <span className="fw-semibold">500,000</span>
-                <br />
-                <span className="fw-semibold text-primary text-xs">
-                  Monthly Payment
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th width="300">
-                <span className="fw-semibold">Aug 17th, 2021</span>
-                <br />
-                <span className="fw-light text-gray-700 text-xs">
-                  4 Bedroom Apartments - Ikoyi
-                </span>
-              </th>
-              <td className="text-end">
-                <span className="fw-semibold">10,000</span>
-                <br />
-                <span className="fw-semibold text-primary text-xs">
-                  Utility Bill
-                </span>
-              </td>
-            </tr>
-          </DashboardTable>
-          <DashboardTable title="Transaction History" className="mb-md-0 mb-4">
-            <tr>
-              <th width="300">
-                <span className="fw-semibold">Aug 17th, 2021</span>
-                <br />
-                <span className="fw-light text-gray-700 text-xs">
-                  3 Bedroom Apartments - Ikoyi
-                </span>
-              </th>
-              <td className="text-end">
-                <span className="fw-semibold">7,500,000</span>
-                <br />
-                <span className="fw-semibold text-danger text-xs">Paid</span>
-              </td>
-            </tr>
-            <tr>
-              <th width="300">
-                <span className="fw-semibold">Aug 17th, 2021</span>
-                <br />
-                <span className="fw-light text-gray-700 text-xs">
-                  4 Bedroom Apartments - Ikoyi
-                </span>
-              </th>
-              <td className="text-end">
-                <span className="fw-semibold">10,000</span>
-                <br />
-                <span className="fw-semibold text-success text-xs">
-                  Received
-                </span>
-              </td>
-            </tr>
-          </DashboardTable>
+          <UpcomingPayments payments={result?.assignedProperty?.data} />
+          <TransactionHistory transactions={result?.transactions?.data} />
         </div>
         <div className="col-sm-6">
           <CustomizeYourHomeBanner />
         </div>
       </div>
-      <FeaturedProperties />
     </Backend>
   );
 };
@@ -171,16 +123,12 @@ const CustomizeYourHomeBanner = () => {
     </section>
   );
 };
-const WidgetChart = ({ result }) => {
-  const accountOverview = {
-    totalAmountPaid: 3000,
-    contributionReward: 1000,
-    referralRewards: 500,
-  };
+const WidgetChart = ({ paymentBreakdown }) => {
+  // {amountPaid: 500000, expectedNextPayment: 2000000, referral: 0}
   const contributionIsEmpty =
-    accountOverview?.contributionReward === 0 &&
-    accountOverview?.totalAmountPaid === 0 &&
-    accountOverview?.referralRewards === 0;
+    paymentBreakdown?.amountPaid === 0 &&
+    paymentBreakdown?.expectedNextPayment === 0 &&
+    paymentBreakdown?.referral === 0;
 
   return (
     <Doughnut
@@ -189,9 +137,9 @@ const WidgetChart = ({ result }) => {
         datasets: [
           {
             data: [
-              contributionIsEmpty ? 1 : accountOverview.totalAmountPaid,
-              accountOverview.contributionReward,
-              accountOverview.referralRewards,
+              contributionIsEmpty ? 1 : paymentBreakdown.amountPaid,
+              paymentBreakdown.expectedNextPayment,
+              paymentBreakdown.referral,
             ],
             backgroundColor: [
               contributionIsEmpty ? EMPTY_COLOR : PROPERTY_COLOR,
@@ -215,15 +163,15 @@ const WidgetChart = ({ result }) => {
   );
 };
 
-const WidgetList = ({ result2 }) => {
-  console.log('result2', result2);
+const WidgetList = ({ result }) => {
+  console.log('result', result);
   return (
     <div className="col-sm-6">
       <div className="row g-4">
         {widgetLists.map((widget, index) => (
           <Widget
             key={index}
-            number={result2?.[widget?.key || widget?.name]}
+            number={result?.[widget?.key || widget?.name]?.total || 0}
             {...widget}
           />
         ))}
@@ -271,12 +219,10 @@ export const Widget = ({
   color,
   Icon,
   number,
-  result,
   className = 'col-6',
   role = 'user',
 }) => {
   const link = `/app/${role}/${name}`;
-  console.log('result', result);
 
   return (
     <section className={`widget ${className} mb-4`}>
@@ -292,9 +238,7 @@ export const Widget = ({
                       {Humanize.capitalize(name)}
                     </h6>
                   </div>
-                  <h2 className="mb-0  widget__color">
-                    {number || result?.[name]?.total || 0}
-                  </h2>
+                  <h2 className="mb-0  widget__color">{number || 0}</h2>
                 </div>
               </div>
               <div
@@ -312,7 +256,7 @@ export const Widget = ({
 
 export const DashboardTable = ({ children, title, className }) => {
   return (
-    <div className={classNames('table-responsive card', className)}>
+    <div className={classNames('table-responsive card mb-5', className)}>
       <table className="table table-border table-striped">
         <thead>
           <tr>
@@ -326,15 +270,5 @@ export const DashboardTable = ({ children, title, className }) => {
     </div>
   );
 };
-
-export const FeaturedProperties = () => (
-  <div className="container mt-5">
-    <h4 className="mb-4">Featured Properties</h4>
-    <div className="row gy-4">
-      <SingleProperty img="1" />
-      <SingleProperty img="2" />
-    </div>
-  </div>
-);
 
 export default Dashboard;

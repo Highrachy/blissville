@@ -632,3 +632,7 @@ td {
     color: $red;
   }
 }
+
+.legend__color.bg-warning {
+  background: $warning-500 !important;
+}

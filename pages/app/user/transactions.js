@@ -14,6 +14,7 @@ import {
 } from '@/utils/constants';
 import { UserContext } from 'context/user';
 import { OverdueBadge } from './my-properties';
+import { Wallet } from 'iconsax-react';
 
 const pageOptions = {
   key: 'transactions',
@@ -61,7 +62,7 @@ const Transactions = () => {
     {
       title: 'Past Transactions',
       Component: () => (
-        <PastTransactions title="Past Payments" transactions={transactions} />
+        <TransactionHistory title="Past Payments" transactions={transactions} />
       ),
     },
     {
@@ -90,15 +91,17 @@ const Transactions = () => {
   );
 };
 
-const PastTransactions = ({ transactions }) => {
+export const TransactionHistory = ({ transactions }) => {
   console.log('transactions', transactions);
 
   return (
-    <DashboardTable title="Past Transactions">
+    <DashboardTable title="Transaction History">
       {!transactions || transactions.length === 0 ? (
         <tr>
           <td colSpan="5">
-            <h3> There is no data to display</h3>
+            <p className="py-4 text-md text-center text-gray-700">
+              <div className="mt-2">You have no transactions</div>
+            </p>
           </td>
         </tr>
       ) : (
@@ -109,13 +112,12 @@ const PastTransactions = ({ transactions }) => {
           ) => (
             <tr key={index}>
               <th width="300">
-                <span className="fw-semibold">
-                  {property.data.attributes.name} -{' '}
-                  {property.data.attributes.project.data.attributes.name}
-                </span>
+                <span className="fw-semibold">{getShortDate(createdAt)}</span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  {getShortDate(createdAt)}
+                  {property?.name || property?.data?.attributes?.name} -{' '}
+                  {property?.project?.name ||
+                    property?.data?.attributes?.project.data.attributes.name}
                 </span>
               </th>
               <td className="text-end">
@@ -135,15 +137,17 @@ const PastTransactions = ({ transactions }) => {
   );
 };
 
-const UpcomingPayments = ({ payments }) => {
-  console.log('payments', payments);
+export const UpcomingPayments = ({ payments }) => {
+  console.log('payments: ', payments);
 
   return (
     <DashboardTable title="Upcoming Payments">
       {!payments || payments.length === 0 ? (
         <tr>
           <td colSpan="5">
-            <h3> There is no data to display</h3>
+            <p className="py-4 text-md text-center text-gray-700">
+              <div className="mt-2">You have no upcoming payments</div>
+            </p>
           </td>
         </tr>
       ) : (
@@ -162,12 +166,12 @@ const UpcomingPayments = ({ payments }) => {
             <tr key={index}>
               <th width="300">
                 <span className="fw-semibold">
-                  {property?.data?.attributes?.name} -{' '}
-                  {project?.data?.attributes?.name}
+                  {paymentDueDate && getShortDate(paymentDueDate)}
                 </span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  {paymentDueDate && getShortDate(paymentDueDate)}
+                  {property?.name || property?.data?.attributes?.name} -{' '}
+                  {project?.name || project?.data?.attributes?.name}
                 </span>
               </th>
               <td className="text-end">
@@ -208,6 +212,10 @@ const OfflinePayments = ({ offlinePayments }) => {
             <tr key={index}>
               <th width="300">
                 <span className="fw-semibold">
+                  {paymentDate && getShortDate(paymentDate)}
+                </span>
+                <br />
+                <span className="fw-light text-gray-700 text-xs">
                   {
                     assignedProperty?.data?.attributes?.property?.data
                       ?.attributes?.name
@@ -217,10 +225,6 @@ const OfflinePayments = ({ offlinePayments }) => {
                     assignedProperty?.data?.attributes?.project?.data
                       ?.attributes?.name
                   }
-                </span>
-                <br />
-                <span className="fw-light text-gray-700 text-xs">
-                  {paymentDate && getShortDate(paymentDate)}
                 </span>
               </th>
               <td className="text-end">
