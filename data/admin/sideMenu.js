@@ -29,7 +29,7 @@ export const adminMenu = {
 export const userMenu = {
   Dashboard: <Category size="24" variant="Bulk" />,
   'My Properties': <Buildings size="24" variant="Bulk" />,
-  'Customize Your Home': <Triangle size="24" variant="Bulk" />,
+  // 'Customize Your Home': <Triangle size="24" variant="Bulk" />,
   Transactions: <StatusUp size="24" variant="Bulk" />,
   Referrals: <UserAdd size="24" variant="Bulk" />,
   Support: <MessageQuestion size="24" variant="Bulk" />,

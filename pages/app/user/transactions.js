@@ -31,7 +31,7 @@ const Transactions = () => {
     axiosOptions: {
       params: {
         populate: 'deep,3',
-        // 'filters[user][id][$eq]': id,
+        'filters[user][id][$eq]': id,
         sort: 'createdAt:desc',
       },
     },
@@ -41,7 +41,7 @@ const Transactions = () => {
     endpoint: `api/assigned-properties`,
     axiosOptions: {
       params: {
-        // 'filters[user][id][$eq]': id,
+        'filters[user][id][$eq]': id,
         'filters[status][$lt]': ASSIGNED_PROPERTY_STATUS.COMPLETE_PAYMENT,
         populate: '*',
       },
@@ -52,7 +52,7 @@ const Transactions = () => {
     endpoint: `api/offline-payments`,
     axiosOptions: {
       params: {
-        // 'filters[user][id][$eq]': id,
+        'filters[users][id][$eq]': id,
         populate: 'deep,3',
       },
     },
@@ -79,14 +79,7 @@ const Transactions = () => {
 
   return (
     <Backend title="Transactions">
-      <ContentLoader
-        Icon={adminMenu['Transactions']}
-        query={query}
-        results={transactions}
-        name={pageOptions.pageName}
-      >
-        <TabContent name="transactions" allTabs={allTabs} />
-      </ContentLoader>
+      <TabContent name="transactions" allTabs={allTabs} />
     </Backend>
   );
 };
@@ -200,7 +193,9 @@ const OfflinePayments = ({ offlinePayments }) => {
       {!offlinePayments || offlinePayments.length === 0 ? (
         <tr>
           <td colSpan="5">
-            <h3> There is no data to display</h3>
+            <p className="py-4 text-md text-center text-gray-700">
+              <div className="mt-2">You have no offline transaction</div>
+            </p>
           </td>
         </tr>
       ) : (

@@ -112,20 +112,6 @@ const ContactInfo = () => (
               ))}
             </ul>
           </div>
-          <div className="hero-icons my-5">
-            <ul className="list-inline ms-auto">
-              {socialMediaLinks.map(({ icon, url }, index) => (
-                <li
-                  key={`social-link-${index}`}
-                  className="list-inline-item hero-icon"
-                >
-                  <Link href={url} passHref>
-                    <a className="text-reset icon-sm">{icon}</a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
     </div>

@@ -11,10 +11,10 @@ import { getLocationFromAddress, moneyFormatInNaira } from '@/utils/helpers';
 import MakePayment from '@/components/utils/MakePayment';
 import { differenceInDays, isPastDate } from '@/utils/date-helpers';
 import Humanize from 'humanize-plus';
+import { Buildings } from 'iconsax-react';
 
 const MyProperties = () => {
   const { user } = useContext(UserContext);
-  console.log('user', user);
   const id = user?.id;
 
   const [query, result] = useSWRQuery({
@@ -31,10 +31,11 @@ const MyProperties = () => {
   return (
     <Backend title="My Properties">
       <ContentLoader
-        Icon={adminMenu['My Properties']}
+        Icon={<Buildings size="24" variant="Bulk" />}
         query={query}
         results={result}
-        name={'Assigned Property'}
+        name={'Property'}
+        noContentText={'You have not been assigned any property yet'}
       >
         {result.map((item) => (
           <SingleProperty key={item.id} {...item} userId={id} />

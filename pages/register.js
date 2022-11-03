@@ -9,6 +9,7 @@ import AuthPage from '@/components/common/AuthPage';
 import FormikButton from '@/components/forms/FormikButton';
 import Alert from '@/components/utils/Alert';
 import { getReferralFromStore } from '@/utils/localStorage';
+import Link from 'next/link';
 
 const Register = () => {
   const [emailAddress, setEmailAddress] = React.useState(null);
@@ -107,6 +108,14 @@ const Register = () => {
           />
         </div>
         <FormikButton color="success">Register Now</FormikButton>
+        <div className="my-5">
+          <Link href="/login">
+            <a className="text-sm text-gray-800">
+              Have an existing account?{' '}
+              <span className="text-primary">Login Now</span>
+            </a>
+          </Link>
+        </div>
       </FormikForm>
     </AuthPage>
   );

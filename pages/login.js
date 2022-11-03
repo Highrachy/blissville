@@ -26,6 +26,7 @@ const Login = () => {
   }, [permission]);
 
   const handleSubmit = async ({ email: identifier, password }, actions) => {
+    actions.setSubmitting(true);
     setError(false);
     try {
       axios({
@@ -42,6 +43,7 @@ const Login = () => {
         })
         .catch(function (error) {
           const { status } = error.request;
+          actions.setSubmitting(false);
           if (status === 400) {
             setError(true);
             toast.error('Invalid Email or Password');
@@ -76,7 +78,7 @@ const Login = () => {
           <Link href="/register">
             <a className="text-sm text-gray-800">
               Don&apos;t have an account?{' '}
-              <span className="text-primary-700">Register Now</span>
+              <span className="text-primary">Register Now</span>
             </a>
           </Link>
         </div>

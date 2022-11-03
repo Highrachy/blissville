@@ -636,3 +636,19 @@ td {
 .legend__color.bg-warning {
   background: $warning-500 !important;
 }
+
+.contact-info .icon-circled {
+  font-size: 1.2rem;
+  color: white;
+  background: $primary;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  line-height: 2.5rem;
+  text-align: center;
+  margin-right: 1rem;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}

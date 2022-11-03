@@ -124,7 +124,6 @@ export async function getStaticProps() {
     `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
     {
       params: {
-        // 'pagination[page]': 1,
         'pagination[pageSize]': 3,
         'filters[featured][$eq]': 'true',
       },

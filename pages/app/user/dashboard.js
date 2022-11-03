@@ -70,7 +70,7 @@ const Dashboard = () => {
                         ? `-${moneyFormatInNaira(
                             paymentBreakdown?.expectedNextPayment
                           )}`
-                        : 0
+                        : moneyFormatInNaira(0)
                     }
                   />
                 </div>
@@ -137,9 +137,9 @@ const WidgetChart = ({ paymentBreakdown }) => {
         datasets: [
           {
             data: [
-              contributionIsEmpty ? 1 : paymentBreakdown.amountPaid,
-              paymentBreakdown.expectedNextPayment,
-              paymentBreakdown.referral,
+              contributionIsEmpty ? 1 : paymentBreakdown?.amountPaid,
+              paymentBreakdown?.expectedNextPayment,
+              paymentBreakdown?.referral,
             ],
             backgroundColor: [
               contributionIsEmpty ? EMPTY_COLOR : PROPERTY_COLOR,
