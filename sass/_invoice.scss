@@ -34,7 +34,6 @@
   @include media-breakpoint-up(sm) {
     font-size: 1rem;
   }
-  color: $primary;
 
   .invoice__logo {
     height: 4rem;
@@ -56,7 +55,7 @@
   }
 
   .text-amount {
-    color: darken($red, 15);
+    color: $primary;
     font-weight: 600;
   }
 
@@ -97,7 +96,6 @@
 
   .invoice__email {
     font-size: 1.2rem;
-    color: darken($secondary, 25);
 
     @media print {
       font-size: 14pt;

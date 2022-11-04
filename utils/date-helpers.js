@@ -21,10 +21,10 @@ export const getShortDateTime = (date) =>
   format(parseISO(date), 'do MMM YYYY h:mm A');
 export const getShortDate = (date) => format(parseISO(date), 'do MMM,  yyyy');
 export const getTinyDate = (date) =>
-  isValidDate(date) && format(parseISO(date), 'MMM D, YYYY');
+  isValidDate(date) && format(parseISO(date), 'MMM d, yyyy');
 export const getLongDate = (date) =>
   format(parseISO(date), 'dddd, Do MMMM YYYY');
-export const getYear = (date) => format(parseISO(date), 'YYYY');
+export const getYear = (date) => format(parseISO(date), 'yyyy');
 export const getTime = (date) => format(parseISO(date), 'h:mm A');
 export const subtractDays = (date, numOfDays) =>
   getElapsedTime(subDays(date, numOfDays));

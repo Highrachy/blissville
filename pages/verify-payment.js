@@ -12,44 +12,21 @@ import { Loading } from 'components/utils/LoadingItems';
 import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
-import { Wallet } from 'iconsax-react';
+import { Lovely, Wallet } from 'iconsax-react';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import { PAYMENT_SOURCE, PHONE_NUMBER } from '@/utils/constants';
+import {
+  PAYMENT_SOURCE,
+  PAYMENT_SOURCE_NAME,
+  PHONE_NUMBER,
+} from '@/utils/constants';
 
 const Invoice = () => {
   const { query } = useRouter();
   const [transaction, setTransaction] = React.useState(null);
   const { reference } = query || null;
-
-  const confirmTransaction = async (payment, assignedProperty) => {
-    try {
-      const payload = {
-        assignedProperty: assignedProperty.id,
-        amount: payment.amount / 100,
-        reference: payment.reference,
-        paymentSource: PAYMENT_SOURCE.PAYSTACK,
-      };
-      const { data: transactionExists } = await Axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
-        {
-          params: {
-            'filters[reference][$eq]': payload.reference,
-          },
-        }
-      );
-      if (transactionExists.data.length === 0) {
-        await Axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
-          { data: payload }
-        );
-      }
-    } catch (error) {
-      toast.error(getError(error));
-    }
-  };
 
   React.useEffect(() => {
     reference &&
@@ -71,17 +48,47 @@ const Invoice = () => {
               `${process.env.NEXT_PUBLIC_API_URL}/api/assigned-properties/${assignedPropertyId}?populate=*`
             )
               .then(async function (response) {
+                let details = null;
                 const { status, data } = response;
                 if (statusIsSuccessful(status)) {
                   const assignedProperty = {
                     id: data?.data?.id,
                     ...data?.data?.attributes,
                   };
-                  setTransaction({
-                    payment,
-                    property: assignedProperty?.property?.data?.attributes,
-                  });
-                  await confirmTransaction(payment, assignedProperty);
+
+                  try {
+                    const payload = {
+                      assignedProperty: assignedProperty.id,
+                      amount: payment.amount / 100,
+                      reference: payment.reference,
+                      paymentSource: PAYMENT_SOURCE.PAYSTACK,
+                    };
+                    const { data: transactionExists } = await Axios.get(
+                      `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
+                      {
+                        params: {
+                          'filters[reference][$eq]': payload.reference,
+                        },
+                      }
+                    );
+                    if (transactionExists.data.length === 0) {
+                      const { data: transactionDetails } = await Axios.post(
+                        `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
+                        { data: payload }
+                      );
+                      details = transactionDetails;
+                    } else {
+                      details = transactionExists.data[0];
+                    }
+
+                    setTransaction({
+                      payment,
+                      property: assignedProperty?.property?.data?.attributes,
+                      details,
+                    });
+                  } catch (error) {
+                    toast.error(getError(error));
+                  }
                 }
               })
               .catch(function (error) {
@@ -94,8 +101,6 @@ const Invoice = () => {
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
-
-  console.log('transaction', transaction);
 
   return (
     <>
@@ -125,7 +130,14 @@ const Invoice = () => {
 };
 
 export const InvoiceContent = ({ transaction }) => {
-  const userName = `Test`;
+  if (!transaction?.details) {
+    return null;
+  }
+  const userName = transaction?.payment?.customer?.email;
+  const transactionDetails = transaction.details.attributes;
+  const receiptNo = transactionDetails.receiptNo || 'BL220000';
+
+  console.log('transaction', transaction);
 
   return (
     <div className="blissville-invoice">
@@ -147,21 +159,21 @@ export const InvoiceContent = ({ transaction }) => {
                     <tbody>
                       <tr className="tr-content">
                         <td colSpan={2}>
-                          <h6 className="mb-2 mb-sm-3 invoice__email">
+                          <h6 className="mb-3 mb-sm-4 invoice__email font-secondary">
                             {userName}
                           </h6>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <p className="mb-2">
+                          <p className="mb-2 text-sm">
                             Date Issued:{' '}
                             <strong>
-                              {getTinyDate(transaction.payment.paidOn)}
+                              {getTinyDate(transactionDetails.createdAt)}
                             </strong>
                           </p>
                         </td>
-                        <td className="text-end">
+                        <td className="text-end text-sm">
                           <p className="mb-2">
                             {PHONE_NUMBER.WITH_COUNTRY_CODE}
                           </p>
@@ -169,11 +181,11 @@ export const InvoiceContent = ({ transaction }) => {
                       </tr>
                       <tr>
                         <td>
-                          <p className="mb-0">
-                            Receipt No: <strong>BA21001</strong>
+                          <p className="mb-0 text-sm">
+                            Receipt No: <strong>{receiptNo}</strong>
                           </p>
                         </td>
-                        <td className="text-end">
+                        <td className="text-end text-sm">
                           <p className="mb-0">info@blissville.com</p>
                         </td>
                       </tr>
@@ -231,13 +243,14 @@ export const InvoiceContent = ({ transaction }) => {
                 <tbody>
                   <tr className="tr-content tr-border-bottom">
                     <td>
-                      <small>Via {transaction.payment.paymentSource}</small>
-                      <br />
-                      {/* <small>Payment for {paymentInfo.paymentType}</small> */}
+                      <small>
+                        Via{' '}
+                        {PAYMENT_SOURCE_NAME[transactionDetails.paymentSource]}
+                      </small>
                     </td>
                     <td>
                       <h4 className="my-4">
-                        {getTinyDate(transaction.payment.paidOn)}
+                        {getTinyDate(transactionDetails.createdAt)}
                       </h4>
                     </td>
                     <td className="text-end text-green">
@@ -249,9 +262,9 @@ export const InvoiceContent = ({ transaction }) => {
                   </tr>
                   <tr>
                     <td colSpan="3">
-                      <span className="text-small mt-3 text-muted">
-                        Ref: {transaction.payment.additionalInfo} /{' '}
-                        {transaction.id}
+                      <span className="text-xs text-uppercase mt-3 text-muted">
+                        Ref: {transactionDetails.receiptNo} /{' '}
+                        {transactionDetails.reference}
                       </span>
                     </td>
                   </tr>
@@ -267,8 +280,12 @@ export const InvoiceContent = ({ transaction }) => {
               </div>
 
               <div className="row invoice__separator">
-                <div className="text-center text-muted text-smaller w-100">
-                  This receipt is automatically generated at Blissville
+                <div className="text-center text-muted text-xs w-100">
+                  Generated with{' '}
+                  <span className="text-secondary">
+                    <Lovely variant="Bold" />
+                  </span>{' '}
+                  at <span className="fw-bold">Blissville.com.ng</span>
                 </div>
               </div>
             </div>
