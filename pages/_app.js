@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import NextNProgress from 'nextjs-progressbar';
 import React from 'react';
+import '../sass/import.css';
 import '../sass/App.scss';
 import UserProvider from 'context/user';
 import { ToastContainer, Slide } from 'react-toastify';

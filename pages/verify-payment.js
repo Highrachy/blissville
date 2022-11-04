@@ -28,7 +28,7 @@ const Invoice = () => {
     try {
       const payload = {
         assignedProperty: assignedProperty.id,
-        amount: payment.amount,
+        amount: payment.amount / 100,
         reference: payment.reference,
         paymentSource: PAYMENT_SOURCE.PAYSTACK,
       };
@@ -40,7 +40,6 @@ const Invoice = () => {
           },
         }
       );
-      console.log('transactionExists', transactionExists);
       if (transactionExists.data.length === 0) {
         await Axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,

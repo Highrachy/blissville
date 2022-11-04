@@ -3,11 +3,10 @@
 // // Variables should follow the `$component-state-property-size` formula for
 // // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,800;1,300;1,500;1,600;1,800&display=swap');
 @import 'colors';
 
 $font-primary: 'Inter';
-$font-secondary: Jost;
+$font-secondary: Jost, sans-serif;
 
 $text-font: $font-primary;
 $headings-font: $font-secondary;
@@ -606,7 +605,7 @@ $line-height-base: 1.8;
 
 // // scss-docs-start headings-variables
 // $headings-margin-bottom: $spacer * 0.5 !default;
-$headings-font-family: $headings-font, sans-serif;
+$headings-font-family: $headings-font;
 // $headings-font-style: null !default;
 $headings-font-weight: 600;
 $headings-line-height: 1.6;

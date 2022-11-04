@@ -48,17 +48,23 @@ const MyProperties = () => {
 export default MyProperties;
 
 const SingleProperty = ({ id, attributes, userId }) => {
-  const { price, initialPayment, expectedNextPayment, paymentDueDate } =
-    attributes;
+  const {
+    price,
+    initialPayment,
+    expectedNextPayment,
+    paymentDueDate,
+    totalAmountPaid,
+  } = attributes;
   const property = {
-    ...attributes.property.data.attributes,
-    id: attributes.property.data.id,
+    ...attributes?.property?.data?.attributes,
+    id: attributes?.property?.data?.id,
   };
   const project = {
-    ...attributes.project.data.attributes,
-    id: attributes.project.data.id,
+    ...attributes?.project?.data?.attributes,
+    id: attributes?.project?.data?.id,
   };
-  const now = 0;
+  const now =
+    totalAmountPaid > 0 ? Math.floor((totalAmountPaid / price) * 100) : 0;
   return (
     <div className="card rounded m-0 mb-5">
       <div className="row g-0">

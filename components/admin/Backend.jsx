@@ -27,27 +27,32 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
 
   React.useEffect(() => {
     async function confirmPreviousLogin() {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
-        {
-          headers: {
-            Authorization: getTokenFromStore(),
-          },
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
+          {
+            headers: {
+              Authorization: getTokenFromStore(),
+            },
+          }
+        );
+        if (response.status !== 200) {
+          router.push('/app');
+        } else {
+          loginUser(response.data);
         }
-      );
-      if (response.status !== 200) {
+      } catch (error) {
+        logoutUser();
         router.push('/app');
-      } else {
-        loginUser(response.data);
       }
     }
-
     if (!token) {
       router.push('/app');
       logoutUser();
     } else {
       confirmPreviousLogin();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 

@@ -103,7 +103,7 @@ const OnlinePayment = ({ setPaymentType, amount, info }) => {
       <Formik
         enableReinitialize={true}
         initialValues={setInitialValues(onlinePaymentSchema, {
-          amount: Math.min(1_000_000, amount),
+          amount: Math.min(500_000, amount),
         })}
         onSubmit={({ amount }, actions) => {
           const payload = {

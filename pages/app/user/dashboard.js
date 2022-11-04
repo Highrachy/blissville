@@ -183,6 +183,7 @@ const WidgetList = ({ result }) => {
 const widgetLists = [
   {
     name: 'properties',
+    link: 'my-properties',
     key: 'assignedProperty',
     color: 'primary',
     Icon: <Buildings variant="Bulk" />,
@@ -217,16 +218,17 @@ const ChartLegend = ({ color, name, price }) => (
 export const Widget = ({
   name,
   color,
+  link,
   Icon,
   number,
   className = 'col-6',
   role = 'user',
 }) => {
-  const link = `/app/${role}/${name}`;
+  const url = `/app/${role}/${link || name}`;
 
   return (
     <section className={`widget ${className} mb-4`}>
-      <Link href={link} passHref>
+      <Link href={url} passHref>
         <a className="text-reset">
           <div className={`card h-100 position-relative ${color}`}>
             <div className="card-body px-md-4 px-3">

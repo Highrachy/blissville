@@ -98,7 +98,7 @@ export const ManagePropertyForm = ({
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
-      floors: Array.isArray(values.features)
+      floors: Array.isArray(values.floors)
         ? values.floors?.join(',')
         : 'Ground Floor',
       ...(!isEdit && { project: projectId }),

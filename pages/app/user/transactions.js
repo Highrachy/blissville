@@ -60,16 +60,12 @@ const Transactions = () => {
 
   const allTabs = [
     {
-      title: 'Past Transactions',
-      Component: () => (
-        <TransactionHistory title="Past Payments" transactions={transactions} />
-      ),
+      title: 'Upcoming Payments',
+      Component: () => <UpcomingPayments payments={payments} />,
     },
     {
-      title: 'Upcoming Payments',
-      Component: () => (
-        <UpcomingPayments title="Upcoming Payments" payments={payments} />
-      ),
+      title: 'Transaction History',
+      Component: () => <TransactionHistory transactions={transactions} />,
     },
     {
       title: 'Offline Payments',
@@ -85,8 +81,6 @@ const Transactions = () => {
 };
 
 export const TransactionHistory = ({ transactions }) => {
-  console.log('transactions', transactions);
-
   return (
     <DashboardTable title="Transaction History">
       {!transactions || transactions.length === 0 ? (
@@ -131,8 +125,6 @@ export const TransactionHistory = ({ transactions }) => {
 };
 
 export const UpcomingPayments = ({ payments }) => {
-  console.log('payments: ', payments);
-
   return (
     <DashboardTable title="Upcoming Payments">
       {!payments || payments.length === 0 ? (
@@ -186,8 +178,6 @@ export const UpcomingPayments = ({ payments }) => {
 };
 
 const OfflinePayments = ({ offlinePayments }) => {
-  console.log('offlinePayments', offlinePayments);
-
   return (
     <DashboardTable title="Offline Payments">
       {!offlinePayments || offlinePayments.length === 0 ? (
