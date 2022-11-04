@@ -114,7 +114,7 @@ export const DisplayFormikState = (props) => {
       </div>
     </div>
   );
-  if (isDevEnvironment()) return null;
+  if (!isDevEnvironment()) return null;
   return !props.hide && displayFormikValues;
 };
 

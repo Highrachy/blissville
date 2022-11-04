@@ -285,7 +285,7 @@ export const InvoiceContent = ({ transaction }) => {
                   <span className="text-secondary">
                     <Lovely variant="Bold" />
                   </span>{' '}
-                  at <span className="fw-bold">Blissville.com.ng</span>
+                  from <span className="fw-bold">Blissville.com.ng</span>
                 </div>
               </div>
             </div>
