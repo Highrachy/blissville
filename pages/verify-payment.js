@@ -2,6 +2,7 @@ import React from 'react';
 import { getTinyDate } from 'utils/date-helpers';
 import {
   getFormattedAddress,
+  getFullName,
   moneyFormatInNaira,
   statusIsSuccessful,
 } from 'utils/helpers';
@@ -37,69 +38,12 @@ const Invoice = () => {
           const { status, data } = response;
 
           if (statusIsSuccessful(status)) {
-            const payment = data?.data;
-            const { value } =
-              payment.metadata.custom_fields[
-                payment.metadata.custom_fields.length - 1
-              ];
-            const assignedPropertyId = JSON.parse(value)?.assignedPropertyId;
-
-            Axios.get(
-              `${process.env.NEXT_PUBLIC_API_URL}/api/assigned-properties/${assignedPropertyId}?populate=*`
-            )
-              .then(async function (response) {
-                let details = null;
-                const { status, data } = response;
-                if (statusIsSuccessful(status)) {
-                  const assignedProperty = {
-                    id: data?.data?.id,
-                    ...data?.data?.attributes,
-                  };
-
-                  try {
-                    const payload = {
-                      assignedProperty: assignedProperty.id,
-                      amount: payment.amount / 100,
-                      reference: payment.reference,
-                      paymentSource: PAYMENT_SOURCE.PAYSTACK,
-                    };
-                    const { data: transactionExists } = await Axios.get(
-                      `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
-                      {
-                        params: {
-                          'filters[reference][$eq]': payload.reference,
-                        },
-                      }
-                    );
-                    if (transactionExists.data.length === 0) {
-                      const { data: transactionDetails } = await Axios.post(
-                        `${process.env.NEXT_PUBLIC_API_URL}/api/transactions`,
-                        { data: payload }
-                      );
-                      details = transactionDetails;
-                    } else {
-                      details = transactionExists.data[0];
-                    }
-
-                    setTransaction({
-                      payment,
-                      property: assignedProperty?.property?.data?.attributes,
-                      details,
-                    });
-                  } catch (error) {
-                    toast.error(getError(error));
-                  }
-                }
-              })
-              .catch(function (error) {
-                toast.error(getError(error));
-              });
+            setTransaction(data);
           }
         })
         .catch(function (error) {
           toast.error(getError(error));
         });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
 
   return (
@@ -112,7 +56,7 @@ const Invoice = () => {
       <section className="py-5">
         <div className="container">
           {transaction ? (
-            <InvoiceContent transaction={transaction} />
+            <InvoiceContent data={transaction} />
           ) : (
             <div className="blissville-invoice">
               <div className="mt-8">
@@ -129,13 +73,22 @@ const Invoice = () => {
   );
 };
 
-export const InvoiceContent = ({ transaction }) => {
-  if (!transaction?.details) {
-    return null;
+export const InvoiceContent = ({ data: { property, transaction, user } }) => {
+  if (!transaction?.receiptNo) {
+    return (
+      <div className="blissville-invoice">
+        <div className="mt-7 text-danger h3 text-center">
+          <span className="icon-lg">
+            <Wallet />
+          </span>
+          <br />
+          Payment not successful
+        </div>
+      </div>
+    );
   }
-  const userName = transaction?.payment?.customer?.email;
-  const transactionDetails = transaction.details.attributes;
-  const receiptNo = transactionDetails.receiptNo || 'BL220000';
+  const userName = getFullName(user) || 'Unknown';
+  const receiptNo = transaction.receiptNo;
 
   console.log('transaction', transaction);
 
@@ -169,7 +122,7 @@ export const InvoiceContent = ({ transaction }) => {
                           <p className="mb-2 text-sm">
                             Date Issued:{' '}
                             <strong>
-                              {getTinyDate(transactionDetails.createdAt)}
+                              {getTinyDate(transaction.createdAt)}
                             </strong>
                           </p>
                         </td>
@@ -205,13 +158,11 @@ export const InvoiceContent = ({ transaction }) => {
                 <tbody>
                   <tr className="tr-content">
                     <td>
-                      <p className="mt-2 mt-sm-3">
-                        {transaction.property.name}
-                      </p>
+                      <p className="mt-2 mt-sm-3">{property.name}</p>
                     </td>
                     <td className="text-end text-amount strong">
                       <p className="mt-2 mt-sm-3">
-                        {moneyFormatInNaira(transaction.payment.amount / 100)}
+                        {moneyFormatInNaira(transaction.amount)}
                       </p>
                     </td>
                   </tr>
@@ -244,27 +195,25 @@ export const InvoiceContent = ({ transaction }) => {
                   <tr className="tr-content tr-border-bottom">
                     <td>
                       <small>
-                        Via{' '}
-                        {PAYMENT_SOURCE_NAME[transactionDetails.paymentSource]}
+                        Via {PAYMENT_SOURCE_NAME[transaction.paymentSource]}
                       </small>
                     </td>
                     <td>
                       <h4 className="my-4">
-                        {getTinyDate(transactionDetails.createdAt)}
+                        {getTinyDate(transaction.createdAt)}
                       </h4>
                     </td>
                     <td className="text-end text-green">
                       <h4 className="text-amount">
                         {' '}
-                        {moneyFormatInNaira(transaction.payment.amount / 100)}
+                        {moneyFormatInNaira(transaction.amount)}
                       </h4>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan="3">
                       <span className="text-xs text-uppercase mt-3 text-muted">
-                        Ref: {transactionDetails.receiptNo} /{' '}
-                        {transactionDetails.reference}
+                        Ref: {transaction.receiptNo} / {transaction.reference}
                       </span>
                     </td>
                   </tr>
