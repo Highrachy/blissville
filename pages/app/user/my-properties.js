@@ -37,7 +37,7 @@ const MyProperties = () => {
         name={'Property'}
         noContentText={'You have not been assigned any property yet'}
       >
-        {result.map((item) => (
+        {result?.map((item) => (
           <SingleProperty key={item.id} {...item} userId={id} />
         ))}
       </ContentLoader>
@@ -120,13 +120,15 @@ const SingleProperty = ({ id, attributes, userId }) => {
               />
             </div>
 
-            <p className="text-gray-800 mt-3 text-sm mb-5">
+            <div className="text-gray-800 mt-3 text-sm mb-5">
               Next Payment:{' '}
               <span className="fw-bold text-gray-800">
                 {moneyFormatInNaira(expectedNextPayment)}
               </span>
-              <OverdueBadge date={paymentDueDate} />
-            </p>
+              <span className="float-end">
+                <OverdueBadge date={paymentDueDate} />
+              </span>
+            </div>
 
             <Button
               className="me-3 mb-3 btn-sm"
@@ -137,7 +139,7 @@ const SingleProperty = ({ id, attributes, userId }) => {
               View Property
             </Button>
             <MakePayment
-              amount={initialPayment}
+              amount={expectedNextPayment}
               info={{ userId, assignedPropertyId: id }}
             />
           </aside>

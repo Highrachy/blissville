@@ -9,7 +9,10 @@ import { getShortDate } from '@/utils/date-helpers';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import {
   ASSIGNED_PROPERTY_STATUS,
+  PAYMENT_SOURCE,
+  PAYMENT_SOURCE_COLOR,
   PAYMENT_SOURCE_NAME,
+  TRANSACTION_STATUS_COLOR,
   TRANSACTION_STATUS_NAME,
 } from '@/utils/constants';
 import { UserContext } from 'context/user';
@@ -25,57 +28,40 @@ const Transactions = () => {
   const { user } = useContext(UserContext);
   const id = user?.id;
 
-  const [query, transactions] = useSWRQuery({
-    name: id ? ['transactions', id] : id,
-    endpoint: `api/transactions`,
-    axiosOptions: {
-      params: {
-        populate: 'deep,3',
-        'filters[user][id][$eq]': id,
-        sort: 'createdAt:desc',
-      },
-    },
-  });
-  const [_, payments] = useSWRQuery({
-    name: id ? ['assigned-properties', id] : id,
-    endpoint: `api/assigned-properties`,
-    axiosOptions: {
-      params: {
-        'filters[user][id][$eq]': id,
-        'filters[status][$lt]': ASSIGNED_PROPERTY_STATUS.COMPLETE_PAYMENT,
-        populate: '*',
-      },
-    },
-  });
-  const [__, offlinePayments] = useSWRQuery({
-    name: id ? ['api/offline-payments', id] : id,
-    endpoint: `api/offline-payments`,
-    axiosOptions: {
-      params: {
-        'filters[users][id][$eq]': id,
-        populate: 'deep,3',
-      },
-    },
+  const [query, result] = useSWRQuery({
+    name: 'allTransactions',
+    endpoint: 'api/administrative/user-transactions',
   });
 
   const allTabs = [
     {
       title: 'Upcoming Payments',
-      Component: () => <UpcomingPayments payments={payments} />,
+      Component: () => <UpcomingPayments payments={result?.nextPayments} />,
     },
     {
       title: 'Transaction History',
-      Component: () => <TransactionHistory transactions={transactions} />,
+      Component: () => (
+        <TransactionHistory transactions={result?.transactions} />
+      ),
     },
     {
       title: 'Offline Payments',
-      Component: () => <OfflinePayments offlinePayments={offlinePayments} />,
+      Component: () => (
+        <OfflinePayments offlinePayments={result?.offlinePayments} />
+      ),
     },
   ];
 
   return (
     <Backend title="Transactions">
-      <TabContent name="transactions" allTabs={allTabs} />
+      <ContentLoader
+        Icon={adminMenu['Transactions']}
+        query={query}
+        results={result}
+        name={pageOptions.pageName}
+      >
+        <TabContent name="transactions" allTabs={allTabs} />
+      </ContentLoader>
     </Backend>
   );
 };
@@ -86,34 +72,32 @@ export const TransactionHistory = ({ transactions }) => {
       {!transactions || transactions.length === 0 ? (
         <tr>
           <td colSpan="5">
-            <p className="py-4 text-md text-center text-gray-700">
-              <div className="mt-2">You have no transactions</div>
-            </p>
+            <div className="py-4 mt-2 text-md text-center text-gray-700">
+              You have no transactions
+            </div>
           </td>
         </tr>
       ) : (
         transactions.map(
-          (
-            { attributes: { property, createdAt, amount, paymentSource } },
-            index
-          ) => (
+          ({ property, project, createdAt, amount, paymentSource }, index) => (
             <tr key={index}>
               <th width="300">
                 <span className="fw-semibold">{getShortDate(createdAt)}</span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  {property?.name || property?.data?.attributes?.name} -{' '}
-                  {property?.project?.name ||
-                    property?.data?.attributes?.project.data.attributes.name}
+                  {property?.name} - {property?.project?.name}
                 </span>
               </th>
               <td className="text-end">
-                <span className="fw-semibold">
-                  {moneyFormatInNaira(amount)}
-                </span>
+                <span className="text-price">{moneyFormatInNaira(amount)}</span>
                 <br />
-                <span className="fw-semibold text-primary text-xs">
-                  {PAYMENT_SOURCE_NAME[paymentSource]}
+                <span
+                  className={`fw-semibold text-${PAYMENT_SOURCE_COLOR[paymentSource]} text-xs`}
+                >
+                  {paymentSource.toString() ===
+                  PAYMENT_SOURCE.PAYSTACK.toString()
+                    ? PAYMENT_SOURCE_NAME[paymentSource]
+                    : 'Bank Payment'}
                 </span>
               </td>
             </tr>
@@ -138,14 +122,7 @@ export const UpcomingPayments = ({ payments }) => {
       ) : (
         payments.map(
           (
-            {
-              attributes: {
-                property,
-                expectedNextPayment,
-                project,
-                paymentDueDate,
-              },
-            },
+            { property, expectedNextPayment, project, paymentDueDate },
             index
           ) => (
             <tr key={index}>
@@ -155,12 +132,11 @@ export const UpcomingPayments = ({ payments }) => {
                 </span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  {property?.name || property?.data?.attributes?.name} -{' '}
-                  {project?.name || project?.data?.attributes?.name}
+                  {property?.name} - {project?.name}
                 </span>
               </th>
               <td className="text-end">
-                <span className="fw-semibold">
+                <span className="text-price">
                   {expectedNextPayment &&
                     moneyFormatInNaira(expectedNextPayment)}
                 </span>
@@ -183,17 +159,14 @@ const OfflinePayments = ({ offlinePayments }) => {
       {!offlinePayments || offlinePayments.length === 0 ? (
         <tr>
           <td colSpan="5">
-            <p className="py-4 text-md text-center text-gray-700">
-              <div className="mt-2">You have no offline transaction</div>
-            </p>
+            <div className="py-4 text-md mt-2 text-center text-gray-700">
+              You have no offline payment
+            </div>
           </td>
         </tr>
       ) : (
         offlinePayments.map(
-          (
-            { attributes: { assignedProperty, amount, paymentDate, status } },
-            index
-          ) => (
+          ({ assignedProperty, amount, paymentDate, status = 0 }, index) => (
             <tr key={index}>
               <th width="300">
                 <span className="fw-semibold">
@@ -201,24 +174,19 @@ const OfflinePayments = ({ offlinePayments }) => {
                 </span>
                 <br />
                 <span className="fw-light text-gray-700 text-xs">
-                  {
-                    assignedProperty?.data?.attributes?.property?.data
-                      ?.attributes?.name
-                  }{' '}
-                  -{' '}
-                  {
-                    assignedProperty?.data?.attributes?.project?.data
-                      ?.attributes?.name
-                  }
+                  {assignedProperty?.property?.name} -{' '}
+                  {assignedProperty?.property?.project?.name}
                 </span>
               </th>
               <td className="text-end">
-                <span className="fw-semibold">
+                <span className="text-price">
                   {amount && moneyFormatInNaira(amount)}
                 </span>
                 <br />
-                <span className="fw-semibold text-primary text-xs">
-                  {status && TRANSACTION_STATUS_NAME[status]}
+                <span
+                  className={`fw-semibold text-${TRANSACTION_STATUS_COLOR[status]} text-xs`}
+                >
+                  {TRANSACTION_STATUS_NAME[status]}
                 </span>
               </td>
             </tr>

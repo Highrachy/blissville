@@ -52,9 +52,8 @@ const MakePayment = ({ amount, info }) => {
         show={showPaymentModal}
         onHide={() => setShowPaymentModal(false)}
         showFooter={false}
+        title="Make Payment"
       >
-        <h5 className="my-3">How would you like to pay: </h5>
-
         {Object.entries(PAYMENT_TYPE).map(([key, value]) => (
           <span key={key}>
             <Button
@@ -110,7 +109,6 @@ const OnlinePayment = ({ setPaymentType, amount, info }) => {
             amount: amount.toString(),
             info,
           };
-          console.log('payload', payload);
 
           axios
             .post(
@@ -172,15 +170,15 @@ const OfflinePayment = ({ amount, info, setPaymentType, hideForm }) => {
     <>
       <div className="my-4">
         <h5 className="header-small mb-4">Bank Transfer/ Deposit</h5>
-        <p>1. Pay To:</p>
+        <p>1. Pay to one of our Bank Accounts below:</p>
         {BANK_ACCOUNTS.map(
           ({ accountNumber, bankName, accountName }, index) => (
-            <>
+            <div className="card bg-gray p-4" key={index}>
               <h5 className="header-smaller">{accountName}</h5>
               <p key={index}>
                 {bankName} - {accountNumber}
               </p>
-            </>
+            </div>
           )
         )}
       </div>
@@ -190,10 +188,10 @@ const OfflinePayment = ({ amount, info, setPaymentType, hideForm }) => {
         payment.
       </p>
       <Button
-        className="btn-wide btn-sm mt-4"
+        className="w-100 btn-md mt-4"
         onClick={() => setShowPaymentForm(true)}
       >
-        Payment Verification Form
+        Fill the Payment Verification Form
       </Button>
 
       <div

@@ -1,9 +1,12 @@
 import Backend from '@/components/admin/Backend';
+import FormikButton from '@/components/forms/FormikButton';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
-import { contactUsSchema } from '@/components/forms/schemas/page-schema';
+import { supportSchema } from '@/components/forms/schemas/page-schema';
 import Textarea from '@/components/forms/Textarea';
-import React from 'react';
+import { getFullName } from '@/utils/helpers';
+import { UserContext } from 'context/user';
+import React, { useContext } from 'react';
 import { DashboardTable } from './dashboard';
 
 const Support = () => {
@@ -49,41 +52,35 @@ const Support = () => {
 };
 
 const SupportForm = () => {
+  const { user } = useContext(UserContext);
   const handleSubmit = async (values, actions) => {
-    const fetchOptions = {
-      /**
-       * The default method for a request with fetch is GET,
-       * so we must tell it to use the POST HTTP method.
-       */
-      method: 'POST',
-      /**
-       * These headers will be added to the request and tell
-       * the API that the request body is JSON and that we can
-       * accept JSON responses.
-       */
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      /**
-       * The body of our POST request is the JSON string that
-       * we created above.
-       */
-      body: JSON.stringify({ data: values }),
+    const payload = {
+      ...values,
+      name: getFullName(user),
+      email: user.email,
+      source: 'Support Page',
     };
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
-      fetchOptions
-    );
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      toast.error(errorMessage);
-    } else {
-      toast.success('Information sent successfully');
+    try {
+      axios({
+        method: 'post',
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
+        data: { data: payload },
+        headers: { Authorization: getTokenFromStore() },
+      })
+        .then(function (response) {
+          const { status } = response;
+          if (statusIsSuccessful(status)) {
+            toast.success('Information sent successfully');
+            actions.resetForm();
+            actions.setSubmitting(false);
+          }
+        })
+        .catch(function (error) {
+          toast.error(getError(error));
+        });
+    } catch (error) {
+      toast.error(getError(error));
     }
-    actions.setSubmitting(false);
   };
 
   return (
@@ -97,7 +94,7 @@ const SupportForm = () => {
       <div className="row">
         <div className="col-md-10">
           <FormikForm
-            schema={contactUsSchema}
+            schema={supportSchema}
             handleSubmit={handleSubmit}
             name="support-us-form"
             buttonText="Send Message"
@@ -105,6 +102,10 @@ const SupportForm = () => {
           >
             <Input name="subject" label="Subject" />
             <Textarea name="message" label="Your Message" />
+
+            <FormikButton color="info" className="mt-3 text-white btn-wide">
+              Submit
+            </FormikButton>
           </FormikForm>
         </div>
       </div>

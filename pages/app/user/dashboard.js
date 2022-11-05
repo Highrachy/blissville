@@ -7,12 +7,13 @@ import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 import Image from 'next/image';
 import Button from '@/components/forms/Button';
-import SingleProperty from '@/components/common/SingleProperty';
 import classNames from 'classnames';
 import { UserContext } from 'context/user';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import { TransactionHistory, UpcomingPayments } from './transactions';
 import { moneyFormatInNaira } from '@/utils/helpers';
+import { ContentLoader } from '@/components/utils/LoadingItems';
+import { adminMenu } from '@/data/admin/sideMenu';
 
 const PROPERTY_COLOR = '#446CB2';
 const PENDING_PAYMENT_COLOR = '#F59E0B';
@@ -39,58 +40,72 @@ const Dashboard = () => {
 
   return (
     <Backend title={`Welcome back, ${user?.firstName ? user.firstName : ''}`}>
-      <div className="row mb-4">
-        <div className="col-sm-6 mb-4 mb-md-0">
-          <div className="card h-100 bg-gray-50 p-4">
-            <h4>{moneyFormatInNaira(paymentBreakdown?.amountPaid || 0)}</h4>
-            <p className="text-gray-700 fw-semibold text-sm">Your Net Worth</p>
-            <div className="row">
-              <div className="col-sm-6">
-                <WidgetChart paymentBreakdown={paymentBreakdown} />
-              </div>
-              <div className="col-sm-6">
-                <div className="d-flex flex-column justify-content-end h-100 mt-4 mt-md-0">
-                  <ChartLegend
-                    name="Amount Paid"
-                    color="primary"
-                    price={moneyFormatInNaira(
-                      paymentBreakdown?.amountPaid || 0
-                    )}
-                  />
-                  <ChartLegend
-                    name="Referral Bonus"
-                    color="success"
-                    price={moneyFormatInNaira(paymentBreakdown?.referral || 0)}
-                  />
-                  <ChartLegend
-                    name="Pending Payment"
-                    color="warning"
-                    price={
-                      paymentBreakdown?.expectedNextPayment || 0 > 0
-                        ? `-${moneyFormatInNaira(
-                            paymentBreakdown?.expectedNextPayment
-                          )}`
-                        : moneyFormatInNaira(0)
-                    }
-                  />
+      <ContentLoader
+        Icon={adminMenu['Dashboard']}
+        query={query}
+        results={result}
+        name={'Dashboard'}
+        loadingText="Generating your Dashboard"
+      >
+        <>
+          <div className="row mb-4">
+            <div className="col-sm-6 mb-4 mb-md-0">
+              <div className="card h-100 bg-gray-50 p-4">
+                <h4>{moneyFormatInNaira(paymentBreakdown?.amountPaid || 0)}</h4>
+                <p className="text-gray-700 fw-semibold text-sm">
+                  Your Net Worth
+                </p>
+                <div className="row">
+                  <div className="col-sm-6">
+                    <WidgetChart paymentBreakdown={paymentBreakdown} />
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="d-flex flex-column justify-content-end h-100 mt-4 mt-md-0">
+                      <ChartLegend
+                        name="Amount Paid"
+                        color="primary"
+                        price={moneyFormatInNaira(
+                          paymentBreakdown?.amountPaid || 0
+                        )}
+                      />
+                      <ChartLegend
+                        name="Referral Bonus"
+                        color="success"
+                        price={moneyFormatInNaira(
+                          paymentBreakdown?.referral || 0
+                        )}
+                      />
+                      <ChartLegend
+                        name="Pending Payment"
+                        color="warning"
+                        price={
+                          paymentBreakdown?.expectedNextPayment || 0 > 0
+                            ? `-${moneyFormatInNaira(
+                                paymentBreakdown?.expectedNextPayment
+                              )}`
+                            : moneyFormatInNaira(0)
+                        }
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <WidgetList result={result} />
           </div>
-        </div>
 
-        <WidgetList result={result} />
-      </div>
-
-      <div className="row">
-        <div className="col-sm-6">
-          <UpcomingPayments payments={result?.assignedProperty?.data} />
-          <TransactionHistory transactions={result?.transactions?.data} />
-        </div>
-        <div className="col-sm-6">
-          <CustomizeYourHomeBanner />
-        </div>
-      </div>
+          <div className="row">
+            <div className="col-sm-6">
+              <UpcomingPayments payments={result?.assignedProperty?.data} />
+              <TransactionHistory transactions={result?.transactions?.data} />
+            </div>
+            <div className="col-sm-6">
+              <CustomizeYourHomeBanner />
+            </div>
+          </div>
+        </>
+      </ContentLoader>
     </Backend>
   );
 };

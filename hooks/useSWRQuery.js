@@ -72,7 +72,7 @@ export const useSWRQuery = ({
     getQueryOptions(queryOptions)
   );
 
-  const result = queryResult?.data?.[key] || queryResult?.data || [];
+  const result = queryResult?.data?.[key] || queryResult?.data;
 
   (showLogs || showQuery) &&
     console.info(`%c[${name}] Query: `, 'color: blue', queryResult);

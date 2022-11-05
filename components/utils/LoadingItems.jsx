@@ -34,12 +34,12 @@ LoadItems.defaultProps = {
 
 export const Loading = ({ Icon, text, size }) => (
   <div
-    className={`text-center mt-5 w-100 loading-icon icon-lg ${
+    className={`text-center mt-6 w-100 loading-icon icon-xl text-muted ${
       size ? size : ''
     }`}
   >
     {Icon && Icon}
-    {text && <h5 className="my-4">{text} &nbsp;</h5>}
+    {text && <h5 className="my-4 text-muted">{text} &nbsp;</h5>}
     <Spinner small={size === 'small'} />{' '}
   </div>
 );
@@ -60,6 +60,7 @@ export const ContentLoader = ({
     : isObject(results)
     ? Object.keys(results).length > 0
     : !!results;
+  console.log('hasContent', hasContent);
 
   return (
     <>

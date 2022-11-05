@@ -37,11 +37,12 @@ export const USER_ROLES = generateStatus(ALL_USER_ROLES);
 export const ROLE_NAME = mapStatusToName(ALL_USER_ROLES);
 
 const ALL_PAYMENT_SOURCES = {
-  OFFLINE_PAYMENT: { id: 0 },
-  PAYSTACK: { id: 1 },
+  OFFLINE_PAYMENT: { id: 0, color: 'warning' },
+  PAYSTACK: { id: 1, color: 'info' },
 };
 export const PAYMENT_SOURCE = generateStatus(ALL_PAYMENT_SOURCES);
 export const PAYMENT_SOURCE_NAME = mapStatusToName(ALL_PAYMENT_SOURCES);
+export const PAYMENT_SOURCE_COLOR = generateStatusColor(ALL_PAYMENT_SOURCES);
 
 const ALL_PROJECT_STATUS = {
   IN_VIEW: { id: 0, color: 'warning' },

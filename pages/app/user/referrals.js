@@ -203,7 +203,7 @@ const Referrals = () => {
               <h5 className="card-title fw-semibold">Summary</h5>
               <div className="bg-gray p-3 d-flex justify-content-between">
                 <span className="text-gray-700">Total Received</span>
-                <span className="text-gray-900 fw-bold">₦ 50,000</span>
+                <span className="text-gray-900 fw-bold">₦ 0</span>
               </div>
             </div>
           </section>
@@ -248,7 +248,7 @@ const Referrals = () => {
           </section>
 
           {/* Invite History */}
-          {result.length > 0 && (
+          {result?.length > 0 && (
             <DashboardTable title="Invite History">
               {result.map(({ attributes: referral }, index) => (
                 <tr key={index}>

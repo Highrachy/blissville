@@ -617,10 +617,9 @@ td {
 }
 
 .badge-overdue {
-  padding: 0.4rem 1.15rem;
-  font-size: 10px;
-  border-radius: 1rem;
-  float: right;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.65rem;
+  border-radius: 3px;
 
   &__success {
     background: $secondary-200;
@@ -628,7 +627,7 @@ td {
   }
 
   &__danger {
-    background: $error-50;
+    background: $error-100;
     color: $red;
   }
 }

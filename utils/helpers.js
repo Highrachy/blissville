@@ -313,7 +313,8 @@ export const getPaymentPlan = (paymentPlan) => {
 export const getMonthlyPayment = (total, initial, month) =>
   month === 0 ? 0 : moneyFormatInNaira(Math.round((total - initial) / month));
 
-export const getFullName = (user) => `${user?.firstName} ${user?.lastName}`;
+export const getFullName = (user) =>
+  user ? `${user.firstName} ${user.lastName}` : '-';
 
 export const convertToNormalText = (text) => {
   const textWithoutUnderscore = text.replace(/_/g, ' ');

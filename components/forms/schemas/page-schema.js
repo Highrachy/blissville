@@ -19,6 +19,11 @@ export const contactUsSchema = {
   message: stringValidation('Message', 10),
 };
 
+export const supportSchema = {
+  subject: required('Subject'),
+  message: stringValidation('Message', 10),
+};
+
 export const askInfoSchema = {
   name: stringValidation('Full Name'),
   email,
@@ -77,4 +82,10 @@ export const offlinePaymentSchema = {
   paymentDate: requiredDate('Payment Date'),
   evidence: optionalValidation(required('Evidence')),
   type: required('Payment Type'),
+};
+
+export const profileSchema = {
+  firstName: stringValidation('First Name'),
+  lastName: stringValidation('Last Name'),
+  phone: optionalValidation(required('Phone Number')),
 };

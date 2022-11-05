@@ -10,7 +10,7 @@ import {
 } from '@/utils/constants';
 import { getShortDate } from '@/utils/date-helpers';
 import { Calendar } from 'iconsax-react';
-import { moneyFormatInNaira } from '@/utils/helpers';
+import { getFullName, moneyFormatInNaira } from '@/utils/helpers';
 import ProcessButton from '@/components/utils/ProcessButton';
 
 const Transactions = () => (
@@ -63,11 +63,17 @@ export const TransactionsRowList = ({ results, offset, attachment, query }) => {
 
 export const TransactionsSingleRow = (transaction) => {
   const { id, number, amount, status, paymentDate, type, query } = transaction;
+  const user = transaction?.user?.data?.attributes;
   return (
     <tr>
       <td>{number}</td>
-      <td>{moneyFormatInNaira(amount)}</td>
-      <td>{type}</td>
+      <td className="td-block">
+        {getFullName(user)}
+        <span>{type}</span>
+      </td>
+      <td className="text-md text-primary fw-bold">
+        {moneyFormatInNaira(amount)}
+      </td>
       <td>
         <span
           className={`badge badge-dot text-${TRANSACTION_STATUS_COLOR[status]}`}

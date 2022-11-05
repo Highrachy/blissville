@@ -5,6 +5,7 @@ import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
 import faqs from '@/data/faqs';
+import ScheduleVisit from '@/components/common/ScheduleVisit';
 
 export default function FAQs() {
   return (
@@ -15,7 +16,7 @@ export default function FAQs() {
         bgImage="/assets/img/bg/about-us.jpeg"
       />
       <AllFAQs />
-      <OurInvestors />
+      <ScheduleVisit />
       <Footer />
     </>
   );
