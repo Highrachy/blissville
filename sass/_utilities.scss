@@ -651,3 +651,14 @@ td {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
+
+.price-input-format {
+  color: $primary;
+  font-size: 2rem;
+  font-weight: bold;
+  border: 1px solid $gray-200;
+  padding: 0.4rem 1rem;
+  margin: 0.5rem 0;
+  text-align: center;
+  border-radius: 3px;
+}

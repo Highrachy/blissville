@@ -27,7 +27,7 @@ import {
   ShareProjectIcon,
   SizeIcon,
 } from '@/components/Icons/Icons';
-import { packages } from '@/data/packages';
+import { packages, PACKAGE_NAME } from '@/data/packages';
 import Link from 'next/link';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
@@ -534,24 +534,37 @@ const PaymentPlanCard = ({
     paymentPlanIncrement,
   } = property;
 
-  console.log('packageName', packageName);
-
   let packageInitialPayment = initialPayment;
-  if (packageName === packages[1].name) {
+
+  if (packageName === PACKAGE_NAME.STANDARD) {
     packageInitialPayment = standardInitialPayment;
-  } else if (packageName === packages[2].name) {
+  } else if (packageName === PACKAGE_NAME.SUPREME) {
     packageInitialPayment = supremeInitialPayment;
   }
 
+  const [customizedInitialPayment, setCustomizedInitialPayment] =
+    React.useState(null);
+
   const totalPayment =
     parseInt(price, 10) + parseInt(paymentPlanIncrement * month, 10);
-  const currentInitialPayment =
+  const initialPackageAmount =
     month === 0 ? totalPayment : packageInitialPayment;
+  const currentInitialPayment =
+    customizedInitialPayment || initialPackageAmount;
   const monthlyPayment = getMonthlyPayment(
     totalPayment,
     currentInitialPayment,
     month
   );
+
+  const updateInitialPaymentViaSlider = (value) => {
+    setCustomizedInitialPayment(value);
+    setShowModal(false);
+  };
+
+  const planIsCustomized =
+    customizedInitialPayment &&
+    customizedInitialPayment.toString() !== initialPackageAmount.toString();
 
   return (
     <div
@@ -566,9 +579,10 @@ const PaymentPlanCard = ({
       >
         <section className="row">
           <PaymentPlanSlider
-            min={currentInitialPayment}
+            min={initialPackageAmount}
             max={totalPayment}
             month={month}
+            updateInitialPayment={updateInitialPaymentViaSlider}
           />
         </section>
       </Modal>
@@ -577,11 +591,18 @@ const PaymentPlanCard = ({
         <h5 className="mb-3">{monthName}</h5>
         <ul className="list-dotted list-unstyled px-4">
           <li>
-            <span className="list-dotted__label">Initial Payment</span>
-            <span className="list-dotted__value">
+            <span className="list-dotted__label">
+              {customPlan ? 'Custom' : 'Initial'} Payment
+            </span>
+            <span
+              className={`list-dotted__value ${
+                planIsCustomized ? 'text-info' : ''
+              }`}
+            >
               {moneyFormatInNaira(currentInitialPayment)}
             </span>
           </li>
+
           <li>
             <span className="list-dotted__label">Monthly Payment</span>
             <span className="list-dotted__value"> {monthlyPayment}</span>
@@ -604,10 +625,13 @@ const PaymentPlanCard = ({
               />
               {month !== 0 && (
                 <div
-                  className="mt-4 text-sm text-link"
+                  className={`mt-4 text-sm text-link ${
+                    planIsCustomized ? 'text-info' : ''
+                  }`}
                   onClick={() => setShowModal(true)}
                 >
-                  <Magicpen variant="Bulk" /> Customize this Plan
+                  <Magicpen variant="Bulk" /> Customize{' '}
+                  {planIsCustomized ? 'again' : 'this Plan'}
                 </div>
               )}
             </div>
