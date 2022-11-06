@@ -60,7 +60,7 @@ const Dashboard = () => {
                     <WidgetChart paymentBreakdown={paymentBreakdown} />
                   </div>
                   <div className="col-sm-6">
-                    <div className="d-flex flex-column justify-content-end h-100 mt-4 mt-md-0">
+                    <div className="d-flex flex-column justify-content-end h-100 mt-4 mt-md-0 pb-5 pb-md-0">
                       <ChartLegend
                         name="Amount Paid"
                         color="primary"

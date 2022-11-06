@@ -581,6 +581,7 @@ const PaymentPlanCard = ({
           <PaymentPlanSlider
             min={initialPackageAmount}
             max={totalPayment}
+            defaultValue={currentInitialPayment}
             month={month}
             updateInitialPayment={updateInitialPaymentViaSlider}
           />

@@ -83,7 +83,7 @@ const WidgetList = () => {
       {widgetLists.map((widget, index) => (
         <Widget
           key={index}
-          className="col-3"
+          className="col-6 col-md-3"
           result={{
             properties: { total: 9 },
             transactions: { total: 28 },

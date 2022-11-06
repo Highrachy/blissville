@@ -7,10 +7,16 @@ import NumberFormat from 'react-number-format';
 import { toast } from 'react-toastify';
 import { ProgrammingArrows } from 'iconsax-react';
 
-const PaymentPlanSlider = ({ min, max, month, updateInitialPayment }) => {
+const PaymentPlanSlider = ({
+  min,
+  max,
+  month,
+  defaultValue,
+  updateInitialPayment,
+}) => {
   const maximum = parseInt(max, 10);
   const minimum = parseInt(min, 10);
-  const [value, setValue] = React.useState(min);
+  const [value, setValue] = React.useState(defaultValue);
   const [error, setError] = React.useState(null);
   const monthlyPayment = (maximum - value) / month;
 
@@ -37,7 +43,11 @@ const PaymentPlanSlider = ({ min, max, month, updateInitialPayment }) => {
   return (
     <div className="overflow-hidden">
       <div className="py-2 px-4 py-md-2 text-center">
-        <h6>With an initial payment of</h6>
+        {error ? (
+          <h6 className="text-danger">Invalid initial payment</h6>
+        ) : (
+          <h6>With an initial payment of</h6>
+        )}
         <NumberFormat
           id="initial-payment"
           name="initial-payment"
@@ -48,7 +58,6 @@ const PaymentPlanSlider = ({ min, max, month, updateInitialPayment }) => {
           value={value}
           className="price-input-format"
         />
-        {/* <h3 className="text-primary">₦ {Humanize.intComma(value)}</h3> */}
         <p
           className={`${
             error ? 'text-danger' : 'text-gray-700'
