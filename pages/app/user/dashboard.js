@@ -179,7 +179,6 @@ const WidgetChart = ({ paymentBreakdown }) => {
 };
 
 const WidgetList = ({ result }) => {
-  console.log('result', result);
   return (
     <div className="col-sm-6">
       <div className="row g-4">
@@ -277,7 +276,7 @@ export const DashboardTable = ({ children, title, className }) => {
       <table className="table table-border table-striped">
         <thead>
           <tr>
-            <th colSpan="2">
+            <th colSpan="3">
               <h5 className="my-3">{title}</h5>
             </th>
           </tr>

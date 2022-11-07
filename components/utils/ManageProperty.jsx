@@ -307,7 +307,7 @@ const SingleProperty = ({
         />
         {name}
       </td>
-      <td>{moneyFormatInNaira(price)}</td>
+      <td className="text-price">{moneyFormatInNaira(price)}</td>
       <td>
         <Button
           color="none"

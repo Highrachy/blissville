@@ -5,8 +5,8 @@ import Backend from '@/components/admin/Backend';
 import { adminMenu } from '@/data/admin/sideMenu';
 import { LocalImage } from '@/components/common/Image';
 import Button from '@/components/forms/Button';
-// import { filterProperties } from '@/utils/filters';
 import { USER_ROLES } from '@/utils/constants';
+import { moneyFormatInNaira } from '@/utils/helpers';
 
 const Properties = () => (
   <Backend role={USER_ROLES.ADMIN}>
@@ -32,7 +32,7 @@ export const PropertiesRowList = ({ results, offset, attachment }) => {
               <tr>
                 <th>S/N</th>
                 <th>Name</th>
-                <th>Status</th>
+                <th>Price</th>
                 <th></th>
               </tr>
             </thead>
@@ -55,7 +55,7 @@ export const PropertiesRowList = ({ results, offset, attachment }) => {
 };
 
 export const PropertiesSingleRow = ({ number, attachment, ...props }) => {
-  const { id, name, type, image, status } = props;
+  const { id, name, price, image, status } = props;
   return (
     <tr>
       <td>{number}</td>
@@ -68,9 +68,7 @@ export const PropertiesSingleRow = ({ number, attachment, ...props }) => {
         />
         {name}
       </td>
-      <td>
-        <span className={`badge badge-dot bg-red}`}>{status}</span>
-      </td>
+      <td className="text-price">{moneyFormatInNaira(price)}</td>
       <td>
         <Button
           color="secondary"

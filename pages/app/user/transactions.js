@@ -8,7 +8,6 @@ import { DashboardTable } from './dashboard';
 import { getShortDate } from '@/utils/date-helpers';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import {
-  ASSIGNED_PROPERTY_STATUS,
   PAYMENT_SOURCE,
   PAYMENT_SOURCE_COLOR,
   PAYMENT_SOURCE_NAME,
@@ -17,7 +16,6 @@ import {
 } from '@/utils/constants';
 import { UserContext } from 'context/user';
 import { OverdueBadge } from './my-properties';
-import { Wallet } from 'iconsax-react';
 
 const pageOptions = {
   key: 'transactions',
