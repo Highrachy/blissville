@@ -16,6 +16,8 @@ import { USER_ROLES } from '@/utils/constants';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import { ContentLoader } from '@/components/utils/LoadingItems';
 import { adminMenu } from '@/data/admin/sideMenu';
+import { useContext } from 'react';
+import { UserContext } from 'context/user';
 
 const PROPERTY_COLOR = '#446CB2';
 const PENDING_PAYMENT_COLOR = '#F59E0B';
@@ -33,8 +35,10 @@ const Dashboard = () => {
     endpoint: 'api/administrative/admin-dashboard',
   });
 
+  const { user } = useContext(UserContext);
+
   return (
-    <Backend role={USER_ROLES.ADMIN} title="Welcome back, Admin">
+    <Backend role={USER_ROLES.ADMIN} title={`Welcome back, ${user?.firstName}`}>
       <ContentLoader
         Icon={adminMenu['Dashboard']}
         query={query}

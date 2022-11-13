@@ -147,7 +147,6 @@ const ContactForm = () => {
         method: 'post',
         url: `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
         data: { data: payload },
-        headers: { Authorization: getTokenFromStore() },
       })
         .then(function (response) {
           const { status } = response;

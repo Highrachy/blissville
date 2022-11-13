@@ -294,13 +294,12 @@ const AskInfoForm = ({ name, projectName }) => {
         method: 'post',
         url: `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
         data: { data: payload },
-        headers: { Authorization: getTokenFromStore() },
       })
         .then(function (response) {
           const { status } = response;
           if (statusIsSuccessful(status)) {
             toast.success('Information sent successfully');
-            actions.resetForm({ values: {} });
+            actions.resetForm();
             actions.setSubmitting(false);
           }
         })

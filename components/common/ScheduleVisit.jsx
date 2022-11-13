@@ -88,7 +88,6 @@ export const ScheduleVisitationButton = ({ visiting, wideButton = false }) => {
         method: 'post',
         url: `${process.env.NEXT_PUBLIC_API_URL}/api/visitations`,
         data: { data: payload },
-        headers: { Authorization: getTokenFromStore() },
       })
         .then(function (response) {
           const { status } = response;
