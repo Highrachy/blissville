@@ -59,55 +59,57 @@ const Register = () => {
         name="register-form"
         showAllFormikState
       >
-        {emailAddress && (
+        {emailAddress ? (
           <Alert type="success" handleClose={() => setEmailAddress(null)}>
             Registration successful. Your email confirmation has been sent to{' '}
             <span className="fw-semibold">{emailAddress}</span>. Please check
             your spam folder if email is not found.{' '}
           </Alert>
+        ) : (
+          <>
+            <div className="row">
+              <Input
+                name="firstName"
+                label="First Name"
+                formGroupClassName="col-md-6"
+              />
+              <Input
+                name="lastName"
+                label="Last Name"
+                formGroupClassName="col-md-6"
+              />
+            </div>
+            <div className="row">
+              <Input
+                name="email"
+                type="email"
+                label="Email Address"
+                formGroupClassName="col-md-6"
+              />
+              <Input
+                name="phone"
+                label="Phone"
+                optional
+                formGroupClassName="col-md-6"
+              />
+            </div>
+            <div className="row">
+              <Input
+                name="password"
+                type="password"
+                label="Password"
+                formGroupClassName="col-md-6"
+              />
+              <Input
+                name="confirmPassword"
+                type="password"
+                label="Confirm Password"
+                formGroupClassName="col-md-6"
+              />
+            </div>
+            <FormikButton color="success">Register Now</FormikButton>
+          </>
         )}
-
-        <div className="row">
-          <Input
-            name="firstName"
-            label="First Name"
-            formGroupClassName="col-md-6"
-          />
-          <Input
-            name="lastName"
-            label="Last Name"
-            formGroupClassName="col-md-6"
-          />
-        </div>
-        <div className="row">
-          <Input
-            name="email"
-            type="email"
-            label="Email Address"
-            formGroupClassName="col-md-6"
-          />
-          <Input
-            name="phone"
-            label="Phone"
-            optional
-            formGroupClassName="col-md-6"
-          />
-        </div>
-        <div className="row">
-          <Input
-            name="password"
-            type="password"
-            label="Password"
-            formGroupClassName="col-md-6"
-          />
-          <Input
-            name="confirmPassword"
-            type="password"
-            label="Confirm Password"
-            formGroupClassName="col-md-6"
-          />
-        </div>
-        <FormikButton color="success">Register Now</FormikButton>
         <div className="my-5">
           <Link href="/login">
             <a className="text-sm text-gray-800">

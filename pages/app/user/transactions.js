@@ -112,9 +112,9 @@ export const UpcomingPayments = ({ payments }) => {
       {!payments || payments.length === 0 ? (
         <tr>
           <td colSpan="5">
-            <p className="py-4 text-md text-center text-gray-700">
-              <div className="mt-2">You have no upcoming payments</div>
-            </p>
+            <div className="py-4 mt-2 text-md text-center text-gray-700">
+              You have no upcoming payments
+            </div>
           </td>
         </tr>
       ) : (

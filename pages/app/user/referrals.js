@@ -239,7 +239,7 @@ const Referrals = () => {
                 <div>
                   <h6 className="mb-0">3. Earn Rewards</h6>
                   <p>
-                    You&apos;ll receive 1.5% of their first property price after
+                    You&apos;ll receive 5% of their first property price after
                     they have made their first payment.
                   </p>
                 </div>
@@ -265,6 +265,12 @@ const Referrals = () => {
                   </th>
                   <td className="text-end">
                     <span className="fw-semibold">
+                      {referral.totalReward > 0
+                        ? moneyFormatInNaira(referral.accumulatedReward)
+                        : '-'}
+                    </span>
+                    <br />
+                    <span className={`fw-semibold text-success text-xs`}>
                       {referral.totalReward > 0
                         ? moneyFormatInNaira(referral.totalReward)
                         : '-'}

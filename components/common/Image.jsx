@@ -72,7 +72,7 @@ Image.propTypes = {
 Image.defaultProps = {
   bordered: false,
   className: '',
-  defaultImage: 'assets/img/placeholder/image.png',
+  defaultImage: '/assets/img/placeholder/image.png',
   options: {},
   responsiveImage: true,
   rounded: false,

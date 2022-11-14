@@ -43,9 +43,10 @@ const ReferralModal = ({ referralCode, inviteCode }) => {
           } = response;
           if (status === 200) {
             const output = {
+              id: data.attributes.user.data.id,
               ...data.attributes.user.data.attributes,
               referred: {
-                id: data.attributes.id,
+                id: data.id,
                 name: data.attributes.referralName,
                 emai: data.attributes.email,
               },
