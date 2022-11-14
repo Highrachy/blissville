@@ -4,8 +4,6 @@ import Humanize from 'humanize-plus';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import Button from '../forms/Button';
 import NumberFormat from 'react-number-format';
-import { toast } from 'react-toastify';
-import { ProgrammingArrows } from 'iconsax-react';
 
 const PaymentPlanSlider = ({
   min,

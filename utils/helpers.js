@@ -3,6 +3,7 @@ import { LocalImage } from '@/components/common/Image';
 import Link from 'next/link';
 import { getShortDate } from './date-helpers';
 import classNames from 'classnames';
+import FormTooltip from '@/components/forms/FormToolTip';
 
 export const isDevEnvironment = () =>
   !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
@@ -298,6 +299,16 @@ export const listFeatures = (project, type = PACKAGE.ALL) => {
           })}
         >
           {feature}
+          <FormTooltip
+            text={
+              key === PACKAGE.SHELL
+                ? 'Available in all packages'
+                : key === PACKAGE.STANDARD
+                ? 'Available in Standard and Supreme Packages'
+                : 'Avaiable in Supreme Package only'
+            }
+            position="top"
+          />
         </li>
       );
     });
