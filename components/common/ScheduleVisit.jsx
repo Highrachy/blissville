@@ -93,7 +93,7 @@ export const ScheduleVisitationButton = ({ visiting, wideButton = false }) => {
           const { status } = response;
           if (statusIsSuccessful(status)) {
             toast.success('Visitation has been successfully scheduled');
-            actions.resetForm({ values: {} });
+            actions.resetForm({});
             actions.setSubmitting(false);
             return true;
           }

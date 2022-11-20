@@ -4,9 +4,12 @@ import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
 import { supportSchema } from '@/components/forms/schemas/page-schema';
 import Textarea from '@/components/forms/Textarea';
-import { getFullName } from '@/utils/helpers';
+import { getError, getFullName, statusIsSuccessful } from '@/utils/helpers';
+import { getTokenFromStore } from '@/utils/localStorage';
+import axios from 'axios';
 import { UserContext } from 'context/user';
 import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import { DashboardTable } from './dashboard';
 
 const Support = () => {

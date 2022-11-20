@@ -11,8 +11,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
+import { LocalImage } from '../common/Image';
 import Sidebar from './Sidebar';
 import TopTitle from './TopTitle';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Backend = ({ children, role = USER_ROLES.USER, title }) => {
   const { width } = useWindowSize();
@@ -75,7 +80,7 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
         role={currentRole}
       />
       <div
-        className={`content-wrapper px-3 px-md-5 py-md-5 py-2 min-vh-100 bg-gray ${
+        className={`content-wrapper px-3 px-md-5 py-2 min-vh-100 bg-gray ${
           isFolded ? 'content-folded' : ''
         }`}
       >
@@ -107,10 +112,52 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
           </div>
         )}
 
+        <TopNav user={user} />
+
         {title && <TopTitle>{title}</TopTitle>}
         <div className="container-fluid">{children}</div>
       </div>
     </section>
+  );
+};
+
+const TopNav = ({ user }) => {
+  return (
+    <Navbar bg="light" expand="lg">
+      <Container fluid>
+        <Navbar.Toggle aria-controls="top-nav-bar" />
+        <Navbar.Collapse id="top-nav-bar">
+          <Nav className="ms-auto">
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title={
+                <>
+                  <LocalImage
+                    src={user?.profileImage}
+                    alt="Logo"
+                    className="img-md2 me-2"
+                    rounded
+                  />
+                  <span className="text-xs">
+                    {user?.firstName} {user?.lastName}
+                  </span>
+                </>
+              }
+            >
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                Another action
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">
+                Separated link
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 export default Backend;

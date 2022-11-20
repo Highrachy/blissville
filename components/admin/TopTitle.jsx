@@ -6,7 +6,7 @@ import { FiPlus } from 'react-icons/fi';
 const TopTitle = ({ children, buttonText, to, href }) => {
   const link = to || href;
   return (
-    <div className="container-fluid mb-3">
+    <div className="mb-3">
       <h3 className="text-color position-relative">
         {children}
         {link && (

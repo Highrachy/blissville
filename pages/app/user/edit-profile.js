@@ -3,9 +3,10 @@ import FormikButton from '@/components/forms/FormikButton';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
 import {
-  contactUsSchema,
+  changePasswordSchema,
   profileSchema,
 } from '@/components/forms/schemas/page-schema';
+import Upload from '@/components/forms/Upload';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 import { getTokenFromStore } from '@/utils/localStorage';
 import axios from 'axios';
@@ -64,6 +65,19 @@ const EditProfileForm = () => {
         initialValues={user}
         persistForm
       >
+        <Upload
+          label="Upload your image"
+          changeText="Update Picture"
+          defaultImage="/assets/img/placeholder/image.png"
+          imgOptions={{
+            className: 'mb-3 img-xxl',
+            width: 200,
+            height: 300,
+          }}
+          name="profileImage"
+          uploadText={`Upload Picture`}
+          folder={'profile'}
+        />
         <Input name="firstName" label="First Name" />
         <Input name="lastName" label="Last Name" />
         <Input name="phone" label="Phone Number" optional />
@@ -76,41 +90,33 @@ const EditProfileForm = () => {
 };
 
 const ChangePasswordForm = () => {
-  const handleSubmit = async (values, actions) => {
-    const fetchOptions = {
-      /**
-       * The default method for a request with fetch is GET,
-       * so we must tell it to use the POST HTTP method.
-       */
-      method: 'POST',
-      /**
-       * These headers will be added to the request and tell
-       * the API that the request body is JSON and that we can
-       * accept JSON responses.
-       */
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      /**
-       * The body of our POST request is the JSON string that
-       * we created above.
-       */
-      body: JSON.stringify({ data: values }),
-    };
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
-      fetchOptions
-    );
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      toast.error(errorMessage);
-    } else {
-      toast.success('Information sent successfully');
+  const handleSubmit = async (
+    { currentPassword, password, confirmPassword: passwordConfirmation },
+    actions
+  ) => {
+    try {
+      axios({
+        method: 'post',
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/auth/change-password`,
+        data: { currentPassword, password, passwordConfirmation },
+        headers: { Authorization: getTokenFromStore() },
+      })
+        .then(function (response) {
+          const { data, status } = response;
+          if (statusIsSuccessful(status)) {
+            actions.resetForm();
+            toast.success('Your password has been successfully updated');
+            actions.setSubmitting(false);
+          }
+        })
+        .catch(function (error) {
+          actions.setSubmitting(false);
+          toast.error(getError(error));
+        });
+    } catch (error) {
+      toast.error(getError(error));
+      actions.setSubmitting(false);
     }
-    actions.setSubmitting(false);
   };
 
   return (
@@ -119,15 +125,18 @@ const ChangePasswordForm = () => {
       <hr className="dotted-border" />
 
       <FormikForm
-        schema={contactUsSchema}
+        schema={changePasswordSchema}
         handleSubmit={handleSubmit}
-        name="Change-Password-form"
+        name="change-password-form"
         buttonText="Change Password"
         persistForm
       >
-        <Input name="oldPassword" label="Old Password" type="password" />
-        <Input name="newPassword" label="New Password" type="password" />
-        <Input name="retypePassword" label="Retype Password" type="password" />
+        <Input name="currentPassword" label="Old Password" type="password" />
+        <Input name="password" label="New Password" type="password" />
+        <Input name="confirmPassword" label="Retype Password" type="password" />
+        <FormikButton color="success" className="mt-3">
+          Change Password
+        </FormikButton>
       </FormikForm>
     </>
   );

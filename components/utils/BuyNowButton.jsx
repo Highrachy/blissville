@@ -47,7 +47,7 @@ const BuyNowButton = ({
           const { status } = response;
           if (statusIsSuccessful(status)) {
             toast.success('Your Interest has been successfully saved');
-            actions.resetForm({ values: {} });
+            actions.resetForm({});
             actions.setSubmitting(false);
             return true;
           }

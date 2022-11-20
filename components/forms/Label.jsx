@@ -18,7 +18,7 @@ const Label = ({
   tooltipText,
 }) => {
   const labelText = children || text;
-  const sanitizedLabelLink = { to: null, text: null, ...labelLink };
+  const sanitizedLabelLink = { href: null, text: null, ...labelLink };
 
   if (!labelText || !name) return null;
 
@@ -45,16 +45,16 @@ const Label = ({
       />
 
       {/* Label Link is a Link */}
-      {sanitizedLabelLink.to && sanitizedLabelLink.text && (
-        <Link className="float-right" to={sanitizedLabelLink.to}>
-          {sanitizedLabelLink.text}
+      {sanitizedLabelLink.href && sanitizedLabelLink.text && (
+        <Link href={sanitizedLabelLink.href}>
+          <a className="float-end">{sanitizedLabelLink.text}</a>
         </Link>
       )}
 
       {/* Label Link calls a function */}
-      {!sanitizedLabelLink.to && sanitizedLabelLink.text && (
+      {!sanitizedLabelLink.href && sanitizedLabelLink.text && (
         <div
-          className="float-right text-muted cursor-pointer"
+          className="float-end text-reset cursor-pointer"
           onClick={sanitizedLabelLink.onClick}
         >
           {sanitizedLabelLink.text}
@@ -68,7 +68,7 @@ Label.propTypes = {
   className: PropTypes.string,
   hideOptionalText: PropTypes.bool,
   labelLink: PropTypes.shape({
-    to: PropTypes.string,
+    href: PropTypes.string,
     text: PropTypes.string.isRequired,
     onClick: PropTypes.func,
   }),
@@ -83,7 +83,7 @@ Label.defaultProps = {
   className: '',
   hideOptionalText: false,
   labelLink: {
-    to: '',
+    href: '',
     text: '',
     onClick: () => {},
   },

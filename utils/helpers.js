@@ -93,7 +93,8 @@ export const getError = (error, policyError = 'Record exists') => {
     return policyError;
   } else {
     return error?.response?.data
-      ? JSON.stringify(error?.response?.data?.error) ||
+      ? JSON.stringify(error?.response?.data?.error?.message) ||
+          JSON.stringify(error?.response?.data?.error) ||
           JSON.stringify(error?.response?.data?.message) ||
           JSON.stringify(error)
       : 'An error has occured. Please try again later.';

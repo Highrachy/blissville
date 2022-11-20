@@ -2,7 +2,7 @@ import AuthPage from '@/components/common/AuthPage';
 import FormikButton from '@/components/forms/FormikButton';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
-import { loginSchema } from '@/components/forms/schemas/page-schema';
+import { forgotPasswordSchema } from '@/components/forms/schemas/page-schema';
 import Alert from '@/components/utils/Alert';
 import { ROLE_NAME, USER_ROLES } from '@/utils/constants';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
@@ -10,83 +10,64 @@ import { getPermissionFromStore } from '@/utils/localStorage';
 import axios from 'axios';
 import { UserContext } from 'context/user';
 import Link from 'next/link';
-
 import Router from 'next/router';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 const Login = () => {
   const [error, setError] = React.useState(false);
-  const { loginUser } = useContext(UserContext);
-  const permission = getPermissionFromStore();
 
-  React.useEffect(() => {
-    if (permission || permission === USER_ROLES.USER)
-      Router.push(`app/${ROLE_NAME[permission]}/dashboard`);
-  }, [permission]);
-
-  const handleSubmit = async ({ email: identifier, password }, actions) => {
-    actions.setSubmitting(true);
+  const handleSubmit = async ({ email }, actions) => {
     setError(false);
     try {
       axios({
         method: 'post',
-        url: `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`,
-        data: { identifier, password },
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/administrative/forgot-password`,
+        data: { email },
       })
         .then(function (response) {
           const { data, status } = response;
-          if (statusIsSuccessful(status)) {
-            loginUser(data.user, data.jwt);
-            Router.push(`app/${ROLE_NAME[data.user.permission]}/dashboard`);
+          if (statusIsSuccessful(status) && data?.success) {
+            toast.success('Password reset successfully');
+            actions.resetForm({});
+            actions.setSubmitting(false);
+          } else {
+            setError(true);
+            toast.error('Invalid Email Address');
           }
         })
         .catch(function (error) {
-          const { status } = error.request;
           actions.setSubmitting(false);
-          if (status === 400) {
-            setError(true);
-            toast.error('Invalid Email or Password');
-          } else {
-            toast.error(getError(error));
-          }
+          toast.error(getError(error));
         });
     } catch (error) {
       toast.error(getError(error));
+      actions.setSubmitting(false);
     }
   };
 
   return (
-    <AuthPage page="Login" title="Sign In">
+    <AuthPage page="Forgot Password" title="Forgot Password">
       <FormikForm
-        schema={loginSchema}
+        schema={forgotPasswordSchema}
         handleSubmit={handleSubmit}
         name="sign-in-form"
       >
         {error && (
           <div className="mb-3">
             <Alert handleClose={() => setError(false)}>
-              Invalid Email or Password
+              Invalid Email Address
             </Alert>
           </div>
         )}
         <Input name="email" type="email" label="Email Address" />
-        <Input name="password" type="password" label="Password" />
 
-        <div className="text-end text-sm mt-n3">
-          <Link href="/app/forgot-password">
-            <a className="text-decoration-none">Forgot Password?</a>
-          </Link>
-        </div>
-
-        <FormikButton color="success" className="btn-wide">
-          Login
-        </FormikButton>
+        <FormikButton color="success">Reset Password</FormikButton>
         <div className="my-5">
-          <Link href="/register">
+          <Link href="/login">
             <a className="text-sm text-gray-800">
-              Don&apos;t have an account?{' '}
-              <span className="text-primary">Register Now</span>
+              Gotten your Password?
+              <span className="text-primary">Login Now</span>
             </a>
           </Link>
         </div>

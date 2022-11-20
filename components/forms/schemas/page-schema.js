@@ -89,3 +89,13 @@ export const profileSchema = {
   lastName: stringValidation('Last Name'),
   phone: optionalValidation(required('Phone Number')),
 };
+
+export const forgotPasswordSchema = {
+  email,
+};
+
+export const changePasswordSchema = {
+  currentPassword: password,
+  password,
+  confirmPassword,
+};

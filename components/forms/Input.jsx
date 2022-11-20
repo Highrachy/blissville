@@ -9,6 +9,7 @@ import {
   feedback,
 } from 'components/forms/form-helper';
 import Label from './Label';
+import { Eye, EyeSlash } from 'iconsax-react';
 
 const Input = ({
   autoComplete,
@@ -32,6 +33,11 @@ const Input = ({
   type,
   ...props
 }) => {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const isPassword = type?.toLowerCase() === 'password';
+  const currentType = isPassword && showPassword ? 'text' : type;
+  const currentShowFeedback = isPassword ? feedback.NONE : showFeedback;
+
   const inputLabel = (
     <Label
       className={labelClassName}
@@ -45,9 +51,10 @@ const Input = ({
       tooltipText={tooltipText}
     />
   );
+
   return (
     <div
-      className={classNames('mb-4', formGroupClassName, {
+      className={classNames('mb-4 position-relative', formGroupClassName, {
         'form-floating': floatingLabel,
       })}
     >
@@ -58,20 +65,32 @@ const Input = ({
         className={classNames(
           'form-control',
           inputClassName,
-          getValidityClass(formik, name, showFeedback)
+          getValidityClass(formik, name, currentShowFeedback)
         )}
         id={name}
         name={name}
-        type={type}
+        type={currentType}
         placeholder={placeholder || label}
         {...props}
       />
       {floatingLabel && inputLabel}
+      {isPassword && (
+        <div
+          className={classNames(
+            'input-password-icon',
+            getValidityClass(formik, name, currentShowFeedback),
+            { 'show-password': showPassword }
+          )}
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <EyeSlash /> : <Eye />}
+        </div>
+      )}
       <FeedbackMessage
         formik={formik}
         helpText={helpText}
         name={name}
-        showFeedback={showFeedback}
+        showFeedback={currentShowFeedback}
         validMessage={isValidMessage}
       />
     </div>

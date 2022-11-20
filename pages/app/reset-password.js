@@ -12,7 +12,7 @@ import Router, { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 
-const Login = () => {
+const ResetPassword = () => {
   const [error, setError] = React.useState(false);
   const { query } = useRouter();
   const { loginUser } = useContext(UserContext);
@@ -64,7 +64,7 @@ const Login = () => {
   };
 
   return (
-    <AuthPage page="Set Password" title="Set Password">
+    <AuthPage page="Reset Password" title="Reset Password">
       <FormikForm
         schema={setPasswordSchema}
         handleSubmit={handleSubmit}
@@ -99,4 +99,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ResetPassword;
