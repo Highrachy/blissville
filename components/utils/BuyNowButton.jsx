@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   getError,
   getMonthlyPayment,
@@ -15,6 +15,8 @@ import Input from '../forms/Input';
 import { interestSchema } from '../forms/schemas/page-schema';
 import FormikModalButton from '../utils/FormikModalButton';
 import Image from 'next/image';
+import { UserContext } from 'context/user';
+import Button from '../forms/Button';
 
 const BuyNowButton = ({
   className,
@@ -24,6 +26,7 @@ const BuyNowButton = ({
   property,
   packageName,
 }) => {
+  const { user } = useContext(UserContext);
   const referredBy = getReferralFromStore();
   const handleSubmit = async (values, actions) => {
     const payload = {
@@ -66,7 +69,7 @@ const BuyNowButton = ({
       className={`btn text-white ${className}`}
       name="schedule-visit"
       schema={interestSchema}
-      initialValues={{}}
+      initialValues={{ ...user }}
       size="md"
       modalContent={
         <InterestForm
@@ -75,6 +78,7 @@ const BuyNowButton = ({
           initialPayment={initialPayment}
           property={property}
           packageName={packageName}
+          user={user}
         />
       }
       handleSubmit={handleSubmit}
@@ -92,8 +96,11 @@ const InterestForm = ({
   initialPayment,
   property,
   packageName,
+  user,
 }) => {
   const { image, name } = property;
+  const [showForm, setShowForm] = React.useState(false);
+
   return (
     <div className="container">
       <div className="row">
@@ -133,36 +140,56 @@ const InterestForm = ({
           </table>
         </div>
       </div>
-      <h4 className="mt-5 mb-3">Interest Form</h4>
-      <div className="row">
-        <Input label="First Name" name="firstName" />
-        <Input label="Last Name" name="lastName" />
-      </div>
-      <div className="row">
-        <Input
-          isValidMessage="Email address seems valid"
-          label="Email"
-          name="email"
-          placeholder="Email Address"
-        />
-        <Input
-          isValidMessage="Phone number looks good"
-          label="Phone"
-          name="phone"
-        />
-      </div>
-      <div className="row">
-        <DatePicker
-          label="Proposed Payment Start Date"
-          name="paymentStartDate"
-          minDate={new Date()}
-          placeholder="Start Date"
-        />
-      </div>
-
-      <FormikButton color="info" className="mt-3 text-white btn-wide">
-        Submit
-      </FormikButton>
+      {!showForm && (
+        <div className="mt-5 text-center">
+          <Button
+            color="secondary"
+            className="btn-wide"
+            onClick={() => setShowForm(true)}
+          >
+            Proceed
+          </Button>
+        </div>
+      )}
+      {showForm && (
+        <>
+          <p className="fw-bold mt-5 mb-3">
+            Fill the form below to confirm your interest
+          </p>
+          <div className="row">
+            <Input label="First Name" name="firstName" />
+            <Input label="Last Name" name="lastName" />
+          </div>
+          <div className="row">
+            <Input
+              isValidMessage="Email address seems valid"
+              label="Email"
+              name="email"
+              placeholder="Email Address"
+              disabled={!!user?.email}
+              helpText={
+                user?.email ? 'We use this to keep track of your interest' : ''
+              }
+            />
+            <Input
+              isValidMessage="Phone number looks good"
+              label="Phone"
+              name="phone"
+            />
+          </div>
+          <div className="row">
+            <DatePicker
+              label="Proposed Payment Start Date"
+              name="paymentStartDate"
+              minDate={new Date()}
+              placeholder="Start Date"
+            />
+          </div>
+          <FormikButton color="success" className="mt-3 text-white btn-wide">
+            Submit
+          </FormikButton>
+        </>
+      )}
     </div>
   );
 };

@@ -22,7 +22,7 @@ export const adminMenu = {
   Users: <People size="24" variant="Bulk" />,
   Transactions: <StatusUp size="24" variant="Bulk" />,
   Referrals: <UserAdd size="24" variant="Bulk" />,
-  Support: <MessageQuestion size="24" variant="Bulk" />,
+  Messages: <MessageQuestion size="24" variant="Bulk" />,
   'Edit Profile': <UserEdit size="24" variant="Bulk" />,
 };
 

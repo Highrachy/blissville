@@ -86,7 +86,7 @@ const MakePayment = ({ amount, info }) => {
 
       <Button
         className="me-3 mb-3 btn-sm"
-        color="warning"
+        color="success"
         onClick={() => setShowPaymentModal(true)}
       >
         Make Payment

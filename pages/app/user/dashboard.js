@@ -210,6 +210,7 @@ const widgetLists = [
   {
     name: 'wishlist',
     color: 'warning',
+    key: 'interests',
     Icon: <HeartAdd variant="Bulk" />,
   },
   {

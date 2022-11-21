@@ -6,12 +6,16 @@ import { UserContext } from 'context/user';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext } from 'react';
-import { adminMenu } from '@/data/admin/sideMenu';
 import { getLocationFromAddress, moneyFormatInNaira } from '@/utils/helpers';
 import MakePayment from '@/components/utils/MakePayment';
 import { differenceInDays, isPastDate } from '@/utils/date-helpers';
 import Humanize from 'humanize-plus';
 import { Buildings } from 'iconsax-react';
+import classNames from 'classnames';
+import PaginatedContent from '@/components/admin/PaginatedContent';
+import { userMenu } from '@/data/admin/sideMenu';
+import SingleProperty from '@/components/common/SinglePropertyNew';
+import Section from '@/components/common/Section';
 
 const MyProperties = () => {
   const { user } = useContext(UserContext);
@@ -38,16 +42,17 @@ const MyProperties = () => {
         noContentText={'You have not been assigned any property yet'}
       >
         {result?.map((item) => (
-          <SingleProperty key={item.id} {...item} userId={id} />
+          <MySingleProperty key={item.id} {...item} userId={id} />
         ))}
       </ContentLoader>
+      <FeaturedProperties />
     </Backend>
   );
 };
 
 export default MyProperties;
 
-const SingleProperty = ({ id, attributes, userId }) => {
+const MySingleProperty = ({ id, attributes, userId }) => {
   const {
     price,
     initialPayment,
@@ -65,6 +70,7 @@ const SingleProperty = ({ id, attributes, userId }) => {
   };
   const now =
     totalAmountPaid > 0 ? Math.floor((totalAmountPaid / price) * 100) : 0;
+  const stillHasPendingPayment = now < 100;
   return (
     <div className="card rounded m-0 mb-5">
       <div className="row g-0">
@@ -101,16 +107,24 @@ const SingleProperty = ({ id, attributes, userId }) => {
             </p>
             <hr className="dotted-border" />
             <div
-              className="text-primary text-xs"
+              className={classNames('text-xs', {
+                'text-success': !stillHasPendingPayment,
+                'text-info': stillHasPendingPayment,
+              })}
               style={{
-                marginLeft: `${now > 10 ? Math.max(now - 4, 10) : now}%`,
+                marginLeft: `${
+                  now > 10 ? (now < 92 ? Math.max(now - 4, 10) : 92) : now
+                }%`,
               }}
             >
               {now}%
             </div>
             <div className="progress" style={{ height: '6px' }}>
               <div
-                className="progress-bar"
+                className={classNames('progress-bar', {
+                  'bg-success': !stillHasPendingPayment,
+                  'bg-info': stillHasPendingPayment,
+                })}
                 role="progressbar"
                 aria-label="Payment Progress"
                 style={{ width: `${now}%` }}
@@ -120,28 +134,43 @@ const SingleProperty = ({ id, attributes, userId }) => {
               />
             </div>
 
-            <div className="text-gray-800 mt-3 text-sm mb-5">
-              Next Payment:{' '}
-              <span className="fw-bold text-gray-800">
-                {moneyFormatInNaira(expectedNextPayment)}
-              </span>
-              <span className="float-end">
-                <OverdueBadge date={paymentDueDate} />
-              </span>
+            <div className="text-gray-800 mt-3 text-sm">
+              {stillHasPendingPayment ? (
+                <>
+                  Next Payment:{' '}
+                  <span className="fw-bold text-gray-800">
+                    {moneyFormatInNaira(expectedNextPayment)}
+                  </span>
+                  <span className="float-end">
+                    <OverdueBadge date={paymentDueDate} />
+                  </span>
+                </>
+              ) : (
+                <p className="fw-bold text-warning">
+                  Payment Completed for this property
+                </p>
+              )}
             </div>
 
+            <div className="mt-5"></div>
+            {stillHasPendingPayment && (
+              <MakePayment
+                amount={expectedNextPayment}
+                info={{ userId, assignedPropertyId: id }}
+              />
+            )}
             <Button
               className="me-3 mb-3 btn-sm"
+              color={classNames({
+                warning: stillHasPendingPayment,
+                info: !stillHasPendingPayment,
+              })}
               href={`/our-properties/${project?.slug || 'project-name'}/${
                 property?.slug || 'property-name'
               }/${property.id}`}
             >
               View Property
             </Button>
-            <MakePayment
-              amount={expectedNextPayment}
-              info={{ userId, assignedPropertyId: id }}
-            />
           </aside>
         </div>
       </div>
@@ -159,6 +188,30 @@ export const OverdueBadge = ({ date }) => {
   ) : (
     <div className="badge  badge-overdue badge-overdue__success">
       Due: <strong>{daysInWords}</strong>
+    </div>
+  );
+};
+
+const FeaturedProperties = () => (
+  <Section>
+    <PaginatedContent
+      endpoint={'api/properties'}
+      pageName="Featured Property"
+      pluralPageName="Featured Properties"
+      DataComponent={PropertiesRowList}
+      PageIcon={userMenu['My Properties']}
+      populate="*"
+      limit="6"
+    />
+  </Section>
+);
+
+export const PropertiesRowList = ({ results }) => {
+  return (
+    <div className="row gy-4">
+      {results.map((property, index) => (
+        <SingleProperty key={index} {...property} />
+      ))}
     </div>
   );
 };

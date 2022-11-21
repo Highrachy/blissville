@@ -239,8 +239,10 @@ const Referrals = () => {
                 <div>
                   <h6 className="mb-0">3. Earn Rewards</h6>
                   <p>
-                    You&apos;ll receive 5% of their first property price after
-                    they have made their first payment.
+                    You&apos;ll receive{' '}
+                    <strong className="fw-semibold">up to 5%</strong>{' '}
+                    <sup className="text-muted">*</sup> of their first property
+                    price after they have made their first payment.
                   </p>
                 </div>
               </aside>

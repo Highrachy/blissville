@@ -21,7 +21,7 @@ const Login = () => {
   const permission = getPermissionFromStore();
 
   React.useEffect(() => {
-    if (permission || permission === USER_ROLES.USER)
+    if (permission || permission?.toString() === USER_ROLES.USER.toString())
       Router.push(`app/${ROLE_NAME[permission]}/dashboard`);
   }, [permission]);
 

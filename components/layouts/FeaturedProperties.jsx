@@ -1,7 +1,6 @@
 import { properties } from '@/data/properties';
 import React from 'react';
 import Section from '../common/Section';
-import SingleProperty from '../common/SingleProperty';
 import SinglePropertyNew from '../common/SinglePropertyNew';
 
 export const FeaturedProperties = ({ properties, title }) =>

@@ -2,7 +2,7 @@ import navigation from '@/data/navigation';
 import useScrollPosition from '@/hooks/useScrollPosition';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import {
   Container,
@@ -13,6 +13,10 @@ import {
 } from 'react-bootstrap';
 import ActiveLink from '../utils/ActiveLink';
 import useWindowSize from '@/hooks/useWindowSize';
+import { UserContext } from 'context/user';
+import axios from 'axios';
+import { getTokenFromStore } from '@/utils/localStorage';
+import { UserProfileNav } from '../admin/Backend';
 
 const DesktopNavigation = ({ MENU }) => {
   return (
@@ -72,33 +76,66 @@ const Navigation = ({ parentPage }) => {
     setLastScrollPos(currentScrollPos);
   }, [currentScrollPos, lastScrollPos, isDesktop]);
 
-  const MENU = navigation.map(({ children, url, title }, index) => (
-    <React.Fragment key={index}>
-      {Object.keys(children)?.length > 0 ? (
-        <NavDropdown
-          title={title}
-          id={`${url}-dropdown`}
-          active={parentPage === url}
-        >
-          {Object.entries(children).map(([url, title], index) => (
-            <ActiveLink
-              key={`${url}-dropdown-${index}`}
-              href={`/${url}`}
-              passHref
-            >
-              <NavDropdown.Item>{title}</NavDropdown.Item>
-            </ActiveLink>
-          ))}
-        </NavDropdown>
-      ) : (
-        <ActiveLink href={`/${url}`} passHref>
-          <Nav.Link aria-current="page" className={`nav-url`}>
-            {title}
-          </Nav.Link>
-        </ActiveLink>
-      )}
-    </React.Fragment>
-  ));
+  const { loginUser, user } = useContext(UserContext);
+
+  const token = getTokenFromStore(true);
+
+  React.useEffect(() => {
+    async function confirmPreviousLogin() {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
+          {
+            headers: {
+              Authorization: getTokenFromStore(),
+            },
+          }
+        );
+        if (response.status === 200) {
+          loginUser(response.data);
+        }
+      } catch (error) {}
+    }
+    if (token) {
+      confirmPreviousLogin();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  const MENU = navigation.map(({ children, url, title }, index) => {
+    const isSignedInUser = !!user?.id;
+    console.log('isSignedInUser: ', isSignedInUser);
+    return (
+      <React.Fragment key={index}>
+        {Object.keys(children)?.length > 0 ? (
+          <NavDropdown
+            title={title}
+            id={`${url}-dropdown`}
+            active={parentPage === url}
+          >
+            {Object.entries(children).map(([url, title], index) => (
+              <ActiveLink
+                key={`${url}-dropdown-${index}`}
+                href={`/${url}`}
+                passHref
+              >
+                <NavDropdown.Item>{title}</NavDropdown.Item>
+              </ActiveLink>
+            ))}
+          </NavDropdown>
+        ) : title?.toLowerCase() === 'login' && isSignedInUser ? (
+          <UserProfileNav user={user} isPublicPage />
+        ) : (
+          <ActiveLink href={`/${url}`} passHref>
+            <Nav.Link aria-current="page" className={`nav-url`}>
+              {title}
+            </Nav.Link>
+          </ActiveLink>
+        )}
+      </React.Fragment>
+    );
+  });
 
   const currentNavigation = isDesktop ? (
     <DesktopNavigation MENU={MENU} />
