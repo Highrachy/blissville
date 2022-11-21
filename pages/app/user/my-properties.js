@@ -69,7 +69,9 @@ const MySingleProperty = ({ id, attributes, userId }) => {
     id: attributes?.project?.data?.id,
   };
   const now =
-    totalAmountPaid > 0 ? Math.floor((totalAmountPaid / price) * 100) : 0;
+    totalAmountPaid > 0
+      ? Math.min(Math.floor((totalAmountPaid / price) * 100), 100)
+      : 0;
   const stillHasPendingPayment = now < 100;
   return (
     <div className="card rounded m-0 mb-5">
