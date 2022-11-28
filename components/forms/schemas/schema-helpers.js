@@ -58,8 +58,7 @@ export const positiveNumberValidation = (label, type = 'number') =>
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
     .required(`${label} must be a valid ${type}`)
-    .positive(`${label} must be a positive ${type}`)
-    .integer(`${label} must be a ${type}`);
+    .positive(`${label} must be a positive ${type}`);
 
 export const numberValidation = (label, type = 'number') =>
   yup
@@ -77,15 +76,33 @@ export const percentageValidation = (label, type = 'number') =>
     .integer(`${label} must be a ${type}`)
     .max(100, `${label} must be lesser than 100`);
 
-export const moneyRange = (label, type = 'number', min, max = 0) =>
+export const moneyRange = (
+  label,
+  type = 'number',
+  min,
+  max = 0,
+  isMoneyFormat = true
+) =>
   yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
     .required(`${label} must be a valid ${type}`)
     .positive(`${label} must be a positive ${type}`)
-    .integer(`${label} must be a ${type}`)
-    .min(min, `${label} must be greater than ${moneyFormatInNaira(min)}`)
-    .max(max, `${label} must be lesser than ${moneyFormatInNaira(max)}`);
+    .min(
+      min,
+      `${label} must be greater than ${
+        isMoneyFormat ? moneyFormatInNaira(min) : min
+      }`
+    )
+    .max(
+      max,
+      `${label} must be lesser than ${
+        isMoneyFormat ? moneyFormatInNaira(max) : max
+      }`
+    );
+
+export const numberRange = (label, type = 'number', min, max = 0) =>
+  moneyRange(label, type, min, max, false);
 
 export const validPercentage = (label) =>
   yup

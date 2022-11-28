@@ -5,13 +5,11 @@ import { ContentLoader } from '@/components/utils/LoadingItems';
 import { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import { REFERRAL_STATUS_NAME, USER_ROLES } from '@/utils/constants';
-import TabContent, { TabContentHeader } from '@/components/admin/TabContent';
+import TabContent from '@/components/admin/TabContent';
 import { LocalImage } from '@/components/common/Image';
 import Separator from '@/components/common/Separator';
 import { getFullName, moneyFormatInNaira } from '@/utils/helpers';
-import FormikButton from '@/components/forms/FormikButton';
-import Input from '@/components/forms/Input';
-import FormikModalButton from '@/components/utils/FormikModalButton';
+import UpdateReferralButton from '@/components/utils/UpdateReferralButton';
 
 const pageOptions = {
   key: 'referral',
@@ -22,42 +20,12 @@ const SingleReferral = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const handleSubmit = async (values, actions) => {
-    return null;
-    // const payload = {
-    //   ...values,
-    //   visitDate: values.visitDate.date,
-    //   visiting: `${visiting}`,
-    // };
-    // try {
-    //   axios({
-    //     method: 'post',
-    //     url: `${process.env.NEXT_PUBLIC_API_URL}/api/visitations`,
-    //     data: { data: payload },
-    //   })
-    //     .then(function (response) {
-    //       const { status } = response;
-    //       if (statusIsSuccessful(status)) {
-    //         toast.success('Visitation has been successfully scheduled');
-    //         actions.resetForm({});
-    //         actions.setSubmitting(false);
-    //         return true;
-    //       }
-    //     })
-    //     .catch(function (error) {
-    //       toast.error(getError(error));
-    //     });
-    // } catch (error) {
-    //   toast.error(getError(error));
-    // }
-  };
-
   const [query, result] = useSWRQuery({
     name: id ? [pageOptions.key, id] : id,
     endpoint: `api/referrals/${id}`,
     axiosOptions: {
       params: {
-        populate: '*',
+        populate: 'deep',
       },
     },
   });
@@ -75,31 +43,17 @@ const SingleReferral = () => {
         'totalReward',
         'accumulatedReward',
         'referralPercentage',
+        'property',
       ],
       processField: {
         referredBy: () => getFullName(output?.user?.data?.attributes),
         referralPercentage: () => (
-          <>
-            2.5% &nbsp;{' '}
-            <FormikModalButton
-              color="info"
-              className="btn text-white btn-xs"
-              name="referral-bonus"
-              schema={{}}
-              initialValues={{}}
-              modalContent={
-                <>
-                  <Input name="percentage" label="Referral Percentage" />
-                  <FormikButton color="secondary" className="mt-3">
-                    Update Referral Percentage
-                  </FormikButton>
-                </>
-              }
-              handleSubmit={handleSubmit}
-            >
-              Update
-            </FormikModalButton>
-          </>
+          <UpdateReferralButton
+            id={id}
+            result={output}
+            query={query}
+            table="referrals"
+          />
         ),
         accumulatedReward: (value) => (
           <span className="fw-bold text-lg text-primary">
@@ -117,6 +71,20 @@ const SingleReferral = () => {
           </span>
         ),
         status: (value) => REFERRAL_STATUS_NAME[value],
+        property: () => {
+          const assignedProperty = output?.assignedProperty?.data?.attributes;
+          const property = assignedProperty?.property?.data?.attributes;
+          const project = property?.project?.data?.attributes;
+          if (!assignedProperty) return 'Not Assigned';
+          return (
+            <span className="fw-semibold text-md">
+              {project.name} ({property?.name}) -{' '}
+              <strong className="text-primary">
+                {moneyFormatInNaira(assignedProperty.price)}
+              </strong>
+            </span>
+          );
+        },
       },
     },
   ];

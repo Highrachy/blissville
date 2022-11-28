@@ -3,10 +3,10 @@ import {
   optionalValidation,
   required,
   requiredDate,
-  arrayValidation,
   customSelectValidation,
   positiveNumberValidation,
   numberValidation,
+  numberRange,
 } from './schema-helpers';
 
 export const projectSchema = {
@@ -83,7 +83,11 @@ export const floorPlanSchema = {
   image: stringValidation('Image'),
   title: stringValidation('Title'),
 };
+
 export const faqSchema = {
   question: stringValidation('Question'),
   answer: stringValidation('Answer'),
+};
+export const referralPercentageSchema = {
+  referralPercentage: numberRange('Referral Percentage', 'number', 1, 5),
 };
