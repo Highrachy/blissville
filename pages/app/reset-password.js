@@ -39,15 +39,12 @@ const ResetPassword = () => {
               data: { identifier: data.userInfo.email, password },
             })
               .then(function (response) {
-                const { data, status } = response;
+                const { status } = response;
                 if (statusIsSuccessful(status)) {
                   toast.success('Your password has been successfully updated');
-                  loginUser(data.user, data.jwt);
                   actions.resetForm({});
                   actions.setSubmitting(false);
-                  Router.push(
-                    `/app/${ROLE_NAME[data.user.permission]}/dashboard`
-                  );
+                  Router.push(`/login`);
                 }
               })
               .catch(function (error) {
