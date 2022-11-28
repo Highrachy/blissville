@@ -208,15 +208,15 @@ const widgetLists = [
     Icon: <StatusUp variant="Bulk" />,
   },
   {
-    name: 'wishlist',
+    name: 'referrals',
     color: 'warning',
-    key: 'interests',
-    Icon: <HeartAdd variant="Bulk" />,
+    Icon: <UserAdd variant="Bulk" />,
   },
   {
-    name: 'referrals',
+    name: 'wishlist',
     color: 'danger',
-    Icon: <UserAdd variant="Bulk" />,
+    key: 'interests',
+    Icon: <HeartAdd variant="Bulk" />,
   },
 ];
 
