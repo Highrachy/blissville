@@ -7,8 +7,6 @@ import {
 } from '@/utils/localStorage';
 import axios from 'axios';
 import { UserContext } from 'context/user';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import { LocalImage } from '../common/Image';
@@ -18,6 +16,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import LogoImage from '../common/LogoImage';
 const Backend = ({ children, role = USER_ROLES.USER, title }) => {
   const { width } = useWindowSize();
   const isDesktop = width > 991;
@@ -85,16 +84,7 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
       >
         {!isDesktop && (
           <div className="d-flex d-md-none justify-content-between pb-2 border-bottom mt-3 mb-4">
-            <Link href="/" passHref>
-              <a>
-                <Image
-                  src="/assets/img/logo.png"
-                  alt="blissville logo"
-                  width={147}
-                  height={46}
-                />
-              </a>
-            </Link>
+            <LogoImage />
             <div
               className="btn-link img-md"
               onClick={() => setIsFolded(!isFolded)}

@@ -5,14 +5,27 @@ import '../sass/import.css';
 import '../sass/App.scss';
 import UserProvider from 'context/user';
 import { ToastContainer, Slide } from 'react-toastify';
+import Snowfall from 'react-snowfall';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { isFestivePeriod } from '@/utils/helpers';
 
 function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
+      {isFestivePeriod() && (
+        <Snowfall
+          snowflakeCount={100}
+          style={{
+            // position: 'fixed',
+            // width: '100vw',
+            // height: '100vh',
+            zIndex: 9999,
+          }}
+        />
+      )}
       <ToastContainer autoClose={10000} transition={Slide} theme="colored" />
       <NextNProgress color="#446cb2" />
       <Head>

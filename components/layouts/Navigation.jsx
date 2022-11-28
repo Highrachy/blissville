@@ -17,6 +17,7 @@ import { UserContext } from 'context/user';
 import axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { UserProfileNav } from '../admin/Backend';
+import LogoImage from '../common/LogoImage';
 
 const DesktopNavigation = ({ MENU }) => {
   return (
@@ -152,16 +153,9 @@ const Navigation = ({ parentPage }) => {
         className={className}
       >
         <Container>
-          <Link href="/" passHref>
-            <Navbar.Brand>
-              <Image
-                src="/assets/img/logo.png"
-                alt="blissville logo"
-                width={147}
-                height={46}
-              />
-            </Navbar.Brand>
-          </Link>
+          <Navbar.Brand>
+            <LogoImage />
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="blissville-navbar">
             <svg
               xmlns="http://www.w3.org/2000/svg"

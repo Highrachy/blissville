@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
+import LogoImage from '../common/LogoImage';
 
 const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
   const currentSideMenu =
@@ -27,20 +28,7 @@ const Sidebar = ({ isFolded, setIsFolded, isDesktop, role }) => {
       <nav className="dashboard-sidebar">
         <div className="sidebar-header">
           {!isFolded &&
-            (isDesktop ? (
-              <Link href="/" passHref>
-                <a>
-                  <Image
-                    src="/assets/img/logo.png"
-                    alt="blissville logo"
-                    width={147}
-                    height={46}
-                  />
-                </a>
-              </Link>
-            ) : (
-              <h5 className="text-dark">Menu</h5>
-            ))}
+            (isDesktop ? <LogoImage /> : <h5 className="text-dark">Menu</h5>)}
           <div
             className={`sidebar-toggler ${!isDesktop ? 'icon-md' : ''}`}
             onClick={handleMenuState}
