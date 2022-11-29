@@ -8,10 +8,10 @@ const LogoImage = () => {
     <Link href="/" passHref>
       {isFestivePeriod() ? (
         <Image
-          src="/assets/img/xmas_logo.png"
+          src="/assets/img/xmas/logo.svg"
           alt="blissville logo"
-          width={147}
-          height={55}
+          width={168}
+          height={74}
         />
       ) : (
         <Image

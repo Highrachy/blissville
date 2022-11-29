@@ -362,8 +362,9 @@ export const mapStatusToName = (status) =>
   );
 
 export const isFestivePeriod = () => {
-  const today = new Date();
-  const decemberFirst = new Date(today.getFullYear(), 11, 1);
-  const januaryTen = new Date(today.getFullYear() + 1, 0, 10);
-  return today >= decemberFirst && today <= januaryTen;
+  return true;
+  // const today = new Date();
+  // const decemberFirst = new Date(today.getFullYear(), 11, 1);
+  // const januaryTen = new Date(today.getFullYear() + 1, 0, 10);
+  // return today >= decemberFirst && today <= januaryTen;
 };
