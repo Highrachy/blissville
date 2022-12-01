@@ -36,13 +36,13 @@ const IntroText = () => (
       <div className="row">
         <div className="col-md-7 col-lg-6">
           <h3 className="mt-3 mt-lg-6">
-            The Leading Real Estate Company in Nigeria
+            The Leading Real Estate brand that avails you with true value.
           </h3>
 
           <p className="lead">
-            Our Vision is to be a front runner in providing convenient and
-            efficient housing thereby enhancing returns to our investors and
-            property owners.
+            Our Vision is to be industry leader in providing convenient and
+            efficient housing in the African market thereby enhancing returns to
+            our investors and property owners.
           </p>
         </div>
         <div className="col-md-5 col-lg-6">

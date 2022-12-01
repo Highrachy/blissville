@@ -1,8 +1,8 @@
 export const testimonials = [
   {
-    name: 'Asake Benjamin',
+    name: '',
     testimonial:
-      'Simply the best place to get your home. They will enhance your living experience with very reasonable financial consequences.',
+      'When it comes to selecting your ideal home; they are customer-centric and assist you in discovering your purpose.',
   },
   {
     name: 'Dantata Joshua',

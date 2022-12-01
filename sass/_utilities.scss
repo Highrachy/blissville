@@ -663,6 +663,10 @@ td {
   text-align: center;
   width: 100%;
   border-radius: 3px;
+  &:hover {
+    border-color: $primary;
+    cursor: text;
+  }
 }
 
 .input-password-icon {

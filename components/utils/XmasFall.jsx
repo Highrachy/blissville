@@ -1,7 +1,6 @@
 import React from 'react';
 import Snowfall from 'react-snowfall';
 import { isFestivePeriod } from '@/utils/helpers';
-import Image from 'next/image';
 
 const XmasFall = () => {
   let images = null;
@@ -16,20 +15,20 @@ const XmasFall = () => {
     snowflake3.src = '/assets/img/xmas/star3.png';
     snowflake4.src = '/assets/img/xmas/candy-bar.png';
     snowflake5.src = '/assets/img/xmas/sweet.png';
-    images = [snowflake1, snowflake2, snowflake3, snowflake4, snowflake5];
+    images = [snowflake1, snowflake1, snowflake4, snowflake5];
   }
   return (
     isFestivePeriod() &&
     process.browser && (
       <>
         <Snowfall
-          snowflakeCount={30}
-          rotationSpeed={[0, 0.2]}
-          speed={[0.008, 0.1]}
-          wind={[0.005, 0.1]}
-          radius={[10, 20]}
+          snowflakeCount={50}
+          rotationSpeed={[0, 0.5]}
+          speed={[0.008, 0.3]}
+          wind={[0.005, 0.3]}
+          radius={[10, 18]}
           style={{
-            opacity: 0.3,
+            opacity: 0.4,
             zIndex: 9999,
           }}
           images={images}

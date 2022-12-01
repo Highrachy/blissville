@@ -19,7 +19,7 @@ export const TestimonialSection = () => (
         </Slide>
       </div>
       <div className="row pt-5">
-        <OneTestimonial {...testimonials[3]} />
+        <OneTestimonial {...testimonials[0]} />
       </div>
     </div>
   </Section>

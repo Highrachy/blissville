@@ -36,17 +36,17 @@ const ScheduleVisit = () => (
                     width={150}
                     height={150}
                     objectFit="cover"
-                    className="rounded pe-3"
+                    className="rounded"
                   />
                 </div>
                 <div className="flex-grow-1 ms-md-3">
-                  <h5 className="text-white mb-2 mb-md-3 schedule-visit__name">
-                    Sandra Holyfield
+                  <h5 className="text-white mb-2 schedule-visit__name">
+                    Obehi Johnny
                   </h5>
-                  <p className="text-white mb-2 mb-md-3 schedule-visit__title">
-                    SALES MANAGER
+                  <p className="text-white mb-2 schedule-visit__title text-uppercase">
+                    Business
                   </p>
-                  <p className=" schedule-visit__phone mb-2 mb-md-3">
+                  <p className=" schedule-visit__phone mb-2">
                     <PhoneIcon />
                     &nbsp;
                     <a className="text-white" href={PHONE_NUMBER.HREF}>

@@ -87,19 +87,18 @@ const ExecutiveSummary = () => (
             </h3>
 
             <p className="lead">
-              Actualize the dream of buying a home, readily tailored to suit
-              your peculiar taste with the specific finishing details you
-              desire.
+              Security, comfort, security. These are qualities you experience
+              when you actualize your dream of buying a home with Blissville.
             </p>
 
             <p className="mb-5 lead">
               Subscribe with us today and proceed to select from our vast range
-              of Floor tiles, Wall tiles, Paint colors, and other finishes to
+              of floor tiles, wall tiles, paint colors and other finishes to
               customize your home into the haven that suits your style.
             </p>
 
-            <Button color="secondary" className="mb-5">
-              Try it Now &nbsp; <ArrowRight />
+            <Button color="secondary" href="/contact-us" className="mb-5">
+              Get Started &nbsp; <ArrowRight />
             </Button>
           </Fade>
         </div>
