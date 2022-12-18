@@ -10,7 +10,6 @@ import { getTokenFromStore } from '@/utils/localStorage';
 
 const UpdateReferralButton = ({ id, result, query, table = 'users' }) => {
   const handleSubmit = async (values, actions) => {
-    console.log('in Hanlde Submit');
     const payload =
       table === 'users'
         ? {

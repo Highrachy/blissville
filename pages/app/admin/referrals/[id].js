@@ -47,14 +47,17 @@ const SingleReferral = () => {
       ],
       processField: {
         referredBy: () => getFullName(output?.user?.data?.attributes),
-        referralPercentage: () => (
-          <UpdateReferralButton
-            id={id}
-            result={output}
-            query={query}
-            table="referrals"
-          />
-        ),
+        referralPercentage: () =>
+          output?.accumulatedReward > 0 ? (
+            <span className="fw-bold">{output?.referralPercentage}% </span>
+          ) : (
+            <UpdateReferralButton
+              id={id}
+              result={output}
+              query={query}
+              table="referrals"
+            />
+          ),
         accumulatedReward: (value) => (
           <span className="fw-bold text-lg text-primary">
             {moneyFormatInNaira(value)}

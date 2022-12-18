@@ -277,7 +277,7 @@ export const DashboardTable = ({ children, title, className }) => {
       <table className="table table-border table-striped">
         <thead>
           <tr>
-            <th colSpan="3">
+            <th colSpan="6">
               <h5 className="my-3">{title}</h5>
             </th>
           </tr>
