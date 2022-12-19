@@ -22,13 +22,13 @@ const XmasFall = () => {
     process.browser && (
       <>
         <Snowfall
-          snowflakeCount={50}
+          snowflakeCount={30}
           rotationSpeed={[0, 0.5]}
-          speed={[0.008, 0.3]}
-          wind={[0.005, 0.3]}
-          radius={[10, 18]}
+          speed={[0.008, 0.15]}
+          wind={[0.005, 0.15]}
+          radius={[10, 20]}
           style={{
-            opacity: 0.4,
+            opacity: 0.3,
             zIndex: 9999,
           }}
           images={images}

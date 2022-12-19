@@ -34,6 +34,7 @@ export async function getStaticProps() {
       params: {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
+        'filters[status][$eq]': 0,
       },
     }
   );
@@ -43,6 +44,7 @@ export async function getStaticProps() {
     {
       params: {
         sort: 'createdAt:desc',
+        'filters[status][$eq]': 0,
       },
     }
   );

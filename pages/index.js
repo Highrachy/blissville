@@ -87,7 +87,7 @@ const ExecutiveSummary = () => (
             </h3>
 
             <p className="lead">
-              Security, comfort, security. These are qualities you experience
+              Serenity, comfort, security. These are qualities you experience
               when you actualize your dream of buying a home with Blissville.
             </p>
 
@@ -125,6 +125,7 @@ export async function getStaticProps() {
       params: {
         'pagination[pageSize]': 3,
         'filters[featured][$eq]': 'true',
+        'filters[status][$eq]': 0,
       },
     }
   );
@@ -135,6 +136,7 @@ export async function getStaticProps() {
       params: {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
+        'filters[status][$eq]': 0,
       },
     }
   );
@@ -145,6 +147,7 @@ export async function getStaticProps() {
       params: {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
+        'filters[status][$eq]': 0,
       },
     }
   );

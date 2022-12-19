@@ -37,6 +37,7 @@ export async function getStaticProps() {
     {
       params: {
         sort: 'createdAt:desc',
+        'filters[status][$eq]': 0,
       },
     }
   );
