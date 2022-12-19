@@ -5,7 +5,7 @@ import { useSWRQuery } from '@/hooks/useSWRQuery';
 import { UserContext } from 'context/user';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { getLocationFromAddress, moneyFormatInNaira } from '@/utils/helpers';
 import MakePayment from '@/components/utils/MakePayment';
 import { differenceInDays, isPastDate } from '@/utils/date-helpers';
@@ -19,6 +19,37 @@ import Section from '@/components/common/Section';
 import { DashboardTable } from '../dashboard';
 import { LocalImage } from '@/components/common/Image';
 import Separator from '@/components/common/Separator';
+import { TabTeam } from '@/components/common/Team';
+import { MdCheckCircle } from 'react-icons/md';
+
+const START_CUSTOMIZE_OPTIONS = {
+  1: {
+    text: 'How would you like to get started',
+    options: [
+      'I am excited to customise all rooms in my apartment',
+      'I am excited to customise a few rooms only',
+      'Help me customize my apartment with the best option',
+      'I am not sure where to start',
+    ],
+  },
+  2: {
+    text: 'What is your budget',
+    options: [
+      'I want no additional cost',
+      'I am happy with an average cost',
+      'I want a premium things with little consideration for the cost',
+    ],
+  },
+  3: {
+    text: 'What is your preferred theme',
+    options: [
+      'Any theme',
+      'Modern, Contemporary and Elegant',
+      'Minimalist and Professional',
+      'Premium, Classy and Royal',
+    ],
+  },
+};
 
 const MyProperties = () => {
   const { user } = useContext(UserContext);
@@ -47,6 +78,8 @@ const MyProperties = () => {
       >
         <Header {...item} userId={id} />
         <Summary {...item} userId={id} />
+        <Customize />
+        <TabTeam />
         {customizeData.map((data, index) => (
           <CustomizeRoom {...data} key={index} />
         ))}
@@ -252,6 +285,81 @@ const Header = ({ attributes }) => {
         </div>
       </div>
     </section>
+  );
+};
+
+const Customize = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedOption, setSelectedOption] = useState({
+    1: null,
+    2: null,
+    3: null,
+  });
+
+  return (
+    <section className="card mb-3">
+      <div className="card-body p-5">
+        <h3>Start Customizing your Home</h3>
+        <p className="text-muted">
+          If you&apos;re looking to make your house feel like home, look no
+          further! You can customize your home to make it feel exactly as you
+          want it. With our easy-to-use design tools, you can quickly create a
+          space that&aps;s unique to you.
+        </p>
+      </div>
+
+      <hr />
+
+      <section>
+        <h4 className="text-center">
+          {START_CUSTOMIZE_OPTIONS[currentStep]?.text}
+        </h4>
+
+        <CustomizeOptions
+          step={currentStep}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+        />
+
+        <Button onClick={() => setCurrentStep(currentStep + 1)}>
+          Continue Customization
+        </Button>
+      </section>
+    </section>
+  );
+};
+
+const CustomizeOptions = ({ step, selectedOption, setSelectedOption }) => {
+  const options = START_CUSTOMIZE_OPTIONS[step]?.options;
+  return (
+    <ul className="d-flex flex-column list-unstyled w-100 row">
+      {options.map((option) => (
+        <SingleOption
+          key={option}
+          text={option}
+          step={step}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+        />
+      ))}
+    </ul>
+  );
+};
+
+const SingleOption = ({ text, step, selectedOption, setSelectedOption }) => {
+  console.log('selectedOption', selectedOption);
+  return (
+    <li
+      className={`custom-option col-10 offset-1 ${
+        selectedOption[step] === text ? 'active' : ''
+      }`}
+      onClick={() => setSelectedOption({ ...selectedOption, [step]: text })}
+    >
+      {text}
+      <span className="custom-option__check">
+        <MdCheckCircle />
+      </span>
+    </li>
   );
 };
 

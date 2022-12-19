@@ -688,3 +688,29 @@ td {
     right: 2.75rem;
   }
 }
+
+.custom-option {
+  border: 1px solid $gray-400;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  border-radius: 3px;
+
+  &__check {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1rem;
+    color: $gray-600;
+    font-size: 1.5rem;
+  }
+
+  &.active {
+    border-color: $primary;
+    background: $primary-100;
+
+    &__check {
+      color: $danger;
+    }
+  }
+}

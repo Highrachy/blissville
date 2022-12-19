@@ -134,8 +134,10 @@ const PropertyInformation = ({ property }) => {
     baths,
     parkingSpace,
     paymentPlan,
+    availableUnits,
   } = property;
   const project = property.project.data.attributes;
+  const isSoldOut = availableUnits === 0;
   return (
     <Section>
       <div className="container">
@@ -151,7 +153,9 @@ const PropertyInformation = ({ property }) => {
               &nbsp;- {getLocationFromAddress(project)}
             </p>
 
-            <h3 className="text-primary">{moneyFormatInNaira(price)}</h3>
+            <h3 className="text-primary">
+              {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)}
+            </h3>
           </div>
           <div className="col-sm-4 text-md-end mb-4 mb-md-0">
             <aside>
@@ -219,7 +223,7 @@ const PropertyInformation = ({ property }) => {
                 <li>
                   <span className="list-dotted__label">Prices From </span>
                   <span className="list-dotted__value">
-                    {moneyFormatInNaira(price)}
+                    {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)}
                   </span>
                 </li>
                 <li>
@@ -346,6 +350,10 @@ const TabInformation = ({ property }) => {
     property.paymentPlan > 0 ? property.paymentPlan / 2 : 0;
   const [currentTab, setCurrentTab] = React.useState(packages[0]['name']);
   const [customPlan, setCustomPlan] = React.useState(halfPaymentPlan);
+
+  if (property?.availableUnits === 0) {
+    return null;
+  }
 
   return (
     <Section altBg>

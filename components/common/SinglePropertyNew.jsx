@@ -6,7 +6,9 @@ import Button from '../forms/Button';
 import { BathIcon, BedIcon, SizeIcon } from '../Icons/Icons';
 
 const SingleProperty = ({ id, attributes }) => {
-  const { name, slug, image, beds, baths, size, price } = attributes;
+  const { name, slug, image, beds, baths, size, price, availableUnits } =
+    attributes;
+  const isSoldOut = availableUnits === 0;
   const project = attributes.project.data.attributes;
   return (
     <div className="col-md-4 col-sm-12">
@@ -30,8 +32,12 @@ const SingleProperty = ({ id, attributes }) => {
               </Link>{' '}
               - {getLocationFromAddress(project, true)}
             </div>
-            <div className="text-lg text-primary fw-bold">
-              {moneyFormatInNaira(price)}
+            <div
+              className={`text-lg ${
+                isSoldOut ? 'text-muted' : 'text-primary'
+              } fw-bold`}
+            >
+              {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)}
             </div>
           </div>
 
