@@ -415,6 +415,7 @@ export async function getStaticProps({ params }) {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
         'filters[project][id][$ne]': data[0].id,
+        'filters[status][$eq]': 0,
       },
     }
   );

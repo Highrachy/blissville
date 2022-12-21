@@ -688,6 +688,7 @@ export async function getStaticProps({ params }) {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
         'filters[project][id][$ne]': projectId,
+        'filters[status][$eq]': 0,
       },
     }
   );
@@ -698,6 +699,7 @@ export async function getStaticProps({ params }) {
         populate: '*',
         'filters[project][id][$eq]': projectId,
         'filters[id][$ne]': id,
+        'filters[status][$eq]': 0,
       },
     }
   );
@@ -708,6 +710,7 @@ export async function getStaticProps({ params }) {
       params: {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
+        'filters[status][$eq]': 0,
       },
     }
   );

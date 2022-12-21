@@ -170,7 +170,7 @@ const SingleFloorPlan = ({
             }}
             className="mt-md-5 mt-4 btn-sm px-4 py-2 text-white text-sm fw-medium"
           >
-            Edit Floor Plan
+            Edit
           </Button>
           <DeleteButton
             afterSuccess={() => query.mutate()}
