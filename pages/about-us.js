@@ -87,7 +87,7 @@ const CEOSpeech = () => {
               Our unique edifices do not simply cater for the affordability on
               procurement but also ensure that the living experience of the
               occupants is delightfully enhanced at minimum running and
-              maintenance cost &nbsp;
+              maintenance cost&nbsp;
               {isMobile && showReadMore ? (
                 <>
                   ...

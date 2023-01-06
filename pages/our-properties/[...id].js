@@ -234,7 +234,12 @@ const PropertyInformation = ({ property }) => {
                 <li>
                   <span className="list-dotted__label">Payment Plan</span>
                   <span className="list-dotted__value">
-                    {paymentPlan} {Humanize.pluralize(paymentPlan, 'Month')}
+                    {paymentPlan === 0
+                      ? 'Outright Payment'
+                      : `${paymentPlan} ${Humanize.pluralize(
+                          paymentPlan,
+                          'Month'
+                        )}`}
                   </span>
                 </li>
                 <li className="text-center">
