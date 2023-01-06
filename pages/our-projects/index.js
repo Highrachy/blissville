@@ -5,6 +5,7 @@ import { PageHeader } from '@/components/common/Header';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { SingleProjectGrid } from '@/components/common/SingleProject';
 import axios from 'axios';
+import { PROJECT_STATUS } from '@/utils/constants';
 
 export default function OurProjects({ projects }) {
   return (
@@ -37,7 +38,7 @@ export async function getStaticProps() {
     {
       params: {
         sort: 'createdAt:desc',
-        'filters[status][$eq]': 0,
+        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
       },
     }
   );

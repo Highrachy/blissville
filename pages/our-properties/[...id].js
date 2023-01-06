@@ -51,6 +51,7 @@ import FormikButton from '@/components/forms/FormikButton';
 import BuyNowButton from '@/components/utils/BuyNowButton';
 import { getError } from '@/utils/helpers';
 import { toast } from 'react-toastify';
+import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
 
 export default function SinglePropertyPage({
   property,
@@ -470,20 +471,24 @@ const TabInformation = ({ property }) => {
                           packageName={name}
                         />
 
-                        <PaymentPlanCard
-                          month={customPlan}
-                          price={currentTabPrice}
-                          property={property}
-                          customPlan={customPlan !== halfPaymentPlan}
-                          packageName={name}
-                        />
-                        <PaymentPlanCard
-                          month={property.paymentPlan}
-                          price={currentTabPrice}
-                          property={property}
-                          dimDisplay={customPlan !== halfPaymentPlan}
-                          packageName={name}
-                        />
+                        {property.paymentPlan > 0 && (
+                          <>
+                            <PaymentPlanCard
+                              month={customPlan}
+                              price={currentTabPrice}
+                              property={property}
+                              customPlan={customPlan !== halfPaymentPlan}
+                              packageName={name}
+                            />
+                            <PaymentPlanCard
+                              month={property.paymentPlan}
+                              price={currentTabPrice}
+                              property={property}
+                              dimDisplay={customPlan !== halfPaymentPlan}
+                              packageName={name}
+                            />
+                          </>
+                        )}
                       </div>
                     </div>
                   </Tab.Pane>
@@ -688,7 +693,7 @@ export async function getStaticProps({ params }) {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
         'filters[project][id][$ne]': projectId,
-        'filters[status][$eq]': 0,
+        'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
       },
     }
   );
@@ -699,7 +704,7 @@ export async function getStaticProps({ params }) {
         populate: '*',
         'filters[project][id][$eq]': projectId,
         'filters[id][$ne]': id,
-        'filters[status][$eq]': 0,
+        'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
       },
     }
   );
@@ -710,7 +715,7 @@ export async function getStaticProps({ params }) {
       params: {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
-        'filters[status][$eq]': 0,
+        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
       },
     }
   );

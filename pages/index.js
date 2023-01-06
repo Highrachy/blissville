@@ -18,6 +18,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import ReferralModal from '@/components/ui/ReferralModal';
 import { useRouter } from 'next/router';
+import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
 
 export default function Home({ slides, projects, properties }) {
   const { query } = useRouter();
@@ -125,7 +126,7 @@ export async function getStaticProps() {
       params: {
         'pagination[pageSize]': 3,
         'filters[featured][$eq]': 'true',
-        'filters[status][$eq]': 0,
+        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
       },
     }
   );
@@ -136,7 +137,7 @@ export async function getStaticProps() {
       params: {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
-        'filters[status][$eq]': 0,
+        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
       },
     }
   );
@@ -147,7 +148,7 @@ export async function getStaticProps() {
       params: {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
-        'filters[status][$eq]': 0,
+        'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
       },
     }
   );

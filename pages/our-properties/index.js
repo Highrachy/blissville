@@ -7,6 +7,7 @@ import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import axios from 'axios';
 import Section from '@/components/common/Section';
+import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
 
 export default function OurProjects({ properties, projects }) {
   return (
@@ -34,7 +35,7 @@ export async function getStaticProps() {
       params: {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
-        'filters[status][$eq]': 0,
+        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
       },
     }
   );
@@ -44,7 +45,7 @@ export async function getStaticProps() {
     {
       params: {
         sort: 'createdAt:desc',
-        'filters[status][$eq]': 0,
+        'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
       },
     }
   );

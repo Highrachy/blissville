@@ -25,6 +25,7 @@ import {
 } from '@/utils/helpers';
 import { getShortDate } from '@/utils/date-helpers';
 import axios from 'axios';
+import { PROPERTY_STATUS } from '@/utils/constants';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -224,6 +225,7 @@ const TabInformation = ({ project }) => {
                     beds,
                     baths,
                     price,
+                    availableUnits,
                   },
                 }) => (
                   <Tab.Pane eventKey={name} key={name}>
@@ -276,7 +278,9 @@ const TabInformation = ({ project }) => {
                               </li>
                               <li>
                                 <span className="list-dotted__value text-primary h2">
-                                  {moneyFormatInNaira(price)}
+                                  {availableUnits === 0
+                                    ? 'SOLD OUT'
+                                    : moneyFormatInNaira(price)}
                                 </span>
                               </li>
                             </ul>
@@ -287,9 +291,13 @@ const TabInformation = ({ project }) => {
                                 project?.slug || 'project-name'
                               }/${slug || 'property-name'}/${id}`}
                             >
-                              I am Interested
+                              {availableUnits === 0
+                                ? 'View Project'
+                                : 'I am Interested'}
                             </Button>
-                            <ScheduleVisitationButton visiting={name} />
+                            {availableUnits !== 0 && (
+                              <ScheduleVisitationButton visiting={name} />
+                            )}
                           </section>
                         </div>
                         <div className="col-md-7 order-0 order-md-1">
@@ -415,7 +423,7 @@ export async function getStaticProps({ params }) {
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
         'filters[project][id][$ne]': data[0].id,
-        'filters[status][$eq]': 0,
+        'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
       },
     }
   );

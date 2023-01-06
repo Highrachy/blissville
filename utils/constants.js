@@ -56,6 +56,14 @@ export const PROJECT_STATUS = generateStatus(ALL_PROJECT_STATUS);
 export const PROJECT_STATUS_COLOR = generateStatusColor(ALL_PROJECT_STATUS);
 export const PROJECT_STATUS_NAME = mapStatusToName(ALL_PROJECT_STATUS);
 
+const ALL_PROPERTY_STATUS = {
+  ACTIVE: { id: 0, color: 'success' },
+  HIDDEN: { id: 1, color: 'danger' },
+};
+export const PROPERTY_STATUS = generateStatus(ALL_PROPERTY_STATUS);
+export const PROPERTY_STATUS_COLOR = generateStatusColor(ALL_PROPERTY_STATUS);
+export const PROPERTY_STATUS_NAME = mapStatusToName(ALL_PROPERTY_STATUS);
+
 const ALL_INTEREST_STATUS = {
   INTERESTED: { id: 0, color: 'primary' },
   CANCELLED: { id: 1, color: 'danger' },
