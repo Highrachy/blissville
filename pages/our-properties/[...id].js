@@ -732,6 +732,7 @@ export async function getStaticProps({ params }) {
       similarProperties: similarPropertiesRes.data.data,
       projects: projectRes.data.data,
     },
+    revalidate: 10,
   };
 }
 
