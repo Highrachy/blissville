@@ -21,33 +21,60 @@ import { LocalImage } from '@/components/common/Image';
 import Separator from '@/components/common/Separator';
 import { TabTeam } from '@/components/common/Team';
 import { MdCheckCircle } from 'react-icons/md';
+import { getCustomization, storeCustomization } from '@/utils/localStorage';
+import { useRouter } from 'next/router';
 
 const START_CUSTOMIZE_OPTIONS = {
   1: {
+    key: 'Customization',
     text: 'How would you like to get started',
-    options: [
-      'I am excited to customise all rooms in my apartment',
-      'I am excited to customise a few rooms only',
-      'Help me customize my apartment with the best option',
-      'I am not sure where to start',
-    ],
+    options: {
+      CUSTOMIZE_ALL: 'I am excited to customise all rooms in my apartment',
+      CUSTOMIZE_FEW: 'I am excited to customise a few rooms only',
+      HELP_ME: 'Help me customize my apartment with the best option',
+    },
+    extraText: (
+      <>
+        {' '}
+        Not sure on how to proceed?{' '}
+        <Link href="/contact-us" passHref>
+          You can chat with us or contact us
+        </Link>
+      </>
+    ),
   },
   2: {
+    key: 'Budget',
     text: 'What is your budget',
-    options: [
-      'I want no additional cost',
-      'I am happy with an average cost',
-      'I want a premium things with little consideration for the cost',
-    ],
+    options: {
+      NO_COST: 'I want no additional cost',
+      AVERAGE_COST: 'I am happy with an average cost',
+      PREMIUM_COST:
+        'I want a premium things with little consideration for the cost',
+    },
   },
   3: {
+    key: 'Theme',
     text: 'What is your preferred theme',
-    options: [
-      'Any theme',
-      'Modern, Contemporary and Elegant',
-      'Minimalist and Professional',
-      'Premium, Classy and Royal',
-    ],
+    options: {
+      ANY_THEME: 'Any theme',
+      MODERN: 'Modern, Contemporary and Elegant',
+      MINIMALIST: 'Minimalist and Professional',
+      PREMIUM: 'Premium, Classy and Royal',
+    },
+    extraText: (
+      <>
+        {' '}
+        Not sure on these themes mean?{' '}
+        <Link href="/contact-us" passHref>
+          Read our online article for more clarification
+        </Link>
+      </>
+    ),
+  },
+  4: {
+    text: 'Review your selection',
+    options: [],
   },
 };
 
@@ -77,118 +104,14 @@ const MyProperties = () => {
         noContentText={'You have not been assigned any property yet'}
       >
         <Header {...item} userId={id} />
-        <Summary {...item} userId={id} />
+        {/* <Summary {...item} userId={id} /> */}
         <Customize />
-        <TabTeam />
-        {customizeData.map((data, index) => (
-          <CustomizeRoom {...data} key={index} />
-        ))}
       </ContentLoader>
     </Backend>
   );
 };
 
 export default MyProperties;
-
-const CustomizeRoom = ({ image, name, description }) => {
-  return (
-    <div className="card rounded m-0 mb-5">
-      <div className="row g-0">
-        <div className="col-lg-6">
-          <div className="img-fill">
-            <Image
-              src={`/assets/img/customize/${image}`}
-              alt="Hero Image"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-        </div>
-        <div className="col-lg-6">
-          <aside className="px-5 py-5">
-            <div className="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-              <div>
-                <h5 className="mb-0">{name}</h5>
-                <p className="small mb-4 mb-sm-2">{description}</p>
-              </div>
-            </div>
-            <hr className="dotted-border" />
-            <div className="mt-4"></div>
-            <Button
-              href="/app/user/customize-your-home/customize"
-              color="success"
-              className="btn-sm"
-            >
-              Start Customization
-            </Button>{' '}
-            &nbsp;&nbsp;
-            <Button href="#" color="primary" className="btn-sm">
-              Use Default Customization
-            </Button>
-          </aside>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export const Summary = ({ attributes }) => {
-  const {
-    price,
-    initialPayment,
-    expectedNextPayment,
-    paymentDueDate,
-    totalAmountPaid,
-  } = attributes;
-  const property = {
-    ...attributes?.property?.data?.attributes,
-    id: attributes?.property?.data?.id,
-  };
-  const project = {
-    ...attributes?.project?.data?.attributes,
-    id: attributes?.project?.data?.id,
-  };
-  return (
-    <DashboardTable title="Overview">
-      <tr>
-        <th width="300">
-          <span className="fw-semibold">Property Price</span>
-          <br />
-          <span className="fw-light text-gray-700 text-xs">
-            {property?.name} - {project?.name}
-          </span>
-        </th>
-        <td className="text-end">
-          <span className="text-price">{moneyFormatInNaira(price)}</span>
-        </td>
-      </tr>
-      <tr>
-        <th width="300">
-          <span className="fw-semibold">Customization Fee</span>
-          <br />
-          <span className="fw-light text-gray-700 text-xs">
-            {attributes?.package}
-          </span>
-        </th>
-        <td className="text-end">
-          <span className="text-price">{moneyFormatInNaira(0)}</span>
-        </td>
-      </tr>
-      <tr>
-        <th width="300">
-          <span className="fw-semibold">Total</span>
-          <br />
-          <span className="fw-light text-gray-700 text-xs">
-            Total Amount to Pay
-          </span>
-        </th>
-        <td className="text-end">
-          <span className="text-price">{moneyFormatInNaira(price)}</span>
-        </td>
-      </tr>
-    </DashboardTable>
-  );
-};
 
 const Header = ({ attributes }) => {
   const {
@@ -290,70 +213,174 @@ const Header = ({ attributes }) => {
 
 const Customize = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedOption, setSelectedOption] = useState({
-    1: null,
-    2: null,
-    3: null,
+  const [selectedOptions, setSelectedOptions] = useState({
+    ...(getCustomization() || {}),
   });
+  const lastStep = Object.keys(START_CUSTOMIZE_OPTIONS).length;
+  const isLastStep = currentStep === lastStep;
 
   return (
     <section className="card mb-3">
-      <div className="card-body p-5">
-        <h3>Start Customizing your Home</h3>
-        <p className="text-muted">
+      <div className="card-body p-6 pb-6">
+        <h3 className="text-primary">Start Customizing your Home</h3>
+
+        <p className="text-muted mb-5">
           If you&apos;re looking to make your house feel like home, look no
           further! You can customize your home to make it feel exactly as you
           want it. With our easy-to-use design tools, you can quickly create a
-          space that&aps;s unique to you.
+          space that&apos;s unique to you.
         </p>
+        <hr className="dotted-border" />
+        <section>
+          <h4 className="text-center py-5">
+            {START_CUSTOMIZE_OPTIONS[currentStep]?.text}
+          </h4>
+
+          {isLastStep && (
+            <>
+              <ListOptions
+                currentStep={currentStep}
+                selectedOptions={selectedOptions}
+                setCurrentStep={setCurrentStep}
+              />
+            </>
+          )}
+
+          <CustomizeOptions
+            step={currentStep}
+            selectedOptions={selectedOptions}
+            setSelectedOptions={setSelectedOptions}
+          />
+
+          {currentStep < lastStep && (
+            <>
+              <Button
+                className="mt-5"
+                onClick={() => setCurrentStep(currentStep + 1)}
+                disabled={!selectedOptions[currentStep]}
+              >
+                Continue Customization
+              </Button>
+              {currentStep > 1 && (
+                <Button
+                  color="light"
+                  className="ms-3 mt-5"
+                  onClick={() => setCurrentStep(currentStep - 1)}
+                >
+                  Back
+                </Button>
+              )}
+            </>
+          )}
+        </section>
       </div>
-
-      <hr />
-
-      <section>
-        <h4 className="text-center">
-          {START_CUSTOMIZE_OPTIONS[currentStep]?.text}
-        </h4>
-
-        <CustomizeOptions
-          step={currentStep}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-        />
-
-        <Button onClick={() => setCurrentStep(currentStep + 1)}>
-          Continue Customization
-        </Button>
-      </section>
     </section>
   );
 };
 
-const CustomizeOptions = ({ step, selectedOption, setSelectedOption }) => {
-  const options = START_CUSTOMIZE_OPTIONS[step]?.options;
+const ListOptions = ({ selectedOptions, currentStep, setCurrentStep }) => {
+  const router = useRouter();
   return (
-    <ul className="d-flex flex-column list-unstyled w-100 row">
-      {options.map((option) => (
-        <SingleOption
-          key={option}
-          text={option}
-          step={step}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-        />
-      ))}
-    </ul>
+    <>
+      <ul className="list-group list-group-numbered">
+        {Object.entries(selectedOptions).map(
+          ([step, option], index) =>
+            index < 3 && (
+              <ListOption
+                key={index}
+                step={parseInt(step, 10)}
+                text={option?.text}
+                title={START_CUSTOMIZE_OPTIONS[index + 1]?.key}
+                setCurrentStep={setCurrentStep}
+              />
+            )
+        )}
+      </ul>
+      <Button
+        color="primary"
+        className="mt-5"
+        onClick={() => {
+          storeCustomization({
+            ...selectedOptions,
+            selection: {
+              rooms:
+                getCustomization()?.[1].option === 'CUSTOMIZE_FEW'
+                  ? getCustomization().selection?.rooms || []
+                  : null,
+              completed: false,
+            },
+          });
+          router.push('/app/user/customize-your-home/customize');
+        }}
+      >
+        Save Selection
+      </Button>
+
+      <Button
+        color="light"
+        className="ms-3 mt-5"
+        onClick={() => setCurrentStep(currentStep - 1)}
+      >
+        Back
+      </Button>
+    </>
   );
 };
 
-const SingleOption = ({ text, step, selectedOption, setSelectedOption }) => {
-  console.log('selectedOption', selectedOption);
+const ListOption = ({ step, title, text, setCurrentStep }) => (
+  <li className="list-group-item px-4 py-4 d-flex justify-content-between align-items-start">
+    <div className="ms-2 me-auto">
+      <div className="fw-bold">{title}</div>
+      <div className="text-muted"></div>
+      {text}
+    </div>
+    <span
+      className="text-xs text-link text-muted"
+      onClick={() => setCurrentStep(step)}
+    >
+      Edit Option
+    </span>
+  </li>
+);
+
+const CustomizeOptions = ({ step, selectedOptions, setSelectedOptions }) => {
+  const options = START_CUSTOMIZE_OPTIONS[step]?.options;
+  const extraText = START_CUSTOMIZE_OPTIONS[step]?.extraText;
+  return (
+    <>
+      <ul className="d-flex flex-column list-unstyled w-100">
+        {Object.entries(options).map(([option, text]) => (
+          <SingleOption
+            key={option}
+            option={option}
+            text={text}
+            step={step}
+            selectedOptions={selectedOptions}
+            setSelectedOptions={setSelectedOptions}
+          />
+        ))}
+      </ul>
+
+      <div className="text-muted text-sm mt-4 mb-4">{extraText}</div>
+    </>
+  );
+};
+
+const SingleOption = ({
+  text,
+  step,
+  option,
+  selectedOptions,
+  setSelectedOptions,
+}) => {
   return (
     <li
-      className={`custom-option col-10 offset-1 ${
-        selectedOption[step] === text ? 'active' : ''
+      className={`custom-option ${
+        selectedOptions[step]?.option === option ? 'active' : ''
       }`}
-      onClick={() => setSelectedOption({ ...selectedOption, [step]: text })}
+      onClick={() =>
+        setSelectedOptions({ ...selectedOptions, [step]: { option, text } })
+      }
     >
       {text}
       <span className="custom-option__check">
@@ -362,31 +389,3 @@ const SingleOption = ({ text, step, selectedOption, setSelectedOption }) => {
     </li>
   );
 };
-
-const customizeData = [
-  {
-    name: 'Living Room',
-    image: 'living-room.png',
-    description: `A living room is a room in a home that's used for entertaining friends, talking, reading, or watching television. You can also call a living room a lounge, a sitting room, a front room, or a parlor.`,
-  },
-  {
-    name: 'Master Bedroom',
-    image: 'master-bedroom.png',
-    description: `The master bedroom typically has a master bathroom that's attached to it. The master bathroom is often equipped with a full bath (shower and bathtub combination), toilet, and sink for private use.`,
-  },
-  {
-    name: `Visitor's Room`,
-    image: 'visitor.png',
-    description: `A visitor's room is a room in a home that's used for entertaining friends, talking, reading, or watching television. You can also call a living room a lounge, a sitting room, a front room, or a parlor.`,
-  },
-  {
-    name: `Children's Room`,
-    image: 'children.png',
-    description: `The children's room is a room in a home that's used for as the resting bedroom for the kids. You can also call a living room a lounge, a sitting room, a front room, or a parlor.`,
-  },
-  {
-    name: 'Kitchen',
-    image: 'kitchen.png',
-    description: `A kitchen is a place used to prepare foods and entertaining friends, wash dishes and prepare fast snakes. You can also call a living room a lounge, a sitting room, a front room, or a parlor.`,
-  },
-];

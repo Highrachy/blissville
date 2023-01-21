@@ -26,7 +26,6 @@ const Referrals = () => (
 );
 
 export const ReferralsRowList = ({ results, offset }) => {
-  console.log('results', results);
   return (
     <div className="container-fluid">
       <Card className="mt-2">

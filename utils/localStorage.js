@@ -5,6 +5,8 @@ const TOKEN = `${PREFIX}-token`;
 const PERMISSION = `${PREFIX}-permission`;
 const REFERRAL = `${PREFIX}-referral`;
 const MENU = `${PREFIX}-menu-state`;
+const CUSTOMIZATION = `${PREFIX}-customization`;
+const ROOMS = `${PREFIX}-rooms`;
 
 // Token
 export const storeToken = (token) => store(TOKEN, token);
@@ -22,6 +24,14 @@ export const getReferralFromStore = () => store(REFERRAL);
 // Menu
 export const storeMenuState = (menu) => store(MENU, menu);
 export const getMenuStateFromStore = () => store(MENU);
+
+// Save Customization
+export const storeCustomization = (options) => store(CUSTOMIZATION, options);
+export const getCustomization = () => store(CUSTOMIZATION);
+
+// Save room selection
+export const roomSelection = (options) => store(ROOMS, options);
+export const getRoomSelection = () => store(ROOMS);
 
 // Clear Storage
 export const clearStorage = () => store(false);

@@ -106,7 +106,6 @@ const Navigation = ({ parentPage }) => {
 
   const MENU = navigation.map(({ children, url, title }, index) => {
     const isSignedInUser = !!user?.id;
-    console.log('isSignedInUser: ', isSignedInUser);
     return (
       <React.Fragment key={index}>
         {Object.keys(children)?.length > 0 ? (

@@ -5,7 +5,7 @@ import { useSWRQuery } from '@/hooks/useSWRQuery';
 import { UserContext } from 'context/user';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { getLocationFromAddress, moneyFormatInNaira } from '@/utils/helpers';
 import MakePayment from '@/components/utils/MakePayment';
 import { differenceInDays, isPastDate } from '@/utils/date-helpers';
@@ -19,9 +19,14 @@ import Section from '@/components/common/Section';
 import { DashboardTable } from '../dashboard';
 import { LocalImage } from '@/components/common/Image';
 import Separator from '@/components/common/Separator';
-import { Tab } from 'react-bootstrap';
 import { BiCheckCircle } from 'react-icons/bi';
 import Overlay from '@/components/common/Overlay';
+import { MdCheckBox, MdClose } from 'react-icons/md';
+import { Nav, Tab } from 'react-bootstrap';
+import { AVAILABLE_ROOMS_FOR_CUSTOMIZATION } from '@/data/admin/customize_rooms';
+import { getCustomization, storeCustomization } from '@/utils/localStorage';
+import { RiCloseCircleFill } from 'react-icons/ri';
+import { BsCheckCircleFill } from 'react-icons/bs';
 
 const MyProperties = () => {
   const { user } = useContext(UserContext);
@@ -41,8 +46,6 @@ const MyProperties = () => {
 
   const [selectedItems, setSelectedItems] = React.useState({});
 
-  console.log('selectedItems', selectedItems);
-
   return (
     <Backend title="Customize your Living Room">
       <ContentLoader
@@ -53,11 +56,7 @@ const MyProperties = () => {
         noContentText={'You have not been assigned any property yet'}
       >
         <Header {...item} userId={id} />
-        <Summary
-          selectedItems={selectedItems}
-          setSelectedItems={setSelectedItems}
-        />
-        <TabInformation
+        <CustomizeProperty
           selectedItems={selectedItems}
           setSelectedItems={setSelectedItems}
         />
@@ -68,110 +67,291 @@ const MyProperties = () => {
 
 export default MyProperties;
 
-const TabInformation = ({ selectedItems, setSelectedItems }) => {
-  const tabs = [
-    {
-      name: 'Tiles',
-      slug: 'tiles',
-      description: `Tiles are usually thin, square or rectangular coverings manufactured from hard-wearing material such as ceramic, stone, metal, baked clay, or even glass. `,
-      images: [
-        { name: 'Polished Concrete', price: 0, image: '1' },
-        { name: 'Ply Wood Finishes', price: 0, image: '2' },
-        { name: 'Carpet', price: 0, image: '3' },
-        { name: 'Hard Wood', price: 30_000, image: '4' },
-        { name: 'Vinyl', price: 50_000, image: '5' },
-      ],
-    },
-    {
-      name: 'POP',
-      slug: 'pop',
-      description: `POP or Plaster of Paris is a commonly used material used to make false ceiling, accent decors and wall trims. This lightweight and heat-resistant material is mixed at the site and makes for a stunning POP design for ceilings.`,
-      images: [
-        { name: 'Square Wonder', price: 0, image: '1' },
-        { name: 'Circle in the Middle', price: 0, image: '2' },
-        { name: 'Sandwish Gold', price: 0, image: '3' },
-        { name: 'Around the Rosie', price: 30_000, image: '4' },
-        { name: 'Designer Bracker', price: 30_000, image: '5' },
-      ],
-    },
-    {
-      name: 'Wall Paint',
-      slug: 'paint',
-      description: `Tiles are usually thin, square or rectangular coverings manufactured from hard-wearing material such as ceramic, stone, metal, baked clay, or even glass. `,
-      images: [
-        { name: 'City Blue (Emulsion)', price: 0, image: '1' },
-        { name: 'Tomato (Emulsion)', price: 0, image: '2' },
-        { name: 'Golden Orange (Emulsion)', price: 0, image: '3' },
-        { name: 'City Blue (Silk)', price: 40_000, image: '1' },
-        { name: 'Tomato (Silk)', price: 40_000, image: '2' },
-        { name: 'Golden Orange (Silk)', price: 40_000, image: '3' },
-      ],
-    },
-  ];
-
-  const [currentTab, setCurrentTab] = React.useState(tabs[0].name);
+const CustomizeProperty = ({ selectedItems, setSelectedItems }) => {
+  const currentCustomization = getCustomization();
+  const [showBreakdown, setShowBreakdown] = useState(false);
+  const [selectedRooms, setSelectedRooms] = useState(
+    currentCustomization?.selection?.rooms || []
+  );
+  const [customization, setCustomization] = useState(currentCustomization);
+  const allowUserCustomization = customization?.[1].option === 'CUSTOMIZE_FEW';
+  const showSelection =
+    allowUserCustomization && !customization?.selection?.completed;
+  console.log(
+    'showSelection',
+    showSelection,
+    'revew',
+    customization?.[1].option === 'CUSTOMIZE_FEW',
+    customization?.selection?.rooms?.length > 0,
+    !customization?.selection?.completed
+  );
+  const roomsToCustomize = (
+    customization?.selection?.rooms?.length > 0 && allowUserCustomization
+      ? customization?.selection?.rooms
+      : Object.keys(AVAILABLE_ROOMS_FOR_CUSTOMIZATION)
+  ).map((key) => ({
+    name: key,
+    ...AVAILABLE_ROOMS_FOR_CUSTOMIZATION[key],
+  }));
 
   return (
-    <section>
-      <div className="container">
-        <div className="row">
-          <Tab.Container
-            activeKey={currentTab}
-            id="single-tenant-profile"
-            className="mb-3"
-          >
-            <ul className="nav nav-tab gap-1 nav-fill p-0">
-              {tabs.map(({ name }) => (
-                <li
-                  key={name}
-                  className={classNames('nav-item position-relative', {
-                    active: currentTab === name,
-                  })}
-                  onClick={() => setCurrentTab(name)}
-                >
-                  <span className="active-indicator"></span>
-                  <div
-                    className={classNames('nav-link py-4', {
-                      active: currentTab === name,
-                    })}
-                  >
-                    {name}
-                  </div>
-                </li>
+    <>
+      {showBreakdown ? (
+        <Breakdown
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+          setShowBreakdown={setShowBreakdown}
+        />
+      ) : (
+        <div
+          className="alert alert-info text-link"
+          role="alert"
+          onClick={() => setShowBreakdown(true)}
+        >
+          See the entire breakdown of your customization
+        </div>
+      )}
+      <section className="card mb-3">
+        {/* <small>{JSON.stringify(customization, null, 2)}</small> */}
+        {showSelection ? (
+          <div className="card-body p-6 pb-6">
+            <h4>Select Rooms</h4>
+            <ul className="d-flex flex-column list-unstyled w-100">
+              {Object.keys(AVAILABLE_ROOMS_FOR_CUSTOMIZATION).map((room) => (
+                <SelectRoomOption
+                  key={room}
+                  room={room}
+                  selectedRooms={selectedRooms}
+                  setSelectedRooms={setSelectedRooms}
+                />
               ))}
             </ul>
-            <Tab.Content className="bg-white">
-              {tabs.map(({ name, description, images, slug }) => (
-                <Tab.Pane eventKey={name} key={name}>
-                  <div className="p-5">
-                    <h3>{name}</h3>
-                    <p className="">{description}</p>
-                    <div className="row">
-                      {images.map((item, index) => (
-                        <CustomizeCard
-                          {...item}
-                          type={name}
-                          key={index}
-                          slug={slug}
-                          selectedItems={selectedItems}
-                          setSelectedItems={setSelectedItems}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </Tab.Pane>
-              ))}
-            </Tab.Content>
-          </Tab.Container>
+            <div className="text-end">
+              <span
+                className="text-link text-sm text-secondary"
+                onClick={() => {
+                  const currentCustomization = {
+                    ...customization,
+                    selection: {
+                      rooms: null,
+                      completed: true,
+                    },
+                  };
+                  storeCustomization(currentCustomization);
+                  setCustomization(currentCustomization);
+                }}
+              >
+                Select All Rooms
+              </span>
+            </div>
+            <Button
+              color="primary"
+              className="mt-3"
+              onClick={() => {
+                const currentCustomization = {
+                  ...customization,
+                  selection: {
+                    rooms: selectedRooms,
+                    completed: true,
+                  },
+                };
+                storeCustomization(currentCustomization);
+                setCustomization(currentCustomization);
+              }}
+            >
+              Save Selection
+            </Button>
+          </div>
+        ) : (
+          <TabCustomize
+            customization={customization}
+            roomsToCustomize={roomsToCustomize}
+            selectedItems={selectedItems}
+            setSelectedItems={setSelectedItems}
+          />
+        )}
+      </section>
+      {customization?.[1].option === 'CUSTOMIZE_FEW' && !showSelection && (
+        <div
+          className="text-link text-muted text-sm text-end mt-4 mb-6"
+          onClick={() => {
+            const currentCustomization = {
+              ...customization,
+              selection: {
+                ...customization?.selection,
+                completed: false,
+              },
+            };
+            storeCustomization(currentCustomization);
+            setCustomization(currentCustomization);
+          }}
+        >
+          Manage Room Selection
         </div>
-      </div>
-    </section>
+      )}
+    </>
   );
 };
-export const Summary = ({ selectedItems, setSelectedItems }) => {
-  // convert selectedItems to array
-  const selectedItemsArray = Object.values(selectedItems);
-  console.log('selectedItemsArray: ', selectedItemsArray);
+
+const SelectRoomOption = ({ room, selectedRooms, setSelectedRooms }) => {
+  const roomHasBeenSelected = selectedRooms?.includes(room);
+  return (
+    <li
+      className={`custom-option ${roomHasBeenSelected ? 'active' : ''}`}
+      onClick={() => {
+        if (roomHasBeenSelected) {
+          setSelectedRooms(selectedRooms.filter((r) => r !== room));
+        } else {
+          setSelectedRooms([...selectedRooms, room]);
+        }
+      }}
+    >
+      {room}
+      <span className="custom-option__check">
+        <MdCheckBox />
+      </span>
+    </li>
+  );
+};
+
+export const TabCustomize = ({
+  customization,
+  roomsToCustomize,
+  selectedItems,
+  setSelectedItems,
+}) => (
+  <Tab.Container
+    id="customize-tab"
+    defaultActiveKey={roomsToCustomize[0]['name']}
+  >
+    <div className="row gx-0">
+      <div className="col-12 col-lg-4 pr-lg-0">
+        <Nav className="flex-column">
+          {roomsToCustomize.map(({ name, image, options }) => {
+            const selectedNo = Object.keys(selectedItems[name] || {}).length;
+            const totalNo = options.length;
+            return (
+              <Nav.Link eventKey={name} className="team-tab-link" key={name}>
+                <div>
+                  <Image
+                    src={`/assets/img/customize/${image}`}
+                    alt={name}
+                    width={50}
+                    height={50}
+                    className="img-cover rounded border"
+                  />
+                </div>
+                <div className="ms-3">
+                  <h6 className="mb-0">
+                    {name}{' '}
+                    {selectedNo === totalNo ? (
+                      <span className="text-success">
+                        <BsCheckCircleFill />
+                      </span>
+                    ) : (
+                      ''
+                    )}
+                  </h6>
+                  <p className="text-muted text-xs">
+                    {selectedNo} / {totalNo}{' '}
+                  </p>
+                </div>
+              </Nav.Link>
+            );
+          })}
+        </Nav>
+      </div>
+      <div className="col-12 col-lg-8 pl-lg-0 mt-lg-0 d-flex bg-primary-50 p-5">
+        <Tab.Content>
+          {roomsToCustomize.map(({ name, image, description, options }) => {
+            console.log('selectedItems', selectedItems);
+            // find first option1 item not in selectedItem1 by using slug
+            const option = options.find((o) => {
+              const selectedItem = selectedItems?.[name]?.[o.slug];
+              return !selectedItem;
+            });
+
+            return (
+              <Tab.Pane eventKey={name} key={name}>
+                <div className="row">
+                  <div className="col-12">
+                    <h3>{name}</h3>
+                    <p>{description}</p>
+                    <div className="img-fill border-1">
+                      <Image
+                        src={`/assets/img/customize/${image}`}
+                        alt={name}
+                        width="800"
+                        height="400"
+                        objectFit="cover"
+                        className="rounded-3 border"
+                      />
+                    </div>
+                  </div>
+
+                  {Object.keys(selectedItems || {}).length > 0 && (
+                    <div className="col-12">
+                      <Summary
+                        parent={name}
+                        selectedItems={selectedItems}
+                        setSelectedItems={setSelectedItems}
+                      />
+                    </div>
+                  )}
+
+                  {option ? (
+                    <div className="col-12">
+                      <section key={option.name}>
+                        <h5 className="mt-4">{option.name}</h5>
+                        <p className="">{option.description}</p>
+                        <div className="row">
+                          {option.images.map((item, index) => {
+                            const priceSelection = customization?.[2].option;
+                            if (
+                              (priceSelection !== 'PREMIUM_COST' &&
+                                item?.premium) ||
+                              (priceSelection === 'NO_COST' && item?.price > 0)
+                            ) {
+                              return null;
+                            }
+                            return (
+                              <CustomizeCard
+                                {...item}
+                                type={option.name}
+                                key={index}
+                                slug={option.slug}
+                                parent={name}
+                                selectedItems={selectedItems}
+                                setSelectedItems={setSelectedItems}
+                              />
+                            );
+                          })}
+                        </div>
+                      </section>
+                    </div>
+                  ) : (
+                    <div className="col-12">
+                      <div className="alert alert-secondary" role="alert">
+                        <span className="text-success">
+                          <BiCheckCircle />
+                        </span>{' '}
+                        Great! You have completed your customization for the{' '}
+                        <strong>{name}</strong>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Tab.Pane>
+            );
+          })}
+        </Tab.Content>
+      </div>
+    </div>
+  </Tab.Container>
+);
+
+export const Summary = ({ parent, selectedItems, setSelectedItems }) => {
+  const selectedItemsArray = Object.values(selectedItems[parent] || {});
   // calculate total price
   const totalPrice = selectedItemsArray.reduce(
     (acc, item) => acc + item.price,
@@ -179,13 +359,13 @@ export const Summary = ({ selectedItems, setSelectedItems }) => {
   );
 
   return (
-    <DashboardTable title="Summary">
+    <DashboardTable title={`Summary`}>
       {selectedItemsArray && selectedItemsArray.length > 0 ? (
         <>
           <tr>
             <th>S/N</th>
-            <th>Type</th>
-            <th>Location</th>
+            <th>Selection</th>
+            <th>Category</th>
             <th className="text-center">Price</th>
             <th></th>
           </tr>
@@ -202,31 +382,32 @@ export const Summary = ({ selectedItems, setSelectedItems }) => {
                     className="rounded img-md2 me-2"
                     serveImageFromCloud={false}
                   />
-                  {type} - {name}
+                  {name}
                 </td>
-                <td>{location}</td>
+                <td>{type}</td>
                 <td className="text-center fw-bold text-primary">
                   {moneyFormatInNaira(price)}
                 </td>
                 <td>
-                  <Button
-                    color="danger"
-                    className="mt-md-3 mt-2 btn-sm px-4 py-2 text-white text-xs fw-medium btn-xs"
+                  <div
+                    className="text-danger text-lg cursor-pointer opacity-50"
                     onClick={() => {
-                      const { [slug]: value, ...rest } = selectedItems;
-                      setSelectedItems(rest);
+                      const { [slug]: value, ...rest } =
+                        selectedItems?.[parent] || {};
+                      setSelectedItems({
+                        ...selectedItems,
+                        [parent]: rest,
+                      });
                     }}
                   >
-                    Remove
-                  </Button>
+                    <RiCloseCircleFill />
+                  </div>
                 </td>
               </tr>
             )
           )}
           <tr>
-            <th></th>
-            <th>Customization Fee:</th>
-            <th></th>
+            <th colSpan={3}>Customization Fee:</th>
             <th className="text-center fw-bold text-xl text-primary">
               {moneyFormatInNaira(totalPrice)}
             </th>
@@ -241,6 +422,107 @@ export const Summary = ({ selectedItems, setSelectedItems }) => {
         </tr>
       )}
     </DashboardTable>
+  );
+};
+
+export const Breakdown = ({
+  selectedItems,
+  setSelectedItems,
+  setShowBreakdown,
+}) => {
+  const selectedItemsArray = Object.values(selectedItems).reduce(
+    (acc, item) => [...acc, ...Object.values(item)],
+    []
+  );
+
+  console.log('break down selectedItemsArray: ', selectedItemsArray);
+  // calculate total price
+  const totalPrice = selectedItemsArray.reduce(
+    (acc, item) => acc + item.price,
+    0
+  );
+
+  return (
+    <>
+      <DashboardTable
+        title={
+          <span className="text-info">
+            Breakdown{' '}
+            <span
+              className="text-sm text-end text-muted text-link"
+              onClick={() => setShowBreakdown(false)}
+            >
+              (Hide)
+            </span>
+          </span>
+        }
+      >
+        {selectedItemsArray && selectedItemsArray.length > 0 ? (
+          <>
+            <tr>
+              <th>S/N</th>
+              <th>Location</th>
+              <th>Selection</th>
+              <th>Category</th>
+              <th className="text-center">Price</th>
+              <th></th>
+            </tr>
+            {selectedItemsArray.map(
+              ({ name, type, image, price, location, slug }, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{location}</td>
+                  <td>
+                    {' '}
+                    <LocalImage
+                      src={`${process.env.NEXT_PUBLIC_PAGE_URL}/assets/img/customize/${slug}/${image}.png`}
+                      name={'tiles'}
+                      alt="tiles"
+                      className="rounded img-md2 me-2"
+                      serveImageFromCloud={false}
+                    />{' '}
+                    {name}
+                  </td>
+                  <td>{type}</td>
+                  <td className="text-center fw-bold text-primary">
+                    {moneyFormatInNaira(price)}
+                  </td>
+                  <td>
+                    <span
+                      className="text-danger text-lg cursor-pointer opacity-50"
+                      onClick={() => {
+                        const { [slug]: value, ...rest } =
+                          selectedItems?.[location] || {};
+                        setSelectedItems({
+                          ...selectedItems,
+                          [location]: rest,
+                        });
+                      }}
+                    >
+                      <RiCloseCircleFill />
+                    </span>
+                  </td>
+                </tr>
+              )
+            )}
+            <tr>
+              <th></th>
+              <th colSpan={3}>Customization Fee:</th>
+              <th className="text-center fw-bold text-xl text-primary">
+                {moneyFormatInNaira(totalPrice)}
+              </th>
+              <th></th>
+            </tr>
+          </>
+        ) : (
+          <tr>
+            <td colSpan={7} className="text-center">
+              No item selected
+            </td>
+          </tr>
+        )}
+      </DashboardTable>
+    </>
   );
 };
 
@@ -348,22 +630,28 @@ const CustomizeCard = ({
   price,
   slug,
   type,
+  parent,
   setSelectedItems,
   selectedItems,
 }) => {
   const handleSelect = (item) => {
-    const { [slug]: value, ...rest } = selectedItems;
-    setSelectedItems({ [slug]: item, ...rest });
+    setSelectedItems({
+      ...selectedItems,
+      [parent]: { ...selectedItems[parent], [slug]: item },
+    });
   };
 
   const handleRemove = () => {
-    const { [slug]: value, ...rest } = selectedItems;
-    setSelectedItems(rest);
+    const { [slug]: value, ...rest } = selectedItems?.[parent] || {};
+    setSelectedItems({
+      ...selectedItems,
+      [parent]: rest,
+    });
   };
 
-  const itemIsSelected = selectedItems[slug]?.name === name;
+  const itemIsSelected = selectedItems?.[parent]?.[slug]?.name === name;
   return (
-    <div className="col-md-4 col-sm-12 mt-4">
+    <div className="col-md-6 col-sm-12 mt-4">
       <div className="property-listing overflow-hidden bg-gray-50 card">
         <div className="img-wrapper">
           {itemIsSelected ? (
@@ -420,7 +708,7 @@ const CustomizeCard = ({
                   price,
                   slug,
                   type,
-                  location: 'Living Room',
+                  location: parent,
                 })
               }
             >

@@ -691,10 +691,11 @@ td {
 
 .custom-option {
   border: 1px solid $gray-400;
-  padding: 1rem;
+  padding: 1.2rem 1.75rem;
   margin-bottom: 1rem;
   position: relative;
   border-radius: 3px;
+  transition: all 0.4 ease-in;
 
   &__check {
     position: absolute;
@@ -703,14 +704,27 @@ td {
     right: 1rem;
     color: $gray-600;
     font-size: 1.5rem;
+    &:hover {
+      color: $primary-600;
+    }
+  }
+
+  &:hover {
+    border-color: $primary;
+    background: $gray-50;
+    cursor: pointer;
   }
 
   &.active {
     border-color: $primary;
     background: $primary-100;
-
-    &__check {
-      color: $danger;
-    }
   }
+
+  &.active &__check {
+    color: $secondary-600;
+  }
+}
+
+.alert.alert-primary {
+  border-left: 5px solid $primary;
 }
