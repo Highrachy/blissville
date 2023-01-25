@@ -44,8 +44,6 @@ const MyProperties = () => {
   });
   const item = result?.[0] || null;
 
-  const [selectedItems, setSelectedItems] = React.useState({});
-
   return (
     <Backend title="Customize your Living Room">
       <ContentLoader
@@ -56,10 +54,7 @@ const MyProperties = () => {
         noContentText={'You have not been assigned any property yet'}
       >
         <Header {...item} userId={id} />
-        <CustomizeProperty
-          selectedItems={selectedItems}
-          setSelectedItems={setSelectedItems}
-        />
+        <CustomizeProperty />
       </ContentLoader>
     </Backend>
   );
@@ -67,7 +62,356 @@ const MyProperties = () => {
 
 export default MyProperties;
 
-const CustomizeProperty = ({ selectedItems, setSelectedItems }) => {
+const DEFAULT_SELECTIONS = {
+  'Living Room': {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Living Room',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Living Room',
+    },
+    paint: {
+      name: 'Emulsion',
+      image: '1',
+      price: 0,
+      slug: 'paint',
+      type: 'Wall Paint',
+      location: 'Living Room',
+    },
+  },
+  'Master Bedroom': {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Master Bedroom',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Master Bedroom',
+    },
+    paint: {
+      name: 'Emulsion',
+      image: '1',
+      price: 0,
+      slug: 'paint',
+      type: 'Wall Paint',
+      location: 'Master Bedroom',
+    },
+  },
+  'Children Room': {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Children Room',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Children Room',
+    },
+    paint: {
+      name: 'Emulsion',
+      image: '1',
+      price: 0,
+      slug: 'paint',
+      type: 'Wall Paint',
+      location: 'Children Room',
+    },
+  },
+  'Other Rooms': {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Other Rooms',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Other Rooms',
+    },
+    paint: {
+      name: 'Emulsion',
+      image: '1',
+      price: 0,
+      slug: 'paint',
+      type: 'Wall Paint',
+      location: 'Other Rooms',
+    },
+  },
+  Kitchen: {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Kitchen',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Kitchen',
+    },
+    'kitchen-sinks': {
+      name: 'Sink Mixer Tap Flexible',
+      image: '1',
+      price: 0,
+      slug: 'kitchen-sinks',
+      type: 'Kitchen Sinks',
+      location: 'Kitchen',
+    },
+    'wall-tiles': {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'wall-tiles',
+      type: 'Wall Tiles',
+      location: 'Kitchen',
+    },
+    toilets: {
+      name: 'Normal WC',
+      image: '1',
+      price: 0,
+      slug: 'toilets',
+      type: 'Toilets',
+      location: 'Kitchen',
+    },
+  },
+  'Master Toilet': {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Master Toilet',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Master Toilet',
+    },
+    'wall-tiles': {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'wall-tiles',
+      type: 'Wall Tiles',
+      location: 'Master Toilet',
+    },
+    toilets: {
+      name: 'Normal WC',
+      image: '1',
+      price: 0,
+      slug: 'toilets',
+      type: 'Toilets',
+      location: 'Master Toilet',
+    },
+    'bathroom-sinks': {
+      name: 'Corner Wall Mount',
+      image: '1',
+      price: 0,
+      slug: 'bathroom-sinks',
+      type: 'Bathroom Sinks',
+      location: 'Master Toilet',
+    },
+    shower: {
+      name: 'Normal Shower',
+      image: '1',
+      price: 0,
+      slug: 'shower',
+      type: 'Shower',
+      location: 'Master Toilet',
+    },
+  },
+  'Children Toilet': {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Children Toilet',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Children Toilet',
+    },
+    'wall-tiles': {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'wall-tiles',
+      type: 'Wall Tiles',
+      location: 'Children Toilet',
+    },
+    toilets: {
+      name: 'Normal WC',
+      image: '1',
+      price: 0,
+      slug: 'toilets',
+      type: 'Toilets',
+      location: 'Children Toilet',
+    },
+    'bathroom-sinks': {
+      name: 'Corner Wall Mount',
+      image: '1',
+      price: 0,
+      slug: 'bathroom-sinks',
+      type: 'Bathroom Sinks',
+      location: 'Children Toilet',
+    },
+    shower: {
+      name: 'Normal Shower',
+      image: '1',
+      price: 0,
+      slug: 'shower',
+      type: 'Shower',
+      location: 'Children Toilet',
+    },
+  },
+  'Other Rooms Toilet': {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Other Rooms Toilet',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Other Rooms Toilet',
+    },
+    'wall-tiles': {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'wall-tiles',
+      type: 'Wall Tiles',
+      location: 'Other Rooms Toilet',
+    },
+    toilets: {
+      name: 'Normal WC',
+      image: '1',
+      price: 0,
+      slug: 'toilets',
+      type: 'Toilets',
+      location: 'Other Rooms Toilet',
+    },
+    'bathroom-sinks': {
+      name: 'Corner Wall Mount',
+      image: '1',
+      price: 0,
+      slug: 'bathroom-sinks',
+      type: 'Bathroom Sinks',
+      location: 'Other Rooms Toilet',
+    },
+    shower: {
+      name: 'Normal Shower',
+      image: '1',
+      price: 0,
+      slug: 'shower',
+      type: 'Shower',
+      location: 'Other Rooms Toilet',
+    },
+  },
+  'Visitor Toilet': {
+    flooring: {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'flooring',
+      type: 'Flooring',
+      location: 'Visitor Toilet',
+    },
+    pop: {
+      name: 'Plain Design',
+      image: '1',
+      price: 0,
+      slug: 'pop',
+      type: 'POP',
+      location: 'Visitor Toilet',
+    },
+    'wall-tiles': {
+      name: 'Nigerian Tiles',
+      image: '1',
+      price: 0,
+      slug: 'wall-tiles',
+      type: 'Wall Tiles',
+      location: 'Visitor Toilet',
+    },
+    toilets: {
+      name: 'Normal WC',
+      image: '1',
+      price: 0,
+      slug: 'toilets',
+      type: 'Toilets',
+      location: 'Visitor Toilet',
+    },
+    'bathroom-sinks': {
+      name: 'Corner Wall Mount',
+      image: '1',
+      price: 0,
+      slug: 'bathroom-sinks',
+      type: 'Bathroom Sinks',
+      location: 'Visitor Toilet',
+    },
+    shower: {
+      name: 'Normal Shower',
+      image: '1',
+      price: 0,
+      slug: 'shower',
+      type: 'Shower',
+      location: 'Visitor Toilet',
+    },
+  },
+};
+
+const CustomizeProperty = () => {
   const currentCustomization = getCustomization();
   const [showBreakdown, setShowBreakdown] = useState(false);
   const [selectedRooms, setSelectedRooms] = useState(
@@ -77,14 +421,12 @@ const CustomizeProperty = ({ selectedItems, setSelectedItems }) => {
   const allowUserCustomization = customization?.[1].option === 'CUSTOMIZE_FEW';
   const showSelection =
     allowUserCustomization && !customization?.selection?.completed;
-  console.log(
-    'showSelection',
-    showSelection,
-    'revew',
-    customization?.[1].option === 'CUSTOMIZE_FEW',
-    customization?.selection?.rooms?.length > 0,
-    !customization?.selection?.completed
+
+  const customizeAllRoomsForUser = customization?.[1].option === 'HELP_ME';
+  const [selectedItems, setSelectedItems] = React.useState(
+    customizeAllRoomsForUser ? DEFAULT_SELECTIONS : {}
   );
+
   const roomsToCustomize = (
     customization?.selection?.rooms?.length > 0 && allowUserCustomization
       ? customization?.selection?.rooms
@@ -305,6 +647,13 @@ export const TabCustomize = ({
                         <h5 className="mt-4">{option.name}</h5>
                         <p className="">{option.description}</p>
                         <div className="row">
+                          {option.note && (
+                            <div className="col-12">
+                              <div className="alert alert-dark text-sm">
+                                {option.note}
+                              </div>
+                            </div>
+                          )}
                           {option.images.map((item, index) => {
                             const priceSelection = customization?.[2].option;
                             if (
@@ -323,20 +672,52 @@ export const TabCustomize = ({
                                 parent={name}
                                 selectedItems={selectedItems}
                                 setSelectedItems={setSelectedItems}
+                                isDefault={index === 0}
                               />
                             );
                           })}
+                        </div>
+                        <div className="my-5">
+                          <div className="col-12">
+                            <h5>
+                              {' '}
+                              Not sure what to choose? <br />
+                            </h5>
+                            <div className="alert alert-info text-sm">
+                              Let&apos;s recommend a {option.name} option for
+                              you
+                              <Button
+                                color="info"
+                                className={`btn btn-xs ms-2 float-end`}
+                                onClick={() => {
+                                  setSelectedItems({
+                                    ...selectedItems,
+                                    [name]: {
+                                      ...selectedItems[name],
+                                      [option.slug]: {
+                                        ...option.images[0],
+                                        slug: option.slug,
+                                        parent: name,
+                                      },
+                                    },
+                                  });
+                                }}
+                              >
+                                Recommend
+                              </Button>
+                            </div>
+                          </div>
                         </div>
                       </section>
                     </div>
                   ) : (
                     <div className="col-12">
                       <div className="alert alert-secondary" role="alert">
-                        <span className="text-success">
+                        Great! Your customization for the{' '}
+                        <strong>{name}</strong> is completed{' '}
+                        <span>
                           <BiCheckCircle />
                         </span>{' '}
-                        Great! You have completed your customization for the{' '}
-                        <strong>{name}</strong>
                       </div>
                     </div>
                   )}
@@ -626,6 +1007,7 @@ const Header = ({ attributes }) => {
 
 const CustomizeCard = ({
   name,
+  isDefault,
   image,
   price,
   slug,
@@ -684,6 +1066,9 @@ const CustomizeCard = ({
               } fw-medium mb-0`}
             >
               {name}{' '}
+              {!itemIsSelected && isDefault && (
+                <small className="text-xs text-muted float-end">Default</small>
+              )}
               {itemIsSelected && (
                 <span className="text-success">
                   <BiCheckCircle />
@@ -700,7 +1085,7 @@ const CustomizeCard = ({
           </div>
           {!itemIsSelected ? (
             <Button
-              className="mt-md-3 mt-2 btn-sm px-4 py-2 text-white text-xs fw-medium btn-xs"
+              className="mt-md-3 mt-2 btn-xs px-3 py-2 text-white text-xs fw-medium btn-xs"
               onClick={() =>
                 handleSelect({
                   name,
