@@ -6,7 +6,7 @@ import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 const OurProjects = ({ projects, title }) => {
-  if (!projects) return null;
+  if (!projects || projects?.length === 0) return null;
   return (
     <section
       className="bg-image-top"
@@ -19,7 +19,7 @@ const OurProjects = ({ projects, title }) => {
           </div>
         </div>
         <div className="row">
-          {projects?.length > 0 ? (
+          {projects?.length > 1 ? (
             <Swiper
               // install Swiper modules
               modules={[Autoplay, Pagination, A11y]}
