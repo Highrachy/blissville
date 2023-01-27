@@ -1,5 +1,5 @@
 import { footerLinks } from '@/data/index';
-import { PHONE_NUMBER } from '@/utils/constants';
+import { BLISSVILLE_OFFICIAL_EMAIL, PHONE_NUMBER } from '@/utils/constants';
 import Link from 'next/link';
 
 const Footer = () => (
@@ -38,7 +38,7 @@ const Footer = () => (
                   No. 70 Adetokunbo Ademola Street, <br />
                   Victoria Island, Lagos.
                 </p>
-                <p>Email: nnamdi@highrachy.com</p>
+                <p>Email: {BLISSVILLE_OFFICIAL_EMAIL}</p>
                 <p>
                   <span>Phone:</span> {PHONE_NUMBER.WITH_COUNTRY_CODE}
                 </p>

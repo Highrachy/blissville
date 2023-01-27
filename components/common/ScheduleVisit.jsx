@@ -1,4 +1,4 @@
-import { PHONE_NUMBER } from '@/utils/constants';
+import { BLISSVILLE_OFFICIAL_EMAIL, PHONE_NUMBER } from '@/utils/constants';
 import { getError, statusIsSuccessful, valuesToOptions } from '@/utils/helpers';
 import { getTokenFromStore } from '@/utils/localStorage';
 import axios from 'axios';
@@ -29,7 +29,7 @@ const ScheduleVisit = () => (
 
             <div className="row mb-4 schedule-visit">
               <div className="d-flex flex-row align-items-md-center">
-                <div className="flex-shrink-0">
+                {/* <div className="flex-shrink-0">
                   <Image
                     src={`/assets/img/team/sales-manager.jpg`}
                     alt="Sales Manager"
@@ -38,14 +38,11 @@ const ScheduleVisit = () => (
                     objectFit="cover"
                     className="rounded"
                   />
-                </div>
-                <div className="flex-grow-1 ms-md-3">
+                </div> */}
+                <div className="">
                   <h5 className="text-white mb-2 schedule-visit__name">
-                    Obehi Johnny
+                    Contact Us
                   </h5>
-                  <p className="text-white mb-2 schedule-visit__title text-uppercase">
-                    Business
-                  </p>
                   <p className=" schedule-visit__phone mb-2">
                     <PhoneIcon />
                     &nbsp;
@@ -55,11 +52,11 @@ const ScheduleVisit = () => (
                   </p>
                   <p className="mb-2 mb-md-3 schedule-visit__email">
                     <a
-                      href="mailto:blissville@highrachy.com"
+                      href={`mailto:${BLISSVILLE_OFFICIAL_EMAIL}`}
                       className="text-white"
                     >
                       <EmailIcon />
-                      &nbsp; blissville@highrachy.com
+                      &nbsp; {BLISSVILLE_OFFICIAL_EMAIL}
                     </a>
                   </p>
                 </div>

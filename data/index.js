@@ -14,7 +14,7 @@ export const socialMediaLinks = [
   },
   {
     icon: <InstagramIcon />,
-    url: 'https://instagram.com/Highrachy',
+    url: 'https://instagram.com/blissvillecondos',
   },
   {
     icon: <LinkedInIcon />,

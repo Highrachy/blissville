@@ -6,6 +6,7 @@ import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 const OurProjects = ({ projects, title }) => {
+  if (!projects) return null;
   return (
     <section
       className="bg-image-top"
@@ -18,26 +19,30 @@ const OurProjects = ({ projects, title }) => {
           </div>
         </div>
         <div className="row">
-          <Swiper
-            // install Swiper modules
-            modules={[Autoplay, Pagination, A11y]}
-            autoHeight={true}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: true,
-            }}
-            navigation={false}
-            slidesPerView={1}
-            spaceBetween={10}
-            pagination={{ clickable: true }}
-            loop={true}
-          >
-            {projects.map((project, index) => (
-              <SwiperSlide key={project.attributes.name + index}>
-                <SingleProject {...project} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {projects?.length > 0 ? (
+            <Swiper
+              // install Swiper modules
+              modules={[Autoplay, Pagination, A11y]}
+              autoHeight={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: true,
+              }}
+              navigation={false}
+              slidesPerView={1}
+              spaceBetween={10}
+              pagination={{ clickable: true }}
+              loop={true}
+            >
+              {projects.map((project, index) => (
+                <SwiperSlide key={project.attributes.name + index}>
+                  <SingleProject {...project} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <SingleProject {...projects[0]} />
+          )}
         </div>
       </div>
     </section>

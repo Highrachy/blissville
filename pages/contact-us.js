@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 import { socialMediaLinks } from '../data';
 import Footer from '@/components/common/Footer';
 import Navigation from '@/components/layouts/Navigation';
-import { PHONE_NUMBER } from '@/utils/constants';
+import { BLISSVILLE_OFFICIAL_EMAIL, PHONE_NUMBER } from '@/utils/constants';
 import axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
@@ -87,12 +87,19 @@ const ContactInfo = () => (
                     <WebsiteIcon />
                   </span>
                   <p>
-                    <a href="mailto:info@highrachy.com" className="text-reset">
-                      info@highrachy.com
+                    <a
+                      href={`mailto:${BLISSVILLE_OFFICIAL_EMAIL}`}
+                      className="text-reset"
+                    >
+                      {' '}
+                      {BLISSVILLE_OFFICIAL_EMAIL}
                     </a>
                     <br />
-                    <a href="https://www.highrachy.com" className="text-reset">
-                      www.highrachy.com
+                    <a
+                      href="https://www.blissville.com.ng"
+                      className="text-reset"
+                    >
+                      www.blissville.com.ng
                     </a>
                   </p>
                 </div>

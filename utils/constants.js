@@ -10,6 +10,8 @@ export const PHONE_NUMBER = {
   WITH_COUNTRY_CODE: ' +234 905 555 5146',
 };
 
+export const BLISSVILLE_OFFICIAL_EMAIL = 'info@blissville.com.ng';
+
 export const COLOR_STYLE = [
   'none',
   'primary',

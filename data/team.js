@@ -15,7 +15,7 @@ export const team = [
   },
   {
     name: 'Julius Airhia',
-    image: 'julius.jpg',
+    image: 'blank.png',
     title: 'Engineer',
     description:
       'With over 10 years experience in construction management in diverse capacities for many sizes of construction feats and equipped with a B.Eng in Civil Engineering Julius is more than capable of delivering our projects in line with project requirements.',

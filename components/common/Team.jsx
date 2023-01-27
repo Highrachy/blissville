@@ -27,7 +27,7 @@ const Team = () => (
 const SingleTeam = ({ name, image, title, description }) => (
   <div className="col-md-3 text-center my-3">
     <div className="team-section">
-      <div className="position-relative  img-wrapper">
+      <div className="position-relative img-wrapper overflow-hidden">
         <span
           className="z-5 position-absolute top-0 start-0 end-0 bottom-0 rounded-top rounded-5"
           style={{
@@ -35,7 +35,6 @@ const SingleTeam = ({ name, image, title, description }) => (
           }}
         ></span>
         <Image
-          className="img-cover"
           src={`/assets/img/team/${image}`}
           alt={name}
           width="400"

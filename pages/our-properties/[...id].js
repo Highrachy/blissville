@@ -268,20 +268,7 @@ const PropertyInformation = ({ property }) => {
           </div>
           <div className="col-md-4">
             <div className="border rounded p-4">
-              <div className="d-flex flex-column mb-3 flex-md-row align-items-md-center">
-                <div className="flex-shrink-0">
-                  <Image
-                    src={`/assets/img/team/sales-manager.jpg`}
-                    alt="Sales Manager"
-                    width={48}
-                    height={48}
-                    className="rounded"
-                  />
-                </div>
-                <div className="flex-grow-1 ms-md-3">
-                  <h6 className="">Ask me for more Information</h6>
-                </div>
-              </div>
+              <h6 className="mb-3">Ask for more Information</h6>
 
               <AskInfoForm name={name} projectName={project.name} />
             </div>
@@ -327,13 +314,11 @@ const AskInfoForm = ({ name, projectName }) => {
       name="ask-info-form"
       buttonText="Send Message"
     >
-      <div className="row">
-        <Input floatingLabel name="name" label="Full Name" />
-        <Input floatingLabel name="email" type="email" label="Email Address" />
-      </div>
-      <div className="row">
-        <Input floatingLabel name="phone" label="Phone Number" optional />
-      </div>
+      <Input floatingLabel name="name" label="Full Name" />
+      <Input floatingLabel name="email" type="email" label="Email Address" />
+
+      <Input floatingLabel name="phone" label="Phone Number" optional />
+
       <Textarea
         floatingLabel
         name="message"
