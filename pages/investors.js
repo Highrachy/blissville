@@ -192,7 +192,6 @@ const MidTermForecast = () => {
             <p className="mb-5">
               These include but are not limited to;
               <ul>
-                <li>Facility Management services</li>
                 <li>Procurement and supply channels</li>
                 <li>Recreational and capacity building services</li>
               </ul>

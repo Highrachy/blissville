@@ -151,8 +151,6 @@ const faqs = [
             </p>
             <p>These include but are not limited to;</p>
             <ul>
-              {' '}
-              <li>Facility Management services</li>{' '}
               <li>Procurement and supply channels</li>{' '}
               <li>Recreational and capacity building services</li>
             </ul>
