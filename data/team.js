@@ -21,6 +21,12 @@ export const team = [
       'With over 10 years experience in construction management in diverse capacities for many sizes of construction feats and equipped with a B.Eng in Civil Engineering Julius is more than capable of delivering our projects in line with project requirements.',
   },
   {
+    name: 'Oludare Odu',
+    image: 'oludare.png',
+    title: 'Engineer',
+    description: '-',
+  },
+  {
     name: 'Haruna Popoola',
     image: 'haruna.jpg',
     title: 'IT, Research & Development',
