@@ -6,19 +6,15 @@ import { FacebookIcon } from '@/components/Icons/Icons';
 export const socialMediaLinks = [
   {
     icon: <FacebookIcon />,
-    url: 'https://www.facebook.com/highrachy',
+    url: 'https://www.facebook.com/Blissvillecondos',
   },
   {
     icon: <TwitterIcon />,
-    url: 'https://twitter.com/Highrachy',
+    url: 'https://twitter.com/blissvilleng',
   },
   {
     icon: <InstagramIcon />,
     url: 'https://instagram.com/blissvillecondos',
-  },
-  {
-    icon: <LinkedInIcon />,
-    url: 'https://www.linkedin.com/company/highrachy-investment-and-technology-limited',
   },
 ];
 
