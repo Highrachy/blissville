@@ -39,6 +39,23 @@ function MyApp({ Component, pageProps }) {
         {/* <link rel="manifest" href="/site.webmanifest" /> */}
       </Head>
       <Component {...pageProps} />
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
+      <Script
+        id="google-analytics"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
       {/* <Script id="tawk-chat">
         {`var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
