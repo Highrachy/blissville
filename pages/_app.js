@@ -56,6 +56,13 @@ function MyApp({ Component, pageProps }) {
           `,
         }}
       />
+      <Script
+        type="text/javascript"
+        id="hs-script-loader"
+        async
+        defer
+        src="//js-eu1.hs-scripts.com/139575051.js"
+      />
       {/* <Script id="tawk-chat">
         {`var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
