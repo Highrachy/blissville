@@ -1,7 +1,7 @@
 import { FiBell, FiChevronRight, FiSettings } from 'react-icons/fi';
 import { FiChevronLeft } from 'react-icons/fi';
 import { FaFacebookF, FaTape } from 'react-icons/fa';
-import { FaTwitter } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { FaLinkedinIn } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa';
 import { FaBed } from 'react-icons/fa';
@@ -15,7 +15,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import { CloseCircle, TickCircle } from 'iconsax-react';
 
 export const FacebookIcon = () => <FaFacebookF />;
-export const TwitterIcon = () => <FaTwitter />;
+export const TwitterIcon = () => <FaXTwitter />;
 export const LinkedInIcon = () => <FaLinkedinIn />;
 export const InstagramIcon = () => <FaInstagram />;
 

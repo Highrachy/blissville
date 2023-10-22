@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 import { parseISO } from 'date-fns';
 import { moneyFormatInNaira } from 'utils/helpers';
-import { getDateTime } from 'utils/date-helpers';
 
 export const required = (label) =>
   yup.string().required(`${label} is required`);
