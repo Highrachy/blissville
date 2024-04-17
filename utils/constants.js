@@ -24,6 +24,7 @@ export const COLOR_STYLE = [
   'light',
   'dark',
   'outline-light',
+  'outline-info',
 ];
 
 export const FILTER_FIELDS = {

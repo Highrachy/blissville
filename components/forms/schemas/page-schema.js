@@ -9,6 +9,8 @@ import {
   moneyRange,
   positiveNumberValidation,
   requiredDate,
+  phoneNumber,
+  booleanValidation,
 } from './schema-helpers';
 
 export const contactUsSchema = {
@@ -17,6 +19,30 @@ export const contactUsSchema = {
   phone: optionalValidation(required('Phone Number')),
   subject: required('Subject'),
   message: stringValidation('Message', 10),
+};
+
+export const investorSchema = {
+  title: stringValidation('Title'),
+  firstName: stringValidation('First Name'),
+  middleName: optionalValidation(stringValidation('Middle Name')),
+  surname: stringValidation('Surname'),
+  residentialAddress: stringValidation('Residential Address'),
+  phone: phoneNumber,
+  email: email,
+  gender: stringValidation('Gender'),
+  nationality: stringValidation('Nationality'),
+  occupation: stringValidation('Occupation'),
+  employmentStatus: stringValidation('Employment Status'),
+  employerName: optionalValidation(stringValidation('Employer Name')),
+  officeAddress: stringValidation('Office Address'),
+  investmentRange: stringValidation('Investment Range'),
+  amountToInvest: stringValidation('Amount to Invest'),
+  bankAccountName: stringValidation('Bank Account Name'),
+  accountNumber: stringValidation('Account Number'),
+  bankName: stringValidation('Bank Name'),
+  signature: stringValidation('Signature'),
+  confirmation: booleanValidation('Confirmation'),
+  declaration: booleanValidation('Declaration'),
 };
 
 export const supportSchema = {

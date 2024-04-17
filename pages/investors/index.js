@@ -55,13 +55,15 @@ export const InvestToday = ({ showButton }) => (
             </div>
           </Slide>
 
-          {showButton && (
-            <Slide left>
-              <Button color="secondary" className="mb-5">
-                Learn More
-              </Button>
-            </Slide>
-          )}
+          <Slide left>
+            <Button
+              href={`/investors${showButton ? '' : '/register'}`}
+              color="secondary"
+              className="mb-5"
+            >
+              Learn More
+            </Button>
+          </Slide>
         </div>
         <div className="col-md-5 col-lg-5 order-0 order-md-1 mb-5">
           <InvestorSlider />

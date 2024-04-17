@@ -16,6 +16,13 @@ export const optionalValidation = (validation) =>
     return yup.mixed().notRequired();
   });
 
+export const booleanValidation = (label, defaultValue = false) =>
+  yup
+    .bool()
+    .label(label)
+    .default(defaultValue)
+    .required(`${label} is required`);
+
 export const stringValidation = (label, length = 2) =>
   yup
     .string()
