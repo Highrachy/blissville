@@ -14,7 +14,6 @@ import { toast } from 'react-toastify';
 import Footer from '@/components/common/Footer';
 import Navigation from '@/components/layouts/Navigation';
 import axios from 'axios';
-import { getTokenFromStore } from '@/utils/localStorage';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 import FormikButton from '@/components/forms/FormikButton';
 import { PageHeader } from '@/components/common/Header';
@@ -26,15 +25,15 @@ import InvestorTerms from '@/data/investor-terms';
 import Humanize from 'humanize-plus';
 import CheckboxGroup from '@/components/forms/CheckboxGroup';
 import Upload from '@/components/forms/Upload';
-import Link from 'next/link';
 import InputFormat from '@/components/forms/InputFormat';
+import Image from 'next/image';
 
 const Register = () => {
   return (
     <>
       <Navigation />
       <PageHeader
-        title="Invest with Blissville"
+        title="Investment Application Form"
         subHeader="Secure Your Future: Invest Today and Watch Your Wealth Grow"
         bgImage="/assets/img/bg/investors.jpeg"
       />
@@ -45,41 +44,63 @@ const Register = () => {
 };
 
 const IntroText = () => (
-  <div className="col-sm-12" id="top-page">
-    <p className="lead fw-normal mt-3">
-      Thank you for considering investing with us. The process to participate in
-      our exciting investment opportunities is outlined below:
-    </p>
-    <ol className="text-lg lh-2">
-      <li className="mb-4">
-        Please click the button below to begin the investment application
-        process.
-      </li>
-      <li className="mb-4">
-        After submitting the form, our team will review it and contact you to
-        finalize the investment agreement.
-      </li>
-      <li className="mb-4">
-        The investment amount will be due as per the terms of the investment
-        agreement. You can make the payment to our bank account:
-        <ul>
-          <li>
-            <strong>Account Name:</strong> Highrachy Investment and Technology
-            Limited
-          </li>
-          <li>
-            <strong>Account Number:</strong> 0013808391
-          </li>
-          <li>
-            <strong>Bank:</strong> Guaranty Trust Bank PLC
-          </li>
-        </ul>
-      </li>
-    </ol>
-    <p className="text-lg">
-      We are excited to embark on this journey together and look forward to
-      welcoming you as a valued investor in our projects.
-    </p>
+  <div className="row">
+    <div className="col-md-7 col-lg-7">
+      <p className="fw-normal">
+        Thank you for considering investing with us. The process to participate
+        in our exciting investment opportunities is outlined below.
+      </p>
+      <ol className="lh-2">
+        <li className="mb-4">
+          Select an investment package that suits your budget and investment
+          below:
+        </li>
+        <li className="mb-4">
+          After completing the form, our team will review it and contact you to
+          finalize the investment agreement.
+        </li>
+        <li className="mb-4">
+          You can make the payment to our bank account:
+          <ul>
+            <li>
+              <strong>Account Name:</strong> Highrachy Investment and Technology
+              Limited
+            </li>
+            <li>
+              <strong>Account Number:</strong> 0013808391
+            </li>
+            <li>
+              <strong>Bank:</strong> Guaranty Trust Bank PLC
+            </li>
+          </ul>
+        </li>
+      </ol>
+      <p className="">
+        We are excited to embark on this journey together and look forward to
+        welcoming you as a valued investor in our projects.
+      </p>
+
+      <div className="dotted-border-muted my-5"></div>
+
+      <h5>Select an Investment Package below</h5>
+      <Select
+        name="investmentRange"
+        label="Investment Package"
+        options={valuesToOptions(
+          ['₦25 Million', '₦50 Million', '₦100 Million'],
+          'Select Investment Package'
+        )}
+      />
+    </div>
+    <div className="col-md-5 col-lg-5">
+      <Image
+        src="/assets/img/investors/investment-tree.jpg"
+        alt="Hero Image"
+        width={1500}
+        className="rounded pe-md-3"
+        height={1688}
+      />
+    </div>
   </div>
 );
 
@@ -195,25 +216,7 @@ const PersonalInformation = () => (
 const InvestmentInfo = () => (
   <>
     <div className="row">
-      <Select
-        formGroupClassName="col-md-6"
-        name="investmentRange"
-        label="Investment Range"
-        options={valuesToOptions(
-          [
-            '₦1 Million - ₦4.5 Million',
-            '₦5 Million - ₦9.5 Million',
-            '₦10 Million and Above',
-          ],
-          'Select Investment Range'
-        )}
-      />
-
-      <InputFormat
-        formGroupClassName="col-md-6"
-        name="amountToInvest"
-        label="Amount to Invest"
-      />
+      <InputFormat name="amountToInvest" label="Amount to Invest" />
     </div>
     <h6 className="mt-5">Your Bank Details</h6>
     <Input name="bankAccountName" label="Bank Account Name" />
@@ -230,16 +233,15 @@ const InvestmentInfo = () => (
 );
 const TermsAndCondition = () => (
   <>
-    <h3>Terms and Condition</h3>
     <InvestorTerms />
-
-    <div className="mt-6">
+    <div className="dotted-border-muted my-5"></div>{' '}
+    <div className="mt-3">
       <Upload
         label="Upload your Signature"
         changeText="Update Signature"
         defaultImage="/assets/img/placeholder/image.png"
         imgOptions={{
-          className: 'mb-3 img-xl',
+          className: 'mb-3 img-xl img-contain',
           width: 100,
           height: 200,
         }}
@@ -266,7 +268,7 @@ const TermsAndCondition = () => (
         ]}
       />
     </div>
-    <div className="mt-2">
+    <div className="mt-2 mb-5">
       <CheckboxGroup
         inline
         name="confirmation"
@@ -291,7 +293,7 @@ export const PaddedSection = ({ children, title }) => (
   <section className="pb-5">
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-lg-10 col-md-11 col-sm-12">
+        <div className="col-sm-12">
           {title && <h3>{title}</h3>}
           {children}
         </div>
@@ -377,8 +379,9 @@ const InvestmentForm = ({ apartment }) => {
         <PaddedSection>
           <>
             <section ref={myRef}>&nbsp;</section>
+
             {isFirstStep && <h3 className="mb-4">{ALL_STEPS_TITLE[step]}</h3>}
-            <div className="bg-light py-4 px-4 px-md-6 py-md-5 mb-4">
+            <div className="">
               {!isFirstStep && (
                 <h4 className="mb-3">
                   {ALL_STEPS_TITLE[step]}{' '}
@@ -400,14 +403,14 @@ const InvestmentForm = ({ apartment }) => {
                 </div>
               )}
 
-              {ALL_STEPS[step]}
-
               {step > 0 && (
-                <div className="text-muted mt-5">
+                <div className="mb-4 alert alert-info text-sm">
                   <strong>Note: </strong> Your information is confidential and
                   will not be shared with any 3rd parties.
                 </div>
               )}
+
+              {ALL_STEPS[step]}
             </div>
 
             <ActionButtons
@@ -496,7 +499,7 @@ const ActionButtons = ({
             executeScroll();
           }}
         >
-          {isFirstStep ? "Ready to Invest? Let's Begin" : <>Continue</>}
+          {isFirstStep ? "Let's Begin" : <>Continue</>}
         </Button>
       )}
     </div>
@@ -504,6 +507,7 @@ const ActionButtons = ({
 };
 
 export const REQUIRED_FIELDS = {
+  0: ['investmentRange'],
   1: [
     'title',
     'firstName',
@@ -517,13 +521,7 @@ export const REQUIRED_FIELDS = {
     'employmentStatus',
     'officeAddress',
   ],
-  2: [
-    'investmentRange',
-    'amountToInvest',
-    'bankAccountName',
-    'accountNumber',
-    'bankName',
-  ],
+  2: ['amountToInvest', 'bankAccountName', 'accountNumber', 'bankName'],
   3: ['signature', 'declaration', 'confirmation'],
 };
 

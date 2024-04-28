@@ -652,16 +652,19 @@ td {
   transition: all 0.3s ease-in-out;
 }
 
-.price-input-format {
-  background: transparent !important;
-  color: $primary;
+.price-format {
   font-size: 2rem;
   font-weight: bold;
-  border: 1px solid $gray-200;
   padding: 0.4rem 1rem;
-  margin: 0.5rem 0;
   text-align: center;
   width: 100%;
+}
+
+.price-input-format {
+  @extend .price-format;
+  background: transparent !important;
+  color: $primary;
+  border: 1px solid transparent;
   border-radius: 3px;
   &:hover {
     border-color: $primary;

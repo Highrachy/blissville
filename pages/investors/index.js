@@ -61,7 +61,7 @@ export const InvestToday = ({ showButton }) => (
               color="secondary"
               className="mb-5"
             >
-              Learn More
+              Get Started
             </Button>
           </Slide>
         </div>

@@ -4,6 +4,11 @@
   width: 100% !important;
 }
 
+.image-contain,
+.img-contain {
+  object-fit: contain !important;
+}
+
 .image-gray {
   filter: grayscale(100%);
 

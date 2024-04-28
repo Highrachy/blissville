@@ -62,9 +62,6 @@ $h6-font-size: 1rem;
 @mixin section-shadow {
   box-shadow: 0px 4px 8px -2px #101828, 0px 2px 4px -2px #101828;
 }
-@mixin section-shadow {
-  box-shadow: 0px 4px 8px -2px #101828, 0px 2px 4px -2px #101828;
-}
 @mixin shadow-card {
   box-shadow: 0px 4px 16px #000000;
 }

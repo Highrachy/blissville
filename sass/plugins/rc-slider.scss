@@ -3,7 +3,7 @@
 .rc-slider-rail,
 .rc-slider-track,
 .rc-slider-step {
-  height: 0.6rem;
+  height: 0.1rem;
 }
 
 .rc-slider-track {
@@ -14,7 +14,7 @@
   width: 1.4rem;
   height: 1.4rem;
   border-color: rgba($secondary, 0.6);
-  margin-top: -8px;
+  margin-top: -10px;
   opacity: 1;
   &:active,
   &:hover {

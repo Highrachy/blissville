@@ -8,9 +8,11 @@ import { moneyFormatInNaira } from '@/utils/helpers';
 import NumberFormat from 'react-number-format';
 
 const InvestorSlider = () => {
-  const defaultValue = 100_000_000;
-  const maximum = 500_000_000;
-  const minimum = 5_000_000;
+  const defaultValue = 50_000_000;
+  const maximum = 200_000_000;
+  const minimum = 25_000_000;
+  const investmentRate = 0.45;
+  const bankRate = 0.05;
   const [value, setValue] = React.useState(defaultValue);
   const [error, setError] = React.useState(null);
 
@@ -37,18 +39,11 @@ const InvestorSlider = () => {
   return (
     <Zoom>
       <div className="card overflow-hidden bg-gray-50">
-        <div className="px-4 py-5 py-md-6 text-center">
+        <div className="px-4 pt-5 pt-md-6 pb-4 text-center">
           {error ? (
-            <h6 className="text-danger">Invalid initial payment</h6>
+            <h6 className="text-danger mb-0">Invalid initial payment</h6>
           ) : (
-            <h6>
-              When you invest
-              <FormTooltip
-                text="Move the Slider below or type your estimated investment directly"
-                header="How to use"
-                position="top"
-              />
-            </h6>
+            <h6 className="mb-0 text-gray-700">When you invest</h6>
           )}
           <NumberFormat
             id="initial-payment"
@@ -60,34 +55,44 @@ const InvestorSlider = () => {
             value={value}
             className="price-input-format"
           />
-          <p className="text-gray-700 text-sm font-secondary fw-medium">
-            you will get up to{' '}
-            <span className="text-secondary">
-              {moneyFormatInNaira(value + value * 0.45)}
-            </span>
-          </p>
-          <Slider
-            defaultValue={defaultValue}
-            min={minimum}
-            max={maximum}
-            step={1_000_000}
-            onChange={(value) => setValue(value)}
-          />
-          <div className="d-flex justify-content-between mt-4">
-            <span className="text-gray-700 text-sm font-secondary fw-medium">
-              ₦ 5,000,000
-            </span>
-            <span className="text-gray-700 text-sm font-secondary fw-medium">
-              ₦ 500,000,000
-            </span>
+          <div className="my-3">
+            <Slider
+              defaultValue={defaultValue}
+              min={minimum}
+              max={maximum}
+              step={5_000_000}
+              onChange={(value) => setValue(value)}
+            />
+            <div className="d-flex justify-content-between">
+              <span className="text-gray-600 text-xs fw-semibold">
+                ₦ {Humanize.compactInteger(minimum)}
+              </span>
+              <span className="text-gray-600 text-xs fw-semibold">
+                ₦ {Humanize.compactInteger(maximum)}
+              </span>
+            </div>
           </div>
+
+          <h6 className="text-gray-800 mb-2">You will get up to</h6>
+          <span className="text-secondary price-format text-xl">
+            {moneyFormatInNaira(value + value * investmentRate)}
+          </span>
         </div>
+
         <Image
           src="/assets/svg/skyline.svg"
           alt="Skyline"
           height="189"
           width="576"
           className="opacity-25"
+        />
+      </div>
+      <div className="text-gray-700 text-xs text-center mt-2">
+        * Compared to a bank, you&apos;d potentially earn around{' '}
+        {moneyFormatInNaira(value + value * bankRate)}{' '}
+        <FormTooltip
+          text="These calculations are based on the average performance of our previous investments compared to typical bank savings rates."
+          position="top"
         />
       </div>
     </Zoom>

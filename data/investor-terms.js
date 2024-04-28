@@ -4,8 +4,9 @@ const InvestorTerms = () => {
   return (
     <section className="investor-terms">
       <p className="lead">
-        Please read these Terms and Conditions ("Terms", "Terms and Conditions")
-        carefully before subscribing to the plan by endorsing your signature.
+        Please read these Terms and Conditions (&quot;Terms&quot;, &quot;Terms
+        and Conditions&quot;) carefully before subscribing to the plan by
+        endorsing your signature.
       </p>
       <ol className="list-unstyled">
         <li>
