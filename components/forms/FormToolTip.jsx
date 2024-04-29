@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 const FormTooltip = ({ header, text, position }) => {
+  console.log('header', header);
   if (!text) {
     return null;
   }
@@ -13,7 +14,7 @@ const FormTooltip = ({ header, text, position }) => {
       placement={position}
       overlay={
         <Popover>
-          <Popover.Header as="h6">{header || 'Information'}</Popover.Header>
+          {header && <Popover.Header as="h6">{header}</Popover.Header>}
           <Popover.Body>{text}</Popover.Body>
         </Popover>
       }
@@ -27,7 +28,7 @@ const FormTooltip = ({ header, text, position }) => {
 };
 
 FormTooltip.defaultProps = {
-  header: 'Information',
+  header: null,
   position: 'right',
   text: null,
 };

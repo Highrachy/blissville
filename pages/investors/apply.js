@@ -28,13 +28,13 @@ import Upload from '@/components/forms/Upload';
 import InputFormat from '@/components/forms/InputFormat';
 import Image from 'next/image';
 
-const Register = () => {
+const InvestmentApplicationForm = () => {
   return (
     <>
       <Navigation />
       <PageHeader
-        title="Investment Application Form"
-        subHeader="Secure Your Future: Invest Today and Watch Your Wealth Grow"
+        title="Invest Now"
+        subHeader="Seize Your Opportunity: Apply to Invest Today"
         bgImage="/assets/img/bg/investors.jpeg"
       />
       <InvestmentForm />
@@ -45,7 +45,7 @@ const Register = () => {
 
 const IntroText = () => (
   <div className="row">
-    <div className="col-md-7 col-lg-7">
+    <div className="col-md-7 col-lg-7 pe-5">
       <p className="fw-normal">
         Thank you for considering investing with us. The process to participate
         in our exciting investment opportunities is outlined below.
@@ -53,7 +53,7 @@ const IntroText = () => (
       <ol className="lh-2">
         <li className="mb-4">
           Select an investment package that suits your budget and investment
-          below:
+          below
         </li>
         <li className="mb-4">
           After completing the form, our team will review it and contact you to
@@ -61,36 +61,24 @@ const IntroText = () => (
         </li>
         <li className="mb-4">
           You can make the payment to our bank account:
-          <ul>
+          <ul className="bg-primary-50 list-unstyled p-4 mt-2 rounded border-1">
             <li>
-              <strong>Account Name:</strong> Highrachy Investment and Technology
+              <strong>Account Name:</strong> Highrachy Investment & Technology
               Limited
             </li>
             <li>
-              <strong>Account Number:</strong> 0013808391
+              <strong>Account Number:</strong> 0029082860
             </li>
             <li>
-              <strong>Bank:</strong> Guaranty Trust Bank PLC
+              <strong>Bank:</strong> Stanbic IBTC Bank PLC
             </li>
           </ul>
         </li>
       </ol>
       <p className="">
         We are excited to embark on this journey together and look forward to
-        welcoming you as a valued investor in our projects.
+        welcoming you as a valued investment partner in our projects.
       </p>
-
-      <div className="dotted-border-muted my-5"></div>
-
-      <h5>Select an Investment Package below</h5>
-      <Select
-        name="investmentRange"
-        label="Investment Package"
-        options={valuesToOptions(
-          ['₦25 Million', '₦50 Million', '₦100 Million'],
-          'Select Investment Package'
-        )}
-      />
     </div>
     <div className="col-md-5 col-lg-5">
       <Image
@@ -101,6 +89,18 @@ const IntroText = () => (
         height={1688}
       />
     </div>
+    <div className="dotted-border-muted my-5"></div>
+
+    <h3>Select an Investment Package</h3>
+    <Select
+      name="investmentRange"
+      formGroupClassName="col-md-6"
+      label="Investment Package"
+      options={valuesToOptions(
+        ['₦25 Million', '₦50 Million', '₦100 Million'],
+        'Select Investment Package'
+      )}
+    />
   </div>
 );
 
@@ -351,7 +351,7 @@ const InvestmentForm = ({ apartment }) => {
     <TermsAndCondition key="4" />,
   ];
   const ALL_STEPS_TITLE = [
-    'Begin Your Investment Journey Now',
+    'Investment Application Form',
     'Client Details',
     'Investment Details',
     'Terms and Conditions',
@@ -525,4 +525,4 @@ export const REQUIRED_FIELDS = {
   3: ['signature', 'declaration', 'confirmation'],
 };
 
-export default Register;
+export default InvestmentApplicationForm;

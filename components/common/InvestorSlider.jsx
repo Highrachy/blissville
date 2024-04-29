@@ -11,10 +11,14 @@ const InvestorSlider = () => {
   const defaultValue = 50_000_000;
   const maximum = 200_000_000;
   const minimum = 25_000_000;
-  const investmentRate = 0.45;
-  const bankRate = 0.05;
+  const investmentRate = 0.5;
+  const bankRate = 0.075;
   const [value, setValue] = React.useState(defaultValue);
   const [error, setError] = React.useState(null);
+
+  const bankAmount = value * bankRate;
+  const investmentAmount = value * investmentRate;
+  const differenceAmount = investmentAmount - bankAmount;
 
   React.useEffect(() => {
     const price = parseInt(value, 10) || 0;
@@ -75,7 +79,7 @@ const InvestorSlider = () => {
 
           <h6 className="text-gray-800 mb-2">You will get up to</h6>
           <span className="text-secondary price-format text-xl">
-            {moneyFormatInNaira(value + value * investmentRate)}
+            {moneyFormatInNaira(value + investmentAmount)}
           </span>
         </div>
 
@@ -87,11 +91,17 @@ const InvestorSlider = () => {
           className="opacity-25"
         />
       </div>
-      <div className="text-gray-700 text-xs text-center mt-2">
-        * Compared to a bank, you&apos;d potentially earn around{' '}
-        {moneyFormatInNaira(value + value * bankRate)}{' '}
+      <div className="text-gray-700 text-sm text-center mt-2">
+        * Compared to a bank&apos;s ROI of{' '}
+        <span className="text-nowrap fw-bold">
+          {moneyFormatInNaira(bankAmount)}
+        </span>
+        , ours offers up to{' '}
+        <span className="text-nowrap fw-bold">
+          {moneyFormatInNaira(differenceAmount)} more.
+        </span>
         <FormTooltip
-          text="These calculations are based on the average performance of our previous investments compared to typical bank savings rates."
+          text="These calculations are based on the average performance of our previous investments compared to typical bank savings rates over an 18-month period."
           position="top"
         />
       </div>
