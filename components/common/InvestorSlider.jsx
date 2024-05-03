@@ -96,7 +96,7 @@ const InvestorSlider = () => {
         <span className="text-nowrap fw-bold">
           {moneyFormatInNaira(bankAmount)}
         </span>
-        , ours offers up to{' '}
+        , we offer up to{' '}
         <span className="text-nowrap fw-bold">
           {moneyFormatInNaira(differenceAmount)} more.
         </span>

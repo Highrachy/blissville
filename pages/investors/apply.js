@@ -77,7 +77,7 @@ const IntroText = () => (
       </ol>
       <p className="">
         We are excited to embark on this journey together and look forward to
-        welcoming you as a valued investment partner in our projects.
+        welcoming you as a valued investment partner in our project.
       </p>
     </div>
     <div className="col-md-5 col-lg-5">
