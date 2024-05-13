@@ -17,8 +17,8 @@ const LogoImage = () => {
         <Image
           src="/assets/img/logo.png"
           alt="blissville logo"
-          width={147}
-          height={46}
+          width={171}
+          height={47}
         />
       )}
     </Link>

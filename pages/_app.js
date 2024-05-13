@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import XmasFall from '@/components/utils/XmasFall';
 import Script from 'next/script';
+import { DefaultSeo } from 'next-seo';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -18,6 +19,10 @@ function MyApp({ Component, pageProps }) {
       <XmasFall />
       <ToastContainer autoClose={10000} transition={Slide} theme="colored" />
       <NextNProgress color="#446cb2" />
+      <DefaultSeo
+        defaultTitle="Blissville: Future Ready Real Estate"
+        description="Blissville is powered by Highrachy Investment & Technology Ltd, a contemporary real estate development firm that specializes in environmentally friendly communities, and prioritizes the highest industry standards."
+      />
       <Head>
         <link
           rel="apple-touch-icon"
@@ -36,7 +41,7 @@ function MyApp({ Component, pageProps }) {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-        {/* <link rel="manifest" href="/site.webmanifest" /> */}
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <Component {...pageProps} />
       <Script

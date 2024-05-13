@@ -101,8 +101,8 @@ export const InvoiceContent = ({ data: { property, transaction, user } }) => {
             <Image
               src="/assets/img/logo.png"
               alt="blissville logo"
-              width={147}
-              height={46}
+              width={171}
+              height={47}
             />
             <div className="card-body d-flex flex-column">
               {/* Header Details */}
