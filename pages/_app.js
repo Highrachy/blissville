@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
     <UserProvider>
       <XmasFall />
       <ToastContainer autoClose={10000} transition={Slide} theme="colored" />
-      <NextNProgress color="#446cb2" />
+      <NextNProgress color="#1f4e9f" />
       <DefaultSeo
         defaultTitle="Blissville: Future Ready Real Estate"
         description="Blissville is powered by Highrachy Investment & Technology Ltd, a contemporary real estate development firm that specializes in environmentally friendly communities, and prioritizes the highest industry standards."

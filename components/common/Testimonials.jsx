@@ -12,7 +12,7 @@ export const TestimonialSection = () => (
     <div className="container">
       <div className="text-center">
         <Roll left>
-          <QuoteUp size="64" color="#446cb2" variant="Bold" />
+          <QuoteUp size="64" color="#1f4e9f" variant="Bold" />
         </Roll>
         <Slide left>
           <h3 className="mt-3">What our customers are saying</h3>

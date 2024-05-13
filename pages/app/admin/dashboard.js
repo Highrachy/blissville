@@ -19,9 +19,9 @@ import { adminMenu } from '@/data/admin/sideMenu';
 import { useContext } from 'react';
 import { UserContext } from 'context/user';
 
-const PROPERTY_COLOR = '#446CB2';
+const PROPERTY_COLOR = '#1f4e9f';
 const PENDING_PAYMENT_COLOR = '#F59E0B';
-const REFERRAL_COLOR = '#26A65B';
+const REFERRAL_COLOR = '#009e45';
 const EMPTY_COLOR = '#CAD0D9';
 
 const Dashboard = () => {

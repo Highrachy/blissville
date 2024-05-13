@@ -13,7 +13,7 @@ import {
 } from 'iconsax-react';
 
 // const normalIconColor = '#3A4451';
-// const activeIconColor = '#446CB2';
+// const activeIconColor = '#1f4e9f';
 
 export const adminMenu = {
   Dashboard: <Category size="24" variant="Bulk" />,
