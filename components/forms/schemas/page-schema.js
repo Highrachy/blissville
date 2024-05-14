@@ -35,7 +35,7 @@ export const investorSchema = {
   employmentStatus: stringValidation('Employment Status'),
   employerName: optionalValidation(stringValidation('Employer Name')),
   officeAddress: stringValidation('Office Address'),
-  investmentRange: stringValidation('Investment Range'),
+  investmentRange: optionalValidation(stringValidation('Investment Range')),
   amountToInvest: stringValidation('Amount to Invest'),
   bankAccountName: stringValidation('Bank Account Name'),
   accountNumber: stringValidation('Account Number'),

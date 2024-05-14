@@ -44,7 +44,7 @@ export const login = {
 };
 
 const navigation = [
-  home,
+  // home,
   aboutUs,
   portfolio,
   faqs,

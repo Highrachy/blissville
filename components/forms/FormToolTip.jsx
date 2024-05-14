@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 const FormTooltip = ({ header, text, position }) => {
-  console.log('header', header);
   if (!text) {
     return null;
   }

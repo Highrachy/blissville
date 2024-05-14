@@ -96,6 +96,7 @@ const IntroText = () => (
       name="investmentRange"
       formGroupClassName="col-md-6"
       label="Investment Package"
+      optional
       options={valuesToOptions(
         ['₦25 Million', '₦50 Million', '₦100 Million'],
         'Select Investment Package'
@@ -309,12 +310,11 @@ const InvestmentForm = ({ apartment }) => {
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
+      investmentRange: values?.investmentRange || 'None',
     };
 
     delete payload.confirmation;
     delete payload.declaration;
-
-    console.log('payload', payload);
 
     try {
       axios({
@@ -374,7 +374,9 @@ const InvestmentForm = ({ apartment }) => {
         showFormikState
         showAllFormikState
         persistForm
-        initialValues={isDevEnvironment() ? investorTestData : {}}
+        initialValues={
+          isDevEnvironment() ? investorTestData : { investmentRange: 'None' }
+        }
       >
         <PaddedSection>
           <>
@@ -507,7 +509,6 @@ const ActionButtons = ({
 };
 
 export const REQUIRED_FIELDS = {
-  0: ['investmentRange'],
   1: [
     'title',
     'firstName',
