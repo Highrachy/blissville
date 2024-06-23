@@ -39,4 +39,8 @@ export const footerLinks = [
     title: 'Existing Business Relationships',
     url: '/about-us#business-relationships',
   },
+  {
+    title: 'Terms of Use and Privacy',
+    url: '/terms-of-use',
+  },
 ];
