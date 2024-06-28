@@ -45,6 +45,39 @@ export const investorSchema = {
   declaration: booleanValidation('Declaration'),
 };
 
+export const propertyAcquisitionSchema = {
+  title: stringValidation('Title'),
+  firstName: stringValidation('First Name'),
+  surname: stringValidation('Surname'),
+  otherNames: optionalValidation(stringValidation('Middle Name')),
+  passport: optionalValidation(required('Passport')),
+  officeAddress: stringValidation('Office Address'),
+  residentialAddress: stringValidation('Residential Address'),
+  occupation: stringValidation('Occupation'),
+  phone: phoneNumber,
+  email: email,
+  nextOfKin: optionalValidation(stringValidation('Next of Kin')),
+  phoneNOK: optionalValidation(phoneNumber),
+  emailNOK: optionalValidation(email),
+  residentType: stringValidation('Resident Type'),
+  previousHighrachyTransactions: optionalValidation(
+    stringValidation('Previous Highrachy Transactions')
+  ),
+  intendedUseOfProperty: optionalValidation(
+    stringValidation('Intended Use of Property')
+  ),
+  nameOnTitleDocument: stringValidation('Name on Title Document'),
+  nameOfAgent: optionalValidation(stringValidation('Name of Agent')),
+  telephoneNoAgent: optionalValidation(phoneNumber),
+  paymentPlan: stringValidation('Payment Plan'),
+  amountImmediatelyAvailableForPayment: positiveNumberValidation(
+    'Amount Immediately Available for Payment'
+  ),
+  nameOfBanker: optionalValidation(stringValidation('Name of Banker')),
+  customersSignature: stringValidation('Signature'),
+  confirmation: booleanValidation('Confirmation'),
+};
+
 export const supportSchema = {
   subject: required('Subject'),
   message: stringValidation('Message', 10),

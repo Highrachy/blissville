@@ -178,3 +178,19 @@ export const FLOORS = [
   '6th Floor',
   '7th Floor',
 ];
+
+export const titles = [
+  'Mr',
+  'Mrs',
+  'Ms',
+  'Miss',
+  'Alhaji',
+  'Alhaja',
+  'Chief',
+  'Dr',
+  'Prof',
+  'Rev',
+  'Sir',
+  'Madam',
+  'Master',
+];

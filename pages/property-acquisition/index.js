@@ -1,7 +1,7 @@
 import Section from '@/components/common/Section';
 import FormikForm from '@/components/forms/FormikForm';
 import Input from '@/components/forms/Input';
-import { investorSchema } from '@/components/forms/schemas/page-schema';
+import { propertyAcquisitionSchema } from '@/components/forms/schemas/page-schema';
 import Select from '@/components/forms/Select';
 import Textarea from '@/components/forms/Textarea';
 import {
@@ -15,30 +15,30 @@ import Footer from '@/components/common/Footer';
 import Navigation from '@/components/layouts/Navigation';
 import axios from 'axios';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
-import FormikButton from '@/components/forms/FormikButton';
 import { PageHeader } from '@/components/common/Header';
-import { investorTestData } from '@/data/sample/investor';
+import { propertyAcquisitionTestData } from '@/data/sample/propertyAcquisition';
 import { useFormikContext } from 'formik';
 import Button from '@/components/forms/Button';
 import { FaChevronLeft } from 'react-icons/fa';
-import InvestorTerms from '@/data/investor-terms';
 import Humanize from 'humanize-plus';
 import CheckboxGroup from '@/components/forms/CheckboxGroup';
 import Upload from '@/components/forms/Upload';
-import InputFormat from '@/components/forms/InputFormat';
 import Image from 'next/image';
 import { titles } from '@/utils/constants';
+import { PaddedSection } from 'pages/investors/apply';
+import InputFormat from '@/components/forms/InputFormat';
+import FormikButton from '@/components/forms/FormikButton';
 
-const InvestmentApplicationForm = () => {
+const PropertyAcquisitionForm = () => {
   return (
     <>
       <Navigation />
       <PageHeader
-        title="Invest Now"
-        subHeader="Seize Your Opportunity: Apply to Invest Today"
-        bgImage="/assets/img/bg/investors.jpeg"
+        title="Acquire Property"
+        subHeader="Apply today to acquire your property"
+        bgImage="/assets/img/bg/property-acquisitions.jpeg"
       />
-      <InvestmentForm />
+      <AcquisitionForm />
       <Footer />
     </>
   );
@@ -48,17 +48,17 @@ const IntroText = () => (
   <div className="row">
     <div className="col-md-7 col-lg-7 pe-5">
       <p className="fw-normal">
-        Thank you for considering investing with us. The process to participate
-        in our exciting investment opportunities is outlined below.
+        Thank you for considering acquiring property with us. The process to
+        participate in our exciting property acquisition opportunities is
+        outlined below.
       </p>
       <ol className="lh-2">
         <li className="mb-4">
-          Select an investment package that suits your budget and investment
-          below
+          Select a property acquisition plan that suits your needs below.
         </li>
         <li className="mb-4">
           After completing the form, our team will review it and contact you to
-          finalize the investment agreement.
+          finalize the acquisition agreement.
         </li>
         <li className="mb-4">
           You can make the payment to our bank account:
@@ -78,36 +78,39 @@ const IntroText = () => (
       </ol>
       <p className="">
         We are excited to embark on this journey together and look forward to
-        welcoming you as a valued investment partner in our project.
+        welcoming you as a valued partner in our project.
       </p>
     </div>
     <div className="col-md-5 col-lg-5">
       <Image
-        src="/assets/img/investors/investment-tree.jpg"
-        alt="Hero Image"
+        src="/assets/img/property-acquisitions/property.jpg"
+        alt="Property Image"
         width={1500}
         className="rounded pe-md-3"
         height={1688}
       />
     </div>
     <div className="dotted-border-muted my-5"></div>
-
-    <h3>Select an Investment Package</h3>
-    <Select
-      name="investmentRange"
-      formGroupClassName="col-md-6"
-      label="Investment Package"
-      optional
-      options={valuesToOptions(
-        ['₦25 Million', '₦50 Million', '₦100 Million'],
-        'Select Investment Package'
-      )}
-    />
   </div>
 );
 
-const PersonalInformation = () => (
+const ClientDetails = () => (
   <>
+    <div className="mt-3">
+      <Upload
+        label="Upload your Passport Photograph"
+        changeText="Update Passport Photograph"
+        defaultImage="/assets/img/placeholder/image.png"
+        imgOptions={{
+          className: 'mb-3 img-xl img-contain',
+          width: 200,
+          height: 200,
+        }}
+        name="passport"
+        uploadText={`Upload Passort Photograph`}
+        folder={'property-acquisition-passport'}
+      />
+    </div>
     <div className="row">
       <Select
         formGroupClassName="col-md-6"
@@ -122,13 +125,13 @@ const PersonalInformation = () => (
       />
     </div>
     <div className="row">
+      <Input formGroupClassName="col-md-6" name="surname" label="Surname" />
       <Input
         formGroupClassName="col-md-6"
-        name="middleName"
-        label="Middle Name"
+        name="otherNames"
+        label="Other Names"
         optional
       />
-      <Input formGroupClassName="col-md-6" name="surname" label="Surname" />
     </div>
 
     <Textarea
@@ -136,12 +139,15 @@ const PersonalInformation = () => (
       label="Residential Address"
       placeholder="Current Home Address"
     />
+
+    <Textarea
+      name="officeAddress"
+      label="Office Address"
+      placeholder="Current Home Address"
+    />
+    <Input name="occupation" label="Occupation" />
     <div className="row">
-      <Input
-        formGroupClassName="col-md-6"
-        name="phone"
-        label="Mobile Telephone"
-      />
+      <Input formGroupClassName="col-md-6" name="phone" label="Telephone No" />
       <Input
         formGroupClassName="col-md-6"
         name="email"
@@ -149,78 +155,105 @@ const PersonalInformation = () => (
         label="Personal Email"
       />
     </div>
+
+    <div className="dotted-border-muted my-5"></div>
+
+    <h4>Next of Kin (optional)</h4>
     <div className="row">
-      <Select
-        name="gender"
-        label="Gender"
-        options={valuesToOptions(['Male', 'Female'], 'Select One...')}
+      <Input
         formGroupClassName="col-md-6"
+        name="nextOfKin"
+        label="Next of Kin"
+        optional
       />
       <Input
         formGroupClassName="col-md-6"
-        name="nationality"
-        label="Nationality"
+        name="phoneNOK"
+        label="Telephone Number of Next of Kin"
+        optional
       />
     </div>
+    <Input name="emailNOK" optional type="email" label="Email of Next of Kin" />
+  </>
+);
+
+const InterestAndRelationship = () => (
+  <>
     <div className="row">
-      <Input
-        formGroupClassName="col-md-6"
-        name="occupation"
-        label="Occupation"
-      />
       <Select
-        formGroupClassName="col-md-6"
-        name="employmentStatus"
-        label="Employment Status"
+        name="residentType"
+        label="Resident Type"
         options={valuesToOptions(
-          [
-            'Contractor/Freelancer',
-            'Employed Full-Time',
-            'Employed Part-Time',
-            'Retired',
-            'Self-Employed',
-            'Student',
-            'Temporary/Seasonal Worker',
-            'Unemployed',
-          ],
-          'Select Employment Status'
+          ['3 bedroom Apartment - Flat'],
+          'Select Resident Type'
         )}
       />
     </div>
-
     <div className="row">
-      <Input name="employerName" label="Employer Name" optional />
-
-      <Textarea
-        name="officeAddress"
-        label="Office Address"
-        placeholder="Office Address"
+      <Select
+        formGroupClassName="col-md-6"
+        name="previousHighrachyTransactions"
+        label="Previous Transactions with Highrachy"
+        optional
+        options={valuesToOptions(
+          ['Yes', 'No'],
+          'Any other office, house or Flat bought or rented from Highrachy?'
+        )}
+      />
+      <Select
+        formGroupClassName="col-md-6"
+        name="intendedUseOfProperty"
+        label="Intended Use of Property"
+        optional
+        options={valuesToOptions(
+          ['Owner Occupation', 'Sublease'],
+          'Select Intended Use of Property'
+        )}
       />
     </div>
-  </>
-);
-const InvestmentInfo = () => (
-  <>
-    <div className="row">
-      <InputFormat name="amountToInvest" label="Amount to Invest" />
-    </div>
-    <h6 className="mt-5">Your Bank Details</h6>
-    <Input name="bankAccountName" label="Bank Account Name" />
+    <Input name="nameOnTitleDocument" label="Name on Title Document" />
     <div className="row">
       <Input
         formGroupClassName="col-md-6"
-        name="accountNumber"
-        label="Account Number"
+        name="nameOfAgent"
+        label="Name of Agent"
+        optional
       />
-
-      <Input formGroupClassName="col-md-6" name="bankName" label="Bank Name" />
+      <Input
+        formGroupClassName="col-md-6"
+        name="telephoneNoAgent"
+        label="Telephone Number of Agent"
+        optional
+      />
     </div>
   </>
 );
-const TermsAndCondition = () => (
+
+const TransactionDetails = () => (
   <>
-    <InvestorTerms />
-    <div className="dotted-border-muted my-5"></div>{' '}
+    <div className="row">
+      <Select
+        name="paymentPlan"
+        label="Payment Plan"
+        options={valuesToOptions(['One Off Payment'], 'Select Payment Plan')}
+      />
+      <InputFormat
+        formGroupClassName="col-md-6"
+        name="amountImmediatelyAvailableForPayment"
+        label="Amount Immediately Available for Payment"
+      />
+      <Input
+        formGroupClassName="col-md-6"
+        name="nameOfBanker"
+        label="Name of Banker"
+        optional
+      />
+    </div>
+  </>
+);
+
+const Declaration = () => (
+  <>
     <div className="mt-3">
       <Upload
         label="Upload your Signature"
@@ -231,15 +264,15 @@ const TermsAndCondition = () => (
           width: 100,
           height: 200,
         }}
-        name="signature"
+        name="customersSignature"
         uploadText={`Upload Signature`}
-        folder={'investor-signature'}
+        folder={'property-acquisition-signature'}
       />
     </div>
     <div className="mt-4">
       <CheckboxGroup
         inline
-        name="declaration"
+        name="confirmation"
         options={[
           {
             label: (
@@ -254,57 +287,24 @@ const TermsAndCondition = () => (
         ]}
       />
     </div>
-    <div className="mt-2 mb-5">
-      <CheckboxGroup
-        inline
-        name="confirmation"
-        options={[
-          {
-            label: (
-              <>
-                By submitting this form, I hereby acknowledge that I have read
-                and understand the terms and conditions contained herein and
-                agree to be bound by the same.
-              </>
-            ),
-            value: true,
-          },
-        ]}
-      />
-    </div>
   </>
 );
 
-export const PaddedSection = ({ children, title }) => (
-  <section className="pb-5">
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-sm-12">
-          {title && <h3>{title}</h3>}
-          {children}
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-const InvestmentForm = ({ apartment }) => {
+const AcquisitionForm = () => {
   const [step, setStep] = React.useState(0);
   const [errorFields, setErrorFields] = React.useState([]);
 
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
-      investmentRange: values?.investmentRange || 'None',
     };
 
     delete payload.confirmation;
-    delete payload.declaration;
 
     try {
       axios({
         method: 'post',
-        url: `${process.env.NEXT_PUBLIC_API_URL}/api/investors`,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/property-acquisitions`,
         data: { data: payload },
       })
         .then(function (response) {
@@ -330,16 +330,18 @@ const InvestmentForm = ({ apartment }) => {
   const executeScroll = () => myRef.current.scrollIntoView();
 
   const ALL_STEPS = [
-    <IntroText key="1" />,
-    <PersonalInformation key="2" />,
-    <InvestmentInfo key="3" />,
-    <TermsAndCondition key="4" />,
+    <ClientDetails key="1" />,
+    <InterestAndRelationship key="2" />,
+    <TransactionDetails key="3" />,
+    <Declaration key="4" />,
   ];
+
   const ALL_STEPS_TITLE = [
-    'Investment Application Form',
+    'Property Acquisition Form',
     'Client Details',
-    'Investment Details',
-    'Terms and Conditions',
+    'Interest and Relationship',
+    'Transaction Details',
+    'Declaration',
   ];
 
   const lastStep = ALL_STEPS.length - 1;
@@ -349,19 +351,16 @@ const InvestmentForm = ({ apartment }) => {
   const showErrorMessage = (fields = []) => {
     setErrorFields(fields);
   };
-
   return (
     <Section>
       <FormikForm
-        schema={investorSchema}
+        schema={propertyAcquisitionSchema}
         handleSubmit={handleSubmit}
-        name="tenant-application-form"
+        name="property-acquisition-application-form"
         showFormikState
         showAllFormikState
         persistForm
-        initialValues={
-          isDevEnvironment() ? investorTestData : { investmentRange: 'None' }
-        }
+        initialValues={isDevEnvironment() ? propertyAcquisitionTestData : null}
       >
         <PaddedSection>
           <>
@@ -390,7 +389,7 @@ const InvestmentForm = ({ apartment }) => {
                 </div>
               )}
 
-              {step > 0 && (
+              {step >= 0 && (
                 <div className="mb-4 alert alert-info text-sm">
                   <strong>Note: </strong> Your information is confidential and
                   will not be shared with any 3rd parties.
@@ -400,13 +399,16 @@ const InvestmentForm = ({ apartment }) => {
               {ALL_STEPS[step]}
             </div>
 
-            <ActionButtons
-              step={step}
-              setStep={setStep}
-              isFirstStep={isFirstStep}
-              isLastStep={isLastStep}
-              executeScroll={executeScroll}
-            />
+            <div className="mt-5">
+              <ActionButtons
+                step={step}
+                setStep={setStep}
+                isFirstStep={isFirstStep}
+                isLastStep={isLastStep}
+                executeScroll={executeScroll}
+                compulsoryFields={REQUIRED_FIELDS}
+              />
+            </div>
           </>
         </PaddedSection>
       </FormikForm>
@@ -414,12 +416,13 @@ const InvestmentForm = ({ apartment }) => {
   );
 };
 
-const ActionButtons = ({
+export const ActionButtons = ({
   step,
   setStep,
   isFirstStep,
   isLastStep,
   executeScroll,
+  compulsoryFields = REQUIRED_FIELDS,
 }) => {
   const { values, setFieldTouched } = useFormikContext();
 
@@ -439,7 +442,7 @@ const ActionButtons = ({
   };
 
   const getMissingRequiredFields = (step) => {
-    const requiredFields = REQUIRED_FIELDS[step] || [];
+    const requiredFields = compulsoryFields[step] || [];
     if (!Array.isArray(requiredFields)) return [];
     return requiredFields.reduce((acc, field) => {
       if (!values?.[field]) {
@@ -453,18 +456,20 @@ const ActionButtons = ({
   return (
     <div className="d-flex justify-content-between">
       {/*  Show Back button on all steps except First Step */}
-      {!isFirstStep && (
-        <Button
-          color="outline-light"
-          className="px-5"
-          onClick={() => {
-            setStep(step - 1);
-            executeScroll();
-          }}
-        >
-          <FaChevronLeft /> Back
-        </Button>
-      )}
+      <div>
+        {!isFirstStep && (
+          <Button
+            color="outline-light"
+            className="px-5"
+            onClick={() => {
+              setStep(step - 1);
+              executeScroll();
+            }}
+          >
+            <FaChevronLeft /> Back
+          </Button>
+        )}
+      </div>
 
       {isLastStep ? (
         // Submit Button on last step
@@ -486,7 +491,7 @@ const ActionButtons = ({
             executeScroll();
           }}
         >
-          {isFirstStep ? "Let's Begin" : <>Continue</>}
+          Continue
         </Button>
       )}
     </div>
@@ -499,16 +504,13 @@ export const REQUIRED_FIELDS = {
     'firstName',
     'surname',
     'residentialAddress',
+    'occupation',
     'phone',
     'email',
-    'gender',
-    'nationality',
-    'occupation',
-    'employmentStatus',
-    'officeAddress',
   ],
-  2: ['amountToInvest', 'bankAccountName', 'accountNumber', 'bankName'],
-  3: ['signature', 'declaration', 'confirmation'],
+  2: ['residentType', 'nameOnTitleDocument'],
+  3: ['paymentPlan', 'amountImmediatelyAvailableForPayment'],
+  4: ['confirmation', 'customersSignature'],
 };
 
-export default InvestmentApplicationForm;
+export default PropertyAcquisitionForm;
