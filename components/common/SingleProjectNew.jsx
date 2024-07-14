@@ -1,6 +1,6 @@
 import { PROJECT_STATUS_NAME, STATUS_NAME } from '@/utils/constants';
 import { getShortDate } from '@/utils/date-helpers';
-import { moneyFormatInNaira } from '@/utils/helpers';
+import { getPrice } from '@/utils/helpers';
 import Image from 'next/image';
 import React from 'react';
 import Button from '../forms/Button';
@@ -47,13 +47,13 @@ const SingleProject = ({ id, attributes }) => {
               <li>
                 <span className="list-dotted__label">Total Units </span>
                 <span className="list-dotted__value">
-                  {type === '1' ? 3 : 5} Units
+                  {slug === 'blissville-uno' ? 5 : 14} Units
                 </span>
               </li>
               <li>
                 <span className="list-dotted__label">Prices From </span>
                 <span className="list-dotted__value">
-                  {moneyFormatInNaira(startingPrice)}
+                  {getPrice(startingPrice)}
                 </span>
               </li>
               <li>

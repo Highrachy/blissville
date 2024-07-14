@@ -1,4 +1,4 @@
-import { moneyFormatInNaira } from '@/utils/helpers';
+import { getPrice } from '@/utils/helpers';
 import Image from 'next/image';
 import React from 'react';
 import Button from '../forms/Button';
@@ -93,8 +93,8 @@ export const SingleProjectGrid = ({ id, attributes }) => {
               </span>
             </div>
             <div className="text-md text-primary fw-bold">
-              <small className="text-xs">From </small>{' '}
-              {moneyFormatInNaira(startingPrice)}
+              {startingPrice > 0 && <small className="text-xs">From </small>}
+              {getPrice(startingPrice)}
             </div>
           </div>
 

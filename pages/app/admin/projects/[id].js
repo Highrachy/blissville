@@ -5,7 +5,7 @@ import { ContentLoader } from '@/components/utils/LoadingItems';
 import { useRouter } from 'next/router';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import Button from '@/components/forms/Button';
-import { getLocationFromAddress, moneyFormatInNaira } from '@/utils/helpers';
+import { getLocationFromAddress, getPrice } from '@/utils/helpers';
 import { GalleryTick } from 'iconsax-react';
 import { PROJECT_STATUS_NAME, USER_ROLES } from '@/utils/constants';
 import { PropertiesRowList } from '../properties';
@@ -198,8 +198,12 @@ const ProjectHeader = ({
                   {getLocationFromAddress(projectInfo)}
                 </div>
                 <div className="d-flex text-sm flex-wrap align-items-center pe-2 text-primary fw-bold">
-                  <span className="text-muted">From </span>&nbsp;{' '}
-                  {moneyFormatInNaira(startingPrice)} &nbsp;
+                  {startingPrice > 0 && (
+                    <>
+                      <span className="text-muted">From </span>&nbsp;{' '}
+                    </>
+                  )}
+                  {getPrice(startingPrice)} &nbsp;
                 </div>
                 <div className="d-flex flex-wrap my-2 text-muted">
                   <Link

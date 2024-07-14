@@ -20,6 +20,7 @@ import { ShareProjectIcon } from '@/components/Icons/Icons';
 import { useRouter } from 'next/router';
 import {
   getLocationFromAddress,
+  getPrice,
   listFeatures,
   moneyFormatInNaira,
 } from '@/utils/helpers';
@@ -125,7 +126,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                   <li>
                     <span className="list-dotted__label">Prices From </span>
                     <span className="list-dotted__value">
-                      {moneyFormatInNaira(startingPrice)}
+                      {getPrice(startingPrice)}
                     </span>
                   </li>
                   <li>

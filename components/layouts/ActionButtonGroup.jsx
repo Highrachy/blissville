@@ -1,7 +1,7 @@
 import React from 'react';
 import { KeyIcon, PhoneIcon } from '@/components/Icons/Icons';
 import ActionButton from '@/components/common/ActionButton';
-import { moneyFormatInNaira } from '@/utils/helpers';
+import { getPrice } from '@/utils/helpers';
 import { PHONE_NUMBER } from '@/utils/constants';
 
 const ActionButtonGroup = ({ price = 35_000_000, href = '#' }) => {
@@ -11,7 +11,7 @@ const ActionButtonGroup = ({ price = 35_000_000, href = '#' }) => {
         color="primary"
         Icon={<KeyIcon />}
         topText="Prices From"
-        bottomText={moneyFormatInNaira(price)}
+        bottomText={getPrice(price)}
         href={href}
       />
       <ActionButton

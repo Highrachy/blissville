@@ -379,3 +379,6 @@ export const isFestivePeriod = () => {
     return false;
   }
 };
+
+export const getPrice = (price) =>
+  price?.toString() === '0' ? 'Sold Out' : moneyFormatInNaira(price);

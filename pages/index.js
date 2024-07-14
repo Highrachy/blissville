@@ -159,7 +159,7 @@ export async function getStaticProps() {
     image: attributes.image,
     slug: attributes.slug,
     slogan: attributes.slogan,
-    startingPrice: attributes.startingPrice || 30_000_000,
+    startingPrice: attributes.startingPrice || 0,
   }));
 
   const projects = projectRes.data.data;
