@@ -15,15 +15,27 @@ export const team = [
   },
   {
     name: 'Julius Airhia',
-    image: 'blank.png',
-    title: 'Engineer',
+    image: 'julius.jpg',
+    title: 'Engineer (COREN)',
     description:
       'With over 10 years experience in construction management in diverse capacities for many sizes of construction feats and equipped with a B.Eng in Civil Engineering Julius is more than capable of delivering our projects in line with project requirements.',
+  },
+  {
+    name: 'Tosin Opawole',
+    image: 'tosin.jpg',
+    title: 'Engineer (COREN)',
+    description: '-',
   },
   {
     name: 'Oludare Odu',
     image: 'oludare.png',
     title: 'Engineer',
+    description: '-',
+  },
+  {
+    name: 'Oscar Nnenji',
+    image: 'oscar.jpg',
+    title: 'Architect',
     description: '-',
   },
   {

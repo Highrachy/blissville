@@ -84,7 +84,7 @@ const Content = () => (
       <h6 className="tou-header">2. About the Website</h6>
       <p>
         Blissville is a leading real estate brand in Africa. We offer
-        affordable, energy-efficient luxury condos that enhance your living
+        affordable, energy-efficient luxury homes that enhance your living
         experience. Our properties are strategically located near essential
         services and come with flexible payment plans. We ensure seamless
         ownership transfers and use natural elements to boost comfort.

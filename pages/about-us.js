@@ -80,14 +80,13 @@ const CEOSpeech = () => {
           <div className="col-md-8 col-lg-8">
             <p className="mt-md-n4 mb-5">
               Our projects strategically aim at providing energy efficient
-              luxury condos that are well within your grasp, thus presenting you
+              premium homes that are well within your grasp, thus presenting you
               with a rare combination of quality and affordability in a single
               package.
               <br /> <br />
-              Our unique edifices do not simply cater for the affordability on
-              procurement but also ensure that the living experience of the
-              occupants is delightfully enhanced at minimum running and
-              maintenance cost&nbsp;
+              You will enjoy a distinctive home that not only saves on
+              procurement costs but also ensures minimal running and maintenance
+              expenses.&nbsp;
               {isMobile && showReadMore ? (
                 <>
                   ...
@@ -101,19 +100,19 @@ const CEOSpeech = () => {
                 </>
               ) : (
                 <>
-                  and with architectural designs that respond imaginatively to
-                  the cultural climatic and environmental conditions. In
-                  reality, we do not just sell homes, we secure your future.
+                  With architectural designs that creatively adapt to cultural,
+                  climatic, and environmental conditions, your new home will not
+                  only meet but exceed your expectations.
                   <br /> <br />
-                  Over the next five years, we intend to progressively expand
-                  our portfolio nationwide and provide similar housing solutions
-                  suitable for strategically selected locations like Ibeju
-                  Lekki, Porthharcourt, Uyo, Abuja and Kaduna.
+                  Over the next five years, you can look forward to more housing
+                  solutions in strategically selected locations such as Ibeju
+                  Lekki, Port Harcourt, Uyo, Abuja, and Kaduna, expanding your
+                  options across the nation.
                   <br /> <br />
-                  Subscribe with us today and proceed to select from our vast
-                  range of Floor tiles, Wall tiles, Paint colors, and other
-                  finishes to customize your home into the haven that suits your
-                  style.
+                  Subscribe today and take the first step in customizing your
+                  home with our extensive range of floor tiles, wall tiles,
+                  paint colors, and other finishes, transforming your space into
+                  a haven that reflects your unique style.
                 </>
               )}
             </p>
