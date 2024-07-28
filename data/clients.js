@@ -1,10 +1,14 @@
 export const allClients = [
   'commax',
-  'diamond',
   'ezinc',
+  'hausba',
+  'paystack',
+  'legrand',
   'gtbank',
+  'stanbic',
   'jutem',
   'samsung',
+  'esa',
   'schmid',
   'voltronic',
 ];
