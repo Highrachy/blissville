@@ -22,14 +22,13 @@ const AuthPage = ({ children, title, page, bigForm = false }) => {
           <div className={`${bigForm ? 'col-md-5' : 'col-md-7'} ps-5`}>
             <div className="mt-5">
               <Image
-                src="/assets/img/property/property1.jpeg"
+                src="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"
                 alt="Hero Image"
-                width={1024}
-                height={768}
-                className="rounded"
+                width={1800}
+                height={1440}
               />
               <p className="text-muted text-center fw-semibold">
-                Blissville Uno
+                Blissville Terraces
               </p>
             </div>
           </div>

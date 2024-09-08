@@ -110,7 +110,7 @@ export default function SinglePropertyPage({
           </div>
         </section>
       )}
-      <FeaturedProperties properties={featuredProperties} />
+      {/* <FeaturedProperties properties={featuredProperties} /> */}
       <Section noPaddingBottom>
         <ProjectsSlideshow projects={projects} title="Other Projects" />
       </Section>
@@ -337,8 +337,7 @@ const TabInformation = ({ property }) => {
   const project = property.project.data.attributes;
   const [showComparePropertyModal, setShowComparePropertyModal] =
     React.useState(false);
-  const halfPaymentPlan =
-    property.paymentPlan > 0 ? property.paymentPlan / 2 : 0;
+  const halfPaymentPlan = property.paymentPlan > 0 ? 6 : 0; // use 6 months as halfpayment
   const [currentTab, setCurrentTab] = React.useState(packages[0]['name']);
   const [customPlan, setCustomPlan] = React.useState(halfPaymentPlan);
 
@@ -430,20 +429,18 @@ const TabInformation = ({ property }) => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                  {/* loop from 3 in multiple of 3 to paymentPlan */}
+                                  {/* Loop from 6 to property.paymentPlan in multiples of 6 */}
                                   {Array.from(
-                                    { length: property.paymentPlan / 3 - 1 },
-                                    (_, i) => i + 1
+                                    { length: property.paymentPlan / 6 },
+                                    (_, i) => (i + 1) * 6
                                   ).map(
                                     (plan) =>
-                                      plan * 3 !== customPlan && (
+                                      plan !== customPlan && (
                                         <Dropdown.Item
                                           key={plan}
-                                          onClick={() =>
-                                            setCustomPlan(plan * 3)
-                                          }
+                                          onClick={() => setCustomPlan(plan)}
                                         >
-                                          {plan * 3} Months
+                                          {plan} Months
                                         </Dropdown.Item>
                                       )
                                   )}
@@ -471,7 +468,7 @@ const TabInformation = ({ property }) => {
                               packageName={name}
                             />
                             <PaymentPlanCard
-                              month={property.paymentPlan}
+                              month={Math.min(property.paymentPlan, 12)}
                               price={currentTabPrice}
                               property={property}
                               dimDisplay={customPlan !== halfPaymentPlan}
@@ -536,7 +533,13 @@ const PaymentPlanCard = ({
     paymentPlanIncrement,
   } = property;
 
-  let packageInitialPayment = initialPayment;
+  const initialPayments = {
+    6: 56_000_000,
+    12: 44_100_000,
+    18: 38_750_000,
+  };
+
+  let packageInitialPayment = initialPayments[month] || parseInt(price, 10);
 
   if (packageName === PACKAGE_NAME.STANDARD) {
     packageInitialPayment = standardInitialPayment;
@@ -547,8 +550,17 @@ const PaymentPlanCard = ({
   const [customizedInitialPayment, setCustomizedInitialPayment] =
     React.useState(null);
 
-  const totalPayment =
-    parseInt(price, 10) + parseInt(paymentPlanIncrement * month, 10);
+  // const totalPayment =
+  //   parseInt(price, 10) + parseInt(paymentPlanIncrement , 10);
+
+  const increments = {
+    0: 0,
+    6: 5_000_000,
+    12: 12_000_000,
+    18: 20_000_000,
+  };
+
+  const totalPayment = parseInt(price, 10) + (increments[month] || 0);
   const initialPackageAmount =
     month === 0 ? totalPayment : packageInitialPayment;
   const currentInitialPayment =

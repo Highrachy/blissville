@@ -47,10 +47,10 @@ const IntroText = () => (
         </div>
         <div className="col-md-5 col-lg-6">
           <Image
-            src="/assets/img/property/property1.jpeg"
+            src="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"
             alt="Hero Image"
-            width={1024}
-            height={768}
+            width={1800}
+            height={1440}
           />
         </div>
       </div>
