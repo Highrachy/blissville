@@ -63,7 +63,7 @@ const ContactInfo = () => (
                     <LocationIcon />
                   </span>
                   <p>
-                    5th Floor, Ibukun House, <br />
+                    3rd Floor, Ibukun House, <br />
                     No.70 Adetokunbo Ademola Street, <br />
                     Victoria Island, Lagos.
                   </p>

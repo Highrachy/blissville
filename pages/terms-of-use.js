@@ -644,7 +644,7 @@ const Content = () => (
         <li>
           By visiting our address:
           <div>
-            <div>5th Floor, Ibukun House,</div>
+            <div>3rd Floor, Ibukun House,</div>
             <li>No.70 Adetokunbo Ademola Street,</li>
             <li>Victoria Island, Lagos</li>
           </div>

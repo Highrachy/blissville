@@ -34,7 +34,7 @@ const Footer = () => (
               <h6 className="text-white pb-2">Contact Us</h6>
               <div className="small text-dark-light">
                 <p>
-                  5th Floor, Ibukun House, <br />
+                  3rd Floor, Ibukun House, <br />
                   No. 70 Adetokunbo Ademola Street, <br />
                   Victoria Island, Lagos.
                 </p>
