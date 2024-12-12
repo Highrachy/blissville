@@ -54,6 +54,10 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     answer,
   }));
 
+  const { slug } = router.query;
+
+  const shareUrl = `https://blissville.com.ng/our-projects/${slug}`;
+
   return (
     <>
       <Navigation />
@@ -82,7 +86,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                 <section className="row">
                   <div className="col-md-12 my-3">
                     <p>Click to share this project with your friends</p>
-                    <Sharer shareUrl="https://blissville.com.ng" />
+                    <Sharer shareUrl={shareUrl} />
                   </div>
                 </section>
               </Modal>

@@ -125,6 +125,7 @@ const PropertyInformation = ({ property }) => {
   const [showModal, setShowModal] = React.useState(false);
   const {
     id,
+    slug,
     name,
     price,
     image,
@@ -139,6 +140,11 @@ const PropertyInformation = ({ property }) => {
   } = property;
   const project = property.project.data.attributes;
   const isSoldOut = availableUnits === 0;
+
+  const shareUrl = `https://blissville.com.ng/our-properties/${
+    project?.slug || 'project-name'
+  }/${slug || 'property-name'}/${id}`;
+
   return (
     <Section>
       <div className="container">
@@ -171,8 +177,8 @@ const PropertyInformation = ({ property }) => {
               >
                 <section className="row">
                   <div className="col-md-12 my-3">
-                    <p>Click to share this project with your friends</p>
-                    <Sharer shareUrl="https://blissville.com.ng" />
+                    <p>Click to share this property with your friends</p>
+                    <Sharer shareUrl={shareUrl} />
                   </div>
                 </section>
               </Modal>

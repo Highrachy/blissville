@@ -11,7 +11,7 @@ const LogoImage = () => {
           <Image
             src="/assets/img/xmas/logo.svg"
             alt="blissville logo"
-            width={168}
+            width={218}
             height={74}
           />
         ) : (
