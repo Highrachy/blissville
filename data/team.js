@@ -33,12 +33,6 @@ export const team = [
     description: '-',
   },
   {
-    name: 'Oscar Nnenji',
-    image: 'oscar.jpg',
-    title: 'Architect',
-    description: '-',
-  },
-  {
     name: 'Haruna Popoola',
     image: 'haruna.jpg',
     title: 'IT, Research & Development',
