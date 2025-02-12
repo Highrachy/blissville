@@ -8,8 +8,10 @@ export const portfolio = {
   title: 'Portfolio',
   url: 'portfolio',
   children: {
-    'our-projects': 'Our Projects',
-    'our-properties': 'Our Properties',
+    'our-projects/blissville-terraces': 'Blissville Terraces',
+    'our-projects/blissville-apartments': 'Blissville Apartments',
+    'our-projects': 'View All Projects',
+    'our-properties': 'View All  Properties',
     // 'past-projects': 'Past Projects',
   },
 };

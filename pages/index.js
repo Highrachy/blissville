@@ -20,12 +20,42 @@ import ReferralModal from '@/components/ui/ReferralModal';
 import { useRouter } from 'next/router';
 import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
 
+const BASE_CONTENT = {
+  image:
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3-night.jpg',
+  name: 'Blissville Terraces',
+  slogan: 'PRE-LAUNCH OFFER',
+  slug: 'blissville-terraces',
+  startingPrice: '120000000',
+};
+
+const SLIDES = [
+  {
+    id: 1,
+    ...BASE_CONTENT,
+  },
+  {
+    id: 2,
+    ...BASE_CONTENT,
+    image:
+      'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg',
+  },
+  {
+    id: 3,
+    ...BASE_CONTENT,
+    image:
+      'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-2-night.jpg',
+  },
+];
+
+const finished = 160000000;
+
 export default function Home({ slides, projects, properties }) {
   const { query } = useRouter();
   return (
     <>
       <TopNavigation />
-      <HeroSection slides={slides} />
+      <HeroSection slides={SLIDES || slides} />
       <ExecutiveSummary />
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
@@ -106,11 +136,11 @@ const ExecutiveSummary = () => (
         <div className="col-md-5 col-lg-6 d-none d-md-block">
           <Bounce right>
             <Image
-              src="/assets/img/home/dream-home.png"
+              src="/assets/img/home/dream-home.jpg"
               alt="Hero Image"
-              width={534}
-              height={694}
-              className="img-cover"
+              width={769}
+              height={800}
+              className="img-cover rounded-2"
             />
           </Bounce>
         </div>
