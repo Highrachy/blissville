@@ -40,6 +40,12 @@ export const team = [
       'The ingenious Haruna manages our ICT and research unit. With a bachelor of technology degree in Computer Science & Engineering and a diploma in Application development, he has constantly proven to be an integral part of such a solution oriented team.',
   },
   {
+    name: 'Omolara Ogbonnaya',
+    image: 'omolara.png',
+    title: 'Sales',
+    description: '-',
+  },
+  {
     name: 'Osasumwen Eghaghe',
     image: 'osas.png',
     title: 'Sales',
