@@ -72,7 +72,7 @@ const SingleTestimonial = ({ image, name, testimonial, altBg }) => (
 
 const OneTestimonial = ({ image, name, testimonial, altBg }) => (
   <aside className="text-center">
-    <div className="testimonial-listing__container col-lg-5  col-md-6 col-sm-8 col-10 mx-auto">
+    <div className="testimonial-listing__container col-lg-9 col-md-10 col-sm-11 col-11 mx-auto">
       <div className="testimonial-listing__image">
         <Slide left>
           <Image

@@ -404,7 +404,7 @@ const faqs = [
               recreational amenities including;
             </p>
             <ul>
-              <li>Children's play area&nbsp;</li>
+              <li>Children&apos;s play area&nbsp;</li>
               <li>Rooftop gym/ Dance room</li>
               <li>Sky lounge with exciting views</li>
               <li>Dedicated parking for vehicles</li>

@@ -290,7 +290,7 @@ export const listFeatures = (project, type = PACKAGE.ALL) => {
       output.push(
         <li
           key={`${feature}-${index}`}
-          className={classNames('col-md-4', {
+          className={classNames('col-md-6', {
             invalid:
               type !== PACKAGE.ALL &&
               ((type === PACKAGE.SHELL && key !== PACKAGE.SHELL) ||
@@ -300,7 +300,7 @@ export const listFeatures = (project, type = PACKAGE.ALL) => {
           })}
         >
           {feature}
-          <FormTooltip
+          {/* <FormTooltip
             text={
               key === PACKAGE.SHELL
                 ? 'Available in all packages'
@@ -309,7 +309,7 @@ export const listFeatures = (project, type = PACKAGE.ALL) => {
                 : 'Avaiable in Supreme Package only'
             }
             position="top"
-          />
+          /> */}
         </li>
       );
     });

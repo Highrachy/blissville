@@ -155,7 +155,10 @@ export default function SingleProjectPage({ project, featuredProperties }) {
       <TabInformation project={project} />
 
       <Gallery galleries={project?.project_galleries?.data || []} />
-      <Neighborhood neighborhoods={project?.neighborhoods?.data || []} />
+      <Neighborhood
+        neighborhoods={project?.neighborhoods?.data || []}
+        slug={slug}
+      />
 
       {allFaqs.length > 0 && (
         <section className="container">
@@ -332,38 +335,159 @@ export const Gallery = ({ galleries, className }) => {
   if (!galleries || galleries.length === 0) {
     return null;
   }
+
+  // Group images by description
+  const groupedGalleries = galleries.reduce((acc, gallery) => {
+    const description = gallery.attributes.description;
+    if (!acc[description]) {
+      acc[description] = [];
+    }
+    acc[description].push(gallery);
+    return acc;
+  }, {});
+
   return (
     <Section className={className} noPaddingBottom>
       <div className="container">
         <h3>Gallery</h3>
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-5 gx-4">
-          {galleries.map((gallery, index) => (
-            <div key={index} className="col">
-              <Image
-                src={gallery?.attributes?.image}
-                alt="Hero Image"
-                width={600}
-                height={600}
-                objectFit="cover"
-                className="card-img-top col"
-              />
+        {Object.entries(groupedGalleries).map(
+          ([description, images], groupIndex) => (
+            <div key={groupIndex} className="mb-5">
+              <h5 className="text-primary">{description}</h5>
+              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-4">
+                {images.map((gallery, index) => (
+                  <div key={index} className="col">
+                    <div className="card h-100">
+                      <Image
+                        src={gallery.attributes.image}
+                        alt={description}
+                        width={600}
+                        height={500}
+                        objectFit="cover"
+                        className="card-img-top img-fluid"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
+          )
+        )}
       </div>
     </Section>
   );
 };
 
-export const Neighborhood = ({ neighborhoods }) => {
-  // const locations = {
-  //   Hospital: 'The new Circle Mall',
-  //   Grocery: 'Prince Ebeano Supermarket',
-  //   Entertainment: 'Dreamworld Africana Amusement Park',
-  //   'Famous Places': 'Lekki Conservation Center',
-  //   Financial: 'Several bank branches & ATMs',
-  //   Others: 'Plazas and Filling/service stations',
-  // };
+export const Neighborhood = ({ neighborhoods, slug }) => {
+  if (slug === 'blissville-terraces') {
+    neighborhoods = [
+      {
+        attributes: {
+          location: 'Corona Day Secondary School',
+          category: 'Education',
+          distance: 5.2, // Distance in kilometers
+        },
+      },
+      {
+        attributes: {
+          location: 'Lagos Business School (LBS)',
+          category: 'Education',
+          distance: 3.8,
+        },
+      },
+      {
+        attributes: {
+          location: 'Green Springs Schools',
+          category: 'Education',
+          distance: 4.5,
+        },
+      },
+      {
+        attributes: {
+          location: 'Medical Centres',
+          category: 'Healthcare',
+          distance: 2.1,
+        },
+      },
+      {
+        attributes: {
+          location: 'Pan-Atlantic University',
+          category: 'Education',
+          distance: 6.0,
+        },
+      },
+      {
+        attributes: {
+          location: 'Domino’s Pizza',
+          category: 'Food & Dining',
+          distance: 1.5,
+        },
+      },
+      {
+        attributes: {
+          location: 'Giwa Water Park',
+          category: 'Recreation',
+          distance: 7.3,
+        },
+      },
+      {
+        attributes: {
+          location: 'Sangotedo Modern Market',
+          category: 'Shopping',
+          distance: 0.9,
+        },
+      },
+      {
+        attributes: {
+          location: 'Green Fingers Wildlife Conservation',
+          category: 'Recreation',
+          distance: 8.4,
+        },
+      },
+      {
+        attributes: {
+          location: 'i-Fitness Gym',
+          category: 'Fitness',
+          distance: 2.7,
+        },
+      },
+      {
+        attributes: {
+          location: 'Tennis Academy',
+          category: 'Sports',
+          distance: 3.2,
+        },
+      },
+      {
+        attributes: {
+          location: 'Novare Mall (Shoprite)',
+          category: 'Shopping',
+          distance: 1.2,
+        },
+      },
+      {
+        attributes: {
+          location: 'Sangotedo Jetty',
+          category: 'Transportation',
+          distance: 4.0,
+        },
+      },
+      {
+        attributes: {
+          location: 'Elevation Church',
+          category: 'Worship',
+          distance: 2.5,
+        },
+      },
+      {
+        attributes: {
+          location: 'Omu Resort',
+          category: 'Recreation',
+          distance: 9.1,
+        },
+      },
+    ];
+  }
 
   if (!neighborhoods || neighborhoods.length === 0) {
     return null;
@@ -373,31 +497,28 @@ export const Neighborhood = ({ neighborhoods }) => {
     <Section noPaddingBottom>
       <div className="container">
         <div className="row">
-          <div className="col-md-7 col-lg-6">
+          <div className="col">
             <h3>Neighborhood</h3>
 
-            <ul className="list-location">
+            <Image
+              src="/assets/img/maps/bvt-location-map.png"
+              alt="BVT Location Map"
+              className="img-fluid border border-2 border-light rounded"
+              width={2694}
+              height={1768}
+            />
+            <ul className="list-location row">
               {neighborhoods.map(
                 ({ attributes: { location, category, distance } }) => (
-                  <li key={category}>
+                  <li key={category} className="col-5">
                     <h5 className="text-gray-800 mb-0">{location}</h5>
-                    <p className="text-md font-secondary mt-n1">
+                    {/* <p className="text-md font-secondary mt-n1">
                       {distance}km - {category}
-                    </p>
+                    </p> */}
                   </li>
                 )
               )}
             </ul>
-          </div>
-          <div className="col-md-5 col-lg-6">
-            <div className="mt-5">
-              <Image
-                src="/assets/img/maps/single-project.png"
-                alt="Hero Image"
-                width={626}
-                height={578}
-              />
-            </div>
           </div>
         </div>
       </div>

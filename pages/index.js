@@ -48,14 +48,14 @@ const SLIDES = [
   },
 ];
 
-const finished = 160000000;
-
 export default function Home({ slides, projects, properties }) {
   const { query } = useRouter();
+  const showAds = true;
+
   return (
     <>
       <TopNavigation />
-      <HeroSection slides={SLIDES || slides} />
+      {showAds ? <AdsSection /> : <HeroSection slides={SLIDES || slides} />}
       <ExecutiveSummary />
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
@@ -101,6 +101,26 @@ const HeroSection = ({ slides }) => (
     ))}
   </Swiper>
 );
+
+const AdsSection = () => {
+  const adsImage =
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/lauch-ads.jpg';
+  return (
+    <section className="ads-section position-relative d-flex align-items-center justify-content-center">
+      <div className="ads-overlay"></div>
+      <div className="ads-content">
+        <Image
+          src={adsImage}
+          alt="Advertisement"
+          width={2500}
+          height={2500}
+          className="img-fluid ads-image"
+          priority
+        />
+      </div>
+    </section>
+  );
+};
 
 const ExecutiveSummary = () => (
   <Section altBg>
