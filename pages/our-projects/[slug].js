@@ -57,6 +57,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
   const { slug } = router.query;
 
   const shareUrl = `https://blissville.com.ng/our-projects/${slug}`;
+  const isBlissvilleTerraces = slug === 'blissville-terraces';
 
   return (
     <>
@@ -95,13 +96,24 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         </div>
         <div className="container">
           <div className="mb-3 img-project img-fill mb-md-5">
-            <Image
-              src={image}
-              alt="Hero Image"
-              layout="fill"
-              objectFit="cover"
-              className="img-fluid"
-            />
+            {isBlissvilleTerraces ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/lauch-ads.jpg"
+                  alt="Project Image"
+                  className="img-fluid"
+                />
+              </>
+            ) : (
+              <Image
+                src={image}
+                alt="Hero Image"
+                layout="fill"
+                objectFit="cover"
+                className="img-fluid"
+              />
+            )}
           </div>
         </div>
         <div className="container">
@@ -379,115 +391,7 @@ export const Gallery = ({ galleries, className }) => {
 };
 
 export const Neighborhood = ({ neighborhoods, slug }) => {
-  if (slug === 'blissville-terraces') {
-    neighborhoods = [
-      {
-        attributes: {
-          location: 'Corona Day Secondary School',
-          category: 'Education',
-          distance: 5.2, // Distance in kilometers
-        },
-      },
-      {
-        attributes: {
-          location: 'Lagos Business School (LBS)',
-          category: 'Education',
-          distance: 3.8,
-        },
-      },
-      {
-        attributes: {
-          location: 'Green Springs Schools',
-          category: 'Education',
-          distance: 4.5,
-        },
-      },
-      {
-        attributes: {
-          location: 'Medical Centres',
-          category: 'Healthcare',
-          distance: 2.1,
-        },
-      },
-      {
-        attributes: {
-          location: 'Pan-Atlantic University',
-          category: 'Education',
-          distance: 6.0,
-        },
-      },
-      {
-        attributes: {
-          location: 'Domino’s Pizza',
-          category: 'Food & Dining',
-          distance: 1.5,
-        },
-      },
-      {
-        attributes: {
-          location: 'Giwa Water Park',
-          category: 'Recreation',
-          distance: 7.3,
-        },
-      },
-      {
-        attributes: {
-          location: 'Sangotedo Modern Market',
-          category: 'Shopping',
-          distance: 0.9,
-        },
-      },
-      {
-        attributes: {
-          location: 'Green Fingers Wildlife Conservation',
-          category: 'Recreation',
-          distance: 8.4,
-        },
-      },
-      {
-        attributes: {
-          location: 'i-Fitness Gym',
-          category: 'Fitness',
-          distance: 2.7,
-        },
-      },
-      {
-        attributes: {
-          location: 'Tennis Academy',
-          category: 'Sports',
-          distance: 3.2,
-        },
-      },
-      {
-        attributes: {
-          location: 'Novare Mall (Shoprite)',
-          category: 'Shopping',
-          distance: 1.2,
-        },
-      },
-      {
-        attributes: {
-          location: 'Sangotedo Jetty',
-          category: 'Transportation',
-          distance: 4.0,
-        },
-      },
-      {
-        attributes: {
-          location: 'Elevation Church',
-          category: 'Worship',
-          distance: 2.5,
-        },
-      },
-      {
-        attributes: {
-          location: 'Omu Resort',
-          category: 'Recreation',
-          distance: 9.1,
-        },
-      },
-    ];
-  }
+  const isBlissvilleTerraces = slug === 'blissville-terraces';
 
   if (!neighborhoods || neighborhoods.length === 0) {
     return null;
@@ -498,23 +402,48 @@ export const Neighborhood = ({ neighborhoods, slug }) => {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h3>Neighborhood</h3>
+            {isBlissvilleTerraces && (
+              <section className="mb-6">
+                <h3>Location Map</h3>
+                <Image
+                  src="/assets/img/maps/bvt-location-map.png"
+                  alt="BVT Location Map"
+                  className="img-fluid border border-2 border-light rounded"
+                  width={2694}
+                  height={1768}
+                />
 
-            <Image
-              src="/assets/img/maps/bvt-location-map.png"
-              alt="BVT Location Map"
-              className="img-fluid border border-2 border-light rounded"
-              width={2694}
-              height={1768}
-            />
-            <ul className="list-location row">
+                <Button
+                  color="secondary"
+                  className="me-2 my-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
+                >
+                  View on Google Maps
+                </Button>
+              </section>
+            )}
+
+            <h3>Neighborhood</h3>
+            <ul className="location-list row list-unstyled">
               {neighborhoods.map(
-                ({ attributes: { location, category, distance } }) => (
-                  <li key={category} className="col-5">
-                    <h5 className="text-gray-800 mb-0">{location}</h5>
-                    {/* <p className="text-md font-secondary mt-n1">
-                      {distance}km - {category}
-                    </p> */}
+                ({ attributes: { location, category, distance } }, index) => (
+                  <li key={index} className="col-12 col-md-6">
+                    <div className="d-flex align-items-center py-3">
+                      <div className="me-3 d-flex align-items-center justify-content-center">
+                        <span className="location-icon"></span>
+                      </div>
+                      <div>
+                        <h5 className="mb-0 text-dark fw-semibold">
+                          {location}
+                        </h5>
+                        <p className="my-0 text-muted">
+                          {/* {distance}km - */}
+                          {category}
+                        </p>
+                      </div>
+                    </div>
                   </li>
                 )
               )}
