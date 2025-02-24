@@ -10,11 +10,9 @@ import Section from '@/components/common/Section';
 import ScheduleVisit, {
   ScheduleVisitationButton,
 } from '@/components/common/ScheduleVisit';
-import SingleProject from '@/components/common/SingleProject';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { Dropdown, Tab } from 'react-bootstrap';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
-import { projectFaqs } from '@/data/faqs';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 import Sharer from '@/components/ui/Sharer';
 import Modal from '@/components/ui/Modal';

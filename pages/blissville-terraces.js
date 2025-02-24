@@ -28,6 +28,7 @@ import axios from 'axios';
 import { PROPERTY_STATUS } from '@/utils/constants';
 import { AskInfoForm } from './our-properties/[...id]';
 import { Gallery, Neighborhood } from './our-projects/[slug]';
+import faqs from '@/data/faqs';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -48,12 +49,6 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     city,
     state,
   } = project;
-
-  const faqs = project?.faqs?.data;
-  const allFaqs = faqs?.map(({ attributes: { question, answer } }) => ({
-    question,
-    answer,
-  }));
 
   const slug = 'blissville-terraces';
   const shareUrl = `https://blissville.com.ng/${slug}`;
@@ -127,14 +122,17 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         slug={slug}
       />
 
-      {allFaqs.length > 0 && (
-        <section className="container">
+      <Section>
+        <div className="container">
           <div className="row">
-            <h4>FAQs</h4>
-            <FAQsAccordion faqs={allFaqs} />
+            <h2>FAQS</h2>
+            <div className="mt-5 col-12 faqs-section">
+              <FAQsAccordion faqs={faqs[0]?.faqs} />
+            </div>
           </div>
-        </section>
-      )}
+        </div>
+      </Section>
+
       <div className="mt-7"></div>
       <ScheduleVisit />
       <Footer />
