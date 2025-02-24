@@ -285,7 +285,7 @@ const PropertyInformation = ({ property }) => {
   );
 };
 
-const AskInfoForm = ({ name, projectName }) => {
+export const AskInfoForm = ({ name, projectName }) => {
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
