@@ -19,6 +19,7 @@ import { Navigation } from 'swiper';
 import ReferralModal from '@/components/ui/ReferralModal';
 import { useRouter } from 'next/router';
 import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
+import Link from 'next/link';
 
 const BASE_CONTENT = {
   image:
@@ -106,19 +107,23 @@ const AdsSection = () => {
   const adsImage =
     'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/lauch-ads.jpg';
   return (
-    <section className="ads-section position-relative d-flex align-items-center justify-content-center">
-      <div className="ads-overlay"></div>
-      <div className="ads-content">
-        <Image
-          src={adsImage}
-          alt="Advertisement"
-          width={2500}
-          height={2500}
-          className="img-fluid ads-image"
-          priority
-        />
-      </div>
-    </section>
+    <Link passHref href="/blissville-terraces">
+      <a>
+        <section className="ads-section position-relative d-flex align-items-center justify-content-center">
+          <div className="ads-overlay"></div>
+          <div className="ads-content">
+            <Image
+              src={adsImage}
+              alt="Advertisement"
+              width={2500}
+              height={2500}
+              className="img-fluid ads-image"
+              priority
+            />
+          </div>
+        </section>
+      </a>
+    </Link>
   );
 };
 
