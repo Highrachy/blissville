@@ -58,6 +58,7 @@ export const MessagesSingleRow = ({
   email,
   phone,
   subject,
+  reference,
   source,
   message,
   createdAt,
@@ -70,6 +71,10 @@ export const MessagesSingleRow = ({
         <span>{email}</span>
       </td>
       <td className="td-block">
+        {phone}
+        <span>{reference || ''} </span>
+      </td>
+      <td className="td-block">
         <small>{subject}</small>
         <span>{Humanize.truncate(message, 40)} </span>
       </td>
@@ -79,6 +84,7 @@ export const MessagesSingleRow = ({
           <small>{source}</small>
         </span>
       </td>
+
       <td>
         <ProcessButton
           modalContent={message}

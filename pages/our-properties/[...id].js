@@ -283,11 +283,14 @@ const PropertyInformation = ({ property }) => {
   );
 };
 
-export const AskInfoForm = ({ name, projectName }) => {
+export const AskInfoForm = ({ name, projectName, source = '' }) => {
+  const router = useRouter();
+  const { ref } = router.query;
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
-      source: `Property Page`,
+      source: source || `Property Page`,
+      reference: ref || '',
       subject: `Enquiry about ${projectName} - ${name}`,
     };
     try {

@@ -109,7 +109,11 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                 <h4>Interested</h4>
                 <h6 className="mb-3">Ask for more Information</h6>
 
-                <AskInfoForm name={name} projectName={project.name} />
+                <AskInfoForm
+                  name={name}
+                  projectName={project.name}
+                  source="Blissville Terraces Landing Page"
+                />
               </div>
             </div>
           </div>
