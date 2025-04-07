@@ -29,6 +29,7 @@ import { PROPERTY_STATUS } from '@/utils/constants';
 import { AskInfoForm } from './our-properties/[...id]';
 import { Gallery, Neighborhood } from './our-projects/[slug]';
 import faqs from '@/data/faqs';
+import ReactPlayer from 'react-player';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -120,6 +121,23 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         </div>
       </Section>
 
+      <Section altBg>
+        <div className="container">
+          <div className="row">
+            <h3>Video</h3>
+            <div className="card rounded p-2 m-0 mb-5">
+              <div className="ratio ratio-16x9 mb-3">
+                <ReactPlayer
+                  url="/videos/blissville-video.mp4"
+                  width="100%"
+                  height="100%"
+                  controls
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
       <Gallery galleries={project?.project_galleries?.data || []} />
       <Neighborhood
         neighborhoods={project?.neighborhoods?.data || []}
