@@ -105,7 +105,7 @@ const HeroSection = ({ slides }) => (
 
 const AdsSection = () => {
   const adsImage =
-    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/lauch-ads.jpg';
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/launch-ads.jpg';
   return (
     <Link passHref href="/blissville-terraces">
       <a>

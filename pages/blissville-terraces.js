@@ -59,7 +59,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
       <Navigation />
       <div>
         <img
-          src="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/lauch-ads.jpg"
+          src="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/launch-ads.jpg"
           alt="Project Image"
           className="img-fluid"
         />
