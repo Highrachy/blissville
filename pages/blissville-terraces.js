@@ -59,11 +59,8 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     <>
       <Navigation />
       <div>
-        <img
-          src="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/launch-ads.jpg"
-          alt="Project Image"
-          className="img-fluid"
-        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image} alt="Project Image" className="img-fluid" />
       </div>
       <Section>
         <div className="container">
@@ -71,7 +68,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
             <div className="col-sm-8">
               <h2>{name}</h2>
               <p className="text-primary h2">
-                {moneyFormatInNaira(120_000_000)}
+                {moneyFormatInNaira(startingPrice)}
               </p>
               <p className="lead">{getLocationFromAddress(project)}</p>
             </div>
@@ -100,8 +97,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
             <div className="col-md-8">
               <div className="lead">{description}</div>
               {listFeatures(project)}
-              {/* <ActionButtonGroup price={startingPrice} /> */}
-              <ActionButtonGroup price={120_000_000} />
+              <ActionButtonGroup price={startingPrice} />
 
               <div className="mb-5"></div>
             </div>

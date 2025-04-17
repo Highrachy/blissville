@@ -51,12 +51,12 @@ const SLIDES = [
 
 export default function Home({ slides, projects, properties }) {
   const { query } = useRouter();
-  const showAds = true;
+  const showAds = false;
 
   return (
     <>
       <TopNavigation />
-      {showAds ? <AdsSection /> : <HeroSection slides={SLIDES || slides} />}
+      {showAds ? <AdsSection /> : <HeroSection slides={slides} />}
       <ExecutiveSummary />
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
