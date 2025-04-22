@@ -75,9 +75,20 @@ export default function SingleProjectPage({ project, featuredProperties }) {
               <p className="lead">{getLocationFromAddress(project)}</p>
             </div>
             <div className="col-sm-4 text-md-end mb-4 mb-md-0">
-              <Button color="light" onClick={() => setShowModal(true)}>
-                Share Project <ShareProjectIcon />
-              </Button>
+              {isBlissvilleTerraces ? (
+                <a
+                  className="btn btn-primary"
+                  href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download Brochure
+                </a>
+              ) : (
+                <Button color="light" onClick={() => setShowModal(true)}>
+                  Share Project <ShareProjectIcon />
+                </Button>
+              )}
 
               <Modal
                 title="Share Project"
@@ -96,24 +107,13 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         </div>
         <div className="container">
           <div className="mb-3 img-project img-fill mb-md-5">
-            {isBlissvilleTerraces ? (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/launch-ads.jpg"
-                  alt="Project Image"
-                  className="img-fluid"
-                />
-              </>
-            ) : (
-              <Image
-                src={image}
-                alt="Hero Image"
-                layout="fill"
-                objectFit="cover"
-                className="img-fluid"
-              />
-            )}
+            <Image
+              src={image}
+              alt="Hero Image"
+              layout="fill"
+              objectFit="cover"
+              className="img-fluid"
+            />
           </div>
         </div>
         <div className="container">

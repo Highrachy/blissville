@@ -325,7 +325,7 @@ const faqs = [
     ],
   },
   {
-    name: 'About BlissvilleCondominiums',
+    name: 'About Blissville Condominiums',
     faqs: [
       {
         question: 'Tell me about Blissville Condominiums',

@@ -73,10 +73,18 @@ export default function SingleProjectPage({ project, featuredProperties }) {
               <p className="lead">{getLocationFromAddress(project)}</p>
             </div>
             <div className="col-sm-4 text-md-end mb-4 mb-md-0">
-              <Button color="light" onClick={() => setShowModal(true)}>
+              <a
+                className="btn btn-primary"
+                href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download Brochure
+              </a>
+              {/* <Button color="light" onClick={() => setShowModal(true)}>
                 Share Project <ShareProjectIcon />
-              </Button>
-
+              </Button> */}
+              {/*
               <Modal
                 title="Share Project"
                 show={showModal}
@@ -88,7 +96,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                     <Sharer shareUrl={shareUrl} />
                   </div>
                 </section>
-              </Modal>
+              </Modal> */}
             </div>
           </div>
         </div>
