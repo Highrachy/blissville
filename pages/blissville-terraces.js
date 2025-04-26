@@ -105,7 +105,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
             <div className="col-md-8">
               <div className="lead">{description}</div>
               {listFeatures(project)}
-              <ActionButtonGroup price={startingPrice} />
+              <ActionButtonGroup price={startingPrice} useAltPhone />
 
               <div className="mb-5"></div>
             </div>

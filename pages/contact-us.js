@@ -14,7 +14,11 @@ import { toast } from 'react-toastify';
 import { socialMediaLinks } from '../data';
 import Footer from '@/components/common/Footer';
 import Navigation from '@/components/layouts/Navigation';
-import { BLISSVILLE_OFFICIAL_EMAIL, PHONE_NUMBER } from '@/utils/constants';
+import {
+  BLISSVILLE_OFFICIAL_EMAIL,
+  PHONE_NUMBER,
+  PHONE_NUMBER_ALT,
+} from '@/utils/constants';
 import axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
@@ -77,6 +81,10 @@ const ContactInfo = () => (
                   <p>
                     <a href={PHONE_NUMBER.HREF} className="text-reset">
                       {PHONE_NUMBER.WITH_COUNTRY_CODE}
+                    </a>
+                    <br />
+                    <a href={PHONE_NUMBER_ALT.HREF} className="text-reset">
+                      {PHONE_NUMBER_ALT.WITH_COUNTRY_CODE}
                     </a>
                   </p>
                 </div>

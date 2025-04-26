@@ -1,4 +1,8 @@
-import { BLISSVILLE_OFFICIAL_EMAIL, PHONE_NUMBER } from '@/utils/constants';
+import {
+  BLISSVILLE_OFFICIAL_EMAIL,
+  PHONE_NUMBER,
+  PHONE_NUMBER_ALT,
+} from '@/utils/constants';
 import { getError, statusIsSuccessful, valuesToOptions } from '@/utils/helpers';
 import { getTokenFromStore } from '@/utils/localStorage';
 import axios from 'axios';
@@ -48,6 +52,10 @@ const ScheduleVisit = () => (
                     &nbsp;
                     <a className="text-white" href={PHONE_NUMBER.HREF}>
                       {PHONE_NUMBER.WITH_COUNTRY_CODE}
+                    </a>
+                    ,
+                    <a className="text-white" href={PHONE_NUMBER_ALT.HREF}>
+                      {PHONE_NUMBER_ALT.WITH_COUNTRY_CODE}
                     </a>
                   </p>
                   <p className="mb-2 mb-md-3 schedule-visit__email">

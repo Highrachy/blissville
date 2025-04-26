@@ -1,5 +1,9 @@
 import { footerLinks } from '@/data/index';
-import { BLISSVILLE_OFFICIAL_EMAIL, PHONE_NUMBER } from '@/utils/constants';
+import {
+  BLISSVILLE_OFFICIAL_EMAIL,
+  PHONE_NUMBER,
+  PHONE_NUMBER_ALT,
+} from '@/utils/constants';
 import Link from 'next/link';
 
 const Footer = () => (
@@ -39,9 +43,20 @@ const Footer = () => (
                   Victoria Island, Lagos.
                 </p>
                 <p>Email: {BLISSVILLE_OFFICIAL_EMAIL}</p>
-                <p>
-                  <span>Phone:</span> {PHONE_NUMBER.WITH_COUNTRY_CODE}
-                </p>
+                <div className="d-flex">
+                  <span className="me-2">Phone:</span>
+                  <div>
+                    <a href={PHONE_NUMBER.HREF} className="text-reset d-block">
+                      {PHONE_NUMBER.WITH_COUNTRY_CODE}
+                    </a>
+                    <a
+                      href={PHONE_NUMBER_ALT.HREF}
+                      className="text-reset d-block"
+                    >
+                      {PHONE_NUMBER_ALT.WITH_COUNTRY_CODE}
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

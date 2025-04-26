@@ -10,6 +10,12 @@ export const PHONE_NUMBER = {
   WITH_COUNTRY_CODE: ' +234 905 555 5146',
 };
 
+export const PHONE_NUMBER_ALT = {
+  OFFICIAL: '0905 555 5496',
+  HREF: 'tel:+2349055555496',
+  WITH_COUNTRY_CODE: ' +234 905 555 5496',
+};
+
 export const BLISSVILLE_OFFICIAL_EMAIL = 'info@blissville.com.ng';
 
 export const COLOR_STYLE = [
