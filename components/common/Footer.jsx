@@ -15,9 +15,9 @@ const Footer = () => (
             <div className="col-md-3 col-sm-12">
               <h5 className="text-white pb-2">About Us</h5>
               <p className="small text-dark-light">
-                The unique thing about our investors is that they are very
-                erudite and exposed individuals that can tell the difference
-                between mediocre and true quality, words and actions.
+                Blissville is a leading real estate brand committed to
+                delivering true value through smart, convenient, and efficient
+                housing solutions across Africa.
               </p>
             </div>
             <div className="col-md-5 offset-md-1 col-sm-6 col-6">

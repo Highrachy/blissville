@@ -199,6 +199,34 @@ const TabInformation = ({ project }) => {
     return null;
   }
 
+  // Split the description by double newlines and display as paragraphs
+  function DescriptionParagraphs({ text }) {
+    const [showAll, setShowAll] = React.useState(false);
+    if (!text) return null;
+    const paragraphs = text.split('\n\n');
+    const firstOne = paragraphs.slice(0, 1);
+    const rest = paragraphs.slice(1);
+
+    return (
+      <div>
+        {firstOne.map((para, idx) => (
+          <p key={idx}>{para}</p>
+        ))}
+        {!showAll && rest.length > 0 && (
+          <p>
+            <strong
+              style={{ cursor: 'pointer', color: '#007bff' }}
+              onClick={() => setShowAll(true)}
+            >
+              Read more
+            </strong>
+          </p>
+        )}
+        {showAll && rest.map((para, idx) => <p key={idx + 1}>{para}</p>)}
+      </div>
+    );
+  }
+
   return (
     <Section altBg>
       <div className="container">
@@ -254,7 +282,7 @@ const TabInformation = ({ project }) => {
                       <div className="row">
                         <div className="col-md-5 order-1 order-md-0">
                           <section className="pe-5">
-                            <p className="">{description}</p>
+                            <DescriptionParagraphs text={description} />
                             <ul className="list-dotted list-unstyled">
                               <li>
                                 <span className="list-dotted__label">
@@ -306,18 +334,13 @@ const TabInformation = ({ project }) => {
                             </ul>
                             <Button
                               color="secondary"
-                              className="me-2 my-2"
+                              className="btn-wide py-3"
                               href={`/our-properties/${
                                 project?.slug || 'project-name'
                               }/${slug || 'property-name'}/${id}`}
                             >
-                              {availableUnits === 0
-                                ? 'View Project'
-                                : 'I am Interested'}
+                              View Property
                             </Button>
-                            {availableUnits !== 0 && (
-                              <ScheduleVisitationButton visiting={name} />
-                            )}
                           </section>
                         </div>
                         <div className="col-md-7 order-0 order-md-1">

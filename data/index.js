@@ -20,25 +20,30 @@ export const socialMediaLinks = [
 
 export const footerLinks = [
   {
+    title: 'Blissville Terraces',
+    url: '/our-projects/blissville-terraces',
+  },
+  {
+    title: 'Blissville Apartments',
+    url: '/our-projects/blissville-apartments',
+  },
+  {
     title: 'Careers',
-    url: '/careers',
+    url: 'https://www.highrachy.com/careers',
   },
   {
-    title: 'Sitemap',
-    url: '/sitemap-0.xml',
+    title: 'Our Properties',
+    url: '/our-properties',
   },
   {
-    title: 'Our Projects',
-    url: '/projects',
+    title: 'Active Projects',
+    url: '/our-projects',
   },
   {
-    title: 'Download Brochure',
-    url: '/assets/pdf/brochure.pdf',
+    title: 'Past Projects',
+    url: '/past-projects',
   },
-  {
-    title: 'Existing Business Relationships',
-    url: '/about-us#business-relationships',
-  },
+
   {
     title: 'Terms of Use and Privacy',
     url: '/terms-of-use',

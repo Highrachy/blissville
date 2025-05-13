@@ -10,8 +10,8 @@ export const portfolio = {
   children: {
     'our-projects/blissville-terraces': 'Blissville Terraces',
     'our-projects/blissville-apartments': 'Blissville Apartments',
-    'our-projects': 'View All Projects',
-    'our-properties': 'View All  Properties',
+    // 'our-projects': 'View All Projects',
+    // 'our-properties': 'View All  Properties',
     // 'past-projects': 'Past Projects',
   },
 };

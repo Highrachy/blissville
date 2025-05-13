@@ -46,6 +46,7 @@ const Map = () => (
       allowFullScreen
       loading="lazy"
       className="full-map img-cover"
+      sandbox="allow-scripts allow-same-origin"
     />
   </section>
 );

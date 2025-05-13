@@ -631,11 +631,11 @@ const Content = () => (
         <li>
           By visiting this page on our website:{' '}
           <a
-            href="http://www.blissville.com.ng/terms-of-use"
+            href="https://www.blissville.com.ng/terms-of-use"
             rel="noreferrer noopener"
             target="_blank"
           >
-            http://www.blissville.com.ng/terms-of-use
+            https://www.blissville.com.ng/terms-of-use
           </a>
         </li>
         <li>
@@ -645,8 +645,8 @@ const Content = () => (
           By visiting our address:
           <div>
             <div>3rd Floor, Ibukun House,</div>
-            <li>No.70 Adetokunbo Ademola Street,</li>
-            <li>Victoria Island, Lagos</li>
+            <div>No.70 Adetokunbo Ademola Street,</div>
+            <div>Victoria Island, Lagos</div>
           </div>
         </li>
       </ul>
