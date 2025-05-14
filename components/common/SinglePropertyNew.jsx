@@ -26,7 +26,7 @@ const SingleProperty = ({ id, attributes }) => {
         <div className="card-body p-4">
           <div className="row">
             <h5 className="card-title fw-medium mb-0">{name}</h5>
-            <div className="text-gray-700 text-sm font-secondary fw-medium">
+            <div className="text-gray-700 text-sm font-primary fw-medium">
               <Link href={`/our-projects/${project.slug}`} passHref>
                 <a className="text-reset">{project.name}</a>
               </Link>{' '}

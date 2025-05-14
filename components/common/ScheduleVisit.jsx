@@ -23,7 +23,7 @@ const ScheduleVisit = () => (
     <Section noPaddingBottom className="investor-section pb-8">
       <div className="container">
         <div className="row">
-          <div className="col-md-9 text-white">
+          <div className="col-md-6 text-white">
             <h3 className="pt-5 text-white">Schedule a Visit</h3>
             <p className="pb-3 pe-md-5 lead">
               Our designs respond imaginatively to the cultural, climatic and

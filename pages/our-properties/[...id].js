@@ -14,7 +14,6 @@ import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { Dropdown, Tab } from 'react-bootstrap';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
-import Sharer from '@/components/ui/Sharer';
 import Modal from '@/components/ui/Modal';
 import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
 import {
@@ -50,6 +49,7 @@ import BuyNowButton from '@/components/utils/BuyNowButton';
 import { getError } from '@/utils/helpers';
 import { toast } from 'react-toastify';
 import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
+import ShareButton from '@/components/common/ShareButton';
 
 export default function SinglePropertyPage({
   property,
@@ -167,19 +167,6 @@ const PropertyInformation = ({ property }) => {
               <Button color="light" onClick={() => setShowModal(true)}>
                 Share Property <ShareProjectIcon />
               </Button>
-
-              <Modal
-                title="Share Property"
-                show={showModal}
-                onHide={() => setShowModal(false)}
-              >
-                <section className="row">
-                  <div className="col-md-12 my-3">
-                    <p>Click to share this property with your friends</p>
-                    <Sharer shareUrl={shareUrl} />
-                  </div>
-                </section>
-              </Modal>
             </aside>
           </div>
         </div>

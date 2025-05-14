@@ -170,12 +170,6 @@ ul.list-features {
   }
 }
 
-.list-sharer {
-  li {
-    margin-right: 0.5rem;
-  }
-}
-
 .nav-tab .nav-item.active span.active-indicator::before {
   @include media-breakpoint-up(md) {
     position: absolute;
@@ -789,13 +783,14 @@ td {
     color: #212529;
 
     .agent-label {
+      color: $gray-700;
       font-size: 0.9rem;
     }
 
     .agent-number {
       font-size: 0.8rem;
       margin-top: -3px;
-      color: $gray-700;
+      color: $gray-800;
     }
 
     &:hover {
@@ -862,7 +857,7 @@ td {
 
 .pi-option-meta {
   font-size: 14px;
-  color: color('dark', '600');
+  color: color('dark', '700');
   display: flex;
   align-items: center;
   margin-top: 0.1rem;

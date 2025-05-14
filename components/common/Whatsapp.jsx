@@ -46,7 +46,7 @@ const FloatingChatButton = () => {
         <div className="chat-modal card border-0 shadow-lg" ref={modalRef}>
           <div className="card-header chat-header d-flex justify-content-between align-items-center">
             <span className="fw-semibold small text-dark">
-              Contact Our Sales Team
+              Contact Our Sales Advisor
             </span>
             <button
               className="btn btn-close"
@@ -66,8 +66,12 @@ const FloatingChatButton = () => {
                 <div>
                   <div className="fw-semibold agent-label">{contact.label}</div>
                   <div className="small agent-number">
-                    +{contact.number.slice(0, 3)} {contact.number.slice(3, 6)}{' '}
-                    {contact.number.slice(6)}
+                    +{contact.number.slice(0, 3)} {contact.number.slice(3, 6)}
+                    &nbsp;
+                    {contact.number.slice(6, 9)}
+                    &nbsp;
+                    {contact.number.slice(9)}
+                    &nbsp;
                   </div>
                 </div>
               </button>

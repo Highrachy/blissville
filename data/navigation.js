@@ -4,9 +4,9 @@ export const home = {
   children: {},
 };
 
-export const portfolio = {
-  title: 'Portfolio',
-  url: 'portfolio',
+export const projects = {
+  title: 'Projects',
+  url: 'projects',
   children: {
     'our-projects/blissville-terraces': 'Blissville Terraces',
     'our-projects/blissville-apartments': 'Blissville Apartments',
@@ -48,7 +48,7 @@ export const login = {
 const navigation = [
   // home,
   aboutUs,
-  portfolio,
+  projects,
   faqs,
   investors,
   contactUs,

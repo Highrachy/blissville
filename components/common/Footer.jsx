@@ -14,7 +14,7 @@ const Footer = () => (
           <div className="row">
             <div className="col-md-3 col-sm-12">
               <h5 className="text-white pb-2">About Us</h5>
-              <p className="small text-dark-light">
+              <p className="text-dark-light">
                 Blissville is a leading real estate brand committed to
                 delivering true value through smart, convenient, and efficient
                 housing solutions across Africa.

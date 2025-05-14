@@ -2,7 +2,6 @@ import Backend from '@/components/admin/Backend';
 import Button from '@/components/forms/Button';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Input from '@/components/forms/Input';
-import Sharer from '@/components/ui/Sharer';
 import {
   Check,
   ClipboardTick,
@@ -27,6 +26,7 @@ import {
 import { toast } from 'react-toastify';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import { REFERRAL_STATUS_COLOR, REFERRAL_STATUS_NAME } from '@/utils/constants';
+import ShareButton from '@/components/common/ShareButton';
 
 const Referrals = () => {
   const { user } = useContext(UserContext);
@@ -99,7 +99,7 @@ const Referrals = () => {
                   type="text"
                   className="form-control text-sm"
                   value={referralURL}
-                  aria-label="Recipient's username"
+                  aria-label="Referral link"
                   aria-describedby="copy-text"
                   disabled
                 />
@@ -140,12 +140,10 @@ const Referrals = () => {
 
               <div className="share">
                 <h6 className="mb-0 mt-5">Share via</h6>
-                <Sharer />
+                <ShareButton url={referralURL} text={`Check out Blissville!`} />
               </div>
             </div>
           </section>
-
-          {/* invite via email */}
           <section className="card p-4 mb-4">
             <div className="card-body">
               <h5 className="card-title fw-semibold">

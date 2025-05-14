@@ -6,30 +6,23 @@ import { PageHeader } from '@/components/common/Header';
 import classNames from 'classnames';
 import Button from '@/components/forms/Button';
 import Section from '@/components/common/Section';
-import ScheduleVisit, {
-  ScheduleVisitationButton,
-} from '@/components/common/ScheduleVisit';
-import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
-import { Tab } from 'react-bootstrap';
+import ScheduleVisit from '@/components/common/ScheduleVisit';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
-import Sharer from '@/components/ui/Sharer';
-import Modal from '@/components/ui/Modal';
 import { ShareProjectIcon } from '@/components/Icons/Icons';
 import { useRouter } from 'next/router';
 import {
   getLocationFromAddress,
-  getPrice,
   listFeatures,
   moneyFormatInNaira,
 } from '@/utils/helpers';
-import { getShortDate } from '@/utils/date-helpers';
 import axios from 'axios';
 import { PROPERTY_STATUS } from '@/utils/constants';
 import { AskInfoForm } from './our-properties/[...id]';
 import { Gallery, Neighborhood } from './our-projects/[slug]';
 import faqs from '@/data/faqs';
 import ReactPlayer from 'react-player';
+import ShareButton from '@/components/common/ShareButton';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -81,22 +74,11 @@ export default function SingleProjectPage({ project, featuredProperties }) {
               >
                 Download Brochure
               </a>
-              {/* <Button color="light" onClick={() => setShowModal(true)}>
-                Share Project <ShareProjectIcon />
-              </Button> */}
-              {/*
-              <Modal
-                title="Share Project"
-                show={showModal}
-                onHide={() => setShowModal(false)}
-              >
-                <section className="row">
-                  <div className="col-md-12 my-3">
-                    <p>Click to share this project with your friends</p>
-                    <Sharer shareUrl={shareUrl} />
-                  </div>
-                </section>
-              </Modal> */}
+              <ShareButton
+                url={shareUrl}
+                text={`Check out ${name} on Blissville!`}
+                header="Share Property"
+              />
             </div>
           </div>
         </div>
