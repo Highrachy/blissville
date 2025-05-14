@@ -5,8 +5,8 @@
 
 @import 'colors';
 
-$font-primary: 'Inter';
-$font-secondary: Jost, sans-serif;
+$font-primary: 'Figtree';
+$font-secondary: 'Jost', sans-serif;
 
 $text-font: $font-primary;
 $headings-font: $font-secondary;
@@ -311,7 +311,7 @@ $green-900: $secondary-900;
 $primary: $blue;
 $secondary: $green;
 $success: $secondary-500;
-$info: $cyan;
+$info: $info-600;
 $warning: $warning-700;
 $danger: $red;
 $dark: $gray-800;

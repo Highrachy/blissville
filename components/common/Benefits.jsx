@@ -77,8 +77,8 @@ const Benefits = ({ className, topThree }) => {
 };
 
 export const SingleBenefits = ({ icon, title, text }) => (
-  <div className="col h-100 d-flex align-items-stretch">
-    <div className="benefits-card">
+  <div className="col d-flex align-items-stretch">
+    <div className="benefits-card d-flex flex-column h-100">
       <div className="bg-icon" key={title} id={title}>
         <Image
           alt={title}
@@ -90,7 +90,9 @@ export const SingleBenefits = ({ icon, title, text }) => (
       <h6 className="text-uppercase mt-4 mb-2 font-secondary text-primary">
         {title}
       </h6>
-      <p className="text-gray-700">{text}</p>
+      <div className="flex-grow-1 d-flex align-items-center">
+        <p className="text-gray-700 mb-0">{text}</p>
+      </div>
     </div>
   </div>
 );

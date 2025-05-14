@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useChatMessage } from 'context/chat';
 
-const contacts = [
+export const SALES_CONTACTS = [
   { number: '2349055555496', label: 'Omolara' },
   { number: '2349055555146', label: 'David' },
 ];
@@ -56,7 +56,7 @@ const FloatingChatButton = () => {
           </div>
 
           <div className="card-body p-0">
-            {contacts.map((contact) => (
+            {SALES_CONTACTS.map((contact) => (
               <button
                 key={contact.number}
                 className="chat-option-btn d-flex align-items-center w-100 border-0 px-3"

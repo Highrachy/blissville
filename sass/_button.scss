@@ -127,3 +127,45 @@
     }
   }
 }
+
+.btn-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  color: $gray-500;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $error-800;
+    font-size: 1.8rem;
+    text-decoration: none;
+  }
+}
+
+//   .btn-primary-light
+@each $name, $colors in $brand-colors {
+  .btn-#{$name}-light {
+    background-color: map-get($colors, '50') !important;
+    color: map-get($colors, '700') !important;
+
+    &:hover {
+      background-color: map-get($colors, '500') !important;
+      color: $white !important;
+    }
+  }
+
+  .bg-#{$name}-light {
+    background-color: map-get($colors, '50') !important;
+    color: map-get($colors, '600') !important;
+  }
+
+  .bg-#{$name}-dark {
+    background-color: map-get($colors, '700') !important;
+  }
+}

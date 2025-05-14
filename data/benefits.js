@@ -2,31 +2,31 @@ export const benefits = [
   {
     icon: 'lamp-charge',
     title: 'Strategically Located',
-    text: 'Close proximity to healthcare facilities, grocery shopping centres, ATMs and filling stations for increased convenience',
+    text: 'Enjoy easy access to healthcare, shopping centres, ATMs, and fuel stations for everyday convenience.',
   },
   {
     icon: 'wallet-add',
     title: 'Friendly Payment Plans',
-    text: 'Flexible and customized payment plans to complement your income streams.',
+    text: 'Choose from flexible and well-structured payment options designed to suit your income flow.',
   },
   {
     icon: 'convert-3d',
     title: 'Seamless Transfer of Ownership',
-    text: 'We strictly transact with proper titled lands for seamless transfer of ownership.',
+    text: 'All transactions are backed by valid titles to ensure a secure and transparent ownership process.',
   },
   {
     icon: 'heart-tick',
     title: 'Homeliness and Comfort',
-    text: 'The use of Horticulture and other natural components increase homeliness of the estates.',
+    text: 'Thoughtfully landscaped with greenery and natural features that create a calm, welcoming feel.',
   },
   {
     icon: 'building',
     title: 'Energy Efficient Houses',
-    text: 'Energy efficient houses that gives you up to 25% power cost savings.',
+    text: 'Smart design and solar solutions help reduce power costs while ensuring consistent electricity.',
   },
   {
     icon: 'chart',
     title: 'Lucrative Returns',
-    text: 'You can enjoy up to 15% immediate returns on investment from our discounted package',
+    text: 'Benefit from attractive investment packages with strong potential for high-value appreciation.',
   },
 ];

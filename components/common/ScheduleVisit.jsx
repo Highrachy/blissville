@@ -126,7 +126,7 @@ export const ScheduleVisitationButton = ({ visiting, wideButton = false }) => {
   );
 };
 
-const VisitationForm = () => {
+export const VisitationForm = () => {
   return (
     <>
       <Input
