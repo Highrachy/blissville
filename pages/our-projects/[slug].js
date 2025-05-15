@@ -6,13 +6,10 @@ import { PageHeader } from '@/components/common/Header';
 import classNames from 'classnames';
 import Button from '@/components/forms/Button';
 import Section from '@/components/common/Section';
-import ScheduleVisit, {
-  ScheduleVisitationButton,
-} from '@/components/common/ScheduleVisit';
+import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { Tab } from 'react-bootstrap';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
-import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 import { useRouter } from 'next/router';
 import {
   getLocationFromAddress,
@@ -23,42 +20,29 @@ import {
 import { getShortDate } from '@/utils/date-helpers';
 import axios from 'axios';
 import { PROPERTY_STATUS } from '@/utils/constants';
-import ProjectInterestModal from '@/components/common/ProjectInterestModal';
-import { FaCaretDown, FaDownload, FaShoppingCart } from 'react-icons/fa';
+import ProjectInterestModal, {
+  ProjectInterestContent,
+} from '@/components/common/ProjectInterestModal';
+import { FaCaretDown } from 'react-icons/fa';
 import ShareButton from '@/components/common/ShareButton';
-
-const ProjectActionButtons = ({ onBuyNow, project }) => {
-  // Check if any property in project.properties.data has availableUnits > 0
-  const hasAvailableUnits = Array.isArray(project?.properties?.data)
-    ? project.properties.data.some((p) => p?.attributes?.availableUnits > 0)
-    : false;
-  if (!hasAvailableUnits) return null;
-  return (
-    <div className="d-flex gap-3 flex-wrap mb-4">
-      <Button
-        color="primary"
-        className="btn btn-wide rounded-4 py-3"
-        href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <FaDownload size={20} className="me-2" />
-        Download Brochure
-      </Button>
-      <Button
-        color="secondary"
-        className="btn btn-wide rounded-4"
-        onClick={onBuyNow}
-      >
-        <FaShoppingCart size={20} className="me-2" />
-        Buy Now
-      </Button>
-    </div>
-  );
-};
+import {
+  FaFilePdf,
+  FaLocationPin,
+  FaLocationPinLock,
+  FaMap,
+  FaMapPin,
+} from 'react-icons/fa6';
+import OverviewCard from '@/components/common/OverviewCard';
+import { HiLocationMarker } from 'react-icons/hi';
+import SinglePropertyNew, {
+  CompactPropertyCard,
+} from '@/components/common/SinglePropertyNew';
+import { BathIcon, BedIcon, SizeIcon } from '@/components/Icons/Icons';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const [showModal, setShowModal] = React.useState(false);
+  const [showInterestModal, setShowInterestModal] = React.useState(false);
+
   const router = useRouter();
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -86,6 +70,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
 
   const shareUrl = `https://blissville.com.ng/our-projects/${slug}`;
   const isBlissvilleTerraces = slug === 'blissville-terraces';
+  const neighborhoods = project?.neighborhoods?.data || [];
 
   return (
     <>
@@ -95,7 +80,8 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         subHeader="Powered By Highrachy"
         bgImage="/assets/img/bg/investors.jpeg"
       />
-      <Section>
+
+      <Section noPaddingBottom>
         <div className="container">
           <div className="row">
             <div className="col-sm-8">
@@ -103,18 +89,6 @@ export default function SingleProjectPage({ project, featuredProperties }) {
               <p className="lead">{getLocationFromAddress(project)}</p>
             </div>
             <div className="col-sm-4 text-md-end mb-4 mb-md-0">
-              {isBlissvilleTerraces && (
-                <>
-                  <a
-                    className="btn btn-primary"
-                    href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download Brochure
-                  </a>
-                </>
-              )}
               <ShareButton
                 url={shareUrl}
                 text={`Check out ${name} on Blissville!`}
@@ -133,20 +107,27 @@ export default function SingleProjectPage({ project, featuredProperties }) {
             />
           </div>
         </div>
+      </Section>
+      <Section noPaddingTop className="bg-gray-50 pt-5">
         <div className="container">
           <div className="row">
             <div className="col-md-8">
-              <div className="lead">{description}</div>
-              {listFeatures(project)}
-              <ProjectActionButtons
-                onBuyNow={() => setShowModal(true)}
-                project={project}
-              />
-              <div className="mb-5"></div>
-            </div>
-            <div className="col-md-4">
-              <div className="bg-gray rounded px-4">
-                <h5 className="pt-4 mb-3">Project Overview</h5>
+              <OverviewCard header="Description">
+                <DescriptionParagraphs text={description} defaultVisible={2} />
+                {isBlissvilleTerraces && (
+                  <Button
+                    color="primary"
+                    className="mt-3"
+                    href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaFilePdf size={20} className="me-2" />
+                    Download Brochure
+                  </Button>
+                )}
+              </OverviewCard>
+              <OverviewCard header="Project Overview">
                 <ul className="list-dotted list-unstyled">
                   <li>
                     <span className="list-dotted__label">Property Type </span>
@@ -174,13 +155,40 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                     <span className="list-dotted__label">Status</span>
                     <span className="list-dotted__value">In Progress</span>
                   </li>
-                  <li className="text-center">
-                    <ScheduleVisitationButton
-                      wideButton
-                      visiting={`Project - ${name}`}
-                    />
-                  </li>
                 </ul>
+              </OverviewCard>
+              <OverviewCard header="Features">
+                {listFeatures(project)}
+              </OverviewCard>
+
+              <NeighborhoodList neighborhoods={neighborhoods} slug={slug} />
+              {/* add an overviewcard that shows properties in the project, build a small version of singlePropertynew component showing the property image and name*/}
+              {project?.properties?.data?.length > 0 && (
+                <section className="mt-5">
+                  <h4 className="mb-4">Properties in {project?.name}</h4>
+                  <div className="row">
+                    {project.properties.data.map((property, idx) => (
+                      <CompactPropertyCard
+                        key={property.id || idx}
+                        {...property}
+                        compact
+                        projectSlug={project?.slug}
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              <div className="mb-5"></div>
+            </div>
+            <div className="col-md-4 position-relative">
+              <div className="interest sticky-top">
+                <OverviewCard className="p-4">
+                  <ProjectInterestContent
+                    header="Interested in this property?"
+                    propertyName={name}
+                  />
+                </OverviewCard>
               </div>
             </div>
           </div>
@@ -191,13 +199,36 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         onHide={() => setShowModal(false)}
         propertyName={name}
       />
-      <TabInformation project={project} />
 
       <Gallery galleries={project?.project_galleries?.data || []} />
-      <Neighborhood
-        neighborhoods={project?.neighborhoods?.data || []}
-        slug={slug}
-      />
+
+      <Section>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <h4>Location Map</h4>
+              <div className="mb-4">
+                <Image
+                  src="/assets/img/maps/bvt-location-map.png"
+                  alt="BVT Location Map"
+                  className="img-fluid border border-2 border-light rounded"
+                  width={2694}
+                  height={1768}
+                />
+              </div>
+              <Button
+                color="primary-light"
+                className="me-2 my-2 px-4"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
+              >
+                <FaMap /> View on Google Maps
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Section>
 
       {allFaqs && allFaqs.length > 0 && (
         <section className="container">
@@ -207,7 +238,6 @@ export default function SingleProjectPage({ project, featuredProperties }) {
           </div>
         </section>
       )}
-      <FeaturedProperties properties={featuredProperties} />
       <div className="mt-7"></div>
       <ScheduleVisit />
       <Footer />
@@ -215,213 +245,68 @@ export default function SingleProjectPage({ project, featuredProperties }) {
   );
 }
 
-const TabInformation = ({ project }) => {
-  const properties = useMemo(() => project?.properties?.data || [], [project]);
-
-  // Always ensure currentTab is set to a valid property name
-  const firstPropertyName = properties[0]?.attributes?.name || '';
-  const [currentTab, setCurrentTab] = React.useState(firstPropertyName);
-  const [showInterestModal, setShowInterestModal] = React.useState(false);
-
-  // If currentTab is not in the list (e.g. after data changes), reset to first property
-  React.useEffect(() => {
-    if (
-      !properties.some((p) => p?.attributes?.name === currentTab) &&
-      firstPropertyName
-    ) {
-      setCurrentTab(firstPropertyName);
-    }
-  }, [properties, currentTab, firstPropertyName]);
-
-  if (properties.length === 0) {
+export function NeighborhoodList({ neighborhoods }) {
+  if (!neighborhoods || neighborhoods.length === 0) {
     return null;
   }
 
-  function DescriptionParagraphs({ text }) {
-    const [showAll, setShowAll] = React.useState(false);
-    if (!text) return null;
-    const paragraphs = text.split('\n\n');
-    const firstOne = paragraphs.slice(0, 1);
-    const rest = paragraphs.slice(1);
-
-    return (
-      <div>
-        {firstOne.map((para, idx) => (
-          <p key={idx}>{para}</p>
+  return (
+    <OverviewCard header="Neighborhood">
+      <ul className="location-list row list-unstyled">
+        {neighborhoods.map(({ attributes: { location, category } }, index) => (
+          <li key={index} className="col-12 col-md-6">
+            <div className="d-flex align-items-center py-3">
+              <div className="me-3 d-flex align-items-center justify-content-center">
+                <span className="location-icon"></span>
+              </div>
+              <div>
+                <h6 className="mb-0 text-dark fw-semibold">{location}</h6>
+                <p className="my-0 text-muted small">{category}</p>
+              </div>
+            </div>
+          </li>
         ))}
-        {!showAll && rest.length > 0 && (
-          <p>
-            <strong
-              style={{ cursor: 'pointer' }}
-              onClick={() => setShowAll(true)}
-            >
-              Read more <FaCaretDown />
-            </strong>
-          </p>
-        )}
-        {showAll && rest.map((para, idx) => <p key={idx + 1}>{para}</p>)}
-      </div>
-    );
-  }
+      </ul>
+      <Button
+        color="primary-light"
+        className="me-2 my-2 px-4"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
+      >
+        <FaMapPin /> View Location Map
+      </Button>
+    </OverviewCard>
+  );
+}
+
+export function DescriptionParagraphs({ text, defaultVisible = 1 }) {
+  const [showAll, setShowAll] = React.useState(false);
+  if (!text) return null;
+  const paragraphs = text.split('\n\n');
+  const visible = paragraphs.slice(0, defaultVisible);
+  const rest = paragraphs.slice(defaultVisible);
 
   return (
-    <Section altBg>
-      <div className="container">
-        <div className="row">
-          <Tab.Container
-            activeKey={currentTab}
-            id="single-tenant-profile"
-            className="mb-3"
+    <div>
+      {visible.map((para, idx) => (
+        <p key={idx}>{para}</p>
+      ))}
+      {!showAll && rest.length > 0 && (
+        <p>
+          <strong
+            style={{ cursor: 'pointer' }}
+            onClick={() => setShowAll(true)}
           >
-            {properties.length > 1 && (
-              <ul className="nav nav-tab gap-1 nav-fill">
-                {properties.map(({ attributes: { name } }) => (
-                  <li
-                    key={name}
-                    className={classNames('nav-item position-relative', {
-                      active: currentTab === name,
-                    })}
-                    onClick={() => setCurrentTab(name)}
-                  >
-                    <span className="active-indicator"></span>
-                    <div
-                      className={classNames('nav-link py-4', {
-                        active: currentTab === name,
-                      })}
-                    >
-                      {name}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <Tab.Content>
-              {properties.map(
-                ({
-                  id,
-                  attributes: {
-                    name,
-                    type,
-                    slug,
-                    description,
-                    image,
-                    floors,
-                    size,
-                    beds,
-                    baths,
-                    price,
-                    availableUnits,
-                  },
-                }) =>
-                  currentTab === name ||
-                  (!currentTab && name === firstPropertyName) ? (
-                    <Tab.Pane eventKey={name} key={name}>
-                      <div className="my-5">
-                        <h3>{name}</h3>
-                        <div className="row">
-                          <div className="col-md-6 order-1 order-md-0">
-                            <section className="pe-5">
-                              <DescriptionParagraphs text={description} />
-                              <ul className="list-dotted list-unstyled">
-                                <li>
-                                  <span className="list-dotted__label">
-                                    Property Type:
-                                  </span>
-                                  <span className="list-dotted__value">
-                                    {type}
-                                  </span>
-                                </li>
-                                <li>
-                                  <span className="list-dotted__label">
-                                    Floor:
-                                  </span>
-                                  <span className="list-dotted__value">
-                                    {floors}
-                                  </span>
-                                </li>
-                                <li>
-                                  <span className="list-dotted__label">
-                                    Size:
-                                  </span>
-                                  <span className="list-dotted__value">
-                                    {size} Msq
-                                  </span>
-                                </li>
-                                <li>
-                                  <span className="list-dotted__label">
-                                    Bedrooms:
-                                  </span>
-                                  <span className="list-dotted__value">
-                                    {beds} bedrooms
-                                  </span>
-                                </li>
-                                <li>
-                                  <span className="list-dotted__label">
-                                    Bathrooms:
-                                  </span>
-                                  <span className="list-dotted__value">
-                                    {baths} bathrooms
-                                  </span>
-                                </li>
-                                <li>
-                                  <span className="list-dotted__value text-primary h2">
-                                    {availableUnits === 0
-                                      ? 'SOLD OUT'
-                                      : moneyFormatInNaira(price)}
-                                  </span>
-                                </li>
-                              </ul>
-                              <Button
-                                color="secondary"
-                                className="btn-wide py-3"
-                                href={`/our-properties/${
-                                  project?.slug || 'project-name'
-                                }/${slug || 'property-name'}/${id}`}
-                                style={{
-                                  display:
-                                    availableUnits > 0 ? undefined : 'none',
-                                }}
-                              >
-                                View Property
-                              </Button>
-                              {availableUnits > 0 && (
-                                <Button
-                                  color="primary"
-                                  className="btn-wide py-3 ms-3"
-                                  onClick={() => setShowInterestModal(true)}
-                                >
-                                  I am interested
-                                </Button>
-                              )}
-                              <ProjectInterestModal
-                                show={showInterestModal}
-                                onHide={() => setShowInterestModal(false)}
-                                propertyName={name}
-                              />
-                            </section>
-                          </div>
-                          <div className="col-md-6 order-0 order-md-1">
-                            <Image
-                              src={image}
-                              className="rounded"
-                              alt="Floor Plan"
-                              width={856}
-                              height={856}
-                              objectFit="cover"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </Tab.Pane>
-                  ) : null
-              )}
-            </Tab.Content>
-          </Tab.Container>
-        </div>
-      </div>
-    </Section>
+            Read more <FaCaretDown />
+          </strong>
+        </p>
+      )}
+      {showAll &&
+        rest.map((para, idx) => <p key={idx + visible.length}>{para}</p>)}
+    </div>
   );
-};
+}
 
 export const Gallery = ({ galleries, className }) => {
   if (!galleries || galleries.length === 0) {
@@ -439,7 +324,7 @@ export const Gallery = ({ galleries, className }) => {
 
   return (
     <Section className={className} noPaddingBottom>
-      <div className="container">
+      <div id="gallery" className="container">
         <h3>Gallery</h3>
         {Object.entries(groupedGalleries).map(
           ([description, images], groupIndex) => (
@@ -493,37 +378,16 @@ export const Neighborhood = ({ neighborhoods, slug }) => {
                 />
 
                 <Button
-                  color="secondary"
-                  className="me-2 my-2"
+                  color="primary-light"
+                  className="me-2 my-2 px-4"
                   target="_blank"
                   rel="noopener noreferrer"
                   href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
                 >
-                  View on Google Maps
+                  <FaMap /> View on Google Maps
                 </Button>
               </section>
             )}
-
-            <h3>Neighborhood</h3>
-            <ul className="location-list row list-unstyled">
-              {neighborhoods.map(
-                ({ attributes: { location, category } }, index) => (
-                  <li key={index} className="col-12 col-md-6">
-                    <div className="d-flex align-items-center py-3">
-                      <div className="me-3 d-flex align-items-center justify-content-center">
-                        <span className="location-icon"></span>
-                      </div>
-                      <div>
-                        <h5 className="mb-0 text-dark fw-semibold">
-                          {location}
-                        </h5>
-                        <p className="my-0 text-muted">{category}</p>
-                      </div>
-                    </div>
-                  </li>
-                )
-              )}
-            </ul>
           </div>
         </div>
       </div>

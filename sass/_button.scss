@@ -151,7 +151,7 @@
 //   .btn-primary-light
 @each $name, $colors in $brand-colors {
   .btn-#{$name}-light {
-    background-color: map-get($colors, '50') !important;
+    background-color: map-get($colors, '100') !important;
     color: map-get($colors, '700') !important;
 
     &:hover {
@@ -161,7 +161,7 @@
   }
 
   .bg-#{$name}-light {
-    background-color: map-get($colors, '50') !important;
+    background-color: map-get($colors, '100') !important;
     color: map-get($colors, '600') !important;
   }
 

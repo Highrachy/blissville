@@ -238,7 +238,7 @@ export const getLocationFromAddress = (address, shortForm = false) => {
     }
 
     if (address?.state) {
-      output += `, ${address.state.trim()}.`;
+      output += `, ${address.state.trim()}`;
     }
   }
   return output.replaceAll(',,', ',');

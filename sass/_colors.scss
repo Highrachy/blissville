@@ -156,3 +156,28 @@ $brand-colors: (
 @function color($group, $shade) {
   @return map-get(map-get($brand-colors, $group), $shade);
 }
+
+// loop through the brand colors and generate classes
+@each $group, $shades in $brand-colors {
+  @each $shade, $color in $shades {
+    .bg-#{$group}-#{$shade} {
+      background-color: color($group, $shade);
+    }
+  }
+}
+// loop through the brand colors and generate classes
+@each $group, $shades in $brand-colors {
+  @each $shade, $color in $shades {
+    .text-#{$group}-#{$shade} {
+      color: color($group, $shade);
+    }
+  }
+}
+// loop through the brand colors and generate classes
+@each $group, $shades in $brand-colors {
+  @each $shade, $color in $shades {
+    .border-#{$group}-#{$shade} {
+      border-color: color($group, $shade);
+    }
+  }
+}

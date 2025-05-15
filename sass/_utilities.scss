@@ -31,7 +31,7 @@
   }
 
   &__value {
-    color: $primary-600;
+    color: $gray-800;
     float: right;
   }
 }
@@ -826,6 +826,7 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .pi-option-list {
   display: flex;
   flex-direction: column;
@@ -839,18 +840,50 @@ td {
   border-radius: 12px;
   background: color('shades', 'white');
   cursor: pointer;
-  transition: all 0.18s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 0.8rem;
+  @mixin pi-option-variant($name) {
+    &.pi-#{$name} {
+      background: color($name, '50');
+      border-color: color($name, '200');
+      .pi-option-title {
+        color: color($name, '800');
+      }
+      .pi-option-meta,
+      .pi-option-icon {
+        color: color($name, '800');
+      }
+      .pi-option-arrow {
+        color: color($name, '600');
+      }
 
-  &:hover {
-    background: color('primary', '50');
-    border-color: color('primary', '200');
+      &:hover {
+        background: color($name, '200');
+        border-color: color($name, '400');
+        .pi-option-title {
+          color: color($name, '900');
+        }
+        .pi-option-meta,
+        .pi-option-icon {
+          color: color($name, '900');
+        }
+        .pi-option-arrow {
+          color: color($name, '700');
+        }
+      }
+    }
   }
+
+  @include pi-option-variant('primary');
+  @include pi-option-variant('secondary');
+  @include pi-option-variant('info');
+  @include pi-option-variant('warning');
+  @include pi-option-variant('dark');
 }
 
 .pi-option-title {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1rem;
   margin-bottom: 0.25rem;
   color: color('dark', '900');
 }
@@ -869,7 +902,6 @@ td {
   top: 50%;
   transform: translateY(-50%);
   font-size: 20px;
-  color: color('dark', '600');
   transition: transform 0.18s;
 }
 
@@ -887,4 +919,22 @@ td {
     transform: translateY(-2px);
     background: color('primary', '50');
   }
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+.overview-card {
+  border: 1px solid $gray-200;
+}
+.interest.sticky-top {
+  top: 15px;
+}
+
+.icon-hover {
+  transition: transform 0.2s ease;
+}
+.icon-hover:hover {
+  transform: scale(1.15);
 }

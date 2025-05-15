@@ -9,6 +9,8 @@ import {
 } from 'react-icons/fa6';
 import Modal from '@/components/ui/Modal';
 import { FaInstagram, FaShareAlt } from 'react-icons/fa';
+import Button from '../forms/Button';
+import { ShareProjectIcon } from '../Icons/Icons';
 
 const SOCIALS = [
   {
@@ -47,7 +49,7 @@ const SOCIALS = [
   },
 ];
 
-const ShareButton = ({ url, text, header = 'Share Page' }) => {
+const ShareButton = ({ url, text, header = 'Share this Page' }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -69,14 +71,13 @@ const ShareButton = ({ url, text, header = 'Share Page' }) => {
 
   return (
     <>
-      <button
-        className="btn btn-info ms-2"
+      <Button
+        color="light"
         aria-label="Share"
         onClick={() => setShowOptions(true)}
       >
-        <FaShareAlt size={20} /> {header}
-      </button>
-
+        {header} <ShareProjectIcon />
+      </Button>{' '}
       <Modal
         show={showOptions}
         onHide={() => setShowOptions(false)}
@@ -87,7 +88,7 @@ const ShareButton = ({ url, text, header = 'Share Page' }) => {
             className="btn-close share-close"
             onClick={() => setShowOptions(false)}
           />
-          <h4 className="fw-semibold font-primary mb-4">Share this Page</h4>
+          <h4 className="fw-semibold font-primary mb-4">{header}</h4>
 
           <div className="d-flex justify-content-center gap-3 mb-5 flex-wrap">
             {SOCIALS.map((social) => (

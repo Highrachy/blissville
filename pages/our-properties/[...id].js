@@ -1,37 +1,16 @@
 import React from 'react';
-import Humanize from 'humanize-plus';
-import Image from 'next/image';
 import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
-import classNames from 'classnames';
 import Button from '@/components/forms/Button';
 import Section from '@/components/common/Section';
-import ScheduleVisit, {
-  ScheduleVisitationButton,
-} from '@/components/common/ScheduleVisit';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
-import { Dropdown, Tab } from 'react-bootstrap';
-import FAQsAccordion from '@/components/common/FAQsAccordion';
-import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
-import Modal from '@/components/ui/Modal';
+import { Dropdown, Modal } from 'react-bootstrap';
 import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
-import {
-  BathIcon,
-  BedIcon,
-  BuildingIcon,
-  CompareIcon,
-  ShareProjectIcon,
-  SizeIcon,
-} from '@/components/Icons/Icons';
+import Humanize from 'humanize-plus';
 import { packages, PACKAGE_NAME } from '@/data/packages';
 import Link from 'next/link';
-import FormikForm from '@/components/forms/FormikForm';
-import Input from '@/components/forms/Input';
-import Textarea from '@/components/forms/Textarea';
-import ComparePackages from '@/components/layouts/ComparePackages';
 import PaymentPlanSlider from '@/components/common/PaymentPlanSlider';
-import { Car, Convertshape, Magicpen } from 'iconsax-react';
 import { useRouter } from 'next/router';
 import {
   getLocationFromAddress,
@@ -40,16 +19,27 @@ import {
   moneyFormatInNaira,
   statusIsSuccessful,
 } from '@/utils/helpers';
-import { Gallery, Neighborhood } from 'pages/our-projects/[slug]';
+import {
+  Gallery,
+  Neighborhood,
+  NeighborhoodList,
+} from 'pages/our-projects/[slug]';
 import axios from 'axios';
-import { askInfoSchema } from '@/components/forms/schemas/page-schema';
-import { getTokenFromStore } from '@/utils/localStorage';
-import FormikButton from '@/components/forms/FormikButton';
 import BuyNowButton from '@/components/utils/BuyNowButton';
-import { getError } from '@/utils/helpers';
-import { toast } from 'react-toastify';
 import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
 import ShareButton from '@/components/common/ShareButton';
+import PropertyImageGallery from '@/components/common/PropertyImageGallery';
+import OverviewCard from '@/components/common/OverviewCard';
+import { DescriptionParagraphs } from '../our-projects/[slug]';
+import { ProjectInterestContent } from '@/components/common/ProjectInterestModal';
+import FAQsAccordion from '@/components/common/FAQsAccordion';
+import ScheduleVisit from '@/components/common/ScheduleVisit';
+import { Magicpen } from 'iconsax-react';
+import { ShareProjectIcon } from '@/components/Icons/Icons';
+import classNames from 'classnames';
+import { FaMapPin } from 'react-icons/fa6';
+import { FaFilePdf } from 'react-icons/fa';
+import { getShortDate } from '@/utils/date-helpers';
 
 export default function SinglePropertyPage({
   property,
@@ -65,11 +55,13 @@ export default function SinglePropertyPage({
     return <div>Loading...</div>;
   }
 
-  const faqs = property?.project?.data?.attributes?.faqs?.data || [];
+  const project = property?.project?.data?.attributes;
+  const faqs = project?.faqs?.data || [];
   const allFaqs = faqs?.map(({ attributes: { question, answer } }) => ({
     question,
     answer,
   }));
+  const neighborhoods = project?.neighborhoods?.data || [];
 
   return (
     <>
@@ -77,11 +69,11 @@ export default function SinglePropertyPage({
       <PageHeader
         title="Our Properties"
         subHeader="Powered By Highrachy"
-        bgImage="/assets/img/bg/investors.jpeg"
+        bgImage={property?.image || '/assets/img/bg/investors.jpeg'}
       />
 
       <PropertyInformation property={property} />
-      <TabInformation property={property} />
+      <PaymentPlan property={property} />
 
       <FeaturedProperties
         properties={similarProperties}
@@ -99,7 +91,9 @@ export default function SinglePropertyPage({
         neighborhoods={
           property?.project?.data?.attributes?.neighborhoods?.data || []
         }
+        slug={property?.project?.data?.attributes?.slug}
       />
+
       {allFaqs.length > 0 && (
         <section className="container mt-6">
           <div className="row">
@@ -109,9 +103,9 @@ export default function SinglePropertyPage({
         </section>
       )}
       {/* <FeaturedProperties properties={featuredProperties} /> */}
-      <Section noPaddingBottom>
+      <section>
         <ProjectsSlideshow projects={projects} title="Other Projects" />
-      </Section>
+      </section>
       <div className="mt-7"></div>
       <ScheduleVisit />
       <Footer />
@@ -120,220 +114,60 @@ export default function SinglePropertyPage({
 }
 
 const PropertyInformation = ({ property }) => {
-  const [showModal, setShowModal] = React.useState(false);
-  const {
-    id,
-    slug,
-    name,
-    price,
-    image,
-    type,
-    floors,
-    size,
-    beds,
-    baths,
-    parkingSpace,
-    paymentPlan,
-    availableUnits,
-  } = property;
+  const { id, slug, name, price, availableUnits } = property;
   const project = property.project.data.attributes;
   const isSoldOut = availableUnits === 0;
 
-  const shareUrl = `https://blissville.com.ng/our-properties/${
-    project?.slug || 'project-name'
-  }/${slug || 'property-name'}/${id}`;
+  // Get current page URL for sharing
+  const shareUrl =
+    typeof window !== 'undefined'
+      ? window.location.href
+      : `https://blissville.com.ng/our-properties/${
+          project?.slug || 'project-name'
+        }/${slug || 'property-name'}/${id}`;
 
   return (
-    <Section>
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-8">
-            <h2>{name}</h2>
-            <p className="fw-bold text-gray-700">
-              <BuildingIcon />
-              &nbsp;
-              <Link href={`/our-projects/${project.slug}`} passHref>
-                <a className="text-reset">{project.name}</a>
-              </Link>{' '}
-              &nbsp;- {getLocationFromAddress(project)}
-            </p>
+    <>
+      <Section noPaddingBottom className="mb-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-8">
+              <h2>{name}</h2>
+              <p className="text-gray-700">
+                <Link href={`/our-projects/${project.slug}`} passHref>
+                  <a className="text-reset">{project.name}</a>
+                </Link>{' '}
+                &nbsp;- {getLocationFromAddress(project)}
+              </p>
 
-            <h3 className="text-primary">
-              {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)}
-            </h3>
-          </div>
-          <div className="col-sm-4 text-md-end mb-4 mb-md-0">
-            <aside>
-              <Button color="light" onClick={() => setShowModal(true)}>
-                Share Property <ShareProjectIcon />
-              </Button>
-            </aside>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8">
-            <div className="mb-3 img-property img-fill">
-              <Image
-                src={image}
-                alt={name}
-                layout="fill"
-                objectFit="cover"
-                className="img-fluid rounded"
-              />
+              <h3 className="text-primary">
+                {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)}
+              </h3>
             </div>
-            <div className="row d-none d-md-flex">
-              <FeatureCard
-                number={size}
-                title="Msq"
-                icon={<SizeIcon />}
-                pluralize={false}
-              />
-              <FeatureCard number={baths} title="Bath" icon={<BathIcon />} />
-              <FeatureCard number={beds} title="Bed" icon={<BedIcon />} />
-              <FeatureCard
-                number={parkingSpace}
-                title="Parking"
-                icon={<Car variant="Bold" />}
-                pluralize={false}
-              />
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="bg-gray rounded px-4 pb-3">
-              <h5 className="pt-4 mb-3">Property Overview</h5>
-              <ul className="list-dotted list-unstyled">
-                <li>
-                  <span className="list-dotted__label">Property Name </span>
-                  <span className="list-dotted__value">{name}</span>
-                </li>
-                <li>
-                  <span className="list-dotted__label">Property Type </span>
-                  <span className="list-dotted__value">{type}</span>
-                </li>
-                <li>
-                  <span className="list-dotted__label">Prices From </span>
-                  <span className="list-dotted__value">
-                    {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)}
-                  </span>
-                </li>
-                <li>
-                  <span className="list-dotted__label">Floor </span>
-                  <span className="list-dotted__value">{floors}</span>
-                </li>
-                <li>
-                  <span className="list-dotted__label">Payment Plan</span>
-                  <span className="list-dotted__value">
-                    {paymentPlan === 0
-                      ? 'Outright Payment'
-                      : `${paymentPlan} ${Humanize.pluralize(
-                          paymentPlan,
-                          'Month'
-                        )}`}
-                  </span>
-                </li>
-                <li className="text-center">
-                  <ScheduleVisitationButton visiting={`Property - ${name}`} />
-                </li>
-              </ul>
-            </div>
-            <Button
-              color="light"
-              className="w-100 my-3"
-              href={`/compare-properties/${id}`}
-            >
-              Compare Property <Convertshape variant="Bulk" />
-            </Button>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8">
-            <article className="lead">{property.description}</article>
-            {listFeatures(project)}
-            <ActionButtonGroup price={price} />
-
-            <div className="mb-5"></div>
-          </div>
-          <div className="col-md-4">
-            <div className="border rounded p-4">
-              <h6 className="mb-3">Ask for more Information</h6>
-
-              <AskInfoForm name={name} projectName={project.name} />
+            <div className="col-sm-4 text-md-end mb-4 mb-md-0">
+              <aside>
+                <ShareButton
+                  url={shareUrl}
+                  text={`Check out ${name} on Blissville.com!`}
+                />
+              </aside>
             </div>
           </div>
         </div>
-      </div>
-    </Section>
+        <div className="container property-detail">
+          <PropertyImageGallery property={property} />
+        </div>
+      </Section>
+      <PropertyInfoSection property={property} />
+    </>
   );
 };
 
-export const AskInfoForm = ({ name, projectName, source = '' }) => {
-  const router = useRouter();
-  const { ref } = router.query;
-  const handleSubmit = async (values, actions) => {
-    const payload = {
-      ...values,
-      source: source || `Property Page`,
-      reference: ref || '',
-      subject: `Enquiry about ${projectName} - ${name}`,
-    };
-    try {
-      axios({
-        method: 'post',
-        url: `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
-        data: { data: payload },
-      })
-        .then(function (response) {
-          const { status } = response;
-          if (statusIsSuccessful(status)) {
-            toast.success('Information sent successfully');
-            actions.resetForm();
-            actions.setSubmitting(false);
-          }
-        })
-        .catch(function (error) {
-          toast.error(getError(error));
-        });
-    } catch (error) {
-      toast.error(getError(error));
-    }
-  };
-  return (
-    <FormikForm
-      schema={askInfoSchema}
-      handleSubmit={handleSubmit}
-      name="ask-info-form"
-      buttonText="Send Message"
-    >
-      <Input floatingLabel name="name" label="Full Name" />
-      <Input floatingLabel name="email" type="email" label="Email Address" />
-
-      <Input floatingLabel name="phone" label="Phone Number" optional />
-
-      <Textarea
-        floatingLabel
-        name="message"
-        label="Your Message"
-        placeholder="Tell me more about this property"
-        rows={5}
-      />
-      <FormikButton color="success" className="mt-2 text-white btn-wide">
-        Send Message
-      </FormikButton>
-    </FormikForm>
-  );
-};
-
-const TabInformation = ({ property }) => {
-  const project = property.project.data.attributes;
-  const [showComparePropertyModal, setShowComparePropertyModal] =
-    React.useState(false);
+const PaymentPlan = ({ property }) => {
   const halfPaymentPlan = property.paymentPlan > 0 ? 6 : 0; // use 6 months as halfpayment
-  const [currentTab, setCurrentTab] = React.useState(packages[0]['name']);
   const [customPlan, setCustomPlan] = React.useState(halfPaymentPlan);
+  const currentTabPrice = property?.price || 0;
+  const name = 'shell';
 
   if (property?.availableUnits === 0) {
     return null;
@@ -343,169 +177,68 @@ const TabInformation = ({ property }) => {
     <Section altBg>
       <div className="container">
         <div className="row">
-          <Tab.Container
-            activeKey={currentTab}
-            id="single-property-profile"
-            className="mb-3"
-          >
-            <ul className="nav nav-tab gap-1 nav-fill">
-              {packages.map(({ name }) => (
-                <li
-                  key={name}
-                  className={classNames('nav-item position-relative', {
-                    active: currentTab === name,
-                  })}
-                  onClick={() => setCurrentTab(name)}
-                >
-                  <span className="active-indicator"></span>
-                  <div
-                    className={classNames('nav-link py-4', {
-                      active: currentTab === name,
-                    })}
-                  >
-                    {name}
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <Tab.Content>
-              <Modal
-                title="Compare Packages"
-                show={showComparePropertyModal}
-                onHide={() => setShowComparePropertyModal(false)}
-                size="lg"
-              >
-                <section className="row">
-                  <ComparePackages project={project} />
-                </section>
-              </Modal>
-              {packages.map(({ name, description, key }, index) => {
-                const allPrices = ['price', 'standardPrice', 'supremePrice'];
-                const currentTabPrice = property[allPrices[index]];
+          <h3>
+            Available Payment Plans
+            {property.paymentPlan > 6 && (
+              <div className="float-md-end">
+                <Dropdown>
+                  <Dropdown.Toggle variant="light" id="dropdown-basic">
+                    Select Payment Plan
+                  </Dropdown.Toggle>
 
-                return (
-                  <Tab.Pane eventKey={name} key={name}>
-                    <div className="my-5">
-                      <div className="row">
-                        <div className="col-md-8">
-                          <h3>{name}</h3>
-                        </div>
-                        <div className="col-md-4 text-md-end">
-                          <Button
-                            color="light"
-                            className="btn-outline-light mb-5 mb-md-0"
-                            onClick={() => setShowComparePropertyModal(true)}
+                  <Dropdown.Menu>
+                    {/* Loop from 6 to property.paymentPlan in multiples of 6 */}
+                    {Array.from(
+                      { length: property.paymentPlan / 6 },
+                      (_, i) => (i + 1) * 6
+                    ).map(
+                      (plan) =>
+                        plan !== customPlan && (
+                          <Dropdown.Item
+                            key={plan}
+                            onClick={() => setCustomPlan(plan)}
                           >
-                            Compare All Packages <CompareIcon />
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-8">
-                          <section>
-                            <p className="">{description}</p>
-                            {listFeatures(project, key)}
-                          </section>
-                        </div>
-                      </div>
+                            {plan} Months
+                          </Dropdown.Item>
+                        )
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            )}
+          </h3>
 
-                      <div className="row mt-5">
-                        <h4>
-                          Available Payment Plans
-                          {property.paymentPlan > 6 && (
-                            <div className="float-md-end">
-                              <Dropdown>
-                                <Dropdown.Toggle
-                                  variant="light"
-                                  id="dropdown-basic"
-                                >
-                                  Select Payment Plan
-                                </Dropdown.Toggle>
+          <PaymentPlanCard
+            month={0}
+            price={currentTabPrice}
+            property={property}
+            dimDisplay={customPlan !== halfPaymentPlan}
+            packageName={name}
+          />
 
-                                <Dropdown.Menu>
-                                  {/* Loop from 6 to property.paymentPlan in multiples of 6 */}
-                                  {Array.from(
-                                    { length: property.paymentPlan / 6 },
-                                    (_, i) => (i + 1) * 6
-                                  ).map(
-                                    (plan) =>
-                                      plan !== customPlan && (
-                                        <Dropdown.Item
-                                          key={plan}
-                                          onClick={() => setCustomPlan(plan)}
-                                        >
-                                          {plan} Months
-                                        </Dropdown.Item>
-                                      )
-                                  )}
-                                </Dropdown.Menu>
-                              </Dropdown>
-                            </div>
-                          )}
-                        </h4>
-
-                        <PaymentPlanCard
-                          month={0}
-                          price={currentTabPrice}
-                          property={property}
-                          dimDisplay={customPlan !== halfPaymentPlan}
-                          packageName={name}
-                        />
-
-                        {property.paymentPlan > 0 && (
-                          <>
-                            <PaymentPlanCard
-                              month={customPlan}
-                              price={currentTabPrice}
-                              property={property}
-                              customPlan={customPlan !== halfPaymentPlan}
-                              packageName={name}
-                            />
-                            <PaymentPlanCard
-                              month={Math.min(property.paymentPlan, 12)}
-                              price={currentTabPrice}
-                              property={property}
-                              dimDisplay={customPlan !== halfPaymentPlan}
-                              packageName={name}
-                            />
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </Tab.Pane>
-                );
-              })}
-            </Tab.Content>
-          </Tab.Container>
+          {property.paymentPlan > 0 && (
+            <>
+              <PaymentPlanCard
+                month={customPlan}
+                price={currentTabPrice}
+                property={property}
+                customPlan={customPlan !== halfPaymentPlan}
+                packageName={name}
+              />
+              <PaymentPlanCard
+                month={Math.min(property.paymentPlan, 12)}
+                price={currentTabPrice}
+                property={property}
+                dimDisplay={customPlan !== halfPaymentPlan}
+                packageName={name}
+              />
+            </>
+          )}
         </div>
       </div>
     </Section>
   );
 };
-
-const FeatureCard = ({ number, title, icon, pluralize = true }) => (
-  <aside className="col-sm-3">
-    <div className={`card h-100 position-relative bg-gray`}>
-      <div className="card-body px-md-4 px-3">
-        <div className="d-flex align-items-center justify-content-between">
-          <div>
-            <h4 className="mb-0 widget__color lh-1 mt-3 mb-2 text-muted">
-              {number}
-            </h4>
-            <p className="mb-0 text-sm text-muted">
-              {pluralize ? Humanize.pluralize(number, title) : title}
-            </p>
-          </div>
-        </div>
-        <div
-          className={`widget__icon-tint dark position-absolute bottom-0 end-0`}
-        >
-          {icon}
-        </div>
-      </div>
-    </div>
-  </aside>
-);
 
 const PaymentPlanCard = ({
   property,
@@ -744,4 +477,172 @@ export async function getStaticPaths() {
     }),
     fallback: true,
   };
+}
+
+function PropertyInfoSection({ property }) {
+  const project = property?.project?.data?.attributes || {};
+  const neighborhoods = project?.neighborhoods?.data || [];
+  return (
+    <Section noPaddingTop className="bg-gray-50 pt-5">
+      <div className="container">
+        <div className="row g-3">
+          {/* Left Column */}
+          <div className="col-lg-8">
+            {/* Overview */}
+            <OverviewCard header="Description">
+              <DescriptionParagraphs
+                text={[property?.description, project?.description]
+                  .filter(Boolean)
+                  .join('\n\n')}
+                defaultVisible={2}
+              />
+
+              <Button
+                color="primary"
+                className="mt-3"
+                href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFilePdf size={20} className="me-2" />
+                Download Brochure
+              </Button>
+            </OverviewCard>
+
+            <ProjectOverviewDetails property={property} project={project} />
+
+            <OverviewCard header="Features">
+              <ul className="list-unstyled">{listFeatures(project)}</ul>
+            </OverviewCard>
+            <NeighborhoodList neighborhoods={neighborhoods} />
+          </div>
+          <div className="col-lg-4 position-relative">
+            <div className="interest sticky-top">
+              <OverviewCard className="p-4">
+                <ProjectInterestContent
+                  header="Interested in this property?"
+                  propertyName={property?.name}
+                />
+                <div className="mt-4" />
+              </OverviewCard>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+export function DetailItem({ label, value, className }) {
+  return (
+    <li>
+      <span className="list-dotted__label">{label}</span>
+      <span className={`list-dotted__value ${className}`}>{value}</span>
+    </li>
+  );
+}
+
+export function ProjectOverviewDetails({ property, project }) {
+  const [showAll, setShowAll] = React.useState(false);
+
+  const details = [
+    {
+      label: 'Property Type',
+      value: property?.name,
+    },
+    {
+      label: 'Location',
+      value: getLocationFromAddress(project),
+    },
+    {
+      label: 'Size',
+      value: property?.size ? `${property.size} sqm` : null,
+    },
+    {
+      label: 'Price',
+      value: property?.price ? moneyFormatInNaira(property.price) : null,
+      className: 'text-price',
+    },
+
+    {
+      label: 'Number of Rooms',
+      value:
+        property?.beds != null
+          ? `${property.beds} Room${property.beds > 1 ? 's' : ''}`
+          : null,
+    },
+    {
+      label: 'Bathrooms',
+      value:
+        property?.baths != null
+          ? `${property.baths} Bathroom${property.baths > 1 ? 's' : ''}`
+          : null,
+    },
+    {
+      label: 'Toilets',
+      value:
+        property?.toilets != null
+          ? `${property.toilets} Toilet${property.toilets > 1 ? 's' : ''}`
+          : null,
+    },
+    {
+      label: 'Parking Space',
+      value:
+        property?.parkingSpace != null
+          ? `${property.parkingSpace} ${
+              property.parkingSpace > 1 ? 'Spaces' : 'Space'
+            }`
+          : null,
+    },
+    {
+      label: 'Expected Completion',
+      value: getShortDate(project?.delivery),
+    },
+    {
+      label: 'Units Available',
+      value:
+        property?.availableUnits != null
+          ? `${property.availableUnits} Unit${
+              property.availableUnits > 1 ? 's' : ''
+            }`
+          : null,
+    },
+    {
+      label: 'Current Status',
+      value:
+        property?.availableUnits != null
+          ? property.availableUnits === 0
+            ? 'Sold Out'
+            : 'Currently Available'
+          : null,
+    },
+  ].filter((item) => item.value); // Remove items with no value
+
+  const visibleDetails = showAll ? details : details.slice(0, 4);
+
+  return (
+    <OverviewCard header="Property Overview">
+      <ul className="list-dotted list-unstyled mb-0">
+        {visibleDetails.map(({ label, value, className }, index) => (
+          <DetailItem
+            key={index}
+            label={label}
+            value={value}
+            className={className}
+          />
+        ))}
+        <DetailItem label="" value="" />
+      </ul>
+
+      {details.length > 4 && (
+        <Button
+          color="primary-light"
+          className="btn-wide"
+          onClick={() => setShowAll(!showAll)}
+        >
+          {showAll ? 'View Less' : 'View All'}
+        </Button>
+      )}
+    </OverviewCard>
+  );
 }

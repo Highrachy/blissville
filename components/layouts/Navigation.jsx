@@ -46,37 +46,7 @@ const MobileNavigation = ({ MENU }) => (
 
 const Navigation = ({ parentPage }) => {
   const { width } = useWindowSize();
-
-  const currentScrollPos = useScrollPosition();
-
-  const [navbarColor, setNavbarColor] = useState('white');
-  const [lastScrollPos, setLastScrollPos] = useState(0);
-  const [className, setClassName] = useState('show');
-  const startingPos = 1;
-
   const isDesktop = width > 991;
-
-  React.useEffect(() => {
-    if (!isDesktop) return;
-    // maintain current status
-    if (currentScrollPos === lastScrollPos) return;
-
-    // in starting position
-    if (currentScrollPos < startingPos) {
-      setClassName('show');
-      setNavbarColor('transparent');
-      return;
-    }
-
-    // scrolling up or down
-    const showNavbar = lastScrollPos > currentScrollPos;
-    showNavbar ? setClassName('show') : setClassName('hide');
-    setNavbarColor('white');
-
-    // reset lastScrollPos
-    setLastScrollPos(currentScrollPos);
-  }, [currentScrollPos, lastScrollPos, isDesktop]);
-
   const { loginUser, user } = useContext(UserContext);
 
   const token = getTokenFromStore(true);
@@ -145,12 +115,7 @@ const Navigation = ({ parentPage }) => {
 
   return (
     <>
-      <Navbar
-        bg={navbarColor}
-        expand="lg"
-        sticky={navbarColor === 'transparent' ? '' : 'top'}
-        className={className}
-      >
+      <Navbar bg="white" expand="lg" className="show">
         <Container>
           <Navbar.Brand>
             <LogoImage />

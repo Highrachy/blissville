@@ -14,63 +14,71 @@ import { SALES_CONTACTS } from './Whatsapp';
 import { FaMessage, FaSquarePhone } from 'react-icons/fa6';
 import { FaCalendarAlt, FaWhatsappSquare } from 'react-icons/fa';
 import { VisitationForm } from './ScheduleVisit';
+import Button from '../forms/Button';
+
+// ─────────────────────────────────────────────
+// BACK BUTTON COMPONENT
+// ─────────────────────────────────────────────
+const BackButton = ({ onClick, className = '', children }) => (
+  <Button
+    color="light"
+    className={`btn btn-link ${className}`}
+    onClick={onClick}
+  >
+    &larr; {children || 'Back'}
+  </Button>
+);
 
 // ─────────────────────────────────────────────
 // STEP-1 - OPTION LIST
 // ─────────────────────────────────────────────
-const StepOne = ({ propertyName, setView }) => (
+const StepOptionItem = ({ className, onClick, title, icon, meta }) => (
+  <div
+    className={`pi-option-item ${className}`}
+    onClick={onClick}
+    role="button"
+  >
+    <div>
+      <div className="pi-option-title">{title}</div>
+      <div className="pi-option-meta">
+        {icon}
+        {meta}
+      </div>
+    </div>
+    <span className="pi-option-arrow">&rarr;</span>
+  </div>
+);
+
+const StepOne = ({ header, setView }) => (
   <section>
-    <h4 className="fw-semibold mb-2">Thank you for your interest!</h4>
-    <p className="text-muted mb-4">
+    <h5 className="fw-semibold mb-2 text-primary">{header}</h5>
+    <p className="mb-4">
       You can speak with a sales advisor, ask us a question, or schedule a visit
       to the property.
     </p>
 
     <div className="pi-option-list">
-      <div
-        className="pi-option-item"
+      <StepOptionItem
+        className="pi-primary"
         onClick={() => setView('contact')}
-        role="button"
-      >
-        <div>
-          <div className="pi-option-title">Speak with a Sales Advisor</div>
-          <div className="pi-option-meta">
-            <FaSquarePhone className="me-2 text-primary" />
-            Call or chat with us directly
-          </div>
-        </div>
-        <span className="pi-option-arrow">&rarr;</span>
-      </div>
-
-      <div
-        className="pi-option-item"
-        onClick={() => setView('form')}
-        role="button"
-      >
-        <div>
-          <div className="pi-option-title">Ask us a Question</div>
-          <div className="pi-option-meta">
-            <FaMessage className="me-2 text-info" />
-            We will get back within 24 hours
-          </div>
-        </div>
-        <span className="pi-option-arrow">&rarr;</span>
-      </div>
-
-      <div
-        className="pi-option-item"
+        title="Speak with a Sales Advisor"
+        icon={<FaSquarePhone className="me-2 pi-option-icon" />}
+        meta="Call or chat with us directly"
+      />
+      <StepOptionItem
+        className="pi-secondary"
         onClick={() => setView('schedule')}
-        role="button"
-      >
-        <div>
-          <div className="pi-option-title">Schedule a visit</div>
-          <div className="pi-option-meta">
-            <FaCalendarAlt className="me-2 text-primary" />
-            Pick a date to see the property.
-          </div>
-        </div>
-        <span className="pi-option-arrow">&rarr;</span>
-      </div>
+        title="Schedule a visit"
+        icon={<FaCalendarAlt className="me-2 pi-option-icon" />}
+        meta="Pick a date to see the property."
+      />
+      <StepOptionItem
+        className="pi-info"
+        onClick={() => setView('form')}
+        title="Ask us a Question"
+        icon={<FaMessage className="me-2 pi-option-icon" />}
+        meta="We will get back within 24 hours"
+      />
     </div>
   </section>
 );
@@ -78,62 +86,76 @@ const StepOne = ({ propertyName, setView }) => (
 // ─────────────────────────────────────────────
 // CONTACT - CALL / WHATSAPP
 // ─────────────────────────────────────────────
+
 function ContactOptions({ propertyName, onBack }) {
   const handleContactClick = (number, type) => {
-    if (type === 'whatsapp') {
-      window.open(
-        `https://wa.me/${number}?text=${encodeURIComponent(
-          `Hello, I'm interested in the property: ${propertyName}`
-        )}`,
-        '_blank'
-      );
-    } else {
-      window.open(`tel:+${number}`);
-    }
+    const cleanNumber = number.replace(/\s+/g, '');
+    const message = `Hello, I'm interested in the property: ${propertyName}`;
+    const url =
+      type === 'whatsapp'
+        ? `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`
+        : `tel:+${cleanNumber}`;
+    window.open(url, '_blank');
   };
 
   return (
     <div>
-      <h4 className="fw-semibold mb-2">Speak with a Sales Advisor</h4>
-      <p className="text-muted mb-4">
-        Choose a contact method for each available rep below.
+      <h5 className="fw-semibold text-primary-700 text-center mb-2">
+        Speak with a Sales Advisor
+      </h5>
+      <p className="text-muted mb-4 text-center">
+        Choose a contact method for each available sales advisor below.
       </p>
 
       <div className="pi-option-list">
-        {SALES_CONTACTS.map((contact) => (
-          <div className="pi-option-item px-3 py-3" key={contact.number}>
-            <div className="d-flex justify-content-between align-items-start flex-wrap">
-              <div>
-                <div className="pi-option-title">
-                  +{contact.number.slice(0, 3)} {contact.number.slice(3, 6)}{' '}
-                  {contact.number.slice(6)}
-                </div>
-                <div className="pi-option-meta">Sales Representative</div>
-              </div>
-              <div className="d-flex gap-3 mt-2 mt-md-0">
-                <button
-                  className="btn btn-outline-primary d-flex align-items-center gap-2"
-                  onClick={() => handleContactClick(contact.number, 'call')}
-                >
-                  <FaSquarePhone size={18} />
-                  <span className="d-none d-sm-inline">Call Now</span>
-                </button>
-                <button
-                  className="btn btn-outline-success d-flex align-items-center gap-2"
-                  onClick={() => handleContactClick(contact.number, 'whatsapp')}
-                >
-                  <FaWhatsappSquare size={18} />
-                  <span className="d-none d-sm-inline">Chat on WhatsApp</span>
-                </button>
-              </div>
+        {SALES_CONTACTS.map((contact, index) => (
+          <div
+            key={contact.number}
+            className={`rounded mb-2 p-3 text-center ${
+              index % 2 === 0
+                ? 'bg-primary-50 border border-primary-200'
+                : 'bg-primary-50 border border-secondary-200'
+            }`}
+          >
+            <h4 className="fw-bold mb-2 text-dark-900">
+              +{contact.number.slice(0, 3)} {contact.number.slice(3, 6)}{' '}
+              {contact.number.slice(6, 9)} {contact.number.slice(9)}
+            </h4>
+
+            <div className="d-flex justify-content-center gap-3">
+              <button
+                className="btn p-0 border-0 bg-transparent text-info-600 icon-hover"
+                onClick={() => handleContactClick(contact.number, 'call')}
+                title="Call"
+              >
+                <FaSquarePhone size={36} />
+              </button>
+
+              <button
+                className="btn p-0 border-0 bg-transparent text-secondary-600 icon-hover"
+                onClick={() => handleContactClick(contact.number, 'whatsapp')}
+                title="WhatsApp"
+              >
+                <FaWhatsappSquare size={36} />
+              </button>
             </div>
           </div>
         ))}
       </div>
 
-      <button className="btn btn-link mt-4" onClick={onBack}>
-        &larr; Back
-      </button>
+      <h6 className="text-dark text-center mt-4">
+        or email us at{' '}
+        <a
+          href="mailto:info@blissville.com"
+          className="text-decoration-underline"
+        >
+          info@blissville.com
+        </a>
+      </h6>
+
+      <div className="text-center mt-4">
+        <BackButton onClick={onBack} />
+      </div>
     </div>
   );
 }
@@ -182,9 +204,7 @@ const MessageForm = ({ propertyName, onBack }) => {
         <div className={`alert alert-${alert.type}`}>{alert.msg}</div>
       )}
       <div className="d-flex justify-content-between align-items-center mt-3">
-        <button type="button" className="btn btn-link" onClick={onBack}>
-          &larr; Back
-        </button>
+        <BackButton onClick={onBack} />
         <FormikButton color="primary" className="btn-wide" type="submit">
           Submit
         </FormikButton>
@@ -224,63 +244,89 @@ const ScheduleVisitForm = ({ propertyName, onBack }) => {
       name="pi-visit-form"
       buttonText="Schedule Visit"
     >
-      <h4 className="fw-semibold mb-2">Schedule a visit</h4>
+      <h4 className="fw-semibold text-info-800 text-center mb-2">
+        Schedule a Visit
+      </h4>
       <VisitationForm />
+      {alert.msg && (
+        <div className={`alert alert-${alert.type}`}>{alert.msg}</div>
+      )}
+      <div className="d-flex justify-content-between align-items-center mt-3">
+        <BackButton onClick={onBack} />
+      </div>
     </FormikForm>
   );
 };
 
 // ─────────────────────────────────────────────
-// MAIN MODAL
+// MAIN CONTENT FOR MODAL (EXPORTED)
 // ─────────────────────────────────────────────
-const ProjectInterestModal = ({ show, onHide, propertyName }) => {
+export function ProjectInterestContent({
+  propertyName,
+  header = 'Thank you for your interest!',
+  onHide = () => {},
+  showCloseButton = false,
+}) {
   const [view, setView] = useState('options'); // options | contact | form | schedule
-
   return (
-    <Modal
-      show={show}
-      onHide={() => {
-        setView('options');
-        onHide();
-      }}
-      size="md"
-    >
-      <section className="p-3">
-        {view === 'options' && (
-          <StepOne propertyName={propertyName} setView={setView} />
-        )}
-
-        {view === 'contact' && (
-          <ContactOptions
-            propertyName={propertyName}
-            onBack={() => setView('options')}
-          />
-        )}
-
-        {view === 'form' && (
-          <MessageForm
-            propertyName={propertyName}
-            onBack={() => setView('options')}
-          />
-        )}
-
-        {view === 'schedule' && (
-          <ScheduleVisitForm
-            propertyName={propertyName}
-            onBack={() => setView('options')}
-          />
-        )}
+    <section>
+      {showCloseButton && (
         <button
           type="button"
           className="btn-modal-close"
           aria-label="Close"
           onClick={() => {
             setView('options');
-            onHide();
+            if (onHide) onHide();
           }}
         >
           &times;
         </button>
+      )}
+      {view === 'options' && <StepOne header={header} setView={setView} />}
+
+      {view === 'contact' && (
+        <ContactOptions
+          propertyName={propertyName}
+          onBack={() => setView('options')}
+        />
+      )}
+
+      {view === 'form' && (
+        <MessageForm
+          propertyName={propertyName}
+          onBack={() => setView('options')}
+        />
+      )}
+
+      {view === 'schedule' && (
+        <ScheduleVisitForm
+          propertyName={propertyName}
+          onBack={() => setView('options')}
+        />
+      )}
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────
+// MAIN MODAL
+// ─────────────────────────────────────────────
+const ProjectInterestModal = ({ show, onHide, propertyName }) => {
+  return (
+    <Modal
+      show={show}
+      onHide={() => {
+        if (onHide) onHide();
+      }}
+      size="md"
+    >
+      <section className="p-3">
+        <ProjectInterestContent
+          propertyName={propertyName}
+          onHide={onHide}
+          showCloseButton
+        />
       </section>
     </Modal>
   );
