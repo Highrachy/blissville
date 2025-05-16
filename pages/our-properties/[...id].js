@@ -536,7 +536,7 @@ function PropertyInfoSection({ property }) {
 export function DetailItem({ label, value, className }) {
   return (
     <li>
-      <span className="list-dotted__label">{label}</span>
+      <span className="list-dotted__label pe-6">{label}</span>
       <span className={`list-dotted__value ${className}`}>{value}</span>
     </li>
   );

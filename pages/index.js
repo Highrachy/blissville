@@ -70,17 +70,13 @@ export default function Home({ slides, projects, properties }) {
   );
 }
 
-const HeroSection = ({ slides }) => (
-  <Swiper
-    loop={true}
-    navigation={true}
-    modules={[Navigation]}
-    className="hero-container"
-  >
-    {slides.map(({ image, slug, startingPrice, name, slogan }, index) => (
-      <SwiperSlide
-        key={index}
-        className="hero-image"
+const HeroSection = ({ slides }) => {
+  if (slides.length === 1) {
+    // Render a static hero with the same structure and classes as SwiperSlide
+    const { image, slug, startingPrice, name, slogan } = slides[0];
+    return (
+      <div
+        className="hero-image swiper-slide swiper-slide-active hero-container"
         style={{
           background: `linear-gradient(0deg, rgba(15, 17, 20, 0.5), rgba(15, 17, 20, 0.5)), url(${image})`,
           backgroundSize: 'cover',
@@ -89,7 +85,7 @@ const HeroSection = ({ slides }) => (
         <div className="hero-content">
           <div className="container">
             <p className="lead text-hero-lead text-uppercase mb-1 mb-md-3">
-              {slogan || 'A PLACE TO CALL HOME'}
+              {slogan || 'A HOME THAT FEELS LIKE PARADISE'}
             </p>
             <h1 className="text-display mb-2 mb-md-4">{name}</h1>
             <ActionButtonGroup
@@ -98,10 +94,43 @@ const HeroSection = ({ slides }) => (
             />
           </div>
         </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
-);
+      </div>
+    );
+  }
+  // Multiple slides: use Swiper
+  return (
+    <Swiper
+      loop={true}
+      navigation={true}
+      modules={[Navigation]}
+      className="hero-container"
+    >
+      {slides.map(({ image, slug, startingPrice, name, slogan }, index) => (
+        <SwiperSlide
+          key={index}
+          className="hero-image"
+          style={{
+            background: `linear-gradient(0deg, rgba(15, 17, 20, 0.5), rgba(15, 17, 20, 0.5)), url(${image})`,
+            backgroundSize: 'cover',
+          }}
+        >
+          <div className="hero-content">
+            <div className="container">
+              <p className="lead text-hero-lead text-uppercase mb-1 mb-md-3">
+                {slogan || 'A PLACE TO CALL HOME'}
+              </p>
+              <h1 className="text-display mb-2 mb-md-4">{name}</h1>
+              <ActionButtonGroup
+                price={startingPrice}
+                href={`/our-projects/${slug}`}
+              />
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
 
 const AdsSection = () => {
   const adsImage =

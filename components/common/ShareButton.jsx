@@ -8,48 +8,10 @@ import {
   FaXTwitter,
 } from 'react-icons/fa6';
 import Modal from '@/components/ui/Modal';
-import { FaInstagram, FaShareAlt } from 'react-icons/fa';
 import Button from '../forms/Button';
 import { ShareProjectIcon } from '../Icons/Icons';
 
-const SOCIALS = [
-  {
-    name: 'Facebook',
-    icon: <FaFacebookF className="icon text-facebook" />,
-    getShareUrl: (url) =>
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-  },
-  {
-    name: 'Twitter',
-    icon: <FaXTwitter className="icon text-twitter" />,
-    getShareUrl: (url, text) =>
-      `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-        url
-      )}&text=${encodeURIComponent(text)}`,
-  },
-  {
-    name: 'Instagram',
-    icon: <FaInstagram className="icon text-instagram" />,
-    getShareUrl: (url) =>
-      `https://www.instagram.com/?url=${encodeURIComponent(url)}`,
-  },
-  {
-    name: 'WhatsApp',
-    icon: <FaWhatsapp className="icon text-whatsapp" />,
-    getShareUrl: (url, text) =>
-      `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`,
-  },
-  {
-    name: 'LinkedIn',
-    icon: <FaLinkedinIn className="icon text-linkedin" />,
-    getShareUrl: (url) =>
-      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-        url
-      )}`,
-  },
-];
-
-const ShareButton = ({ url, text, header = 'Share this Page' }) => {
+const ShareButton = ({ url, text, header = 'Share this Project' }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -69,53 +31,95 @@ const ShareButton = ({ url, text, header = 'Share this Page' }) => {
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
 
+  const handleClose = () => setShowOptions(false);
+
   return (
     <>
       <Button
         color="light"
-        aria-label="Share"
         onClick={() => setShowOptions(true)}
+        aria-label="Share"
       >
         {header} <ShareProjectIcon />
-      </Button>{' '}
-      <Modal
-        show={showOptions}
-        onHide={() => setShowOptions(false)}
-        className="share-modal"
-      >
-        <div className="share-box text-center">
-          <button
-            className="btn-close share-close"
-            onClick={() => setShowOptions(false)}
-          />
-          <h4 className="fw-semibold font-primary mb-4">{header}</h4>
+      </Button>
 
-          <div className="d-flex justify-content-center gap-3 mb-5 flex-wrap">
-            {SOCIALS.map((social) => (
-              <button
-                key={social.name}
-                className={`share-icon-btn text-${social.name.toLowerCase()}`}
-                aria-label={`Share on ${social.name}`}
-                onClick={() => {
-                  window.open(social.getShareUrl(url, text), '_blank');
-                  setShowOptions(false);
-                }}
-              >
-                {social.icon}
-              </button>
-            ))}
+      <Modal show={showOptions} onHide={handleClose} className="share-modal">
+        <div className="share-box">
+          <button className="btn-close share-close" onClick={handleClose} />
+
+          <h5 className="fw-semibold mb-1">{header}</h5>
+          <p className="text-muted mb-4 small">
+            Share this on social media to let others know.
+          </p>
+
+          <div className="d-flex flex-column gap-2 mb-3">
+            <button
+              className="btn share-btn btn-twitter"
+              onClick={() =>
+                window.open(
+                  `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                    url
+                  )}&text=${encodeURIComponent(text)}`,
+                  '_blank'
+                )
+              }
+            >
+              <FaXTwitter className="me-2" /> Share on X
+            </button>
+
+            <button
+              className="btn share-btn btn-facebook"
+              onClick={() =>
+                window.open(
+                  `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                    url
+                  )}`,
+                  '_blank'
+                )
+              }
+            >
+              <FaFacebookF className="me-2" /> Share on Facebook
+            </button>
+
+            <button
+              className="btn share-btn btn-linkedin"
+              onClick={() =>
+                window.open(
+                  `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                    url
+                  )}`,
+                  '_blank'
+                )
+              }
+            >
+              <FaLinkedinIn className="me-2" /> Share on LinkedIn
+            </button>
+
+            <button
+              className="btn share-btn btn-whatsapp"
+              onClick={() =>
+                window.open(
+                  `https://wa.me/?text=${encodeURIComponent(`${text} ${url}`)}`,
+                  '_blank'
+                )
+              }
+            >
+              <FaWhatsapp className="me-2" /> Share on WhatsApp
+            </button>
+
+            <button className="btn share-btn btn-email" onClick={handleEmail}>
+              <FaEnvelope className="me-2" /> Send via Email
+            </button>
+
+            <button className="btn share-btn btn-copy" onClick={handleCopy}>
+              <FaRegCopy className="me-2" />
+              {copied ? 'Link Copied!' : 'Copy Link'}
+            </button>
           </div>
 
-          <div className="d-flex justify-content-center gap-2">
-            <button className="btn btn-info-light" onClick={handleCopy}>
-              <FaRegCopy className="me-3" />
-              {copied ? 'Copied!' : 'Copy link'}
-            </button>
-            <button className="btn btn-primary-light" onClick={handleEmail}>
-              <FaEnvelope className="me-3" />
-              Send as Email
-            </button>
-          </div>
+          <button className="btn btn-outline-secondary" onClick={handleClose}>
+            No thanks
+          </button>
         </div>
       </Modal>
     </>

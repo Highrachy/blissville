@@ -24,9 +24,16 @@ const PropertyImageGallery = ({ property }) => {
     return shuffled.slice(0, 2);
   }, [gallery]);
 
+  const hasGalleryImages = randomGalleryImages.length > 0;
   return (
     <div className="row g-2 align-items-stretch">
-      <div className="col-md-8 position-relative">
+      <div
+        className={
+          hasGalleryImages
+            ? 'col-md-8 position-relative'
+            : 'col-12 position-relative'
+        }
+      >
         <Image
           src={property?.image || '/assets/img/bg/investors.jpeg'}
           alt={property?.name || 'Main view'}
@@ -37,36 +44,41 @@ const PropertyImageGallery = ({ property }) => {
           priority
         />
       </div>
-      <div className="col-md-4 d-flex flex-column gap-2">
-        {randomGalleryImages[0]?.attributes?.image && (
-          <Image
-            src={randomGalleryImages[0].attributes.image}
-            alt="Gallery Image 1"
-            className="img-fluid rounded object-fit-cover flex-fill"
-            style={{ height: '50%' }}
-            layout="responsive"
-            width={400}
-            height={350}
-          />
-        )}
-        <div className="position-relative flex-fill" style={{ height: '50%' }}>
-          {randomGalleryImages[1]?.attributes?.image && (
+      {hasGalleryImages && (
+        <div className="col-md-4 d-flex flex-column gap-2">
+          {randomGalleryImages[0]?.attributes?.image && (
             <Image
-              src={randomGalleryImages[1].attributes.image}
-              alt="Gallery Image 2"
-              className="img-fluid rounded object-fit-cover h-100 w-100"
+              src={randomGalleryImages[0].attributes.image}
+              alt="Gallery Image 1"
+              className="img-fluid rounded object-fit-cover flex-fill"
+              style={{ height: '50%' }}
               layout="responsive"
               width={400}
               height={350}
             />
           )}
-          <Link href={`#gallery`} passHref>
-            <a className="btn btn-info-light btn-sm position-absolute bottom-0 start-0 m-2">
-              View Gallery
-            </a>
-          </Link>
+          <div
+            className="position-relative flex-fill"
+            style={{ height: '50%' }}
+          >
+            {randomGalleryImages[1]?.attributes?.image && (
+              <Image
+                src={randomGalleryImages[1].attributes.image}
+                alt="Gallery Image 2"
+                className="img-fluid rounded object-fit-cover h-100 w-100"
+                layout="responsive"
+                width={400}
+                height={350}
+              />
+            )}
+            <Link href={`#gallery`} passHref>
+              <a className="btn btn-info-light btn-sm position-absolute bottom-0 start-0 m-2">
+                View Gallery
+              </a>
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

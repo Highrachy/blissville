@@ -4,13 +4,6 @@ import Link from 'next/link';
 import React from 'react';
 import Button from '../forms/Button';
 import { BathIcon, BedIcon, SizeIcon } from '../Icons/Icons';
-import OverviewCard from './OverviewCard';
-import {
-  FaBath,
-  FaBed,
-  FaBoxesPacking,
-  FaRulerCombined,
-} from 'react-icons/fa6';
 
 const SingleProperty = ({ id, attributes }) => {
   const { name, slug, image, beds, baths, size, price, availableUnits } =
@@ -76,89 +69,6 @@ const SingleProperty = ({ id, attributes }) => {
             href={`/our-properties/${project?.slug || 'project-name'}/${
               slug || 'property-name'
             }/${id}`}
-          >
-            View Property
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export const CompactPropertyCard = ({ id, attributes, projectSlug }) => {
-  const { name, slug, image, beds, baths, size, price, availableUnits } =
-    attributes;
-  const isSoldOut = availableUnits === 0;
-
-  const href = `/our-properties/${projectSlug || 'project-name'}/${
-    slug || 'property-name'
-  }/${id}`;
-
-  return (
-    <div className="col-12">
-      <div className="overview-card rounded shadow-sm d-flex flex-row align-items-stretch overflow-hidden border">
-        {/* Image Section - 40% */}
-        <div
-          className="position-relative overflow-hidden"
-          style={{ flexBasis: '40%' }}
-        >
-          <Link href={href} passHref>
-            <a className="d-block h-100 w-100 position-relative">
-              <Image
-                src={image}
-                alt={name}
-                layout="fill"
-                objectFit="cover"
-                className="img-fluid"
-                style={{ transition: 'transform 0.4s ease' }}
-              />
-            </a>
-          </Link>
-        </div>
-
-        {/* Content Section - 60% */}
-        <div
-          className="p-4 d-flex flex-column justify-content-between"
-          style={{ flexBasis: '60%' }}
-        >
-          <div>
-            <h5 className="fw-medium mb-2">{name}</h5>
-            <div
-              className={`h4 fw-bold mb-4 ${
-                isSoldOut ? 'text-muted' : 'text-primary'
-              }`}
-            >
-              {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <div className="d-flex flex-wrap gap-3 text-muted small">
-              <div className="d-flex align-items-center me-3">
-                <FaRulerCombined className="me-2" />
-                <span>{size} Msq</span>
-              </div>
-
-              <div className="d-flex align-items-center me-3">
-                <FaBed className="me-2" />
-                <span>
-                  {beds} Bed{beds > 1 ? 's' : ''}
-                </span>
-              </div>
-
-              <div className="d-flex align-items-center me-3">
-                <FaBath className="me-2" />
-                <span>
-                  {baths} Bath{baths > 1 ? 's' : ''}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <Button
-            color="secondary"
-            className="align-self-start btn-wide mt-4"
-            href={href}
           >
             View Property
           </Button>

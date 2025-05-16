@@ -9,6 +9,7 @@ import React, { useState } from 'react';
  * @param {object} rest - Other props
  */
 const OverviewCard = ({
+  id,
   children,
   className = 'p-5',
   header,
@@ -19,6 +20,7 @@ const OverviewCard = ({
   const showContent = !collapsible || open;
   return (
     <div
+      id={id}
       className={`mb-3 rounded overview-card shadow-sm ${className}`}
       {...rest}
     >

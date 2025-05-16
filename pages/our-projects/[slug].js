@@ -25,23 +25,14 @@ import ProjectInterestModal, {
 } from '@/components/common/ProjectInterestModal';
 import { FaCaretDown } from 'react-icons/fa';
 import ShareButton from '@/components/common/ShareButton';
-import {
-  FaFilePdf,
-  FaLocationPin,
-  FaLocationPinLock,
-  FaMap,
-  FaMapPin,
-} from 'react-icons/fa6';
+import { FaFilePdf, FaMap, FaMapPin } from 'react-icons/fa6';
 import OverviewCard from '@/components/common/OverviewCard';
-import { HiLocationMarker } from 'react-icons/hi';
-import SinglePropertyNew, {
-  CompactPropertyCard,
-} from '@/components/common/SinglePropertyNew';
-import { BathIcon, BedIcon, SizeIcon } from '@/components/Icons/Icons';
+import ProjectHeaderSection from '@/components/common/ProjectHeaderSection';
+import ReactPlayer from 'react-player';
+import CompactPropertyCard from '@/components/common/CompactPropertyCard';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const [showModal, setShowModal] = React.useState(false);
-  const [showInterestModal, setShowInterestModal] = React.useState(false);
 
   const router = useRouter();
   if (router.isFallback) {
@@ -57,6 +48,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     delivery,
     city,
     state,
+    status,
   } = project || {};
 
   const faqs = project?.faqs?.data || [];
@@ -94,16 +86,17 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                 text={`Check out ${name} on Blissville!`}
               />
             </div>
-          </div>
-        </div>
-        <div className="container">
-          <div className="mb-3 img-project img-fill mb-md-5">
-            <Image
-              src={image}
-              alt="Hero Image"
-              layout="fill"
-              objectFit="cover"
-              className="img-fluid"
+            <ProjectHeaderSection
+              image={image}
+              status={status || 'In Progress'}
+              type={type}
+              city={city}
+              state={state}
+              delivery={getShortDate(delivery)}
+              startingPrice={getPrice(startingPrice)}
+              hasGallery={!!project?.project_galleries?.data?.length}
+              hasVideo={isBlissvilleTerraces}
+              hasLocationMap={isBlissvilleTerraces}
             />
           </div>
         </div>
@@ -161,6 +154,25 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                 {listFeatures(project)}
               </OverviewCard>
 
+              {isBlissvilleTerraces && (
+                <OverviewCard id="video" header="Video">
+                  <div
+                    className="ratio ratio-16x9 mb-3"
+                    style={{
+                      border: '2px solid #e5e7eb',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <ReactPlayer
+                      url="/videos/blissville-video.mp4"
+                      width="100%"
+                      height="100%"
+                      controls
+                    />
+                  </div>
+                </OverviewCard>
+              )}
               <NeighborhoodList neighborhoods={neighborhoods} slug={slug} />
               {/* add an overviewcard that shows properties in the project, build a small version of singlePropertynew component showing the property image and name*/}
               {project?.properties?.data?.length > 0 && (
@@ -202,33 +214,35 @@ export default function SingleProjectPage({ project, featuredProperties }) {
 
       <Gallery galleries={project?.project_galleries?.data || []} />
 
-      <Section>
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <h4>Location Map</h4>
-              <div className="mb-4">
-                <Image
-                  src="/assets/img/maps/bvt-location-map.png"
-                  alt="BVT Location Map"
-                  className="img-fluid border border-2 border-light rounded"
-                  width={2694}
-                  height={1768}
-                />
+      {isBlissvilleTerraces && (
+        <Section>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <h4>Location Map</h4>
+                <div className="mb-4">
+                  <Image
+                    src="/assets/img/maps/bvt-location-map.png"
+                    alt="BVT Location Map"
+                    className="img-fluid border border-2 border-light rounded"
+                    width={2694}
+                    height={1768}
+                  />
+                </div>
+                <Button
+                  color="primary-light"
+                  className="me-2 my-2 px-4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
+                >
+                  <FaMap /> View on Google Maps
+                </Button>
               </div>
-              <Button
-                color="primary-light"
-                className="me-2 my-2 px-4"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
-              >
-                <FaMap /> View on Google Maps
-              </Button>
             </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      )}
 
       {allFaqs && allFaqs.length > 0 && (
         <section className="container">

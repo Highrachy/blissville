@@ -927,6 +927,7 @@ td {
 
 .overview-card {
   border: 1px solid $gray-200;
+  background: white;
 }
 .interest.sticky-top {
   top: 15px;
@@ -937,4 +938,18 @@ td {
 }
 .icon-hover:hover {
   transform: scale(1.15);
+}
+
+.info-item {
+  flex: 1 1 180px; /* grow = 1, shrink = 1, min-width ≈ 180px */
+  margin-bottom: 1rem; /* vertical breathing space */
+}
+
+.cp-image-container {
+  height: 250px;
+
+  @media (min-width: 768px) {
+    height: 100%;
+    min-height: 100%;
+  }
 }
