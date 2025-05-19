@@ -154,7 +154,7 @@ const PropertyHeader = ({
                   <Link
                     href={`/our-properties/${project?.slug || 'project-name'}/${
                       slug || 'property-name'
-                    }/${id}`}
+                    }`}
                     passHref
                   >
                     <a className="text-underline text-muted text-sm me-3">

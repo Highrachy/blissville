@@ -62,6 +62,7 @@ export default function SinglePropertyPage({
     answer,
   }));
   const neighborhoods = project?.neighborhoods?.data || [];
+  console.log('similarProperties', similarProperties);
 
   return (
     <>
@@ -82,8 +83,8 @@ export default function SinglePropertyPage({
 
       <Gallery
         galleries={[
-          ...(property?.property_galleries.data || []),
-          ...(property?.project?.data?.attributes?.project_galleries.data ||
+          ...(property?.property_galleries?.data || []),
+          ...(property?.project?.data?.attributes?.project_galleries?.data ||
             []),
         ]}
       />
@@ -124,7 +125,7 @@ const PropertyInformation = ({ property }) => {
       ? window.location.href
       : `https://blissville.com.ng/our-properties/${
           project?.slug || 'project-name'
-        }/${slug || 'property-name'}/${id}`;
+        }/${slug || 'property-name'}`;
 
   return (
     <>
@@ -406,55 +407,76 @@ const YourCustomPlanIcon = () => (
 );
 
 export async function getStaticProps({ params }) {
-  const id = params['id'][2];
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/properties?populate=deep&filters[id][$eq]=${id}`
-  );
+  const id = params['id'][1];
 
-  const { data } = await res.json();
-  const projectId = data[0].attributes.project.data.id;
+  // Build the API URL dynamically using the id and populate all fields
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/properties`;
+  const { data } = await axios.get(apiUrl, {
+    params: {
+      'filters[slug][$eq]': id,
+      populate: '*',
+    },
+  });
 
-  const propertiesRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
-    {
-      params: {
-        populate: '*',
-        'pagination[pageSize]': 3,
-        sort: 'createdAt:desc',
-        'filters[project][id][$ne]': projectId,
-        'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
-      },
-    }
-  );
-  const similarPropertiesRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
-    {
-      params: {
-        populate: '*',
-        'filters[project][id][$eq]': projectId,
-        'filters[id][$ne]': id,
-        'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
-      },
-    }
-  );
+  const propertyData = data?.data[0]?.attributes;
+  const project = propertyData.project;
+  const projectId = project?.data?.id;
 
-  const projectRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
-    {
-      params: {
-        'pagination[pageSize]': 3,
-        sort: 'createdAt:desc',
-        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
-      },
-    }
-  );
+  // Fetch the single project for this id, populate *
+  let projectData = null;
+  if (projectId) {
+    const projectRes = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/projects/${projectId}`,
+      {
+        params: {
+          populate: '*',
+        },
+      }
+    );
+    projectData = projectRes?.data || {};
+  }
+
+  // const propertiesRes = await axios.get(
+  //   `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+  //   {
+  //     params: {
+  //       populate: '*',
+  //       'pagination[pageSize]': 3,
+  //       sort: 'createdAt:desc',
+  //       'filters[project][id][$ne]': projectId,
+  //       'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
+  //     },
+  //   }
+  // );
+  // const similarPropertiesRes = await axios.get(
+  //   `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+  //   {
+  //     params: {
+  //       populate: '*',
+  //       'filters[project][id][$eq]': projectId,
+  //       'filters[id][$ne]': id,
+  //       'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
+  //     },
+  //   }
+  // );
+
+  // const projectRes = await axios.get(
+  //   `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
+  //   {
+  //     params: {
+  //       'pagination[pageSize]': 3,
+  //       sort: 'createdAt:desc',
+  //       'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
+  //     },
+  //   }
+  // );
 
   return {
     props: {
-      property: { id: data[0].id, ...data[0]['attributes'] },
-      featuredProperties: propertiesRes.data.data,
-      similarProperties: similarPropertiesRes.data.data,
-      projects: projectRes.data.data,
+      property: { ...propertyData, project: projectData },
+      featuredProperties: [],
+      similarProperties: [],
+      // projects: projectRes?.data || [],
     },
     revalidate: 10,
   };

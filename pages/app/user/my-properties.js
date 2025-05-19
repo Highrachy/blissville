@@ -169,7 +169,7 @@ const MySingleProperty = ({ id, attributes, userId }) => {
               })}
               href={`/our-properties/${project?.slug || 'project-name'}/${
                 property?.slug || 'property-name'
-              }/${property.id}`}
+              }`}
             >
               View Property
             </Button>

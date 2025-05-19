@@ -111,14 +111,14 @@ export default function ProjectHeaderSection({
 
 function ProjectInfoItem({ icon, label, value }) {
   return (
-    <div>
+    <div className="py-md-0 py-4">
       <div className="d-flex align-items-start">
         <span className="me-2 d-flex align-items-center fw-light text-sm text-muted">
           {icon}
         </span>
         <div>
           <div className="text-muted small fw-light text-xs mb-1">{label}</div>
-          <div className="fw-bold text-gray">{value}</div>
+          <div className="fw-bold text-gray pe-3 pe-md-0">{value}</div>
         </div>
       </div>
     </div>

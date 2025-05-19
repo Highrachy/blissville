@@ -11,7 +11,7 @@ export const CompactPropertyCard = ({ id, attributes, projectSlug }) => {
   const isSoldOut = availableUnits === 0;
   const href = `/our-properties/${projectSlug || 'project-name'}/${
     slug || 'property-name'
-  }/${id}`;
+  }`;
 
   return (
     <div className="col-12 mb-4">

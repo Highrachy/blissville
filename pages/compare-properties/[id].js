@@ -255,7 +255,7 @@ const ComparePropertiesSection = ({
                       className="btn-sm"
                       href={`/our-properties/${
                         project?.slug || 'project-name'
-                      }/${property?.slug || 'property-name'}/${property?.id}`}
+                      }/${property?.slug || 'property-name'}`}
                     >
                       I am Interested
                     </Button>
@@ -266,7 +266,7 @@ const ComparePropertiesSection = ({
                       className="btn-sm"
                       href={`/our-properties/${
                         project2?.slug || 'project-name'
-                      }/${property2?.slug || 'property-name'}/${property2?.id}`}
+                      }/${property2?.slug || 'property-name'}`}
                     >
                       I am Interested
                     </Button>

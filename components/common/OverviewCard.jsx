@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 const OverviewCard = ({
   id,
   children,
-  className = 'p-5',
+  className = 'p-4 p-md-5',
   header,
   collapsible = false,
   ...rest
