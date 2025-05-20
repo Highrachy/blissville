@@ -9,6 +9,7 @@ const Section = ({
   altBg2,
   noPaddingTop,
   noPaddingBottom,
+  id,
   ...props
 }) => {
   return (
@@ -19,6 +20,7 @@ const Section = ({
         'pt-5 pt-lg-7': noPaddingBottom,
         'pb-5 pb-lg-7': noPaddingTop,
       })}
+      id={id}
       {...props}
     >
       {title && <h4>{title}</h4>}

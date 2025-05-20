@@ -20,6 +20,7 @@ import {
   statusIsSuccessful,
 } from '@/utils/helpers';
 import {
+  BlissvilleTerracesVideo,
   Gallery,
   Neighborhood,
   NeighborhoodList,
@@ -37,9 +38,18 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { Magicpen } from 'iconsax-react';
 import { ShareProjectIcon } from '@/components/Icons/Icons';
 import classNames from 'classnames';
-import { FaMapPin } from 'react-icons/fa6';
-import { FaFilePdf } from 'react-icons/fa';
+import {
+  FaBath,
+  FaBed,
+  FaCar,
+  FaLayerGroup,
+  FaMapPin,
+  FaMoneyBillWave,
+} from 'react-icons/fa6';
+import { FaFilePdf, FaThLarge } from 'react-icons/fa';
 import { getShortDate } from '@/utils/date-helpers';
+import CompactPropertyCard from '@/components/common/CompactPropertyCard';
+import { ProjectInfoItem } from '@/components/common/ProjectHeaderSection';
 
 export default function SinglePropertyPage({
   property,
@@ -62,7 +72,6 @@ export default function SinglePropertyPage({
     answer,
   }));
   const neighborhoods = project?.neighborhoods?.data || [];
-  console.log('similarProperties', similarProperties);
 
   return (
     <>
@@ -73,13 +82,11 @@ export default function SinglePropertyPage({
         bgImage={property?.image || '/assets/img/bg/investors.jpeg'}
       />
 
-      <PropertyInformation property={property} />
-      <PaymentPlan property={property} />
-
-      <FeaturedProperties
-        properties={similarProperties}
-        title="Other Properties"
+      <PropertyInformation
+        property={property}
+        similarProperties={similarProperties}
       />
+      <PaymentPlan property={property} />
 
       <Gallery
         galleries={[
@@ -103,9 +110,19 @@ export default function SinglePropertyPage({
           </div>
         </section>
       )}
-      {/* <FeaturedProperties properties={featuredProperties} /> */}
+
+      <div className="mb-7">
+        <FeaturedProperties
+          properties={featuredProperties}
+          title={
+            featuredProperties && featuredProperties.length === 1
+              ? 'Featured Property'
+              : 'Featured Properties'
+          }
+        />
+      </div>
       <section>
-        <ProjectsSlideshow projects={projects} title="Other Projects" />
+        <ProjectsSlideshow projects={projects} title="Featured Projects" />
       </section>
       <div className="mt-7"></div>
       <ScheduleVisit />
@@ -114,7 +131,7 @@ export default function SinglePropertyPage({
   );
 }
 
-const PropertyInformation = ({ property }) => {
+const PropertyInformation = ({ property, similarProperties }) => {
   const { id, slug, name, price, availableUnits } = property;
   const project = property.project.data.attributes;
   const isSoldOut = availableUnits === 0;
@@ -150,6 +167,7 @@ const PropertyInformation = ({ property }) => {
                 <ShareButton
                   url={shareUrl}
                   text={`Check out ${name} on Blissville.com!`}
+                  header="Share this Property"
                 />
               </aside>
             </div>
@@ -157,10 +175,75 @@ const PropertyInformation = ({ property }) => {
         </div>
         <div className="container property-detail">
           <PropertyImageGallery property={property} />
+          <PropertyIconSection property={property} />
         </div>
       </Section>
-      <PropertyInfoSection property={property} />
+      <PropertyInfoSection
+        property={property}
+        similarProperties={similarProperties}
+      />
     </>
+  );
+};
+
+const PropertyIconSection = ({ property }) => {
+  return (
+    <div className="bg-white my-5">
+      <div className="d-flex flex-wrap justify-content-between align-items-start">
+        <ProjectInfoItem
+          icon={<FaLayerGroup size={18} />}
+          label="Property Size"
+          value={property?.size ? `${property.size} sqm` : '-'}
+          className="info-item"
+        />
+        <ProjectInfoItem
+          icon={<FaBed size={18} />}
+          label="Bedroom"
+          value={
+            property?.beds != null
+              ? `${property.beds} Bedroom${property.beds > 1 ? 's' : ''}`
+              : '-'
+          }
+          className="info-item"
+        />
+        <ProjectInfoItem
+          icon={<FaBath size={18} />}
+          label="Bathroom"
+          value={
+            property?.baths != null
+              ? `${property.baths} Bathroom${property.baths > 1 ? 's' : ''}`
+              : '-'
+          }
+          className="info-item"
+        />
+        <ProjectInfoItem
+          icon={<FaThLarge size={18} />}
+          label="Available Units"
+          value={
+            property?.availableUnits != null
+              ? property.availableUnits === 0
+                ? 'Sold Out'
+                : `${property.availableUnits} Unit${
+                    property.availableUnits > 1 ? 's' : ''
+                  }`
+              : '-'
+          }
+          className="info-item"
+        />
+        <ProjectInfoItem
+          icon={<FaCar size={18} />}
+          label="Parking Space"
+          value={
+            property?.parkingSpace != null
+              ? `${property.parkingSpace} Space${
+                  property.parkingSpace > 1 ? 's' : ''
+                }`
+              : '-'
+          }
+          className="info-item"
+        />
+      </div>
+    </div>
   );
 };
 
@@ -436,64 +519,83 @@ export async function getStaticProps({ params }) {
     projectData = projectRes?.data || {};
   }
 
-  // const propertiesRes = await axios.get(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
-  //   {
-  //     params: {
-  //       populate: '*',
-  //       'pagination[pageSize]': 3,
-  //       sort: 'createdAt:desc',
-  //       'filters[project][id][$ne]': projectId,
-  //       'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
-  //     },
-  //   }
-  // );
-  // const similarPropertiesRes = await axios.get(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
-  //   {
-  //     params: {
-  //       populate: '*',
-  //       'filters[project][id][$eq]': projectId,
-  //       'filters[id][$ne]': id,
-  //       'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
-  //     },
-  //   }
-  // );
+  const similarPropertiesRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+    {
+      params: {
+        populate: '*',
+        'filters[project][id][$eq]': projectId,
+        'filters[slug][$ne]': id,
+      },
+    }
+  );
 
-  // const projectRes = await axios.get(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
-  //   {
-  //     params: {
-  //       'pagination[pageSize]': 3,
-  //       sort: 'createdAt:desc',
-  //       'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
-  //     },
-  //   }
-  // );
+  const featuredPropertiesRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+    {
+      params: {
+        populate: '*',
+        'pagination[pageSize]': 3,
+        sort: 'createdAt:desc',
+        'filters[project][id][$ne]': projectId,
+      },
+    }
+  );
+
+  const projectRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
+    {
+      params: {
+        'pagination[pageSize]': 3,
+        sort: 'createdAt:desc',
+        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
+        // 'filters[id][$ne]': projectId,
+      },
+    }
+  );
 
   return {
     props: {
       property: { ...propertyData, project: projectData },
-      featuredProperties: [],
-      similarProperties: [],
-      // projects: projectRes?.data || [],
+      featuredProperties: featuredPropertiesRes?.data?.data || [],
+      similarProperties: similarPropertiesRes?.data?.data || [],
+      projects: projectRes?.data?.data || [],
     },
     revalidate: 10,
   };
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`);
-  const { data: propertyLists } = await res.json();
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+    {
+      params: { populate: '*' },
+    }
+  );
+  const propertyLists = res.data?.data || [];
+
+  // Get all projects for mapping project name
+  const projectsRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
+    {
+      params: { populate: '*' },
+    }
+  );
+  const projects = projectsRes.data?.data || [];
+
+  // Helper to get project slug from project id
+  function getProjectSlug(projectId) {
+    const project = projects.find((p) => p.id === projectId);
+    return project?.attributes?.slug || 'project';
+  }
+
   return {
     paths: propertyLists.map((propertyList) => {
+      const projectId = propertyList?.attributes?.project?.data?.id;
+      const projectSlug = getProjectSlug(projectId);
       return {
         params: {
-          id: [
-            'property-name',
-            'property-name',
-            propertyList['id']?.toString(),
-          ],
+          id: [projectSlug, propertyList?.attributes?.slug?.toString()],
         },
       };
     }),
@@ -501,9 +603,10 @@ export async function getStaticPaths() {
   };
 }
 
-function PropertyInfoSection({ property }) {
+function PropertyInfoSection({ property, similarProperties }) {
   const project = property?.project?.data?.attributes || {};
   const neighborhoods = project?.neighborhoods?.data || [];
+  const isBlissvilleTerraces = project?.slug === 'blissville-terraces';
   return (
     <Section noPaddingTop className="bg-gray-50 pt-5">
       <div className="container">
@@ -513,22 +616,22 @@ function PropertyInfoSection({ property }) {
             {/* Overview */}
             <OverviewCard header="Description">
               <DescriptionParagraphs
-                text={[property?.description, project?.description]
-                  .filter(Boolean)
-                  .join('\n\n')}
+                text={[property?.description].filter(Boolean).join('\n\n')}
                 defaultVisible={2}
               />
 
-              <Button
-                color="primary"
-                className="mt-3"
-                href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaFilePdf size={20} className="me-2" />
-                Download Brochure
-              </Button>
+              {isBlissvilleTerraces && (
+                <Button
+                  color="primary"
+                  className="mt-3"
+                  href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaFilePdf size={20} className="me-2" />
+                  Download Brochure
+                </Button>
+              )}
             </OverviewCard>
 
             <ProjectOverviewDetails property={property} project={project} />
@@ -536,7 +639,28 @@ function PropertyInfoSection({ property }) {
             <OverviewCard header="Features">
               <ul className="list-unstyled">{listFeatures(project)}</ul>
             </OverviewCard>
+
+            {isBlissvilleTerraces && (
+              <BlissvilleTerracesVideo videoThumbnail={property?.image} />
+            )}
+
             <NeighborhoodList neighborhoods={neighborhoods} />
+
+            {similarProperties.length > 0 && (
+              <section className="mt-5">
+                <h4 className="mb-4">Other Properties in {project?.name}</h4>
+                <div className="row">
+                  {similarProperties.map((property, idx) => (
+                    <CompactPropertyCard
+                      key={property.id || idx}
+                      {...property}
+                      compact
+                      projectSlug={project?.slug}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
           <div className="col-lg-4 position-relative">
             <div className="interest sticky-top">
@@ -567,6 +691,8 @@ export function DetailItem({ label, value, className }) {
 export function ProjectOverviewDetails({ property, project }) {
   const [showAll, setShowAll] = React.useState(false);
 
+  const isSoldOut = property?.availableUnits === 0;
+
   const details = [
     {
       label: 'Property Type',
@@ -582,16 +708,11 @@ export function ProjectOverviewDetails({ property, project }) {
     },
     {
       label: 'Price',
-      value: property?.price ? moneyFormatInNaira(property.price) : null,
-      className: 'text-price',
-    },
-
-    {
-      label: 'Number of Rooms',
       value:
-        property?.beds != null
-          ? `${property.beds} Room${property.beds > 1 ? 's' : ''}`
+        !isSoldOut && property?.price
+          ? moneyFormatInNaira(property.price)
           : null,
+      className: 'text-price',
     },
     {
       label: 'Bathrooms',
@@ -624,18 +745,11 @@ export function ProjectOverviewDetails({ property, project }) {
       label: 'Units Available',
       value:
         property?.availableUnits != null
-          ? `${property.availableUnits} Unit${
-              property.availableUnits > 1 ? 's' : ''
-            }`
-          : null,
-    },
-    {
-      label: 'Current Status',
-      value:
-        property?.availableUnits != null
-          ? property.availableUnits === 0
+          ? isSoldOut
             ? 'Sold Out'
-            : 'Currently Available'
+            : `${property.availableUnits} Unit${
+                property.availableUnits > 1 ? 's' : ''
+              }`
           : null,
     },
   ].filter((item) => item.value); // Remove items with no value

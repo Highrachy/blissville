@@ -109,7 +109,7 @@ export default function ProjectHeaderSection({
   );
 }
 
-function ProjectInfoItem({ icon, label, value }) {
+export function ProjectInfoItem({ icon, label, value }) {
   return (
     <div className="py-md-0 py-4">
       <div className="d-flex align-items-start">

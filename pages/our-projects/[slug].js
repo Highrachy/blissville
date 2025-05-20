@@ -19,7 +19,7 @@ import {
 } from '@/utils/helpers';
 import { getShortDate } from '@/utils/date-helpers';
 import axios from 'axios';
-import { PROPERTY_STATUS } from '@/utils/constants';
+import { PROJECT_STATUS_NAME, PROPERTY_STATUS } from '@/utils/constants';
 import ProjectInterestModal, {
   ProjectInterestContent,
 } from '@/components/common/ProjectInterestModal';
@@ -146,7 +146,9 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                   </li>
                   <li>
                     <span className="list-dotted__label">Status</span>
-                    <span className="list-dotted__value">In Progress</span>
+                    <span className="list-dotted__value">
+                      {PROJECT_STATUS_NAME[status] || '-'}
+                    </span>
                   </li>
                 </ul>
               </OverviewCard>
@@ -155,24 +157,9 @@ export default function SingleProjectPage({ project, featuredProperties }) {
               </OverviewCard>
 
               {isBlissvilleTerraces && (
-                <OverviewCard id="video" header="Video">
-                  <div
-                    className="ratio ratio-16x9 mb-3"
-                    style={{
-                      border: '2px solid #e5e7eb',
-                      borderRadius: '8px',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <ReactPlayer
-                      url="/videos/blissville-video.mp4"
-                      width="100%"
-                      height="100%"
-                      controls
-                    />
-                  </div>
-                </OverviewCard>
+                <BlissvilleTerracesVideo videoThumbnail={image} />
               )}
+
               <NeighborhoodList neighborhoods={neighborhoods} slug={slug} />
               {/* add an overviewcard that shows properties in the project, build a small version of singlePropertynew component showing the property image and name*/}
               {project?.properties?.data?.length > 0 && (
@@ -215,7 +202,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
       <Gallery galleries={project?.project_galleries?.data || []} />
 
       {isBlissvilleTerraces && (
-        <Section>
+        <Section id="location-map">
           <div className="container">
             <div className="row">
               <div className="col">
@@ -256,6 +243,72 @@ export default function SingleProjectPage({ project, featuredProperties }) {
       <ScheduleVisit />
       <Footer />
     </>
+  );
+}
+
+export function BlissvilleTerracesVideo({ videoThumbnail }) {
+  const [playing, setPlaying] = React.useState(false);
+
+  console.log('videoThumbnail', videoThumbnail);
+
+  return (
+    <OverviewCard id="video" header="Video">
+      <div
+        className="ratio ratio-16x9 mb-3 position-relative"
+        style={{
+          border: '2px solid #e5e7eb',
+          borderRadius: '8px',
+          overflow: 'hidden',
+        }}
+      >
+        {!playing && (
+          <div
+            className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+            style={{
+              background: 'rgba(0,0,0,0.45)',
+              zIndex: 2,
+              cursor: 'pointer',
+            }}
+            onClick={() => setPlaying(true)}
+          >
+            <Image
+              src={videoThumbnail}
+              alt="Blissville Terraces Video Thumbnail"
+              layout="fill"
+              objectFit="cover"
+              style={{ filter: 'brightness(0.6)' }}
+              priority
+            />
+            <span
+              style={{
+                position: 'absolute',
+                color: '#fff',
+                fontSize: 64,
+                background: 'rgba(0,0,0,0.5)',
+                borderRadius: '50%',
+                padding: 20,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.5)" />
+                <polygon points="26,20 48,32 26,44" fill="#fff" />
+              </svg>
+            </span>
+          </div>
+        )}
+        <ReactPlayer
+          url="/videos/blissville-video.mp4"
+          width="100%"
+          height="100%"
+          controls
+          playing={playing}
+          style={{ position: 'absolute', top: 0, left: 0 }}
+        />
+      </div>
+    </OverviewCard>
   );
 }
 

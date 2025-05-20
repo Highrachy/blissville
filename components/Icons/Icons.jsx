@@ -1,7 +1,7 @@
 import { FiBell, FiChevronRight, FiSettings } from 'react-icons/fi';
 import { FiChevronLeft } from 'react-icons/fi';
 import { FaFacebookF, FaTape } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { FaLayerGroup, FaXTwitter } from 'react-icons/fa6';
 import { FaLinkedinIn } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa';
 import { FaBed } from 'react-icons/fa';
@@ -25,7 +25,7 @@ export const LeftAngleIcon = () => <FiChevronLeft />;
 export const BedIcon = () => <FaBed />;
 export const ToiletIcon = () => <FaToilet />;
 export const BathIcon = () => <FaBath />;
-export const SizeIcon = () => <FaTape />;
+export const SizeIcon = () => <FaLayerGroup />;
 export const LocationIcon = () => <HiLocationMarker />;
 
 // export const PhoneIcon = () => <FaPhone />;
