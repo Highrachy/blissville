@@ -56,6 +56,7 @@ export default function SinglePropertyPage({
   projects,
   similarProperties,
   featuredProperties,
+  isLandingPage = false,
 }) {
   const router = useRouter();
 
@@ -77,7 +78,9 @@ export default function SinglePropertyPage({
     <>
       <Navigation />
       <PageHeader
-        title="Our Properties"
+        title={
+          isLandingPage ? project?.name || 'Our Properties' : 'Our Properties'
+        }
         subHeader="Powered By Highrachy"
         bgImage={property?.image || '/assets/img/bg/investors.jpeg'}
       />

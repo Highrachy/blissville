@@ -17,7 +17,7 @@ import {
   moneyFormatInNaira,
 } from '@/utils/helpers';
 import axios from 'axios';
-import { PROPERTY_STATUS } from '@/utils/constants';
+import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
 import { Gallery, Neighborhood } from './our-projects/[slug]';
 import faqs from '@/data/faqs';
 import ReactPlayer from 'react-player';
@@ -29,162 +29,94 @@ import FormikButton from '@/components/forms/FormikButton';
 import { askInfoSchema } from '@/components/forms/schemas/page-schema';
 import { getError } from '@/utils/helpers';
 import { toast } from 'react-toastify';
+import SinglePropertyPage from './our-properties/[...id]';
 
-export default function SingleProjectPage({ project, featuredProperties }) {
-  const [showModal, setShowModal] = React.useState(false);
-  const router = useRouter();
-  // If the page is not yet generated, this will be displayed
-  // initially until getStaticProps() finishes running
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
-
-  const {
-    name,
-    image,
-    description,
-    startingPrice,
-    type,
-    delivery,
-    city,
-    state,
-  } = project;
-
-  const slug = 'blissville-terraces';
-  const shareUrl = `https://blissville.com.ng/${slug}`;
-  const isBlissvilleTerraces = true;
-
-  return (
-    <>
-      <Navigation />
-      <div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt="Project Image" className="img-fluid" />
-      </div>
-      <Section>
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-8">
-              <h2>{name}</h2>
-              <p className="text-primary h2">
-                {moneyFormatInNaira(startingPrice)}
-              </p>
-              <p className="lead">{getLocationFromAddress(project)}</p>
-            </div>
-            <div className="col-sm-4 text-md-end mb-4 mb-md-0">
-              <a
-                className="btn btn-primary"
-                href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Download Brochure
-              </a>
-              <ShareButton
-                url={shareUrl}
-                text={`Check out ${name} on Blissville!`}
-                header="Share Property"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8">
-              <div className="lead">{description}</div>
-              {listFeatures(project)}
-              <ActionButtonGroup price={startingPrice} useAltPhone />
-
-              <div className="mb-5"></div>
-            </div>
-            <div className="col-md-4">
-              <div className="bg-gray rounded p-4">
-                <h4>Interested</h4>
-                <h6 className="mb-3">Ask for more Information</h6>
-
-                <AskInfoForm
-                  name={name}
-                  projectName={project.name}
-                  source="Blissville Terraces Landing Page"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section altBg>
-        <div className="container">
-          <div className="row">
-            <h3>Video</h3>
-            <div className="card rounded p-2 m-0 mb-5">
-              <div className="ratio ratio-16x9 mb-3">
-                <ReactPlayer
-                  url="/videos/blissville-video.mp4"
-                  width="100%"
-                  height="100%"
-                  controls
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </Section>
-      <Gallery galleries={project?.project_galleries?.data || []} />
-      <Neighborhood
-        neighborhoods={project?.neighborhoods?.data || []}
-        slug={slug}
-      />
-
-      <Section>
-        <div className="container">
-          <div className="row">
-            <h2>FAQS</h2>
-            <div className="mt-5 col-12 faqs-section">
-              <FAQsAccordion faqs={faqs[0]?.faqs} />
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <div className="mt-7"></div>
-      <ScheduleVisit />
-      <Footer />
-    </>
-  );
+export default function SingleProjectPage({
+  property,
+  projects,
+  similarProperties,
+  featuredProperties,
+}) {
+  return SinglePropertyPage({
+    property,
+    projects,
+    similarProperties,
+    featuredProperties,
+    isLandingPage: true,
+  });
 }
-export async function getStaticProps() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*&filters[slug][$eq]=blissville-terraces`
-  );
 
-  let { data } = await res.json();
+export async function getStaticProps({ params }) {
+  const id = 3; // blissville terraces id
 
-  if (!data || data.length === 0) {
-    const resAll = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*`
+  // Build the API URL dynamically using the id and populate all fields
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/properties`;
+  const { data } = await axios.get(apiUrl, {
+    params: {
+      'filters[id][$eq]': id,
+      populate: '*',
+    },
+  });
+
+  const propertyData = data?.data[0]?.attributes;
+  const project = propertyData.project;
+  const projectId = project?.data?.id;
+
+  // Fetch the single project for this id, populate *
+  let projectData = null;
+  if (projectId) {
+    const projectRes = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/projects/${projectId}`,
+      {
+        params: {
+          populate: '*',
+        },
+      }
     );
-    const { data: allData } = await resAll.json();
-    data = allData;
+    projectData = projectRes?.data || {};
   }
 
-  const propertiesRes = await axios.get(
+  const similarPropertiesRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+    {
+      params: {
+        populate: '*',
+        'filters[project][id][$eq]': projectId,
+        'filters[slug][$ne]': id,
+      },
+    }
+  );
+
+  const featuredPropertiesRes = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
     {
       params: {
         populate: '*',
         'pagination[pageSize]': 3,
         sort: 'createdAt:desc',
-        'filters[project][id][$ne]': data[0].id,
-        'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
+        'filters[project][id][$ne]': projectId,
+      },
+    }
+  );
+
+  const projectRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
+    {
+      params: {
+        'pagination[pageSize]': 3,
+        sort: 'createdAt:desc',
+        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
+        // 'filters[id][$ne]': projectId,
       },
     }
   );
 
   return {
     props: {
-      project: { id: data[0].id, ...data[0]['attributes'] },
-      featuredProperties: propertiesRes.data.data,
+      property: { ...propertyData, project: projectData },
+      featuredProperties: featuredPropertiesRes?.data?.data || [],
+      similarProperties: similarPropertiesRes?.data?.data || [],
+      projects: projectRes?.data?.data || [],
     },
     revalidate: 10,
   };
