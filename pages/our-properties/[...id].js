@@ -17,13 +17,12 @@ import {
   getMonthlyPayment,
   listFeatures,
   moneyFormatInNaira,
-  statusIsSuccessful,
 } from '@/utils/helpers';
 import {
-  BlissvilleTerracesVideo,
+  BrochureButton,
   Gallery,
-  Neighborhood,
   NeighborhoodList,
+  VideoContainer,
 } from 'pages/our-projects/[slug]';
 import axios from 'axios';
 import BuyNowButton from '@/components/utils/BuyNowButton';
@@ -36,17 +35,9 @@ import { ProjectInterestContent } from '@/components/common/ProjectInterestModal
 import FAQsAccordion from '@/components/common/FAQsAccordion';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { Magicpen } from 'iconsax-react';
-import { ShareProjectIcon } from '@/components/Icons/Icons';
 import classNames from 'classnames';
-import {
-  FaBath,
-  FaBed,
-  FaCar,
-  FaLayerGroup,
-  FaMapPin,
-  FaMoneyBillWave,
-} from 'react-icons/fa6';
-import { FaFilePdf, FaThLarge } from 'react-icons/fa';
+import { FaBath, FaBed, FaCar, FaLayerGroup } from 'react-icons/fa6';
+import { FaThLarge } from 'react-icons/fa';
 import { getShortDate } from '@/utils/date-helpers';
 import CompactPropertyCard from '@/components/common/CompactPropertyCard';
 import { ProjectInfoItem } from '@/components/common/ProjectHeaderSection';
@@ -98,12 +89,12 @@ export default function SinglePropertyPage({
             []),
         ]}
       />
-      <Neighborhood
+      {/* <Neighborhood
         neighborhoods={
           property?.project?.data?.attributes?.neighborhoods?.data || []
         }
         slug={property?.project?.data?.attributes?.slug}
-      />
+      /> */}
 
       {allFaqs.length > 0 && (
         <section className="container mt-6">
@@ -139,14 +130,6 @@ const PropertyInformation = ({ property, similarProperties }) => {
   const project = property.project.data.attributes;
   const isSoldOut = availableUnits === 0;
 
-  // Get current page URL for sharing
-  const shareUrl =
-    typeof window !== 'undefined'
-      ? window.location.href
-      : `https://blissville.com.ng/our-properties/${
-          project?.slug || 'project-name'
-        }/${slug || 'property-name'}`;
-
   return (
     <>
       <Section noPaddingBottom className="mb-5">
@@ -168,7 +151,6 @@ const PropertyInformation = ({ property, similarProperties }) => {
             <div className="col-sm-4 text-md-end mb-4 mb-md-0">
               <aside>
                 <ShareButton
-                  url={shareUrl}
                   text={`Check out ${name} on Blissville.com!`}
                   header="Share this Property"
                 />
@@ -609,7 +591,7 @@ export async function getStaticPaths() {
 function PropertyInfoSection({ property, similarProperties }) {
   const project = property?.project?.data?.attributes || {};
   const neighborhoods = project?.neighborhoods?.data || [];
-  const isBlissvilleTerraces = project?.slug === 'blissville-terraces';
+
   return (
     <Section noPaddingTop className="bg-gray-50 pt-5">
       <div className="container">
@@ -623,18 +605,7 @@ function PropertyInfoSection({ property, similarProperties }) {
                 defaultVisible={2}
               />
 
-              {isBlissvilleTerraces && (
-                <Button
-                  color="primary"
-                  className="mt-3"
-                  href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaFilePdf size={20} className="me-2" />
-                  Download Brochure
-                </Button>
-              )}
+              <BrochureButton brochureURL={project?.brochureURL} />
             </OverviewCard>
 
             <ProjectOverviewDetails property={property} project={project} />
@@ -643,8 +614,11 @@ function PropertyInfoSection({ property, similarProperties }) {
               <ul className="list-unstyled">{listFeatures(project)}</ul>
             </OverviewCard>
 
-            {isBlissvilleTerraces && (
-              <BlissvilleTerracesVideo videoThumbnail={property?.image} />
+            {project?.videoURL && (
+              <VideoContainer
+                video={project?.videoURL}
+                videoThumbnail={property?.image}
+              />
             )}
 
             <NeighborhoodList neighborhoods={neighborhoods} />

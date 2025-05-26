@@ -49,6 +49,9 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     city,
     state,
     status,
+    locationMapURL,
+    googleMapLatLng,
+    videoURL,
   } = project || {};
 
   const faqs = project?.faqs?.data || [];
@@ -61,7 +64,6 @@ export default function SingleProjectPage({ project, featuredProperties }) {
   const { slug } = router.query;
 
   const shareUrl = `https://blissville.com.ng/our-projects/${slug}`;
-  const isBlissvilleTerraces = slug === 'blissville-terraces';
   const neighborhoods = project?.neighborhoods?.data || [];
 
   return (
@@ -95,8 +97,8 @@ export default function SingleProjectPage({ project, featuredProperties }) {
               delivery={getShortDate(delivery)}
               startingPrice={getPrice(startingPrice)}
               hasGallery={!!project?.project_galleries?.data?.length}
-              hasVideo={isBlissvilleTerraces}
-              hasLocationMap={isBlissvilleTerraces}
+              hasVideo={!!videoURL}
+              hasLocationMap={!!locationMapURL}
             />
           </div>
         </div>
@@ -107,18 +109,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
             <div className="col-md-8">
               <OverviewCard header="Description">
                 <DescriptionParagraphs text={description} defaultVisible={2} />
-                {isBlissvilleTerraces && (
-                  <Button
-                    color="primary"
-                    className="mt-3"
-                    href="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/Blissville+Terraces+Brochure.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaFilePdf size={20} className="me-2" />
-                    Download Brochure
-                  </Button>
-                )}
+                <BrochureButton brochureURL={project?.brochureURL} />
               </OverviewCard>
               <OverviewCard header="Project Overview">
                 <ul className="list-dotted list-unstyled">
@@ -156,8 +147,8 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                 {listFeatures(project)}
               </OverviewCard>
 
-              {isBlissvilleTerraces && (
-                <BlissvilleTerracesVideo videoThumbnail={image} />
+              {videoURL && (
+                <VideoContainer videoURL={videoURL} videoThumbnail={image} />
               )}
 
               <NeighborhoodList neighborhoods={neighborhoods} slug={slug} />
@@ -201,30 +192,37 @@ export default function SingleProjectPage({ project, featuredProperties }) {
 
       <Gallery galleries={project?.project_galleries?.data || []} />
 
-      {isBlissvilleTerraces && (
+      {locationMapURL && (
         <Section id="location-map">
           <div className="container">
             <div className="row">
               <div className="col">
                 <h4>Location Map</h4>
-                <div className="mb-4">
-                  <Image
-                    src="/assets/img/maps/bvt-location-map.png"
-                    alt="BVT Location Map"
-                    className="img-fluid border border-2 border-light rounded"
-                    width={2694}
-                    height={1768}
+                <div className="mb-4" style={{ width: '100%' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={locationMapURL}
+                    alt={`${name} Location Map`}
+                    className="img-fluid border border-2 border-light rounded img-cover"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
                   />
                 </div>
-                <Button
-                  color="primary-light"
-                  className="me-2 my-2 px-4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
-                >
-                  <FaMap /> View on Google Maps
-                </Button>
+                {googleMapLatLng && (
+                  <Button
+                    color="primary-light"
+                    className="me-2 my-2 px-4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`https://www.google.com/maps?saddr=My+Location&daddr=${googleMapLatLng}`}
+                  >
+                    <FaMap /> View on Google Maps
+                  </Button>
+                )}
               </div>
             </div>
           </div>
@@ -246,7 +244,23 @@ export default function SingleProjectPage({ project, featuredProperties }) {
   );
 }
 
-export function BlissvilleTerracesVideo({ videoThumbnail }) {
+export function BrochureButton({ brochureURL }) {
+  if (!brochureURL) return null;
+  return (
+    <Button
+      color="primary"
+      className="mt-3"
+      href={brochureURL}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <FaFilePdf className="me-2" />
+      Download Brochure
+    </Button>
+  );
+}
+
+export function VideoContainer({ videoThumbnail, videoURL }) {
   const [playing, setPlaying] = React.useState(false);
 
   console.log('videoThumbnail', videoThumbnail);
@@ -300,7 +314,7 @@ export function BlissvilleTerracesVideo({ videoThumbnail }) {
           </div>
         )}
         <ReactPlayer
-          url="/videos/blissville-video.mp4"
+          url={videoURL}
           width="100%"
           height="100%"
           controls
@@ -416,47 +430,6 @@ export const Gallery = ({ galleries, className }) => {
             </div>
           )
         )}
-      </div>
-    </Section>
-  );
-};
-
-export const Neighborhood = ({ neighborhoods, slug }) => {
-  const isBlissvilleTerraces = slug === 'blissville-terraces';
-
-  if (!neighborhoods || neighborhoods.length === 0) {
-    return null;
-  }
-
-  return (
-    <Section noPaddingBottom>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            {isBlissvilleTerraces && (
-              <section className="mb-6">
-                <h3>Location Map</h3>
-                <Image
-                  src="/assets/img/maps/bvt-location-map.png"
-                  alt="BVT Location Map"
-                  className="img-fluid border border-2 border-light rounded"
-                  width={2694}
-                  height={1768}
-                />
-
-                <Button
-                  color="primary-light"
-                  className="me-2 my-2 px-4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
-                >
-                  <FaMap /> View on Google Maps
-                </Button>
-              </section>
-            )}
-          </div>
-        </div>
       </div>
     </Section>
   );

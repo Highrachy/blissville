@@ -11,9 +11,14 @@ import Modal from '@/components/ui/Modal';
 import Button from '../forms/Button';
 import { ShareProjectIcon } from '../Icons/Icons';
 
-const ShareButton = ({ url, text, header = 'Share this Project' }) => {
+const ShareButton = ({ url = '', text, header = 'Share this Project' }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // select current page url if not provided
+  if (!url && typeof window !== 'undefined') {
+    url = window.location.href;
+  }
 
   const handleCopy = async () => {
     try {

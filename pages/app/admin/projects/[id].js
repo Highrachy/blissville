@@ -61,6 +61,10 @@ const SingleProject = () => {
         'delivery',
         'featured',
         'slogan',
+        'locationMapURL',
+        'googleMapLatLng',
+        'brochureURL',
+        'videoURL',
       ],
       processField: {
         status: (value) => PROJECT_STATUS_NAME[value],

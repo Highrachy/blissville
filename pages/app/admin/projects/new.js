@@ -233,6 +233,10 @@ const ProjectForm = ({
             blankOption="Select Project Status"
           />
         </div>
+        <Input label="Brochure URL" name="brochureURL" optional />
+        <Input label="Video URL" name="videoURL" optional />
+        <Input label="Location Map URL" name="locationMapURL" optional />
+        <Input label="Google Map Lat/Lng" name="googleMapLatLng" optional />
         <FormikButton color="secondary">
           {isEdit ? 'Edit' : 'Save'} Project
         </FormikButton>

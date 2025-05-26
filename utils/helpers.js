@@ -153,7 +153,10 @@ export const isObject = (obj) => {
 };
 
 export const camelToSentence = (str) =>
-  str.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
+  str
+    .replace(/([a-z])([A-Z][a-z])/g, '$1 $2') // separate lower->UpperLower
+    .replace(/([a-z])([A-Z]+)(?=[A-Z][a-z]|$)/g, '$1 $2') // separate lower->UPPER (but not between UPPERs)
+    .replace(/^./, (s) => s.toUpperCase());
 
 // check if is valid number or decimal number
 

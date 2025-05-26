@@ -27,6 +27,10 @@ export const projectSchema = {
   delivery: requiredDate('Delivery'),
   status: required('Status'),
   slogan: optionalValidation(required('Slogan')),
+  locationMapURL: optionalValidation(stringValidation('Location Map')),
+  googleMapLatLng: optionalValidation(stringValidation('Google Map Lat/Lng')),
+  brochureURL: optionalValidation(stringValidation('Brochure')),
+  videoURL: optionalValidation(stringValidation('Video URL')),
 };
 
 export const propertySchema = {

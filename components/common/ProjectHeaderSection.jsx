@@ -117,7 +117,9 @@ export function ProjectInfoItem({ icon, label, value }) {
           {icon}
         </span>
         <div>
-          <div className="text-muted small fw-light text-xs mb-1">{label}</div>
+          <div className="text-muted small fw-light text-xs mb-1 pe-3 pe-md-0">
+            {label}
+          </div>
           <div className="fw-bold text-gray pe-3 pe-md-0">{value}</div>
         </div>
       </div>
