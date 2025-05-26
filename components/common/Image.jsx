@@ -8,7 +8,7 @@ import queryString from 'query-string';
 const Image = ({
   src,
   defaultImage,
-  name,
+  name = 'Image',
   className,
   bordered,
   responsiveImage,
@@ -61,7 +61,7 @@ Image.propTypes = {
   bordered: PropTypes.bool,
   className: PropTypes.string,
   defaultImage: PropTypes.any,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   options: PropTypes.object,
   responsiveImage: PropTypes.bool,
   rounded: PropTypes.bool,

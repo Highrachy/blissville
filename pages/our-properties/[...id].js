@@ -645,6 +645,7 @@ function PropertyInfoSection({ property, similarProperties }) {
                 <ProjectInterestContent
                   header="Interested in this property?"
                   propertyName={property?.name}
+                  property={property}
                 />
                 <div className="mt-4" />
               </OverviewCard>

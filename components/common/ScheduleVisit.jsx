@@ -17,6 +17,7 @@ import { EmailIcon, PhoneIcon } from '../Icons/Icons';
 import FormikModalButton from '../utils/FormikModalButton';
 import Parallax from './Parallax';
 import Section from './Section';
+import Select from '../forms/Select';
 
 const ScheduleVisit = () => (
   <Parallax bgImage="/assets/img/bg/schedule-a-visit.jpg" isDark={false}>
@@ -147,14 +148,19 @@ export const VisitationForm = () => {
         name="phone"
         placeholder="Phone"
       />
+      <Select
+        label="Visitation Type"
+        name="visitType"
+        options={valuesToOptions(['Physical Visit', 'Virtual Tour'])}
+        blankOption={'Select Visitation Type'}
+      />
       <DatePicker
         label="Visitation Date"
         name="visitDate"
         minDate={new Date()}
         placeholder="Visit Date"
       />
-
-      <FormikButton color="info" className="mt-3 text-white btn-wide">
+      <FormikButton color="success" className="mt-3 text-white btn-wide">
         Schedule Visit
       </FormikButton>
     </>

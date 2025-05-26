@@ -14,10 +14,12 @@ import Script from 'next/script';
 import { DefaultSeo } from 'next-seo';
 import { ChatMessageProvider } from 'context/chat';
 import FloatingChatButton from '@/components/common/Whatsapp';
+import { Toaster } from 'react-hot-toast';
 
 function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
+      <Toaster />
       <ChatMessageProvider>
         <XmasFall />
         <ToastContainer autoClose={10000} transition={Slide} theme="colored" />

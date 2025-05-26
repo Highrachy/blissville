@@ -32,8 +32,6 @@ import ReactPlayer from 'react-player';
 import CompactPropertyCard from '@/components/common/CompactPropertyCard';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
-  const [showModal, setShowModal] = React.useState(false);
-
   const router = useRouter();
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -177,6 +175,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                   <ProjectInterestContent
                     header="Interested in this property?"
                     propertyName={name}
+                    property={project?.properties?.data?.[0]?.attributes}
                   />
                 </OverviewCard>
               </div>
@@ -184,11 +183,6 @@ export default function SingleProjectPage({ project, featuredProperties }) {
           </div>
         </div>
       </Section>
-      <ProjectInterestModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        propertyName={name}
-      />
 
       <Gallery galleries={project?.project_galleries?.data || []} />
 
@@ -262,8 +256,6 @@ export function BrochureButton({ brochureURL }) {
 
 export function VideoContainer({ videoThumbnail, videoURL }) {
   const [playing, setPlaying] = React.useState(false);
-
-  console.log('videoThumbnail', videoThumbnail);
 
   return (
     <OverviewCard id="video" header="Video">

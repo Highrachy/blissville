@@ -17,7 +17,7 @@ export const contactUsSchema = {
   name: stringValidation('Full Name'),
   email,
   phone: optionalValidation(required('Phone Number')),
-  subject: required('Subject'),
+  subject: optionalValidation(required('Subject')),
   message: stringValidation('Message', 10),
 };
 
@@ -95,6 +95,7 @@ export const visitationSchema = {
   email,
   phone: optionalValidation(required('Phone Number')),
   visitDate: minDateValidation('Visitation Date', new Date()),
+  visitType: optionalValidation(required('Visitation Type')),
 };
 
 export const interestSchema = {

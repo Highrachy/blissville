@@ -15,6 +15,29 @@ import { FaMessage, FaSquarePhone } from 'react-icons/fa6';
 import { FaCalendarAlt, FaWhatsappSquare } from 'react-icons/fa';
 import { VisitationForm } from './ScheduleVisit';
 import Button from '../forms/Button';
+import toast from 'react-hot-toast';
+import { FaCheckCircle } from 'react-icons/fa';
+import BuyNowButton from '../utils/BuyNowButton';
+
+// ─────────────────────────────────────────────
+// SUCCESS COMPONENT
+// ─────────────────────────────────────────────
+const SuccessConfirmation = ({
+  title = 'Request Received',
+  message,
+  onDone,
+}) => {
+  return (
+    <div className="text-center p-4 p-md-5">
+      <FaCheckCircle className="text-success mb-3" size={72} />
+      <h4 className="fw-bold">{title}</h4>
+      <p className="text-muted mb-4">{message}</p>
+      <button className="btn btn-success w-100" onClick={onDone}>
+        Done
+      </button>
+    </div>
+  );
+};
 
 // ─────────────────────────────────────────────
 // BACK BUTTON COMPONENT
@@ -49,7 +72,7 @@ const StepOptionItem = ({ className, onClick, title, icon, meta }) => (
   </div>
 );
 
-const StepOne = ({ header, setView }) => (
+const StepOne = ({ header, setView, property }) => (
   <section>
     <h5 className="fw-semibold mb-2 text-primary">{header}</h5>
     <p className="mb-4">
@@ -80,6 +103,19 @@ const StepOne = ({ header, setView }) => (
         meta="We will get back within 24 hours"
       />
     </div>
+
+    {property?.price && property?.availableUnits > 0 && (
+      <BuyNowButton
+        className="w-100 mt-4"
+        price={property?.price}
+        paymentPlan={0}
+        initialPayment={property?.price}
+        property={property}
+        packageName={property?.packageName || 'Shell'}
+      >
+        Buy Now
+      </BuyNowButton>
+    )}
   </section>
 );
 
@@ -163,7 +199,7 @@ function ContactOptions({ propertyName, onBack }) {
 // ─────────────────────────────────────────────
 // MESSAGE FORM
 // ─────────────────────────────────────────────
-const MessageForm = ({ propertyName, onBack }) => {
+const MessageForm = ({ propertyName, onBack, setView }) => {
   const [alert, setAlert] = useState({ type: '', msg: '' });
 
   return (
@@ -171,13 +207,27 @@ const MessageForm = ({ propertyName, onBack }) => {
       schema={contactUsSchema}
       handleSubmit={async (values, actions) => {
         try {
+          const source =
+            typeof window !== 'undefined' ? window.location.href : '';
+          // Get 'ref' from query string if available
+          let ref = '';
+          if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            ref = params.get('ref') || '';
+          }
           await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/contacts`, {
-            data: { ...values, source: `Project: ${propertyName}` },
+            data: {
+              ...values,
+              source,
+              subject: `Enquiry about ${propertyName}`,
+              reference: ref,
+            },
           });
           setAlert({
             type: 'success',
-            msg: 'Message sent! We’ll be in touch.',
+            msg: "Message sent! We'll be in touch.",
           });
+          setView('success-message');
           actions.resetForm();
         } catch {
           setAlert({ type: 'danger', msg: 'Error, please try again.' });
@@ -201,7 +251,7 @@ const MessageForm = ({ propertyName, onBack }) => {
         <Textarea name="message" label="Your Message" />
       </div>
       {alert.msg && (
-        <div className={`alert alert-${alert.type}`}>{alert.msg}</div>
+        <div className={`alert mt-5 alert-${alert.type}`}>{alert.msg}</div>
       )}
       <div className="d-flex justify-content-between align-items-center mt-3">
         <BackButton onClick={onBack} />
@@ -216,25 +266,39 @@ const MessageForm = ({ propertyName, onBack }) => {
 // ─────────────────────────────────────────────
 // SCHEDULE VISIT FORM
 // ─────────────────────────────────────────────
-const ScheduleVisitForm = ({ propertyName, onBack }) => {
+const ScheduleVisitForm = ({ propertyName, onBack, setView }) => {
   const [alert, setAlert] = useState({ type: '', msg: '' });
 
   return (
     <FormikForm
       schema={visitationSchema}
       handleSubmit={async (values, actions) => {
+        const source =
+          typeof window !== 'undefined' ? window.location.href : '';
+        const payload = {
+          ...values,
+          source,
+          visiting: `Project: ${propertyName}`,
+          visitDate: values.visitDate?.date
+            ? new Date(values.visitDate.date).toISOString().slice(0, 10)
+            : values.visitDate
+            ? new Date(values.visitDate).toISOString().slice(0, 10)
+            : '',
+        };
+
         try {
-          await axios.post(
+          const response = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/api/visitations`,
             {
-              data: {
-                ...values,
-                visiting: `Project: ${propertyName}`,
-                visitDate: values.visitDate?.date || values.visitDate,
-              },
+              data: payload,
             }
           );
+          if (response.status < 200 || response.status >= 300) {
+            toast.error('Failed to schedule visit');
+          }
           setAlert({ type: 'success', msg: 'Visit scheduled successfully.' });
+          setView('success-schedule');
+          toast.success('Visit scheduled successfully.');
           actions.resetForm();
         } catch {
           setAlert({ type: 'danger', msg: 'Error, please try again.' });
@@ -249,7 +313,7 @@ const ScheduleVisitForm = ({ propertyName, onBack }) => {
       </h4>
       <VisitationForm />
       {alert.msg && (
-        <div className={`alert alert-${alert.type}`}>{alert.msg}</div>
+        <div className={`alert alert-${alert.type} mt-4`}>{alert.msg}</div>
       )}
       <div className="d-flex justify-content-between align-items-center mt-3">
         <BackButton onClick={onBack} />
@@ -263,11 +327,13 @@ const ScheduleVisitForm = ({ propertyName, onBack }) => {
 // ─────────────────────────────────────────────
 export function ProjectInterestContent({
   propertyName,
+  property = { more: 'test' },
   header = 'Thank you for your interest!',
   onHide = () => {},
   showCloseButton = false,
 }) {
   const [view, setView] = useState('options'); // options | contact | form | schedule
+  console.log('property', property);
   return (
     <section>
       {showCloseButton && (
@@ -283,7 +349,9 @@ export function ProjectInterestContent({
           &times;
         </button>
       )}
-      {view === 'options' && <StepOne header={header} setView={setView} />}
+      {view === 'options' && (
+        <StepOne header={header} setView={setView} property={property} />
+      )}
 
       {view === 'contact' && (
         <ContactOptions
@@ -296,6 +364,7 @@ export function ProjectInterestContent({
         <MessageForm
           propertyName={propertyName}
           onBack={() => setView('options')}
+          setView={setView}
         />
       )}
 
@@ -303,6 +372,23 @@ export function ProjectInterestContent({
         <ScheduleVisitForm
           propertyName={propertyName}
           onBack={() => setView('options')}
+          setView={setView}
+        />
+      )}
+
+      {view === 'success-message' && (
+        <SuccessConfirmation
+          title="Message Sent!"
+          message="Thank you for reaching out. We'll be in touch within 24 hours with the next steps."
+          onDone={() => setView('options')}
+        />
+      )}
+
+      {view === 'success-schedule' && (
+        <SuccessConfirmation
+          title="Visit Scheduled"
+          message="Thank you! We will get in touch with the next steps."
+          onDone={() => setView('options')}
         />
       )}
     </section>
@@ -312,7 +398,13 @@ export function ProjectInterestContent({
 // ─────────────────────────────────────────────
 // MAIN MODAL
 // ─────────────────────────────────────────────
-const ProjectInterestModal = ({ show, onHide, propertyName }) => {
+const ProjectInterestModal = ({
+  show,
+  onHide,
+  propertyName,
+  property = {},
+}) => {
+  console.log('prods perty', property);
   return (
     <Modal
       show={show}
@@ -326,6 +418,7 @@ const ProjectInterestModal = ({ show, onHide, propertyName }) => {
           propertyName={propertyName}
           onHide={onHide}
           showCloseButton
+          property={property}
         />
       </section>
     </Modal>

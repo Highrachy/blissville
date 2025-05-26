@@ -25,6 +25,7 @@ const BuyNowButton = ({
   initialPayment,
   property,
   packageName,
+  children,
 }) => {
   const { user } = useContext(UserContext);
   const referredBy = getReferralFromStore();
@@ -83,7 +84,7 @@ const BuyNowButton = ({
       }
       handleSubmit={handleSubmit}
     >
-      Buy Now
+      {children || 'Buy Now'}
     </FormikModalButton>
   );
 };
@@ -100,6 +101,7 @@ const InterestForm = ({
 }) => {
   const { image, name } = property;
   const [showForm, setShowForm] = React.useState(false);
+  const monthlyPayment = getMonthlyPayment(price, paymentPlan, initialPayment);
 
   return (
     <div className="container">
@@ -132,10 +134,12 @@ const InterestForm = ({
                 <td>Initial Payment</td>
                 <td>{moneyFormatInNaira(initialPayment)}</td>
               </tr>
-              <tr>
-                <td>Monthly Payment</td>
-                <td>{getMonthlyPayment(price, initialPayment, paymentPlan)}</td>
-              </tr>
+              {monthlyPayment <= 1 && (
+                <tr>
+                  <td>Monthly Payment</td>
+                  <td>{monthlyPayment}</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
