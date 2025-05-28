@@ -15,11 +15,11 @@ import { useRouter } from 'next/router';
 import {
   getLocationFromAddress,
   getMonthlyPayment,
-  listFeatures,
   moneyFormatInNaira,
 } from '@/utils/helpers';
 import {
   BrochureButton,
+  FeatureList,
   Gallery,
   LocationMapSection,
   NeighborhoodList,
@@ -613,7 +613,7 @@ function PropertyInfoSection({ property, similarProperties }) {
             <ProjectOverviewDetails property={property} project={project} />
 
             <OverviewCard header="Features">
-              <ul className="list-unstyled">{listFeatures(project)}</ul>
+              {<FeatureList project={project} />}
             </OverviewCard>
 
             {project?.videoURL && (

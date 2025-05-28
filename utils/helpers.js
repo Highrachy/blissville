@@ -280,46 +280,6 @@ const PACKAGE = {
   SUPREME: 'supreme',
 };
 
-export const listFeatures = (project, type = PACKAGE.ALL) => {
-  const features = {
-    [PACKAGE.SHELL]: project.features,
-    [PACKAGE.STANDARD]: project.standardFeatures,
-    [PACKAGE.SUPREME]: project.supremeFeatures,
-  };
-  const output = [];
-  // loop features and split string by , and push to output
-  Object.entries(features).forEach(([key, value], index) => {
-    value?.split(',').forEach((feature) => {
-      output.push(
-        <li
-          key={`${feature}-${index}`}
-          className={classNames('col-md-6', {
-            invalid:
-              type !== PACKAGE.ALL &&
-              ((type === PACKAGE.SHELL && key !== PACKAGE.SHELL) ||
-                (type === PACKAGE.STANDARD && key === PACKAGE.SUPREME)),
-            standard: key === PACKAGE.STANDARD,
-            supreme: key === PACKAGE.SUPREME,
-          })}
-        >
-          {feature}
-          {/* <FormTooltip
-            text={
-              key === PACKAGE.SHELL
-                ? 'Available in all packages'
-                : key === PACKAGE.STANDARD
-                ? 'Available in Standard and Supreme Packages'
-                : 'Avaiable in Supreme Package only'
-            }
-            position="top"
-          /> */}
-        </li>
-      );
-    });
-  });
-  return <ul className="my-4 row list-features">{output}</ul>;
-};
-
 export const getPaymentPlan = (paymentPlan) => {
   if (paymentPlan === 0) return 'Outright Payment';
   return `${paymentPlan} Months`;

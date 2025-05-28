@@ -14,7 +14,6 @@ import { useRouter } from 'next/router';
 import {
   getLocationFromAddress,
   getPrice,
-  listFeatures,
   moneyFormatInNaira,
 } from '@/utils/helpers';
 import { getShortDate } from '@/utils/date-helpers';
@@ -23,7 +22,7 @@ import { PROJECT_STATUS_NAME, PROPERTY_STATUS } from '@/utils/constants';
 import ProjectInterestModal, {
   ProjectInterestContent,
 } from '@/components/common/ProjectInterestModal';
-import { FaCaretDown } from 'react-icons/fa';
+import { FaCaretDown } from 'react-icons/fa6';
 import ShareButton from '@/components/common/ShareButton';
 import { FaFilePdf, FaMap, FaMapPin } from 'react-icons/fa6';
 import OverviewCard from '@/components/common/OverviewCard';
@@ -142,7 +141,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                 </ul>
               </OverviewCard>
               <OverviewCard header="Features">
-                {listFeatures(project)}
+                <FeatureList project={project} />
               </OverviewCard>
 
               {videoURL && (
@@ -206,6 +205,89 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     </>
   );
 }
+
+const PACKAGE = {
+  ALL: 'all',
+  SHELL: 'shell',
+  STANDARD: 'standard',
+  SUPREME: 'supreme',
+};
+
+const MAX_VISIBLE = 8;
+
+export const FeatureList = ({ project, type = PACKAGE.ALL }) => {
+  const [showAll, setShowAll] = React.useState(false);
+
+  const featuresByPackage = {
+    [PACKAGE.SHELL]: project.features,
+    [PACKAGE.STANDARD]: project.standardFeatures,
+    [PACKAGE.SUPREME]: project.supremeFeatures,
+  };
+
+  // Flatten and normalize feature list
+  const allFeatures = [];
+  Object.entries(featuresByPackage).forEach(([key, value], index) => {
+    value?.split(',').forEach((feature) => {
+      const trimmed = feature.trim();
+      if (!trimmed) return;
+
+      allFeatures.push({
+        key: `${trimmed}-${index}`,
+        text: trimmed,
+        pkg: key,
+      });
+    });
+  });
+
+  const visibleFeatures = showAll
+    ? allFeatures
+    : allFeatures.slice(0, MAX_VISIBLE);
+
+  return (
+    <>
+      <ul className="my-4 row list-features">
+        {visibleFeatures.map(({ key, text, pkg }) => (
+          <li
+            key={key}
+            className={classNames('col-md-6', {
+              invalid:
+                type !== PACKAGE.ALL &&
+                ((type === PACKAGE.SHELL && pkg !== PACKAGE.SHELL) ||
+                  (type === PACKAGE.STANDARD && pkg === PACKAGE.SUPREME)),
+              standard: pkg === PACKAGE.STANDARD,
+              supreme: pkg === PACKAGE.SUPREME,
+            })}
+          >
+            {text}
+            {/* Optionally uncomment tooltip */}
+            {/* <FormTooltip
+              text={
+                pkg === PACKAGE.SHELL
+                  ? 'Available in all packages'
+                  : pkg === PACKAGE.STANDARD
+                  ? 'Available in Standard and Supreme Packages'
+                  : 'Available in Supreme Package only'
+              }
+              position="top"
+            /> */}
+          </li>
+        ))}
+      </ul>
+
+      {allFeatures.length > MAX_VISIBLE && (
+        <div className="mt-3">
+          <Button
+            color="primary-light"
+            className="btn-wide"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? 'View Less' : 'View All Features'}
+          </Button>
+        </div>
+      )}
+    </>
+  );
+};
 
 export const LocationMapSection = ({
   locationMapURL,
@@ -335,35 +417,53 @@ export function VideoContainer({ videoThumbnail, videoURL }) {
 }
 
 export function NeighborhoodList({ neighborhoods }) {
-  if (!neighborhoods || neighborhoods.length === 0) {
-    return null;
-  }
+  const [showAll, setShowAll] = React.useState(false);
+
+  if (!neighborhoods || neighborhoods.length === 0) return null;
+
+  const visibleNeighborhoods = showAll
+    ? neighborhoods
+    : neighborhoods.slice(0, MAX_VISIBLE);
 
   return (
     <OverviewCard header="Neighborhood">
       <ul className="location-list row list-unstyled">
-        {neighborhoods.map(({ attributes: { location, category } }, index) => (
-          <li key={index} className="col-12 col-md-6">
-            <div className="d-flex align-items-center py-3">
-              <div className="me-3 d-flex align-items-center justify-content-center">
-                <span className="location-icon"></span>
+        {visibleNeighborhoods.map(
+          ({ attributes: { location, category } }, index) => (
+            <li key={index} className="col-12 col-md-6 pb-0">
+              <div className="d-flex align-items-center py-3">
+                <div className="me-3 d-flex align-items-center justify-content-center">
+                  <span className="location-icon" />
+                </div>
+                <div>
+                  <h6 className="mb-0 text-dark fw-semibold">{location}</h6>
+                  <p className="my-0 text-muted small">{category}</p>
+                </div>
               </div>
-              <div>
-                <h6 className="mb-0 text-dark fw-semibold">{location}</h6>
-                <p className="my-0 text-muted small">{category}</p>
-              </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          )
+        )}
       </ul>
-      <Button
-        color="primary-light"
-        className="me-2 my-2 px-4"
-        rel="noopener noreferrer"
-        href="#location-map"
-      >
-        <FaMapPin /> View Location Map
-      </Button>
+
+      {neighborhoods.length > MAX_VISIBLE ? (
+        <Button
+          color="primary-light"
+          className="me-2 my-3 px-4"
+          onClick={() => setShowAll(true)}
+        >
+          View All Neighborhoods
+        </Button>
+      ) : (
+        <Button
+          color="primary-light"
+          className="me-2 my-3 px-4"
+          rel="noopener noreferrer"
+          href="#location-map"
+        >
+          <FaMapPin className="me-2" />
+          View Location Map
+        </Button>
+      )}
     </OverviewCard>
   );
 }
@@ -381,18 +481,38 @@ export function DescriptionParagraphs({ text, defaultVisible = 1 }) {
         <p key={idx}>{para}</p>
       ))}
       {!showAll && rest.length > 0 && (
-        <p>
-          <strong
-            style={{ cursor: 'pointer' }}
-            onClick={() => setShowAll(true)}
-          >
-            Read more <FaCaretDown />
-          </strong>
-        </p>
+        <ReadMoreText onClick={() => setShowAll(true)} />
       )}
       {showAll &&
         rest.map((para, idx) => <p key={idx + visible.length}>{para}</p>)}
     </div>
+  );
+}
+
+export const ReadMoreText = ({ text = 'Read More', onClick }) => (
+  <p>
+    <strong style={{ cursor: 'pointer' }} onClick={onClick}>
+      {text} <FaCaretDown />
+    </strong>
+  </p>
+);
+
+function FeaturesList() {
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? output : output.slice(0, 10);
+  return (
+    <>
+      <ul className="my-4 row list-features">
+        {visible.map((item) => (
+          <li key={item.key} className={item.className}>
+            {item.feature}
+          </li>
+        ))}
+      </ul>
+      {!showAll && output.length > 10 && (
+        <ReadMoreText text="View more" onClick={() => setShowAll(true)} />
+      )}
+    </>
   );
 }
 
