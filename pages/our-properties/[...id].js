@@ -21,6 +21,7 @@ import {
 import {
   BrochureButton,
   Gallery,
+  LocationMapSection,
   NeighborhoodList,
   VideoContainer,
 } from 'pages/our-projects/[slug]';
@@ -64,7 +65,6 @@ export default function SinglePropertyPage({
     question,
     answer,
   }));
-  const neighborhoods = project?.neighborhoods?.data || [];
 
   return (
     <>
@@ -91,12 +91,12 @@ export default function SinglePropertyPage({
             []),
         ]}
       />
-      {/* <Neighborhood
-        neighborhoods={
-          property?.project?.data?.attributes?.neighborhoods?.data || []
-        }
-        slug={property?.project?.data?.attributes?.slug}
-      /> */}
+
+      <LocationMapSection
+        locationMapURL={project?.locationMapURL}
+        name={project?.name}
+        googleMapLatLng={project?.googleMapLatLng}
+      />
 
       {allFaqs.length > 0 && (
         <section className="container mt-6">

@@ -186,42 +186,11 @@ export default function SingleProjectPage({ project, featuredProperties }) {
 
       <Gallery galleries={project?.project_galleries?.data || []} />
 
-      {locationMapURL && (
-        <Section id="location-map">
-          <div className="container">
-            <div className="row">
-              <div className="col">
-                <h4>Location Map</h4>
-                <div className="mb-4" style={{ width: '100%' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={locationMapURL}
-                    alt={`${name} Location Map`}
-                    className="img-fluid border border-2 border-light rounded img-cover"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
-                  />
-                </div>
-                {googleMapLatLng && (
-                  <Button
-                    color="primary-light"
-                    className="me-2 my-2 px-4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`https://www.google.com/maps?saddr=My+Location&daddr=${googleMapLatLng}`}
-                  >
-                    <FaMap /> View on Google Maps
-                  </Button>
-                )}
-              </div>
-            </div>
-          </div>
-        </Section>
-      )}
+      <LocationMapSection
+        locationMapURL={locationMapURL}
+        name={name}
+        googleMapLatLng={googleMapLatLng}
+      />
 
       {allFaqs && allFaqs.length > 0 && (
         <section className="container">
@@ -237,6 +206,53 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     </>
   );
 }
+
+export const LocationMapSection = ({
+  locationMapURL,
+  name,
+  googleMapLatLng,
+}) => {
+  if (!locationMapURL) {
+    return null;
+  }
+
+  return (
+    <Section id="location-map">
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h4>Location Map</h4>
+            <div className="mb-4" style={{ width: '100%' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={locationMapURL}
+                alt={`${name} Location Map`}
+                className="img-fluid border border-2 border-light rounded img-cover"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
+            </div>
+            {googleMapLatLng && (
+              <Button
+                color="primary-light"
+                className="me-2 my-2 px-4"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://www.google.com/maps?saddr=My+Location&daddr=${googleMapLatLng}`}
+              >
+                <FaMap /> View on Google Maps
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+};
 
 export function BrochureButton({ brochureURL }) {
   if (!brochureURL) return null;

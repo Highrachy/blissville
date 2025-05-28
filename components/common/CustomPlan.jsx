@@ -126,7 +126,7 @@ export default function BlissvillePaymentPlans({ property }) {
           if (plan.monthlyPayment) {
             const cycleLabel =
               billingCycle === 'quarterly' ? 'quarter' : 'month';
-            description = `${formatCurrency(
+            description = `Plus ${formatCurrency(
               recurringPayment
             )} per ${cycleLabel}`;
           }
