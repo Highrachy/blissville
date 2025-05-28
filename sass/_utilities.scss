@@ -929,6 +929,29 @@ td {
   border: 1px solid $gray-200;
   background: white;
 }
+
+.payment-plan-card {
+  border: 1px solid $gray-300;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.toggle-pill {
+  border-radius: 8px;
+  button {
+    padding: 0.75rem 2.5rem;
+    border: 0;
+    background: transparent;
+    font-weight: 600;
+    color: $success-600;
+  }
+}
+.toggle-pill .active {
+  background: $success-600;
+  color: #fff;
+}
+
 .interest.sticky-top {
   top: 15px;
 }

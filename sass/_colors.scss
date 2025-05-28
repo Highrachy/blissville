@@ -70,6 +70,30 @@ $info-700: #0369a1;
 $info-800: #075985;
 $info-900: #0c4a6e;
 
+// 🟢 Success (vibrant green, same as secondary)
+$success-50: $secondary-50;
+$success-100: $secondary-100;
+$success-200: $secondary-200;
+$success-300: $secondary-300;
+$success-400: $secondary-400;
+$success-500: $secondary-500;
+$success-600: $secondary-600;
+$success-700: $secondary-700;
+$success-800: $secondary-800;
+$success-900: $secondary-900;
+
+// ⚫ Dark (deep gray)
+$dark-50: $gray-50;
+$dark-100: $gray-100;
+$dark-200: $gray-200;
+$dark-300: $gray-300;
+$dark-400: $gray-400;
+$dark-500: $gray-500;
+$dark-600: $gray-600;
+$dark-700: $gray-700;
+$dark-800: $gray-800;
+$dark-900: $gray-900;
+
 // 🖤 Shades
 $shades-white: #ffffff;
 $shades-black: #000000;
@@ -88,6 +112,18 @@ $brand-colors: (
     '900': $primary-900,
   ),
   'secondary': (
+    '50': $secondary-50,
+    '100': $secondary-100,
+    '200': $secondary-200,
+    '300': $secondary-300,
+    '400': $secondary-400,
+    '500': $secondary-500,
+    '600': $secondary-600,
+    '700': $secondary-700,
+    '800': $secondary-800,
+    '900': $secondary-900,
+  ),
+  'success': (
     '50': $secondary-50,
     '100': $secondary-100,
     '200': $secondary-200,

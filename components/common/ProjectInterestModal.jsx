@@ -72,12 +72,13 @@ const StepOptionItem = ({ className, onClick, title, icon, meta }) => (
   </div>
 );
 
-const StepOne = ({ header, setView, property }) => (
+const StepOne = ({ header, setView, property, contactSalesOnly, subject }) => (
   <section>
     <h5 className="fw-semibold mb-2 text-primary">{header}</h5>
     <p className="mb-4">
-      You can speak with a sales advisor, ask us a question, or schedule a visit
-      to the property.
+      {contactSalesOnly
+        ? 'You can speak with a sales advisor or ask us a question.'
+        : 'You can speak with a sales advisor, ask us a question, or schedule a visit to the property.'}
     </p>
 
     <div className="pi-option-list">
@@ -88,23 +89,25 @@ const StepOne = ({ header, setView, property }) => (
         icon={<FaSquarePhone className="me-2 pi-option-icon" />}
         meta="Call or chat with us directly"
       />
-      <StepOptionItem
-        className="pi-secondary"
-        onClick={() => setView('schedule')}
-        title="Schedule a visit"
-        icon={<FaCalendarAlt className="me-2 pi-option-icon" />}
-        meta="Pick a date to see the property."
-      />
+      {!contactSalesOnly && (
+        <StepOptionItem
+          className="pi-secondary"
+          onClick={() => setView('schedule')}
+          title="Schedule a visit"
+          icon={<FaCalendarAlt className="me-2 pi-option-icon" />}
+          meta="Pick a date to see the property."
+        />
+      )}
       <StepOptionItem
         className="pi-info"
         onClick={() => setView('form')}
-        title="Ask us a Question"
+        title={subject || 'Ask us a Question'}
         icon={<FaMessage className="me-2 pi-option-icon" />}
         meta="We will get back within 24 hours"
       />
     </div>
 
-    {property?.price && property?.availableUnits > 0 && (
+    {!contactSalesOnly && property?.price && property?.availableUnits > 0 && (
       <BuyNowButton
         className="w-100 mt-4"
         price={property?.price}
@@ -199,12 +202,24 @@ function ContactOptions({ propertyName, onBack }) {
 // ─────────────────────────────────────────────
 // MESSAGE FORM
 // ─────────────────────────────────────────────
-const MessageForm = ({ propertyName, onBack, setView }) => {
+const MessageForm = ({
+  propertyName,
+  onBack,
+  setView,
+  subject,
+  description,
+}) => {
   const [alert, setAlert] = useState({ type: '', msg: '' });
 
   return (
     <FormikForm
       schema={contactUsSchema}
+      initialValues={{
+        name: '',
+        email: '',
+        phone: '',
+        message: description || '',
+      }}
       handleSubmit={async (values, actions) => {
         try {
           const source =
@@ -219,7 +234,9 @@ const MessageForm = ({ propertyName, onBack, setView }) => {
             data: {
               ...values,
               source,
-              subject: `Enquiry about ${propertyName}`,
+              subject: subject
+                ? `${subject} (${propertyName})`
+                : `Enquiry about ${propertyName}`,
               reference: ref,
             },
           });
@@ -237,7 +254,9 @@ const MessageForm = ({ propertyName, onBack, setView }) => {
       name="project-interest-form"
       buttonText="Submit"
     >
-      <h4 className="fw-semibold mb-2">Ask us a Question</h4>
+      <h4 className="fw-semibold mb-2">
+        {subject ? subject : 'Ask us a Question'}
+      </h4>
       <div className="mb-3">
         <Input name="name" label="Full Name" />
       </div>
@@ -331,9 +350,12 @@ export function ProjectInterestContent({
   header = 'Thank you for your interest!',
   onHide = () => {},
   showCloseButton = false,
+  contactSalesOnly = false,
+  subject,
+  description,
 }) {
   const [view, setView] = useState('options'); // options | contact | form | schedule
-  console.log('property', property);
+
   return (
     <section>
       {showCloseButton && (
@@ -350,7 +372,13 @@ export function ProjectInterestContent({
         </button>
       )}
       {view === 'options' && (
-        <StepOne header={header} setView={setView} property={property} />
+        <StepOne
+          header={header}
+          setView={setView}
+          property={property}
+          contactSalesOnly={contactSalesOnly}
+          subject={subject}
+        />
       )}
 
       {view === 'contact' && (
@@ -365,10 +393,12 @@ export function ProjectInterestContent({
           propertyName={propertyName}
           onBack={() => setView('options')}
           setView={setView}
+          subject={subject}
+          description={description}
         />
       )}
 
-      {view === 'schedule' && (
+      {!contactSalesOnly && view === 'schedule' && (
         <ScheduleVisitForm
           propertyName={propertyName}
           onBack={() => setView('options')}
@@ -398,13 +428,16 @@ export function ProjectInterestContent({
 // ─────────────────────────────────────────────
 // MAIN MODAL
 // ─────────────────────────────────────────────
+
 const ProjectInterestModal = ({
   show,
   onHide,
   propertyName,
   property = {},
+  contactSalesOnly = false,
+  subject = '',
+  description = '',
 }) => {
-  console.log('prods perty', property);
   return (
     <Modal
       show={show}
@@ -419,6 +452,9 @@ const ProjectInterestModal = ({
           onHide={onHide}
           showCloseButton
           property={property}
+          contactSalesOnly={contactSalesOnly}
+          subject={subject}
+          description={description}
         />
       </section>
     </Modal>

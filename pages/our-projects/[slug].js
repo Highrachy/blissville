@@ -343,9 +343,8 @@ export function NeighborhoodList({ neighborhoods }) {
       <Button
         color="primary-light"
         className="me-2 my-2 px-4"
-        target="_blank"
         rel="noopener noreferrer"
-        href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
+        href="#location-map"
       >
         <FaMapPin /> View Location Map
       </Button>

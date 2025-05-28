@@ -36,11 +36,12 @@ import FAQsAccordion from '@/components/common/FAQsAccordion';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { Magicpen } from 'iconsax-react';
 import classNames from 'classnames';
-import { FaBath, FaBed, FaCar, FaLayerGroup } from 'react-icons/fa6';
+import { FaBath, FaBed, FaCar, FaCheck, FaLayerGroup } from 'react-icons/fa6';
 import { FaThLarge } from 'react-icons/fa';
 import { getShortDate } from '@/utils/date-helpers';
 import CompactPropertyCard from '@/components/common/CompactPropertyCard';
 import { ProjectInfoItem } from '@/components/common/ProjectHeaderSection';
+import CustomPlan from '@/components/common/CustomPlan';
 
 export default function SinglePropertyPage({
   property,
@@ -80,7 +81,8 @@ export default function SinglePropertyPage({
         property={property}
         similarProperties={similarProperties}
       />
-      <PaymentPlan property={property} />
+
+      <CustomPlan property={property} />
 
       <Gallery
         galleries={[
