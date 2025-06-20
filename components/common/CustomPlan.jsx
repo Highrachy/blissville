@@ -196,10 +196,10 @@ const BlissvillePaymentPlans = ({ property }) => {
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mb-3">
         <div>
           <h4 className="fw-bold display-6 font-primary">
-            Available Payment Plans
+            Available Payment Plans (Shell Package)
           </h4>
           <p className="text-muted">
-            Choose the plan that works best for your financial schedule.
+            Choose the plan that works best for your financial schedule *.
           </p>
         </div>
 
@@ -245,6 +245,10 @@ const BlissvillePaymentPlans = ({ property }) => {
           );
         })}
       </div>
+      <p className="text-muted fst-italic mt-4">
+        * All payment plans are subject to terms and conditions. Please contact
+        our sales team for more details.
+      </p>
 
       <ContactSalesTeam property={property} />
     </section>
