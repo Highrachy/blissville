@@ -168,7 +168,7 @@ const PaymentCard = ({ plan, property, billing, hideDetails }) => {
 
       <div className={hideDetails ? '' : 'pt-4'}>
         <BuyNowButton
-          className="btn btn-secondary-light w-100"
+          className="btn w-100"
           property={property}
           paymentPlan={plan.durationMonths}
           initialPayment={plan.initialPayment}
