@@ -184,6 +184,7 @@ const InterestAndRelationship = () => (
         name="residentType"
         label="Resident Type"
         options={valuesToOptions(
+          ['4 Bedroom Waterview Terrace Duplex'],
           ['3 bedroom Apartment - Flat'],
           'Select Resident Type'
         )}
