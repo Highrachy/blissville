@@ -185,7 +185,6 @@ const InterestAndRelationship = () => (
         label="Resident Type"
         options={valuesToOptions(
           ['4 Bedroom Waterview Terrace Duplex'],
-          ['3 bedroom Apartment - Flat'],
           'Select Resident Type'
         )}
       />
@@ -236,7 +235,14 @@ const TransactionDetails = () => (
       <Select
         name="paymentPlan"
         label="Payment Plan"
-        options={valuesToOptions(['One Off Payment'], 'Select Payment Plan')}
+        options={valuesToOptions(
+          [
+            'One Off Payment',
+            'Fixed Payment (14 Months)',
+            'Flexi Payment (Customized)',
+          ],
+          'Select Payment Plan'
+        )}
       />
       <InputFormat
         formGroupClassName="col-md-6"

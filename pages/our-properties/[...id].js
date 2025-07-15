@@ -82,7 +82,7 @@ export default function SinglePropertyPage({
         similarProperties={similarProperties}
       />
 
-      {false && <CustomPlan property={property} />}
+      <CustomPlan property={property} />
 
       <Gallery
         galleries={[
