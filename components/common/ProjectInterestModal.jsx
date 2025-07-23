@@ -18,6 +18,7 @@ import Button from '../forms/Button';
 import toast from 'react-hot-toast';
 import { FaCheckCircle } from 'react-icons/fa';
 import BuyNowButton from '../utils/BuyNowButton';
+import ShareButton from './ShareButton';
 
 // ─────────────────────────────────────────────
 // SUCCESS COMPONENT
@@ -72,7 +73,14 @@ const StepOptionItem = ({ className, onClick, title, icon, meta }) => (
   </div>
 );
 
-const StepOne = ({ header, setView, property, contactSalesOnly, subject }) => (
+const StepOne = ({
+  header,
+  setView,
+  property,
+  contactSalesOnly,
+  subject,
+  shareText,
+}) => (
   <section>
     <h5 className="fw-semibold mb-2 text-primary">{header}</h5>
     <p className="mb-4">
@@ -119,6 +127,12 @@ const StepOne = ({ header, setView, property, contactSalesOnly, subject }) => (
         Buy Now
       </BuyNowButton>
     )}
+
+    <ShareButton
+      text={shareText || `Check out ${property?.name} on Blissville.com!`}
+      header="Share this Property"
+      className="w-100 mt-3"
+    />
   </section>
 );
 
@@ -346,13 +360,14 @@ const ScheduleVisitForm = ({ propertyName, onBack, setView }) => {
 // ─────────────────────────────────────────────
 export function ProjectInterestContent({
   propertyName,
-  property = { more: 'test' },
+  property = {},
   header = 'Thank you for your interest!',
   onHide = () => {},
   showCloseButton = false,
   contactSalesOnly = false,
   subject,
   description,
+  shareText = '',
 }) {
   const [view, setView] = useState('options'); // options | contact | form | schedule
 
@@ -378,6 +393,7 @@ export function ProjectInterestContent({
           property={property}
           contactSalesOnly={contactSalesOnly}
           subject={subject}
+          shareText={shareText}
         />
       )}
 

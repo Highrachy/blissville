@@ -11,7 +11,12 @@ import Modal from '@/components/ui/Modal';
 import Button from '../forms/Button';
 import { ShareProjectIcon } from '../Icons/Icons';
 
-const ShareButton = ({ url = '', text, header = 'Share this Project' }) => {
+const ShareButton = ({
+  url = '',
+  text,
+  header = 'Share this Project',
+  className = '',
+}) => {
   const [showOptions, setShowOptions] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -42,6 +47,7 @@ const ShareButton = ({ url = '', text, header = 'Share this Project' }) => {
     <>
       <Button
         color="light"
+        className={className}
         onClick={() => setShowOptions(true)}
         aria-label="Share"
       >

@@ -152,9 +152,12 @@ const PropertyInformation = ({ property, similarProperties }) => {
             </div>
             <div className="col-sm-4 text-md-end mb-4 mb-md-0">
               <aside>
-                <ShareButton
-                  text={`Check out ${name} on Blissville.com!`}
-                  header="Share this Property"
+                <BuyNowButton
+                  className="px-3 btn-wide"
+                  property={property}
+                  paymentPlan={0}
+                  initialPayment={property?.price}
+                  packageName={property?.packageName || 'Shell'}
                 />
               </aside>
             </div>

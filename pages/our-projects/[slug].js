@@ -29,6 +29,7 @@ import OverviewCard from '@/components/common/OverviewCard';
 import ProjectHeaderSection from '@/components/common/ProjectHeaderSection';
 import ReactPlayer from 'react-player';
 import CompactPropertyCard from '@/components/common/CompactPropertyCard';
+import BuyNowButton from '@/components/utils/BuyNowButton';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const router = useRouter();
@@ -62,6 +63,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
 
   const shareUrl = `https://blissville.com.ng/our-projects/${slug}`;
   const neighborhoods = project?.neighborhoods?.data || [];
+  const property = project?.properties?.data?.[0]?.attributes || {};
 
   return (
     <>
@@ -80,9 +82,12 @@ export default function SingleProjectPage({ project, featuredProperties }) {
               <p className="lead">{getLocationFromAddress(project)}</p>
             </div>
             <div className="col-sm-4 text-md-end mb-4 mb-md-0">
-              <ShareButton
-                url={shareUrl}
-                text={`Check out ${name} on Blissville!`}
+              <BuyNowButton
+                className="px-3 btn-wide"
+                property={property}
+                paymentPlan={0}
+                initialPayment={property?.price}
+                packageName={property?.packageName || 'Shell'}
               />
             </div>
             <ProjectHeaderSection
@@ -175,6 +180,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                     header="Interested in this property?"
                     propertyName={name}
                     property={project?.properties?.data?.[0]?.attributes}
+                    shareText={`Hi, Please check out ${name} on Blissville!`}
                   />
                 </OverviewCard>
               </div>
