@@ -266,7 +266,7 @@ Upload.defaultProps = {
   label: null,
   labelClassName: null,
   isValidMessage: '',
-  maxFileSize: 1_024 * 2_000, // 2 MB
+  maxFileSize: 1_024 * 2_100, // ~ 2 MB
   name: null,
   oldImage: null,
   optional: false,

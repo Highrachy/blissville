@@ -3,8 +3,8 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { useChatMessage } from 'context/chat';
 
 export const SALES_CONTACTS = [
-  { number: '2349055555496', label: 'Omolara' },
-  { number: '2349055555146', label: 'David' },
+  { number: '2349055555146', label: '0905 555 5146' },
+  { number: '2349055555496', label: '0905 555 5496' },
 ];
 
 const FloatingChatButton = () => {
