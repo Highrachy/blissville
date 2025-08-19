@@ -213,7 +213,7 @@ const BlissvillePaymentPlans = ({ property }) => {
   const hideExtraDetails = width && width < 992;
 
   return (
-    <section className="container py-7">
+    <section id="payment-plan" className="container py-7">
       {/* Header */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mb-3">
         <div>

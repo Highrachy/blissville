@@ -522,6 +522,35 @@ function FeaturesList() {
   );
 }
 
+const GalleryGrid = () => {
+  const IMAGES = [
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg',
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3-focus.jpg',
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-2-night.jpg',
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-night.jpg',
+  ];
+
+  return (
+    <>
+      <div className="row row-cols-2 g-3">
+        {IMAGES.map((src, i) => (
+          <div className="col" key={i}>
+            <div className="thumb rounded-3 overflow-hidden position-relative h-100">
+              <img
+                src={src}
+                alt={`Gallery ${i + 1}`}
+                layout="fill"
+                className="img-fluid img-cover h-100"
+                priority={i === 0}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
 export const Gallery = ({ galleries, className }) => {
   if (!galleries || galleries.length === 0) {
     return null;

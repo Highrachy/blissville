@@ -70,7 +70,7 @@ export default function Home({ slides, projects, properties }) {
   );
 }
 
-const HeroSection = ({ slides }) => {
+export const HeroSection = ({ slides }) => {
   if (slides.length === 1) {
     // Render a static hero with the same structure and classes as SwiperSlide
     const { image, slug, startingPrice, name, slogan } = slides[0];

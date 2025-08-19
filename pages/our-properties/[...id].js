@@ -127,7 +127,7 @@ export default function SinglePropertyPage({
   );
 }
 
-const PropertyInformation = ({ property, similarProperties }) => {
+export const PropertyInformation = ({ property, similarProperties }) => {
   const { id, slug, name, price, availableUnits } = property;
   const project = property.project.data.attributes;
   const isSoldOut = availableUnits === 0;
@@ -176,7 +176,7 @@ const PropertyInformation = ({ property, similarProperties }) => {
   );
 };
 
-const PropertyIconSection = ({ property }) => {
+export const PropertyIconSection = ({ property }) => {
   return (
     <div className="bg-white my-5">
       <div className="d-flex flex-wrap justify-content-between align-items-start">

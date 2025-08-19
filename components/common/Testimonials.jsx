@@ -15,7 +15,9 @@ export const TestimonialSection = () => (
           <QuoteUp size="64" color="#1f4e9f" variant="Bold" />
         </Roll>
         <Slide left>
-          <h3 className="mt-3">What our customers are saying</h3>
+          <h3 className="mt-3">
+            What People are saying about Blissville Terraces
+          </h3>
         </Slide>
       </div>
       <div className="row pt-5">

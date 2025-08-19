@@ -1,9 +1,5 @@
 import navigation from '@/data/navigation';
-import useScrollPosition from '@/hooks/useScrollPosition';
-import Image from 'next/image';
-import Link from 'next/link';
 import React, { useContext } from 'react';
-import { useState } from 'react';
 import {
   Container,
   Nav,
@@ -44,7 +40,7 @@ const MobileNavigation = ({ MENU }) => (
   </>
 );
 
-const Navigation = ({ parentPage }) => {
+const Navigation = ({ parentPage, navigation: navData = navigation }) => {
   const { width } = useWindowSize();
   const isDesktop = width > 991;
   const { loginUser, user } = useContext(UserContext);
@@ -74,38 +70,43 @@ const Navigation = ({ parentPage }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  const MENU = navigation.map(({ children, url, title }, index) => {
-    const isSignedInUser = !!user?.id;
-    return (
-      <React.Fragment key={index}>
-        {Object.keys(children)?.length > 0 ? (
-          <NavDropdown
-            title={title}
-            id={`${url}-dropdown`}
-            active={parentPage === url}
-          >
-            {Object.entries(children).map(([url, title], index) => (
-              <ActiveLink
-                key={`${url}-dropdown-${index}`}
-                href={`/${url}`}
-                passHref
-              >
-                <NavDropdown.Item>{title}</NavDropdown.Item>
-              </ActiveLink>
-            ))}
-          </NavDropdown>
-        ) : title?.toLowerCase() === 'login' && isSignedInUser ? (
-          <UserProfileNav user={user} isPublicPage />
-        ) : (
-          <ActiveLink href={`/${url}`} passHref>
-            <Nav.Link aria-current="page" className={`nav-url`}>
-              {title}
-            </Nav.Link>
-          </ActiveLink>
-        )}
-      </React.Fragment>
-    );
-  });
+  const MENU = navData.map(
+    ({ children = {}, url, title, component = null }, index) => {
+      const isSignedInUser = !!user?.id;
+      if (component) {
+        return <Nav.Item key={index}>{component}</Nav.Item>;
+      }
+      return (
+        <React.Fragment key={index}>
+          {Object.keys(children)?.length > 0 ? (
+            <NavDropdown
+              title={title}
+              id={`${url}-dropdown`}
+              active={parentPage === url}
+            >
+              {Object.entries(children).map(([url, title], index) => (
+                <ActiveLink
+                  key={`${url}-dropdown-${index}`}
+                  href={`/${url}`}
+                  passHref
+                >
+                  <NavDropdown.Item>{title}</NavDropdown.Item>
+                </ActiveLink>
+              ))}
+            </NavDropdown>
+          ) : title?.toLowerCase() === 'login' && isSignedInUser ? (
+            <UserProfileNav user={user} isPublicPage />
+          ) : (
+            <ActiveLink href={`/${url}`} passHref>
+              <Nav.Link aria-current="page" className={`nav-url`}>
+                {title}
+              </Nav.Link>
+            </ActiveLink>
+          )}
+        </React.Fragment>
+      );
+    }
+  );
 
   const currentNavigation = isDesktop ? (
     <DesktopNavigation MENU={MENU} />
