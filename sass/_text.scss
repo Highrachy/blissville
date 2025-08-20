@@ -35,18 +35,26 @@ $h6-font-size: 1rem;
   cursor: pointer;
 }
 
-.link-text {
-  color: $gray-600 !important;
+.link-text,
+.text-link {
+  color: $gray-700 !important;
   cursor: pointer;
-  &:hover {
-    color: $primary;
+  &:hover,
+  &:hover * {
+    color: $primary-700;
   }
-  &.link-primary {
-    color: $primary;
+  &.link-danger,
+  &.text-danger {
+    &:hover,
+    &:hover * {
+      color: $error-700;
+    }
   }
-  &.link-danger {
-    &:hover {
-      color: $danger;
+  &.link-muted,
+  &.text-muted {
+    &:hover,
+    &:hover * {
+      color: $primary-700 !important;
     }
   }
 }

@@ -22,7 +22,7 @@ export default function FAQs() {
   );
 }
 
-const AllFAQs = () => {
+export const AllFAQs = () => {
   return (
     <section className="container py-6">
       <div className="row">
