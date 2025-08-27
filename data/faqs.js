@@ -181,7 +181,7 @@ const faqs = [
           'When is the delivery and operational date of Blissville Terraces?',
         answer: (
           <>
-            <p>The expected delivery and operational date is Q2 2026.</p>
+            <p>The expected delivery and operational date is Q4 2026.</p>
           </>
         ),
         showOnHomePage: false,

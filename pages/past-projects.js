@@ -41,7 +41,7 @@ export async function getStaticProps() {
     {
       params: {
         sort: 'createdAt:desc',
-        'filters[status][$eq]': PROJECT_STATUS.NOT_AVAILABLE,
+        'filters[status][$eq]': PROJECT_STATUS.COMPLETED,
       },
     }
   );
