@@ -36,7 +36,7 @@ export const footerLinks = [
     url: '/our-properties',
   },
   {
-    title: 'Active Projects',
+    title: 'All Projects',
     url: '/our-projects',
   },
   {

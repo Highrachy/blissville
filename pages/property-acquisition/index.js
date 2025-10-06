@@ -83,11 +83,11 @@ const IntroText = () => (
     </div>
     <div className="col-md-5 col-lg-5">
       <Image
-        src="/assets/img/property-acquisitions/property.jpg"
+        src="/assets/img/home/dream-home.jpg"
         alt="Property Image"
-        width={1500}
-        className="rounded pe-md-3"
-        height={1688}
+        width={769}
+        height={800}
+        className="img-cover rounded-3 pe-md-3"
       />
     </div>
     <div className="dotted-border-muted my-5"></div>
@@ -337,6 +337,7 @@ const AcquisitionForm = () => {
   const executeScroll = () => myRef.current.scrollIntoView();
 
   const ALL_STEPS = [
+    <IntroText key="0" />,
     <ClientDetails key="1" />,
     <InterestAndRelationship key="2" />,
     <TransactionDetails key="3" />,
