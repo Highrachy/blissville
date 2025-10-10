@@ -36,13 +36,24 @@ const PropertyImageGallery = ({ property }) => {
       >
         <Image
           src={property?.image || '/assets/img/bg/investors.jpeg'}
-          alt={property?.name || 'Main view'}
+          alt={property?.name || 'Main view of Property'}
           className="img-fluid rounded h-100 w-100 object-fit-cover"
           layout="responsive"
           width={800}
           height={700}
           priority
         />
+        {property?.slug === '4-bedroom-waterview-terrace-duplex' && (
+          <a
+            className="btn btn-sm position-absolute top-0 start-0 m-4 text-white border-0"
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.5)', // 50% see-through black
+              backdropFilter: 'blur(4px)', // adds soft glassy look
+            }}
+          >
+            6 units left
+          </a>
+        )}
       </div>
       {hasGalleryImages && (
         <div className="col-md-4 d-flex flex-column gap-2">
@@ -72,7 +83,7 @@ const PropertyImageGallery = ({ property }) => {
               />
             )}
             <Link href={`#gallery`} passHref>
-              <a className="btn btn-info-light btn-sm position-absolute bottom-0 start-0 m-2">
+              <a className="btn btn-info-light btn-sm position-absolute bottom-0 end-0 m-2">
                 View Gallery
               </a>
             </Link>

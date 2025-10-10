@@ -112,10 +112,8 @@ export default function SinglePropertyPage({
       />
       <Navigation />
       <PageHeader
-        title={
-          isLandingPage ? project?.name || 'Our Properties' : 'Our Properties'
-        }
-        subHeader="Powered By Highrachy"
+        title={project?.name ? project?.name : 'Our Properties'}
+        subHeader={'Powered By Highrachy'}
         bgImage={property?.image || '/assets/img/bg/investors.jpeg'}
       />
 
@@ -189,7 +187,7 @@ export const PropertyInformation = ({ property, similarProperties }) => {
               </p>
 
               <h3 className="text-primary">
-                {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)}
+                {isSoldOut ? 'SOLD OUT' : moneyFormatInNaira(price)} <br />
               </h3>
             </div>
             <div className="col-sm-4 text-md-end mb-4 mb-md-0">

@@ -11,10 +11,10 @@ export const PageHeader = ({ title, breadcrumb, bgImage, subHeader }) => {
       <Parallax bgImage={bgImage}>
         <Section noPaddingBottom className="pb-5">
           <div className="container mt-7">
-            <h3 className="text-page-header">{title}</h3>
-            <h4 className="text-page-subheader">
+            <h1 className="text-page-header">{title}</h1>
+            <h2 className="text-page-subheader">
               {subHeader || 'Powered By Highrachy'}
-            </h4>
+            </h2>
             {false && <BreadCrumb breadcrumb={currentBreadCrumb} />}
           </div>
         </Section>
