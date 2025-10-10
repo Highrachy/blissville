@@ -20,6 +20,14 @@ import ReferralModal from '@/components/ui/ReferralModal';
 import { useRouter } from 'next/router';
 import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
 import Link from 'next/link';
+import { Container } from 'react-bootstrap';
+import SeoHead from '@/components/utils/SeoHead';
+import {
+  FaBuilding,
+  FaCar,
+  FaDoorOpen,
+  FaRulerCombined,
+} from 'react-icons/fa6';
 
 const BASE_CONTENT = {
   image:
@@ -55,8 +63,10 @@ export default function Home({ slides, projects, properties }) {
 
   return (
     <>
+      <SeoHead />
       <TopNavigation />
-      {showAds ? <AdsSection /> : <HeroSection slides={slides} />}
+      {/* {showAds ? <AdsSection /> : <HeroSection slides={slides} />} */}
+      <VideoCoverSection videoSrc="/videos/project-intro.mp4" />
       <ExecutiveSummary />
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
@@ -160,41 +170,47 @@ const ExecutiveSummary = () => (
   <Section altBg>
     <div className="container">
       <div className="row">
-        <div className="col-md-7 col-lg-6 pe-md-5">
+        <div className="col-md-7 pe-md-5">
           <Fade left>
-            <h3 className="mt-3 mt-lg-6 mb-4">
-              Start Planning your{' '}
-              <span className="text-primary">
-                <br className="d-md-inline-block d-none" />
-                DREAM HOME
-              </span>{' '}
-              with us.
-            </h3>
+            <h2 className="fw-bold mt-3 mt-lg-5 mb-4">
+              Introducing{' '}
+              <span className="text-primary d-block d-md-inline">
+                Blissville Terraces
+              </span>
+            </h2>
 
-            <p className="lead">
-              Serenity, comfort, security. These are qualities you experience
-              when you actualize your dream of buying a home with Blissville.
+            <p className="lead mb-3">
+              Discover refined waterfront living at{' '}
+              <strong>Blissville Terraces</strong>, an exclusive community of
+              elegant four-bedroom duplexes in the heart of{' '}
+              <strong>Sangotedo, Lagos</strong>.
             </p>
 
-            <p className="mb-5 lead">
-              Subscribe with us today and proceed to select from our vast range
-              of floor tiles, wall tiles, paint colors and other finishes to
-              customize your home into the haven that suits your style.
+            <p className="lead mb-3">
+              Located just minutes from <strong>Novare Mall</strong>,{' '}
+              <strong>Lagos Business School</strong>, and the calm waters of
+              Caribbean Lake City Estate, Blissville Terraces blends modern
+              design, peaceful surroundings, and family comfort in one beautiful
+              address.
             </p>
 
-            <Button color="secondary" href="/contact-us" className="mb-5">
-              Get Started &nbsp; <ArrowRight />
-            </Button>
+            <p className="lead mb-4">
+              Each home comes with smart layouts, energy-efficient systems, and
+              premium finishes that help you enjoy comfort, convenience, and a
+              real sense of belonging.
+            </p>
+
+            <ActionButtonGroup />
           </Fade>
         </div>
-        <div className="col-md-5 col-lg-6 d-none d-md-block">
+        <div className="col-md-5">
           <Bounce right>
             <Image
-              src="/assets/img/home/dream-home.jpg"
-              alt="Hero Image"
-              width={769}
+              src="/assets/img/home/clc-gate.jpg"
+              alt="Caribbean Lake City Gate"
+              width={800}
               height={800}
-              className="img-cover rounded-2"
+              className="mt-4 img-cover rounded-2 shadow"
             />
           </Bounce>
         </div>
@@ -203,6 +219,32 @@ const ExecutiveSummary = () => (
   </Section>
 );
 
+export function VideoCoverSection({ videoSrc }) {
+  return (
+    <section className="position-relative w-100 vh-100 overflow-hidden">
+      {/* 🎥 Fullscreen Background Video */}
+      <video
+        className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src={videoSrc} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* 🌫️ Transparent Overlay Text */}
+      <div className="position-absolute bottom-0 start-0 w-100 text-center pb-5">
+        <div className="bg-dark bg-opacity-50 py-3 px-4 d-inline-block rounded-1">
+          <h1 className="text-white fw-bold h3 mb-0">
+            Welcome to Blissville Terraces
+          </h1>
+        </div>
+      </div>
+    </section>
+  );
+}
 export async function getStaticProps() {
   const slideRes = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,

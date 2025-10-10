@@ -43,6 +43,7 @@ import { getShortDate } from '@/utils/date-helpers';
 import CompactPropertyCard from '@/components/common/CompactPropertyCard';
 import { ProjectInfoItem } from '@/components/common/ProjectHeaderSection';
 import CustomPlan from '@/components/common/CustomPlan';
+import SeoHead from '@/components/utils/SeoHead';
 
 export default function SinglePropertyPage({
   property,
@@ -66,8 +67,49 @@ export default function SinglePropertyPage({
     answer,
   }));
 
+  const projectName = project?.name || 'Blissville Project';
+  const location =
+    project?.city && project?.state
+      ? `${project.city}, ${project.state}`
+      : 'Lagos, Nigeria';
+
+  const canonicalUrl = `https://www.blissville.com.ng/our-properties/${
+    project?.slug || 'project'
+  }/${property?.slug}`;
+  const { name, beds, description, image, price, parkingSpace } = property;
+  const ogImage =
+    image ||
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg';
+
   return (
     <>
+      <SeoHead
+        title={`${name} | ${beds || ''}-Bedroom ${projectName} in ${location}`}
+        description={`Discover ${name} at ${projectName} — a modern ${
+          beds || ''
+        }-bedroom property in ${location}. ${description?.slice(
+          0,
+          160
+        )} Enjoy energy-efficient design, ${
+          parkingSpace || 'ample'
+        } parking, and spacious interiors starting from ${
+          price ? '₦' + price.toLocaleString() : 'an affordable rate'
+        }.`}
+        canonical={canonicalUrl}
+        ogImage={ogImage}
+        keywords={[
+          `${name} ${location}`,
+          `${beds || ''}-Bedroom home in ${projectName}`,
+          `${projectName} properties`,
+          `Luxury homes ${location}`,
+          `Buy home ${location}`,
+          `Real estate ${projectName}`,
+          `Highrachy property ${location}`,
+          `Waterfront homes Lagos`,
+          `Affordable homes Blissville`,
+          `Smart homes ${projectName}`,
+        ]}
+      />
       <Navigation />
       <PageHeader
         title={

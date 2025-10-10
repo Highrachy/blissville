@@ -84,18 +84,35 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
               id={`${url}-dropdown`}
               active={parentPage === url}
             >
-              {Object.entries(children).map(([url, title], index) => (
-                <ActiveLink
-                  key={`${url}-dropdown-${index}`}
-                  href={`/${url}`}
-                  passHref
-                >
-                  <NavDropdown.Item>{title}</NavDropdown.Item>
-                </ActiveLink>
-              ))}
+              {Object.entries(children).map(([childUrl, childTitle], idx) => {
+                const childHref = childUrl.includes('#')
+                  ? childUrl
+                  : `/${childUrl}`;
+                return childUrl.includes('#') ? (
+                  <NavDropdown.Item
+                    key={`${childUrl}-dropdown-${idx}`}
+                    as="a"
+                    href={childHref}
+                  >
+                    {childTitle}
+                  </NavDropdown.Item>
+                ) : (
+                  <ActiveLink
+                    key={`${childUrl}-dropdown-${idx}`}
+                    href={childHref}
+                    passHref
+                  >
+                    <NavDropdown.Item>{childTitle}</NavDropdown.Item>
+                  </ActiveLink>
+                );
+              })}
             </NavDropdown>
           ) : title?.toLowerCase() === 'login' && isSignedInUser ? (
             <UserProfileNav user={user} isPublicPage />
+          ) : url.includes('#') ? (
+            <a href={url} key={index} className="nav-url nav-link">
+              {title}
+            </a>
           ) : (
             <ActiveLink href={`/${url}`} passHref>
               <Nav.Link aria-current="page" className={`nav-url`}>

@@ -23,10 +23,29 @@ import axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 import FormikButton from '@/components/forms/FormikButton';
+import SeoHead from '@/components/utils/SeoHead';
 
 const ContactUs = () => {
   return (
     <>
+      <SeoHead
+        title="Contact Blissville | Get in Touch with Highrachy Real Estate Developers in Lagos"
+        description="Contact Blissville by Highrachy today. Visit our Lagos office or reach out for inquiries about luxury homes, waterfront terraces, investment opportunities, and real estate partnerships."
+        canonical="https://www.blissville.com.ng/contact-us"
+        ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg"
+        keywords={[
+          'Contact Blissville Lagos',
+          'Blissville contact information',
+          'Highrachy real estate developers Lagos',
+          'Luxury homes Lagos contact',
+          'Real estate inquiry Lagos',
+          'Waterfront terraces Sangotedo contact',
+          'Property developers Nigeria contact',
+          'Blissville customer service',
+          'Real estate partnerships Lagos',
+          'Book a site visit Blissville Terraces',
+        ]}
+      />
       <Navigation />
       <Map />
       <ContactUsForm />

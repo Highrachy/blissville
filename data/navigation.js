@@ -25,7 +25,10 @@ export const faqs = {
 export const aboutUs = {
   title: 'About Us',
   url: 'about-us',
-  children: {},
+  children: {
+    'about-us': 'About Blissville',
+    'about-us#meet-our-team': 'Meet Our Team',
+  },
 };
 
 export const investors = {

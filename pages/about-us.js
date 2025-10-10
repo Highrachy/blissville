@@ -10,10 +10,29 @@ import Team from '@/components/common/Team';
 import StrategicRelationships from '@/components/layouts/StrategicRelationships';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import useWindowSize from '@/hooks/useWindowSize';
+import SeoHead from '@/components/utils/SeoHead';
 
 export default function AboutUs() {
   return (
     <>
+      <SeoHead
+        title="About Blissville | Highrachy Real Estate Developers in Lagos, Nigeria"
+        description="Learn about Blissville by Highrachy — a trusted real estate brand in Lagos focused on delivering affordable, energy-efficient, and luxurious homes in Sangotedo, Lekki, and across Nigeria."
+        canonical="https://www.blissville.com.ng/about-us"
+        ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"
+        keywords={[
+          'About Blissville Lagos',
+          'Highrachy real estate developers',
+          'Trusted builder Lagos',
+          'Affordable homes in Nigeria',
+          'Luxury real estate Lekki',
+          'Energy-efficient homes Lagos',
+          'Real estate company in Lagos',
+          'Blissville by Highrachy',
+          'Property developers Nigeria',
+          'Housing projects in Sangotedo',
+        ]}
+      />
       <Navigation />
       <PageHeader
         title="About Blissville"

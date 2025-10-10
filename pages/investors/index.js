@@ -9,6 +9,7 @@ import Section from '@/components/common/Section';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import useWindowSize from '@/hooks/useWindowSize';
 import { Slide } from 'react-reveal';
+import { TestimonialSection } from '@/components/common/Testimonials';
 
 export default function Investors() {
   return (
@@ -17,11 +18,12 @@ export default function Investors() {
       <PageHeader
         title="Investors"
         subHeader="INVEST TODAY AND WATCH YOUR MONEY GROW..."
-        bgImage="/assets/img/bg/investors.jpeg"
+        bgImage="/assets/img/bg/investment.jpg"
       />
       <InvestToday />
-      <InvestmentOverview />
       <AnnualGrowth />
+      <InvestmentOverview />
+      <TestimonialSection />
       <InvestmentCards />
       <MidTermForecast />
       <ScheduleVisit />
@@ -77,7 +79,13 @@ export const InvestToday = ({ showButton }) => (
           </Slide>
         </div>
         <div className="col-md-5 col-lg-5 order-0 order-md-1 mb-5">
-          <InvestorSlider />
+          <Image
+            src="/assets/img/investors/smiling-investor.jpg"
+            alt="Hero Image"
+            width={800}
+            height={800}
+            className="img-cover rounded-2"
+          />
         </div>
       </div>
     </div>
@@ -89,7 +97,7 @@ const InvestmentOverview = () => {
   const isMobile = width <= 991;
   const [showReadMore, setShowReadMore] = React.useState(true);
   return (
-    <section>
+    <Section>
       <div className="container">
         <h3>Investment Overview</h3>
         <div className="row">
@@ -107,6 +115,18 @@ const InvestmentOverview = () => {
                 {' '}
                 conceptualization, planning, execution and control of the
                 projects.
+                <br />
+                <br />
+                We forecast that our initial projects will have a future
+                valuation greater than N1.3B and an exit value of approximately
+                N1.2B. We are seeking investments ranging from N65M to N200M and
+                more to be disbursed as required by our projects over the next
+                24months. Once initiated, our projects are modeled to finance
+                themselves via cash flow. We seek investors who share our vision
+                of enhancing lives and the environment by providing energy
+                efficient residential dwellings, and are willing to benefit from
+                our exciting pipeline of projects by keying in at this inception
+                stage.
               </span>
               {isMobile && showReadMore ? (
                 <>
@@ -140,28 +160,18 @@ const InvestmentOverview = () => {
             </p>
           </div>
 
-          <div className="col-md-6 d-none d-md-block">
-            <p className="mb-5">
-              We forecast that our initial projects will have a future valuation
-              greater than N1.3B and an exit value of approximately N1.2B. We
-              are seeking investments ranging from N65M to N200M and more to be
-              disbursed as required by our projects over the next 24months. Once
-              initiated, our projects are modeled to finance themselves via cash
-              flow. We seek investors who share our vision of enhancing lives
-              and the environment by providing energy efficient residential
-              dwellings, and are willing to benefit from our exciting pipeline
-              of projects by keying in at this inception stage.
-            </p>
+          <div className="col-md-5 offset-md-1">
+            <InvestorSlider />
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 
 const AnnualGrowth = () => {
   return (
-    <Section>
+    <Section altBg>
       <div className="container">
         <div className="row">
           <div className="col-md-5 col-lg-6">
@@ -226,7 +236,7 @@ const MidTermForecast = () => {
 };
 
 const InvestmentCards = () => (
-  <div className="container">
+  <div className="container mt-6">
     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 gy-5 gx-5">
       {investments.map((investment, index) => (
         <SingleInvestmentCard key={index} {...investment} />

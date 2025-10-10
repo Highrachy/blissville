@@ -30,6 +30,7 @@ import ProjectHeaderSection from '@/components/common/ProjectHeaderSection';
 import ReactPlayer from 'react-player';
 import CompactPropertyCard from '@/components/common/CompactPropertyCard';
 import BuyNowButton from '@/components/utils/BuyNowButton';
+import SeoHead from '@/components/utils/SeoHead';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const router = useRouter();
@@ -64,9 +65,39 @@ export default function SingleProjectPage({ project, featuredProperties }) {
   const shareUrl = `https://blissville.com.ng/our-projects/${slug}`;
   const neighborhoods = project?.neighborhoods?.data || [];
   const property = project?.properties?.data?.[0]?.attributes || {};
+  const canonicalUrl = `https://www.blissville.com.ng/our-projects/${slug}`;
+  const ogImage =
+    image ||
+    'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg';
+  const location = city && state ? `${city}, ${state}` : 'Lagos, Nigeria';
+  const price = startingPrice
+    ? `Prices from ₦${startingPrice.toLocaleString()}`
+    : '';
 
   return (
     <>
+      <SeoHead
+        title={`${name} | ${type || 'Real Estate Project'} in ${location}`}
+        description={`Explore ${name} by Highrachy — ${description?.slice(
+          0,
+          150
+        )}... Located in ${location}, offering ${type} with ${price}.`}
+        canonical={canonicalUrl}
+        ogImage={ogImage}
+        keywords={[
+          `${name} ${location}`,
+          `Luxury real estate ${city || 'Lagos'}`,
+          `${type} Lagos`,
+          `Highrachy real estate projects`,
+          `New homes in ${city || 'Lagos'}`,
+          `Real estate investment Nigeria`,
+          `Properties in ${location}`,
+          `Affordable homes ${city || 'Lagos'}`,
+          `Blissville real estate by Highrachy`,
+          `Smart homes ${city || 'Lagos'}`,
+        ]}
+      />
+
       <Navigation />
       <PageHeader
         title="Our Projects"

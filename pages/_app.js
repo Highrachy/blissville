@@ -11,7 +11,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import XmasFall from '@/components/utils/XmasFall';
 import Script from 'next/script';
-import { DefaultSeo } from 'next-seo';
 import { ChatMessageProvider } from 'context/chat';
 import FloatingChatButton from '@/components/common/Whatsapp';
 import { Toaster } from 'react-hot-toast';
@@ -24,10 +23,6 @@ function MyApp({ Component, pageProps }) {
         <XmasFall />
         <ToastContainer autoClose={10000} transition={Slide} theme="colored" />
         <NextNProgress color="#1f4e9f" />
-        <DefaultSeo
-          defaultTitle="Blissville: Future Ready Real Estate"
-          description="Blissville is powered by Highrachy Investment & Technology Ltd, a contemporary real estate development firm that specializes in environmentally friendly communities, and prioritizes the highest industry standards."
-        />
         <Head>
           <link
             rel="apple-touch-icon"

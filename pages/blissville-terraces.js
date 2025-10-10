@@ -55,6 +55,7 @@ import {
 } from 'react-icons/fa6';
 import { ImQuotesRight } from 'react-icons/im';
 import faqs from '@/data/faqs';
+import SeoHead from '@/components/utils/SeoHead';
 
 const AMENITY_ITEMS = [
   { label: '24/7 Security', icon: FaShieldHalved },
@@ -578,6 +579,24 @@ export default function SingleProjectPage({ property }) {
 
   return (
     <>
+      <SeoHead
+        title="Blissville Terraces | Luxury Waterfront Duplexes in Sangotedo, Lagos"
+        description="Explore Blissville Terraces — luxury 4-bedroom waterfront duplexes in Sangotedo, Lagos. Enjoy lake views, modern architecture, and smart living near Novare Mall and Lagos Business School. Built by trusted developer Highrachy."
+        canonical="https://www.blissville.com.ng/our-projects/blissville-terraces"
+        ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-2-night.jpg"
+        keywords={[
+          'Blissville Terraces Sangotedo',
+          'Luxury homes in Lagos',
+          'Waterfront duplex for sale Lagos',
+          'Homes near Novare Mall',
+          'Lagos Business School housing',
+          '4-bedroom duplex Lekki',
+          'Highrachy real estate',
+          'Smart homes in Sangotedo',
+          'Waterfront living Lagos',
+          'Energy-efficient homes Nigeria',
+        ]}
+      />
       <Navigation navigation={navigation} />
       <HeroSection property={property} />
       <PropertyFeatureBlock property={property} />
