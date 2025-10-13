@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 export default function SeoHead({
   title = 'Blissville by Highrachy | Luxury & Affordable Homes in Lagos',
-  description = 'Discover luxury and affordable homes in Lagos, Sangotedo, and Lekki. Explore waterfront terraces, detached homes, and family-friendly estates built by trusted developer Highrachy.',
+  description = 'Discover luxury and affordable homes in Lagos, Lekki, and Sangotedo. Explore waterfront terraces and family-friendly estates by trusted developer Highrachy.',
   canonical = 'https://www.blissville.com.ng',
   ogImage = 'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg',
   keywords = [
@@ -15,27 +15,59 @@ export default function SeoHead({
     'Quality homes Lagos',
     'Close to Lagos Business School',
     'Trusted builder Highrachy',
-    'Trusted builder Bojije',
     'Terraced duplexes Ajah',
     'Detached homes Omu Resort',
   ],
 }) {
   const keywordContent = keywords.join(', ');
 
+  // --- Schema.org Structured Data ---
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Highrachy Investment and Technology Ltd.',
+    url: canonical,
+    logo: 'https://www.blissville.com.ng/logo.png',
+    description,
+    sameAs: [
+      'https://www.facebook.com/blissvillehomes',
+      'https://www.instagram.com/blissvillehomes',
+      'https://www.linkedin.com/company/highrachy/',
+    ],
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: '+234-818-888-8877',
+        contactType: 'Customer Support',
+        areaServed: 'NG',
+        availableLanguage: 'English',
+      },
+    ],
+  };
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Blissville by Highrachy',
+    url: canonical,
+    description:
+      'Blissville by Highrachy offers luxury and affordable homes in Lagos. Discover terraces, apartments, and smart estates designed for modern living.',
+  };
+
   return (
     <Head>
-      {/* Basic Meta */}
+      {/* Primary Meta */}
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywordContent} />
       <link rel="canonical" href={canonical} />
 
       {/* Open Graph / Facebook */}
+      <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:type" content="website" />
       <meta property="og:url" content={canonical} />
+      <meta property="og:image" content={ogImage} />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -52,6 +84,17 @@ export default function SeoHead({
       <meta name="robots" content="index, follow" />
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      {/* Fix: No content freshness information */}
+      <meta property="og:updated_time" content={new Date().toISOString()} />
+
+      {/* ✅ Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([organizationSchema, websiteSchema]),
+        }}
+      />
     </Head>
   );
 }

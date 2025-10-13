@@ -43,17 +43,18 @@ const PropertyImageGallery = ({ property }) => {
           height={700}
           priority
         />
-        {property?.slug === '4-bedroom-waterview-terrace-duplex' && (
-          <a
-            className="btn btn-sm position-absolute top-0 start-0 m-4 text-white border-0"
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.5)', // 50% see-through black
-              backdropFilter: 'blur(4px)', // adds soft glassy look
-            }}
-          >
-            6 units left
-          </a>
-        )}
+        {property?.slug === '4-bedroom-waterview-terrace-duplex' &&
+          property?.availableUnits > 0 && (
+            <a
+              className="btn btn-sm position-absolute top-0 start-0 m-4 text-white border-0"
+              style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.5)', // 50% see-through black
+                backdropFilter: 'blur(4px)', // adds soft glassy look
+              }}
+            >
+              {property?.availableUnits} units left
+            </a>
+          )}
       </div>
       {hasGalleryImages && (
         <div className="col-md-4 d-flex flex-column gap-2">
