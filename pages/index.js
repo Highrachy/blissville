@@ -28,6 +28,7 @@ import {
   FaDoorOpen,
   FaRulerCombined,
 } from 'react-icons/fa6';
+import { useState } from 'react';
 
 const BASE_CONTENT = {
   image:
@@ -71,8 +72,9 @@ export default function Home({ slides, projects, properties }) {
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
       <ProjectsSlideshow projects={projects} />
-      <InvestToday showButton />
+      <MassiveInfrastructureSection />
       <TestimonialSection />
+      <InvestToday showButton />
       <ScheduleVisit />
       <Footer />
       <ReferralModal referralCode={query.ref} inviteCode={query.inviteCode} />
@@ -206,7 +208,7 @@ const ExecutiveSummary = () => (
         <div className="col-md-5">
           <Bounce right>
             <Image
-              src="/assets/img/home/clc-gate.jpg"
+              src="/assets/img/home/home-entrance.jpg"
               alt="Caribbean Lake City Gate"
               width={800}
               height={800}
@@ -218,6 +220,121 @@ const ExecutiveSummary = () => (
     </div>
   </Section>
 );
+
+export function MassiveInfrastructureSection() {
+  const [expanded, setExpanded] = useState(false);
+  const toggleExpanded = () => setExpanded(!expanded);
+
+  return (
+    <Section>
+      <Container>
+        <div className="row align-items-center" id="infrastructure">
+          <h2 className="fw-bold mb-3 mt-3">
+            VALUABLE INSIGHTS FROM 2025 SO FAR:
+            <br />
+            <span className="text-primary d-block d-md-inline">
+              Learn More About Massive Infrastructural Developments
+            </span>
+          </h2>
+
+          {/* RIGHT CONTENT */}
+          <div className="col-md-7">
+            <Fade left>
+              {/* First two paragraphs (always visible) */}
+              <p className="lead mb-3">
+                <strong>Blissville Terraces (BVT)</strong> at Sangotedo is
+                progressing from a &quot;potential&quot; to a
+                &quot;reality&quot;. We are witnessing the simultaneous
+                activation of mega-infrastructure projects from both the State
+                and Federal governments, securing your investment. This is not
+                just appreciation; it is acceleration, setting the stage for
+                exponential capital growth.
+              </p>
+
+              <p className="lead mb-3">
+                On February 8, 2025, the Lagos State Government signed an MoU
+                with the <strong>Summa Group</strong> (a Turkish construction
+                and investment company) to construct the{' '}
+                <strong>Lekki-Epe International Airport</strong>. Mr.{' '}
+                <strong>Babajide Sanwo-Olu</strong>, the Executive Governor of
+                Lagos State, stated that this is a &quot;new global
+                gateway&quot; that promises massive foreign investment, job
+                creation, and an influx of expatriates. <strong>BVT</strong> is
+                perfectly positioned to capture the demand for premium and
+                desirable housing that the airport will stir in the real estate
+                sector.
+              </p>
+            </Fade>
+
+            {/* Hidden content (shows on toggle) */}
+            {expanded && (
+              <>
+                <p className="lead mb-3">
+                  In addition, connectivity is now a reality. On May 26, 2025,
+                  President <strong>Bola Ahmed Tinubu</strong> commissioned
+                  Section 1 (30 km) of the{' '}
+                  <strong>Lagos-Calabar Coastal Highway</strong>, which connects
+                  Victoria Island all the way to Eleko Junction. The impact is
+                  being felt right at the Sangotedo axis, where BVT is located.
+                </p>
+
+                <p className="lead mb-3">
+                  Furthermore, the{' '}
+                  <strong>Lekki-Epe Expressway Upgrade Phase 2</strong> is
+                  easing travel, reducing the commute from Ajah / Abraham
+                  Adesanya to the BVT site to barely 10 minutes. Likewise, the
+                  underway construction of the{' '}
+                  <strong>Sangotedo Interchange Link Road</strong> and the{' '}
+                  <strong>Omu Creek Bridge</strong> ensures crucial alternative
+                  routes and a superior local access profile.
+                </p>
+
+                <p className="lead mb-3">
+                  In June 2025, the Lagos State Government launched the
+                  multi-million Euro{' '}
+                  <strong>&lsquo;Omi Eko&rsquo; Water Transport Project</strong>{' '}
+                  to expand and modernize water transportation.{' '}
+                  <strong>BVT&rsquo;s</strong> lake is fully connected to the
+                  Lagos waterways via the <strong>Omu Creek</strong>,
+                  integrating the project directly into the state&rsquo;s
+                  strategic <strong>&lsquo;Blue Economy&rsquo; network</strong>.
+                  This unique waterfront status allows BVT to command a premium
+                  built on a unique lifestyle and an integrated transport asset.
+                </p>
+
+                <p className="lead mb-4">
+                  With ongoing government projects and improved infrastructure
+                  taking shape, the long-term strength of{' '}
+                  <strong>Blissville Terraces</strong> is becoming even more
+                  evident. These developments continue to boost its appeal,
+                  value, and future potential.
+                </p>
+              </>
+            )}
+
+            {/* Read More / Show Less button */}
+            <Button variant="dark" onClick={toggleExpanded}>
+              {expanded ? 'Show Less' : 'Read More'}
+            </Button>
+          </div>
+
+          {/* IMAGE */}
+          <div className="col-md-5 mb-4 ps-md-5 mb-md-0">
+            <Fade right>
+              <Image
+                src="/assets/img/home/clc-gate.jpg"
+                alt="Caribbean Lake City Gate"
+                width={800}
+                height={800}
+                className="img-fluid rounded-2 shadow-sm"
+              />
+            </Fade>
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
+}
 
 export function VideoCoverSection({ videoSrc }) {
   return (
