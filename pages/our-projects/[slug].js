@@ -637,7 +637,7 @@ export async function getStaticProps({ params }) {
 
   if (!data || data.length === 0) {
     const resAll = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*&sort=createdAt:desc`
     );
     const { data: allData } = await resAll.json();
     data = allData;

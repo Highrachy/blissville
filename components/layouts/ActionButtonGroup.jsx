@@ -6,7 +6,7 @@ import { PHONE_NUMBER, PHONE_NUMBER_ALT } from '@/utils/constants';
 
 const ActionButtonGroup = ({
   price = 35_000_000,
-  href = '#',
+  href = '/our-projects/blissville-terraces',
   useAltPhone = false,
 }) => {
   return (
