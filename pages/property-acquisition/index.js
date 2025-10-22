@@ -9,7 +9,7 @@ import {
   isDevEnvironment,
   valuesToOptions,
 } from '@/utils/helpers';
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Footer from '@/components/common/Footer';
 import Navigation from '@/components/layouts/Navigation';
@@ -28,71 +28,146 @@ import { titles } from '@/utils/constants';
 import { PaddedSection } from 'pages/investors/apply';
 import InputFormat from '@/components/forms/InputFormat';
 import FormikButton from '@/components/forms/FormikButton';
+import Modal from '@/components/ui/Modal';
+import Link from 'next/link';
 
 const PropertyAcquisitionForm = () => {
   return (
     <>
       <Navigation />
-      <PageHeader
-        title="Acquire Property"
-        subHeader="Apply today to acquire your property"
-        bgImage="/assets/img/bg/property-acquisitions.jpeg"
-      />
       <AcquisitionForm />
       <Footer />
     </>
   );
 };
 
-const IntroText = () => (
-  <div className="row">
-    <div className="col-md-7 col-lg-7 pe-5">
-      <p className="fw-normal">
-        Thank you for considering acquiring property with us. The process to
-        participate in our exciting property acquisition opportunities is
-        outlined below.
-      </p>
-      <ol className="lh-2">
-        <li className="mb-4">
-          Select a property acquisition plan that suits your needs below.
-        </li>
-        <li className="mb-4">
-          After completing the form, our team will review it and contact you to
-          finalize the acquisition agreement.
-        </li>
-        <li className="mb-4">
-          You can make the payment to our bank account:
-          <ul className="bg-primary-50 list-unstyled p-4 mt-2 rounded border-1">
-            <li>
-              <strong>Account Name:</strong> Highrachy Investment & Technology
-              Limited
-            </li>
-            <li>
-              <strong>Account Number:</strong> 0029082860
-            </li>
-            <li>
-              <strong>Bank:</strong> Stanbic IBTC Bank PLC
-            </li>
-          </ul>
-        </li>
-      </ol>
-      <p className="">
-        We are excited to embark on this journey together and look forward to
-        welcoming you as a valued partner in our project.
-      </p>
+const IntroText = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <div className="row">
+      <div className="col-md-7 col-lg-7 pe-5">
+        <p className="fw-normal">
+          Thank you for considering acquiring property with us. The process to
+          participate in our exciting property acquisition opportunities is
+          outlined below.
+        </p>
+        <ol className="lh-2">
+          <li className="mb-4">
+            Select a property acquisition plan that suits your needs below.
+          </li>
+          <li className="mb-4">
+            After completing the form, our team will review it and contact you
+            to finalize the acquisition agreement.
+          </li>
+          <li className="mb-4">
+            You can make the payment to our bank account:
+            <ul className="bg-primary-50 list-unstyled p-4 mt-2 rounded border-1">
+              <li>
+                <strong>Account Name:</strong> Highrachy Investment & Technology
+                Limited
+              </li>
+              <li>
+                <strong>Account Number:</strong> 0029082860
+              </li>
+              <li>
+                <strong>Bank:</strong> Stanbic IBTC Bank PLC
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p className="">
+          We are excited to embark on this journey together and look forward to
+          welcoming you as a valued partner in our project.
+        </p>
+      </div>
+      <div className="col-md-5 col-lg-5">
+        <Image
+          src="/assets/img/home/dream-home.jpg"
+          alt="Property Image"
+          width={769}
+          height={800}
+          className="img-cover rounded-3 pe-md-3"
+        />
+      </div>
+
+      {/* Confirmation text with modal and privacy policy link */}
+      <div className="mt-4">
+        <p className="text-dark">
+          By continuing, you confirm that you agree to our{' '}
+          <span
+            className="text-primary"
+            style={{ cursor: 'pointer', textDecoration: 'underline' }}
+            onClick={() => setShowModal(true)}
+          >
+            Terms and Conditions
+          </span>{' '}
+          and{' '}
+          <Link href="/terms-of-use">
+            <a className="text-primary" style={{ textDecoration: 'underline' }}>
+              Privacy Policy
+            </a>
+          </Link>
+          .
+        </p>
+
+        <Modal show={showModal} size="lg" onHide={() => setShowModal(false)}>
+          <div className="p-4">
+            <h5 className="fw-bold">Terms and Conditions</h5>
+            <p>
+              By participating in this property acquisition process, you agree
+              to abide by the terms and conditions set forth by Highrachy
+              Investment & Technology Limited. Please ensure you have read and
+              understood all the details before proceeding.
+            </p>
+            <p>
+              By completing and submitting this form, you acknowledge and agree
+              to the following:
+            </p>
+            <ol>
+              <li>
+                Your submission signals a serious intent to proceed with the
+                property acquisition process under the plan you have selected,
+                subject to our internal review and acceptance.
+              </li>
+              <li>
+                This submission is an initial declaration only and does not
+                constitute a formal, legally binding contract, purchase, or
+                legal agreements. No rights or obligations are created until all
+                necessary, comprehensive legal documents have been drafted and
+                formally executed (signed) by all parties involved.
+              </li>
+              <li>
+                You certify that all information you have provided in this form
+                is true, accurate, and complete to the best of your knowledge.
+              </li>
+              <li>
+                Any mention of payment details on this form is for informational
+                reference only. You agree not to transfer any funds until you
+                have received and signed the formal legal documents, which will
+                contain the official, legally approved payment instructions and
+                schedule.
+              </li>
+              <li>
+                You agree to be bound by the general Terms & Conditions and
+                Privacy Policy published on our main website, which govern the
+                overall use of our services.
+              </li>
+            </ol>
+            <button
+              className="btn btn-primary mt-3"
+              onClick={() => setShowModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </Modal>
+      </div>
+
+      <div className="dotted-border-muted my-5"></div>
     </div>
-    <div className="col-md-5 col-lg-5">
-      <Image
-        src="/assets/img/home/dream-home.jpg"
-        alt="Property Image"
-        width={769}
-        height={800}
-        className="img-cover rounded-3 pe-md-3"
-      />
-    </div>
-    <div className="dotted-border-muted my-5"></div>
-  </div>
-);
+  );
+};
 
 const ClientDetails = () => (
   <>
@@ -360,7 +435,7 @@ const AcquisitionForm = () => {
     setErrorFields(fields);
   };
   return (
-    <Section>
+    <Section noPaddingTop className="pt-5">
       <FormikForm
         schema={propertyAcquisitionSchema}
         handleSubmit={handleSubmit}
@@ -377,12 +452,12 @@ const AcquisitionForm = () => {
             {isFirstStep && <h3 className="mb-4">{ALL_STEPS_TITLE[step]}</h3>}
             <div className="">
               {!isFirstStep && (
-                <h4 className="mb-3">
+                <h2 className="mb-3">
                   {ALL_STEPS_TITLE[step]}{' '}
                   <span className="text-muted">
                     (Step {step}/{lastStep})
                   </span>{' '}
-                </h4>
+                </h2>
               )}
               {errorFields.length > 0 && (
                 <div className="alert alert-danger">
