@@ -8,7 +8,6 @@ const TermsOfUsePage = () => {
   return (
     <>
       <Navigation />
-      <PageHeader title="Terms of Use" bgImage="/assets/img/bg/about-us.jpeg" />
       <Content />
       <ScheduleVisit />
       <Footer />

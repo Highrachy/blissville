@@ -47,7 +47,7 @@ const SingleProject = ({ id, attributes }) => {
               <li>
                 <span className="list-dotted__label">Total Units </span>
                 <span className="list-dotted__value">
-                  {slug === 'blissville-uno' ? 5 : 14} Units
+                  {slug === 'blissville-apartments' ? 12 : 14} Units
                 </span>
               </li>
               <li>
