@@ -29,7 +29,7 @@ const ContactUs = () => {
   return (
     <>
       <SeoHead
-        title="Contact Blissville | Get in Touch with Highrachy Real Estate Developers in Lagos"
+        title="Contact Blissville | Get in Touch with Highrachy Real Estate"
         description="Contact Blissville by Highrachy today. Visit our Lagos office or reach out for inquiries about luxury homes, waterfront terraces, investment opportunities, and real estate partnerships."
         canonical="https://www.blissville.com.ng/contact-us"
         ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg"
@@ -48,12 +48,37 @@ const ContactUs = () => {
       />
       <Navigation />
       <Map />
+      <ContactIntro />
       <ContactUsForm />
       <ContactInfo />
       <Footer />
     </>
   );
 };
+
+const ContactIntro = () => (
+  <section className="py-5">
+    <div className="container text-center">
+      <h2 className="fw-bold mb-3 mt-3 text-primary">
+        Let&apos;s Help You Take the Next Step
+      </h2>
+
+      <p className="lead mx-auto mb-3" style={{ maxWidth: '720px' }}>
+        Whether you are ready to invest, book a site visit, or learn more about{' '}
+        <strong>Blissville</strong> developments, our team at{' '}
+        <strong>Highrachy</strong> is always available to assist. We value open
+        communication and ensure every inquiry receives prompt attention.
+      </p>
+
+      <p className="lead mx-auto" style={{ maxWidth: '720px' }}>
+        Visit our office in <strong>Victoria Island, Lagos</strong>, or reach us
+        by phone or email. Our goal is to make owning a{' '}
+        <strong>home in Lagos</strong> simple, secure, and rewarding. Let&apos;s
+        start your journey toward a better living experience today.
+      </p>
+    </div>
+  </section>
+);
 
 const Map = () => (
   <section className="google-map">
@@ -155,16 +180,18 @@ const ContactInfo = () => (
 
 const ContactUsForm = () => {
   return (
-    <Section className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-10">
-          <div className="text-center">
-            <h3>Contact Us</h3>
-            <p className="lead">
-              We&apos;ll update you within the next 24 hours
-            </p>
+    <Section altBg>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-10">
+            <div className="text-center">
+              <h1>Send Us a Message</h1>
+              <p className="lead">
+                We&apos;ll update you within the next 24 hours
+              </p>
+            </div>
+            <ContactForm />
           </div>
-          <ContactForm />
         </div>
       </div>
     </Section>

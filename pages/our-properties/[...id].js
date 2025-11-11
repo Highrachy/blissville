@@ -84,7 +84,7 @@ export default function SinglePropertyPage({
   return (
     <>
       <SeoHead
-        title={`${name} | ${beds || ''}-Bedroom ${projectName} in ${location}`}
+        title={`${beds || ''}-Bedroom ${projectName} in ${location}`}
         description={`Discover ${name} at ${projectName} — a modern ${
           beds || ''
         }-bedroom property in ${location}. ${description?.slice(

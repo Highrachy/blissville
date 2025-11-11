@@ -37,7 +37,7 @@ const TermsOfUsePage = () => {
 const Content = () => (
   <section>
     <div className="container my-md-5 my-3 py-md-5 py-3 px-4 px-md-8 terms-of-use">
-      <h3 className="tou-title">TERMS OF USE &amp; PRIVACY</h3>
+      <h1 className="tou-title">TERMS OF USE &amp; PRIVACY</h1>
       <p>
         By proceeding to use the resources on this website, you represent that
         you have read and are adequately advised on the terms and conditions

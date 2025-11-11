@@ -51,11 +51,11 @@ import {
   FaBolt,
   FaLeaf,
   FaWaterLadder,
-  FaCheckCircle,
 } from 'react-icons/fa6';
 import { ImQuotesRight } from 'react-icons/im';
 import faqs from '@/data/faqs';
 import SeoHead from '@/components/utils/SeoHead';
+import { FaCheckCircle } from 'react-icons/fa';
 
 const AMENITY_ITEMS = [
   { label: '24/7 Security', icon: FaShieldHalved },

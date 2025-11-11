@@ -12,7 +12,7 @@ export default function FAQs() {
   return (
     <>
       <SeoHead
-        title="FAQs | Questions About Blissville Homes and Highrachy Real Estate in Lagos"
+        title="FAQs | Questions About Blissville Homes"
         description="Find answers to the most common questions about Blissville Terraces, our payment plans, property ownership process, smart home features, and Highrachy’s real estate developments in Lagos and across Nigeria."
         canonical="https://www.blissville.com.ng/faqs"
         ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"

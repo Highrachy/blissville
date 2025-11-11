@@ -77,7 +77,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
   return (
     <>
       <SeoHead
-        title={`${name} | ${type || 'Real Estate Project'} in ${location}`}
+        title={`${name} | ${type || 'Real Estate Project'}`}
         description={`Explore ${name} by Highrachy — ${description?.slice(
           0,
           150

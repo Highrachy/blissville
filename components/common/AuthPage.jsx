@@ -4,7 +4,7 @@ import Footer from '@/components/common/Footer';
 import TopNavigation from '@/components/layouts/Navigation';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { PageHeader } from '@/components/common/Header';
-import SeoHead from '@/components/common/SeoHead'; // ✅ Import SEO component
+import SeoHead from '../utils/SeoHead';
 
 const AuthPage = ({
   children,
