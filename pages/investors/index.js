@@ -10,11 +10,30 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import useWindowSize from '@/hooks/useWindowSize';
 import { Slide } from 'react-reveal';
 import { TestimonialSection } from '@/components/common/Testimonials';
+import SeoHead from '@/components/utils/SeoHead';
 
 export default function Investors() {
   return (
     <>
       <Navigation />
+      <SeoHead
+        title="Investors | Real Estate Investment Opportunities in Lagos | Blissville by Highrachy"
+        description="Invest with Blissville by Highrachy and watch your money grow. Explore exclusive real estate investment opportunities in Lagos with annual growth rates exceeding 200%."
+        canonical="https://www.blissville.com.ng/investors"
+        ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-2-front.jpg"
+        keywords={[
+          'Real estate investment Lagos',
+          'Blissville investors',
+          'Highrachy investment opportunities',
+          'Property investment Nigeria',
+          'Invest in Blissville Lagos',
+          'Luxury real estate Nigeria',
+          'Best investment opportunities Lagos',
+          'Affordable real estate returns',
+          'Highrachy real estate investors',
+          'Property wealth growth Nigeria',
+        ]}
+      />
       <PageHeader
         title="Investors"
         subHeader="INVEST TODAY AND WATCH YOUR MONEY GROW..."

@@ -3,10 +3,29 @@ import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
+import SeoHead from '@/components/utils/SeoHead';
 
 const TermsOfUsePage = () => {
   return (
     <>
+      <SeoHead
+        title="Terms of Use & Privacy Policy | Blissville by Highrachy"
+        description="Read the Terms of Use and Privacy Policy for Blissville by Highrachy. Learn about our data handling, website use policies, and user rights for our real estate platform in Lagos, Nigeria."
+        canonical="https://www.blissville.com.ng/terms-of-use"
+        ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"
+        keywords={[
+          'Blissville terms of use',
+          'Blissville privacy policy',
+          'Highrachy legal terms',
+          'Real estate privacy Lagos',
+          'Blissville website policy',
+          'Highrachy data protection',
+          'Terms and conditions Nigeria',
+          'Property investment terms',
+          'Real estate compliance Nigeria',
+          'Blissville user agreement',
+        ]}
+      />
       <Navigation />
       <Content />
       <ScheduleVisit />

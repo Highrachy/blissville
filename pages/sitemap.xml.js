@@ -6,7 +6,6 @@ export async function getServerSideProps({ res }) {
     '/about-us',
     '/projects',
     '/our-projects/blissville-terraces',
-    '/our-projects/blissville-gardens',
     '/our-projects/blissville-apartments',
     '/past-projects',
     '/our-properties',

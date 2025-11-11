@@ -6,11 +6,30 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { SingleProjectGrid } from '@/components/common/SingleProject';
 import axios from 'axios';
 import { PROJECT_STATUS } from '@/utils/constants';
+import SeoHead from '@/components/utils/SeoHead';
 
 export default function PastProjects({ projects, properties }) {
   return (
     <>
       <Navigation />
+      <SeoHead
+        title="Past Projects | Completed Real Estate Developments by Highrachy in Lagos"
+        description="Explore completed real estate projects by Highrachy, the developer behind Blissville Homes. Discover our legacy of luxury and affordable housing in Lekki, Sangotedo, and Lagos."
+        canonical="https://www.blissville.com.ng/past-projects"
+        ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"
+        keywords={[
+          'Completed real estate projects Lagos',
+          'Highrachy developments',
+          'Past projects Blissville',
+          'Luxury homes Lagos',
+          'Affordable homes Lekki',
+          'Completed estates Sangotedo',
+          'Terraced duplexes Lagos',
+          'Trusted real estate developer Nigeria',
+          'Highrachy housing projects',
+          'Lagos real estate portfolio',
+        ]}
+      />
       <PageHeader
         title="Past Projects"
         subHeader="Powered By Highrachy"
