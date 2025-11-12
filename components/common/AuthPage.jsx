@@ -10,6 +10,7 @@ const AuthPage = ({
   children,
   title,
   page,
+  canonical = '',
   bigForm = false,
   seo = {}, // ✅ Optional prop for custom SEO overrides
 }) => {
@@ -17,7 +18,9 @@ const AuthPage = ({
   const defaultSeo = {
     title: `${page} | Blissville by Highrachy`,
     description: `Access your Blissville by Highrachy account to ${page.toLowerCase()} and manage your property investments in Lagos.`,
-    canonical: `https://www.blissville.com.ng/${page.toLowerCase()}`,
+    canonical: `https://www.blissville.com.ng/${
+      canonical || page.toLowerCase()
+    }`,
     ogImage:
       'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg',
     keywords: [
@@ -32,7 +35,6 @@ const AuthPage = ({
       'Highrachy account access',
       'Property ownership Lagos',
     ],
-    noIndex: true, // ✅ Prevent auth pages from being indexed
   };
 
   return (

@@ -47,7 +47,11 @@ const Login = () => {
   };
 
   return (
-    <AuthPage page="Forgot Password" title="Forgot Password">
+    <AuthPage
+      page="Forgot Password"
+      title="Forgot Password"
+      canonical="forgot-password"
+    >
       <FormikForm
         schema={forgotPasswordSchema}
         handleSubmit={handleSubmit}

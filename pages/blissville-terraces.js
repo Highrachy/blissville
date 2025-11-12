@@ -358,7 +358,7 @@ const PropertyFeatureBlock = ({ property }) => {
 
             <small className="text-muted fw-bold mt-5">Prices From</small>
             <h2 className="text-primary lh-sm pb-3">
-              {moneyFormatInNaira(15_000_000)}
+              {moneyFormatInNaira(25_000_000)}
               <span className="text-sm text-muted-light">
                 / Initial Deposit
               </span>
