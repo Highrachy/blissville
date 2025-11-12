@@ -12,9 +12,9 @@ export const PageHeader = ({ title, breadcrumb, bgImage, subHeader }) => {
         <Section noPaddingBottom className="pb-5">
           <div className="container mt-7">
             <h1 className="text-page-header">{title}</h1>
-            <h2 className="text-page-subheader">
+            <h3 className="text-page-subheader">
               {subHeader || 'Powered By Highrachy'}
-            </h2>
+            </h3>
             {false && <BreadCrumb breadcrumb={currentBreadCrumb} />}
           </div>
         </Section>

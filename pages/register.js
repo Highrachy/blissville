@@ -46,7 +46,12 @@ const Register = () => {
   };
 
   return (
-    <AuthPage page="Registration" title="Create a new account" bigForm>
+    <AuthPage
+      page="Registration"
+      title="Create a new account"
+      bigForm
+      canonical="register"
+    >
       {referredBy && (
         <div className="text-muted-light font-secondary text-sm mt-n1 mb-5">
           Referred By {referredBy.firstName} with referral code:{' '}
