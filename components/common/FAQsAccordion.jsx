@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, Accordion } from 'react-bootstrap';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import AccordionContext from 'react-bootstrap/AccordionContext';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaMinus, FaPlus } from 'react-icons/fa6';
 
 export const ContextAwareToggle = ({
   children,
@@ -22,12 +22,12 @@ export const ContextAwareToggle = ({
   const isCurrentEventKey = activeEventKey === eventKey;
 
   return (
-    <h6 className="m-0 p-4" onClick={decoratedOnClick}>
+    <p className="m-0 p-4 text-medium" onClick={decoratedOnClick}>
       {children}
-      <span className="icon-sm float-end">
+      <span className="icon-xs float-end">
         {isCurrentEventKey ? iconOpen : iconClose}
       </span>
-    </h6>
+    </p>
   );
 };
 
@@ -41,8 +41,8 @@ ContextAwareToggle.propTypes = {
 
 ContextAwareToggle.defaultProps = {
   callback: () => {},
-  iconClose: <FaChevronDown />,
-  iconOpen: <FaChevronUp />,
+  iconClose: <FaPlus />,
+  iconOpen: <FaMinus />,
 };
 
 const FAQsAccordion = ({ faqs }) => {

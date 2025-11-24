@@ -11,6 +11,7 @@ import StrategicRelationships from '@/components/layouts/StrategicRelationships'
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import useWindowSize from '@/hooks/useWindowSize';
 import SeoHead from '@/components/utils/SeoHead';
+import CoreValues from '@/components/common/CoreValues';
 
 export default function AboutUs() {
   return (
@@ -40,6 +41,7 @@ export default function AboutUs() {
       />
       <IntroText />
       <CEOSpeech />
+      <CoreValues />
       <Benefits />
       <Team />
       <StrategicRelationships />

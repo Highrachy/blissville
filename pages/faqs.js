@@ -47,7 +47,7 @@ export const AllFAQs = () => {
       <div className="row">
         {faqs.map(({ name, faqs: allFaqs }, index) => (
           <div className="mt-5 col-12 faqs-section" key={index}>
-            <h4>{name}</h4>
+            <h4 className="text-primary">{name}</h4>
             <FAQsAccordion faqs={allFaqs} />
           </div>
         ))}

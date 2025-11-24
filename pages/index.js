@@ -29,6 +29,7 @@ import {
   FaRulerCombined,
 } from 'react-icons/fa6';
 import { useState } from 'react';
+import { CoreValuesSlider } from '@/components/common/CoreValues';
 
 const BASE_CONTENT = {
   image:
@@ -69,6 +70,7 @@ export default function Home({ slides, projects, properties }) {
       {/* {showAds ? <AdsSection /> : <HeroSection slides={slides} />} */}
       <VideoCoverSection videoSrc="/videos/project-intro.mp4" />
       <ExecutiveSummary />
+      <CoreValuesSlider />
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
       <ProjectsSlideshow projects={projects} />
