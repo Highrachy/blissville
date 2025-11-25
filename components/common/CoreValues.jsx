@@ -5,13 +5,19 @@ import Section from './Section';
 // Swiper
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Image from 'next/image';
+
+const CoreValuesTitle = () => (
+  <h4 className="my-4">
+    The QWIS Difference:
+    <span className="text-primary d-block d-md-inline"> Our Core Values</span>
+  </h4>
+);
 
 export const CoreValuesSlider = () => {
   return (
     <Section>
       <div className="container">
-        <h4 className="my-4">The QWIS Difference: Our Core Values</h4>
+        <CoreValuesTitle />
 
         <Swiper
           modules={[Autoplay, Pagination, A11y]}
@@ -34,7 +40,9 @@ export const CoreValuesSlider = () => {
         >
           {coreValues.map((value, index) => (
             <SwiperSlide key={index}>
-              <SingleCoreValue {...value} />
+              <div className="h-100">
+                <SingleCoreValue {...value} />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -49,8 +57,7 @@ const CoreValues = ({ className }) => {
   return (
     <Section id="core-values" className={className}>
       <div className="container">
-        <h3 className="my-4">The QWIS Difference: Our Core Values</h3>
-
+        <CoreValuesTitle />
         {/* 2 per row from sm → xxl */}
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 gy-5 gx-5">
           {items.map((value) => (
@@ -93,7 +100,9 @@ export const SingleCoreValue = ({
 
       {/* Card Content */}
       <div className="position-relative py-5" style={{ zIndex: 2 }}>
-        <Icon size={46} color={color} variant="Bold" className="mb-3" />
+        <div className="mb-3" style={{ width: 46, height: 46 }}>
+          <Icon size={46} color={color} variant="Bulk" className="mb-3" />
+        </div>
 
         <h6
           className="text-uppercase mb-2 font-secondary"

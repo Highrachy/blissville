@@ -6,7 +6,7 @@ export const home = {
 
 export const projects = {
   title: 'Projects',
-  url: '/projects',
+  url: 'projects',
   children: {
     '/our-projects/blissville-terraces': 'Blissville Terraces',
     '/our-projects/blissville-apartments': 'Blissville Apartments',
@@ -18,13 +18,13 @@ export const projects = {
 
 export const faqs = {
   title: 'Faqs',
-  url: '/faqs',
+  url: 'faqs',
   children: {},
 };
 
 export const aboutUs = {
   title: 'About Us',
-  url: '/about-us',
+  url: 'about-us',
   children: {
     '/about-us': 'About Blissville',
     '/about-us#meet-our-team': 'Meet Our Team',
@@ -34,18 +34,18 @@ export const aboutUs = {
 
 export const investors = {
   title: 'Investors',
-  url: '/investors',
+  url: 'investors',
   children: {},
 };
 
 export const contactUs = {
   title: 'Contact Us',
-  url: '/contact-us',
+  url: 'contact-us',
   children: {},
 };
 export const login = {
   title: 'Login',
-  url: '/login',
+  url: 'login',
   children: {},
 };
 

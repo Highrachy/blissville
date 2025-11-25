@@ -51,7 +51,9 @@ export const BenefitSlider = () => {
         >
           {benefits.map((benefit, index) => (
             <SwiperSlide key={index}>
-              <SingleBenefits key={index} {...benefit} />
+              <div className="h-100">
+                <SingleBenefit key={index} {...benefit} />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -68,7 +70,7 @@ const Benefits = ({ className, topThree }) => {
         <h3 className="my-4">Why Choose Blissville</h3>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 gy-5 gx-5">
           {allBenefits.map((benefit) => (
-            <SingleBenefits key={benefit.title} {...benefit} />
+            <SingleBenefit key={benefit.title} {...benefit} />
           ))}
         </div>
       </div>
@@ -76,25 +78,31 @@ const Benefits = ({ className, topThree }) => {
   );
 };
 
-export const SingleBenefits = ({ icon, title, text }) => (
-  <div className="col d-flex align-items-stretch">
-    <div className="benefits-card d-flex flex-column h-100">
-      <div className="bg-icon" key={title} id={title}>
-        <Image
-          alt={title}
-          src={`/assets/img/benefits/${icon}.png`}
-          width={46}
-          height={46}
-        />
-      </div>
-      <h6 className="text-uppercase mt-4 mb-2 font-secondary text-primary">
-        {title}
-      </h6>
-      <div className="flex-grow-1 d-flex align-items-center">
+export const SingleBenefit = ({
+  icon: Icon,
+  color,
+  titleColor,
+  title,
+  text,
+}) => (
+  <div className="col d-flex">
+    <div className="benefits-card position-relative d-flex flex-column h-100 p-3">
+      {/* CONTENT */}
+      <div className="position-relative py-5" style={{ zIndex: 2 }}>
+        <div className="mb-3" style={{ width: 46, height: 46 }}>
+          <Icon size={46} color={color} variant="Bulk" className="mb-3" />
+        </div>
+
+        <h6
+          className="text-uppercase mb-2 font-secondary"
+          style={{ color: titleColor }}
+        >
+          {title}
+        </h6>
+
         <p className="text-gray-700 mb-0">{text}</p>
       </div>
     </div>
   </div>
 );
-
 export default Benefits;
