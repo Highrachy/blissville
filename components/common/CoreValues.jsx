@@ -5,36 +5,50 @@ import Section from './Section';
 // Swiper
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Image from 'next/image';
+
+const CoreValuesTitle = () => (
+  <h4 className="my-4">
+    The QWIS Difference:
+    <span className="text-primary d-block d-md-inline"> Our Core Values</span>
+  </h4>
+);
 
 export const CoreValuesSlider = () => {
   return (
     <Section>
       <div className="container">
-        <h4 className="my-4">The QWIS Difference: Our Core Values</h4>
+        <CoreValuesTitle />
 
         <Swiper
           modules={[Autoplay, Pagination, A11y]}
-          autoHeight={true}
+          slidesPerView={1}
+          spaceBetween={20}
           autoplay={{
             delay: 5000,
-            disableOnInteraction: true,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false,
           }}
           navigation={false}
-          slidesPerView={1}
-          spaceBetween={10}
           pagination={{ clickable: true }}
           breakpoints={{
-            640: { slidesPerView: 2, spaceBetween: 20 },
-            991: { slidesPerView: 3, spaceBetween: 50 },
+            640: { slidesPerView: 2, spaceBetween: 24 },
+            992: { slidesPerView: 2, spaceBetween: 24 },
+            1200: { slidesPerView: 2, spaceBetween: 40 },
           }}
-          loop={true}
-          loopFillGroupWithBlank={true}
+          onReachEnd={(swiper) => {
+            // Wait a moment before restarting autoplay
+            setTimeout(() => {
+              swiper.slideTo(0); // Go back to first slide
+              swiper.autoplay.start(); // Resume autoplay
+            }, 5000);
+          }}
           grabCursor={true}
         >
           {coreValues.map((value, index) => (
             <SwiperSlide key={index}>
-              <SingleCoreValue {...value} />
+              <div className="h-100 d-flex align-items-stretch">
+                <SingleCoreValue {...value} />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -49,8 +63,7 @@ const CoreValues = ({ className }) => {
   return (
     <Section id="core-values" className={className}>
       <div className="container">
-        <h3 className="my-4">The QWIS Difference: Our Core Values</h3>
-
+        <CoreValuesTitle />
         {/* 2 per row from sm → xxl */}
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 gy-5 gx-5">
           {items.map((value) => (
@@ -71,8 +84,14 @@ export const SingleCoreValue = ({
   text,
 }) => (
   <div className="col d-flex">
-    <div className="benefits-card position-relative d-flex flex-column h-100 p-3">
-      {/* Watermark (inside the card so it shows) */}
+    <div
+      className="benefits-card position-relative d-flex flex-column w-100"
+      style={{
+        minHeight: 280, // SAME height for all cards
+        padding: '1.5rem',
+      }}
+    >
+      {/* Watermark */}
       <div
         className="corevalue-watermark"
         style={{
@@ -91,18 +110,17 @@ export const SingleCoreValue = ({
         {watermark}
       </div>
 
-      {/* Card Content */}
+      {/* Content */}
       <div className="position-relative py-5" style={{ zIndex: 2 }}>
-        <Icon size={46} color={color} variant="Bold" className="mb-3" />
+        <div className="mb-3" style={{ width: 46, height: 46, flexShrink: 0 }}>
+          <Icon size={46} color={color} variant="Bold" className="mb-3" />
+        </div>
 
-        <h6
-          className="text-uppercase mb-2 font-secondary"
-          style={{ color: titleColor }}
-        >
+        <h6 className="text-uppercase mb-2" style={{ color: titleColor }}>
           {title}
         </h6>
 
-        <p className="text-gray-700 mb-0 flex-grow-1">{text}</p>
+        <p className="text-gray-700 mb-0">{text}</p>
       </div>
     </div>
   </div>
