@@ -30,6 +30,7 @@ import {
 } from 'react-icons/fa6';
 import { useState } from 'react';
 import { CoreValuesSlider } from '@/components/common/CoreValues';
+import { VideoContainer } from './our-projects/[slug]';
 
 const BASE_CONTENT = {
   image:
@@ -207,14 +208,13 @@ const ExecutiveSummary = () => (
             <ActionButtonGroup />
           </Fade>
         </div>
-        <div className="col-md-5">
+        <div className="col-md-5 mt-7">
           <Bounce right>
-            <Image
-              src="/assets/img/home/home-entrance.jpg"
-              alt="Caribbean Lake City Gate"
-              width={800}
-              height={800}
-              className="mt-4 img-cover rounded-2 shadow"
+            <VideoContainer
+              fullscreenModal
+              noOverviewCard
+              videoURL="/videos/blissville-video.mp4"
+              videoThumbnail="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg"
             />
           </Bounce>
         </div>

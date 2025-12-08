@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
+import Modal from '@/components/ui/Modal';
 import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
@@ -389,67 +390,125 @@ export function BrochureButton({ brochureURL }) {
   );
 }
 
-export function VideoContainer({ videoThumbnail, videoURL }) {
+export function VideoContainer({
+  videoThumbnail,
+  videoURL,
+  noOverviewCard = false,
+  fullscreenModal = false,
+}) {
   const [playing, setPlaying] = React.useState(false);
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
+  const [modalPlaying, setModalPlaying] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!isFullscreen) return undefined;
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setIsFullscreen(false);
+        setModalPlaying(false);
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isFullscreen]);
+
+  const content = (
+    <div
+      className="ratio ratio-16x9 mb-3 position-relative"
+      style={{
+        border: '2px solid #e5e7eb',
+        borderRadius: '8px',
+        overflow: 'hidden',
+      }}
+    >
+      {!playing && (
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+          style={{
+            background: 'rgba(0,0,0,0.45)',
+            zIndex: 2,
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            if (fullscreenModal) {
+              setIsFullscreen(true);
+              setModalPlaying(true);
+              setPlaying(false);
+            } else {
+              setPlaying(true);
+            }
+          }}
+        >
+          <Image
+            src={videoThumbnail}
+            alt="Blissville Terraces Video Thumbnail"
+            layout="fill"
+            objectFit="cover"
+            style={{ filter: 'brightness(0.6)' }}
+            priority
+          />
+          <span
+            style={{
+              position: 'absolute',
+              color: '#fff',
+              fontSize: 64,
+              background: 'rgba(0,0,0,0.5)',
+              borderRadius: '50%',
+              padding: 20,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.5)" />
+              <polygon points="26,20 48,32 26,44" fill="#fff" />
+            </svg>
+          </span>
+        </div>
+      )}
+      {/* Note: clicking the overlay opens fullscreen modal when `fullscreenModal` is true */}
+      <ReactPlayer
+        url={videoURL}
+        width="100%"
+        height="100%"
+        controls
+        playing={playing}
+        style={{ position: 'absolute', top: 0, left: 0 }}
+      />
+    </div>
+  );
+
+  // Render the project's Modal component for fullscreen playback when requested
+  const onHideModal = () => {
+    setIsFullscreen(false);
+    setModalPlaying(false);
+  };
+
+  const modal = (
+    <Modal show={isFullscreen} onHide={onHideModal} size="xl" title="Video" showFooter={false}>
+      <div style={{ width: '100%', height: '70vh' }}>
+        <ReactPlayer url={videoURL} width="100%" height="100%" controls playing={modalPlaying} />
+      </div>
+    </Modal>
+  );
+
+  if (noOverviewCard) {
+    return (
+      <>
+        {content}
+        {modal}
+      </>
+    );
+  }
 
   return (
-    <OverviewCard id="video" header="Video">
-      <div
-        className="ratio ratio-16x9 mb-3 position-relative"
-        style={{
-          border: '2px solid #e5e7eb',
-          borderRadius: '8px',
-          overflow: 'hidden',
-        }}
-      >
-        {!playing && (
-          <div
-            className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-            style={{
-              background: 'rgba(0,0,0,0.45)',
-              zIndex: 2,
-              cursor: 'pointer',
-            }}
-            onClick={() => setPlaying(true)}
-          >
-            <Image
-              src={videoThumbnail}
-              alt="Blissville Terraces Video Thumbnail"
-              layout="fill"
-              objectFit="cover"
-              style={{ filter: 'brightness(0.6)' }}
-              priority
-            />
-            <span
-              style={{
-                position: 'absolute',
-                color: '#fff',
-                fontSize: 64,
-                background: 'rgba(0,0,0,0.5)',
-                borderRadius: '50%',
-                padding: 20,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.5)" />
-                <polygon points="26,20 48,32 26,44" fill="#fff" />
-              </svg>
-            </span>
-          </div>
-        )}
-        <ReactPlayer
-          url={videoURL}
-          width="100%"
-          height="100%"
-          controls
-          playing={playing}
-          style={{ position: 'absolute', top: 0, left: 0 }}
-        />
-      </div>
-    </OverviewCard>
+    <>
+      <OverviewCard id="video" header="Video">
+        {content}
+      </OverviewCard>
+      {modal}
+    </>
   );
 }
 
