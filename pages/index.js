@@ -76,6 +76,7 @@ export default function Home({ slides, projects, properties }) {
       <BenefitSlider />
       <ProjectsSlideshow projects={projects} />
       <MassiveInfrastructureSection />
+      <BlogSection />
       <TestimonialSection />
       <InvestToday showButton />
       <ScheduleVisit />
@@ -170,6 +171,84 @@ const AdsSection = () => {
     </Link>
   );
 };
+
+const BLOG_POSTS = [
+  {
+    id: 1,
+    title: 'Beyond the Hype: Tenets of a Winning Real Estate Deal',
+    excerpt:
+      'A deep dive into what truly makes a real estate investment successful beyond marketing hype and quick sales.',
+    image: '/assets/img/blog/beyond-the-hype.jpg',
+    slug: '/blog/beyond-the-hype-tenets-of-a-winning-real-estate-deal',
+  },
+  {
+    id: 2,
+    title: 'Why Location Still Wins in Lagos Real Estate',
+    excerpt:
+      'Understanding future growth corridors, infrastructure, and why emerging locations outperform prime districts.',
+    image: '/assets/img/blog/lagos-view.jpg',
+    slug: '/blog/finding-your-dream-home-in-lagos',
+  },
+];
+export function BlogSection() {
+  return (
+    <section className="py-6">
+      <Container>
+        {/* Header */}
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h2 className="fw-bold mb-0">Insights &amp; Articles</h2>
+
+          {/* <Link href="/blog" passHref>
+            <span className="d-inline-flex align-items-center text-decoration-none">
+              All articles <ArrowRight className="ms-2" />
+            </span>
+          </Link> */}
+        </div>
+
+        {/* Blog Cards */}
+        <div className="row g-4">
+          {BLOG_POSTS.map((post) => (
+            <div key={post.id} className="col-md-6 d-flex">
+              {/* 👇 d-flex ensures column stretches */}
+              <div className="blog-card h-100 w-100 d-flex flex-column">
+                {/* Image */}
+                <div className="blog-card-image">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    width={800}
+                    height={500}
+                    className="img-fluid"
+                  />
+                </div>
+
+                {/* Body */}
+                <div className="blog-card-body d-flex flex-column">
+                  <h5 className="fw-bold mb-2">{post.title}</h5>
+
+                  <p className="text-muted mb-4">{post.excerpt}</p>
+
+                  {/* CTA always at bottom */}
+                  <div className="mt-auto">
+                    <Link href={post.slug} passHref>
+                      <Button
+                        color="dark"
+                        className="d-inline-flex align-items-center"
+                      >
+                        Read More&nbsp;
+                        <ArrowRight className="ms-2" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
 
 const ExecutiveSummary = () => (
   <Section altBg>

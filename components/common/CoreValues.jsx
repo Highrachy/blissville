@@ -26,7 +26,7 @@ export const CoreValuesSlider = () => {
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
-            pauseOnMouseEnter: false,
+            pauseOnMouseEnter: true,
           }}
           navigation={false}
           pagination={{ clickable: true }}
@@ -35,6 +35,7 @@ export const CoreValuesSlider = () => {
             992: { slidesPerView: 2, spaceBetween: 24 },
             1200: { slidesPerView: 2, spaceBetween: 40 },
           }}
+          // loop={true}
           onReachEnd={(swiper) => {
             // Wait a moment before restarting autoplay
             setTimeout(() => {

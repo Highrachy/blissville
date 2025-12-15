@@ -45,8 +45,15 @@ export const BenefitSlider = () => {
               spaceBetween: 50,
             },
           }}
-          loop={true}
-          loopFillGroupWithBlank={true}
+          // loop={true}
+          // loopFillGroupWithBlank={true}
+          onReachEnd={(swiper) => {
+            // Wait a moment before restarting autoplay
+            setTimeout(() => {
+              swiper.slideTo(0); // Go back to first slide
+              swiper.autoplay.start(); // Resume autoplay
+            }, 5000);
+          }}
           grabCursor={true}
         >
           {benefits.map((benefit, index) => (
