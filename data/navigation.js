@@ -16,11 +16,29 @@ export const projects = {
   },
 };
 
-export const faqs = {
-  title: 'Faqs',
-  url: 'faqs',
-  children: {},
+export const content = {
+  title: 'Content',
+  url: 'blog',
+  children: {
+    '/blog': 'Articles and Insights',
+    '/faqs': 'FAQs',
+  },
 };
+
+export const insights = {
+  title: 'Insights',
+  url: 'blog',
+  children: {
+    '/blog': 'Articles & Insights',
+    '/faqs': 'FAQs',
+  },
+};
+
+// export const faqs = {
+//   title: 'Faqs',
+//   url: 'faqs',
+//   children: {},
+// };
 
 export const aboutUs = {
   title: 'About Us',
@@ -53,7 +71,7 @@ const navigation = [
   // home,
   aboutUs,
   projects,
-  faqs,
+  insights,
   investors,
   contactUs,
   login,

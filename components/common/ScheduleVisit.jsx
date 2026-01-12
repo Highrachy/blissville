@@ -81,8 +81,12 @@ const ScheduleVisit = () => (
     </Section>
   </Parallax>
 );
-
-export const ScheduleVisitationButton = ({ visiting, wideButton = false }) => {
+export const ScheduleVisitationButton = ({
+  visiting,
+  wideButton = false,
+  text = 'Schedule Visit',
+  color = 'info',
+}) => {
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
@@ -114,7 +118,7 @@ export const ScheduleVisitationButton = ({ visiting, wideButton = false }) => {
 
   return (
     <FormikModalButton
-      color="info"
+      color={color}
       className={`btn text-white ${wideButton ? 'btn-wide' : ''}`}
       name="schedule-visit"
       schema={visitationSchema}
@@ -122,7 +126,7 @@ export const ScheduleVisitationButton = ({ visiting, wideButton = false }) => {
       modalContent={<VisitationForm />}
       handleSubmit={handleSubmit}
     >
-      Schedule Visit
+      {text}
     </FormikModalButton>
   );
 };
