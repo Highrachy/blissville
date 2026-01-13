@@ -9,9 +9,9 @@ const BLOG_POSTS = [
   },
   {
     id: 2,
-    title: 'Why Location Still Wins in Lagos Real Estate',
+    title: 'Finding Your Dream Home in Lagos: A Simple Guide',
     excerpt:
-      'Understanding future growth corridors, infrastructure, and why emerging locations outperform prime districts.',
+      'We know the Lagos market can feel complex. That is why we have broken down these three (3) important steps into a simple, easy-to-read guide.',
     image: '/assets/img/blog/lagos-view.jpg',
     slug: '/blog/finding-your-dream-home-in-lagos',
   },
