@@ -8,7 +8,7 @@ import { team } from '@/data/team';
 const Team = () => (
   <Section noPaddingTop>
     <div id="meet-our-team" className="container">
-      <h3 className="font-secondary text-color-dark-1">Our Management Team</h3>
+      <h3 className="font-secondary text-color-dark-1">The Team</h3>
       <div className="row">
         {team.map(({ name, image, title, description }) => (
           <SingleTeam

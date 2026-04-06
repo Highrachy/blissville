@@ -61,7 +61,7 @@ export const team = [
   {
     name: 'Eniola Alesin',
     image: 'eniola.png',
-    title: 'Site Engineer',
+    title: 'Project',
     description: '-',
   },
 ];
