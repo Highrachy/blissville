@@ -344,32 +344,31 @@ export const ClarityFormSection = ({
       name: form.name,
       email: form.email,
       phone: form.phone,
-      subject: 'Beyond the Hype Guide Download',
-      message: `User requested the guide: ${projectName}`,
       source: 'Clarity Form',
-      reference: projectName,
+      funnel: projectName,
     };
 
     try {
+      const link = document.createElement('a');
+      link.href = '/docs/beyond-the-hype.pdf';
+      link.download = 'Beyond-the-Hype.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      toast.success('Your download is starting... Please check your device.');
+      setSent(true);
+
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/funnels`,
         { data: payload },
       );
-
       if (statusIsSuccessful(response.status)) {
-        toast.success('Your download is starting... Please check your device.');
-
-        setSent(true);
-
-        const link = document.createElement('a');
-        link.href = '/docs/beyond-the-hype.pdf';
-        link.download = 'Beyond-the-Hype.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        console.log('response.status', response);
       }
     } catch (error) {
-      toast.error(getError(error));
+      // toast.error(getError(error));
+      console.log('getError', getError(error));
     } finally {
       setLoading(false);
     }
