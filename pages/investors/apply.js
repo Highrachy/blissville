@@ -116,10 +116,11 @@ const IntroText = () => (
       name="investmentRange"
       formGroupClassName="col-md-6"
       label="Investment Package"
+      helpText="Minimum investment is ₦19,125,000"
       optional
       options={valuesToOptions(
-        ['₦25 Million', '₦50 Million', '₦100 Million'],
-        'Select Investment Package'
+        ['₦19,125,000', '₦38,250,000', 'Others'],
+        'Select Investment Package',
       )}
     />
   </div>
@@ -202,7 +203,7 @@ const PersonalInformation = () => (
             'Temporary/Seasonal Worker',
             'Unemployed',
           ],
-          'Select Employment Status'
+          'Select Employment Status',
         )}
       />
     </div>
@@ -450,8 +451,8 @@ const ActionButtons = ({
         `${missingFields.join(', ')} ${Humanize.pluralize(
           missingFields.length,
           'is',
-          'are'
-        )} required`
+          'are',
+        )} required`,
       );
     }
     return [...missingFields].length === 0;
