@@ -10,6 +10,7 @@ const Section = ({
   altBg3,
   noPaddingTop,
   noPaddingBottom,
+  biggerPadding,
   id,
   ...props
 }) => {
@@ -19,9 +20,10 @@ const Section = ({
         'bg-gray-50': altBg,
         'bg-light': altBg2,
         'bg-light2': altBg3,
-        'py-5 py-lg-7': !noPaddingBottom && !noPaddingTop,
-        'pt-5 pt-lg-7': noPaddingBottom,
-        'pb-5 pb-lg-7': noPaddingTop,
+        'py-5 py-lg-7': !noPaddingBottom && !noPaddingTop && !biggerPadding,
+        'pt-5 pt-lg-7': noPaddingBottom && !biggerPadding,
+        'pb-5 pb-lg-7': noPaddingTop && !biggerPadding,
+        'py-6 py-lg-8': biggerPadding,
       })}
       id={id}
       {...props}

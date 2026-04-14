@@ -55,7 +55,15 @@ export default function Dashboard() {
     setTodayCount(todayTotal);
   };
 
-  /* ================= DATE LABEL ================= */
+  /* ================= HELPERS ================= */
+
+  const getInitials = (name = '') =>
+    name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
 
   const getDateLabel = (dateStr) => {
     const date = new Date(dateStr);
@@ -75,11 +83,13 @@ export default function Dashboard() {
     });
   };
 
-  /* ================= HELPERS ================= */
-
-  const maskEmail = (email) => {
+  const maskEmail = (email = '') => {
+    if (!email) return '-';
     if (isAdmin) return email;
+
     const [name, domain] = email.split('@');
+    if (!domain) return email;
+
     return name.slice(0, 2) + '***@' + domain;
   };
 
@@ -93,54 +103,6 @@ export default function Dashboard() {
     return digits;
   };
 
-  const isValidNigerianNumber = (phone) => {
-    const n = normalizePhone(phone);
-    if (n.length !== 13) return false;
-
-    const prefix = n.slice(3, 6);
-    const validPrefixes = [
-      '701',
-      '702',
-      '703',
-      '704',
-      '705',
-      '706',
-      '707',
-      '708',
-      '709',
-      '801',
-      '802',
-      '803',
-      '804',
-      '805',
-      '806',
-      '807',
-      '808',
-      '809',
-      '810',
-      '811',
-      '812',
-      '813',
-      '814',
-      '815',
-      '816',
-      '817',
-      '818',
-      '819',
-      '901',
-      '902',
-      '903',
-      '904',
-      '905',
-      '906',
-      '907',
-      '908',
-      '909',
-    ];
-
-    return validPrefixes.includes(prefix);
-  };
-
   const formatPhone = (phone) => {
     if (!phone) return '-';
     const n = normalizePhone(phone);
@@ -150,15 +112,6 @@ export default function Dashboard() {
     }
 
     return phone.slice(0, 4) + '****' + phone.slice(-3);
-  };
-
-  const isSuspicious = (item) => {
-    const { email, phone, name } = item.attributes;
-    return (
-      (phone && !isValidNigerianNumber(phone)) ||
-      email.includes('test') ||
-      name.length < 3
-    );
   };
 
   const copyToClipboard = (text) => {
@@ -314,7 +267,7 @@ export default function Dashboard() {
                 </div>
 
                 <div style={{ maxHeight: 400, overflowY: 'auto' }}>
-                  <Table hover responsive>
+                  <Table hover responsive className="align-middle">
                     <thead className="bg-primary-50">
                       <tr>
                         <th>#</th>
@@ -347,8 +300,42 @@ export default function Dashboard() {
                         data.map((i, index) => (
                           <tr key={i.id}>
                             <td>{index + 1}</td>
-                            <td>{i.attributes.name}</td>
+
+                            {/* USER CELL */}
+                            <td>
+                              <div className="d-flex align-items-center gap-2">
+                                <div
+                                  className="bg-primary-100 text-primary-700 rounded-circle d-flex align-items-center justify-content-center fw-semibold"
+                                  style={{ width: 36, height: 36 }}
+                                >
+                                  {getInitials(i.attributes.name)}
+                                </div>
+
+                                <div className="flex-grow-1">
+                                  <div className="fw-semibold">
+                                    {i.attributes.name}
+                                  </div>
+
+                                  <small className="text-muted">
+                                    {maskEmail(i.attributes.email)}
+                                    {isAdmin && (
+                                      <Button
+                                        variant="link"
+                                        className="p-0"
+                                        onClick={() =>
+                                          copyToClipboard(i.attributes.email)
+                                        }
+                                      >
+                                        <FaCopy />
+                                      </Button>
+                                    )}
+                                  </small>
+                                </div>
+                              </div>
+                            </td>
+
                             <td>{formatPhone(i.attributes.phone)}</td>
+
                             <td>
                               {new Date(
                                 i.attributes.createdAt,
