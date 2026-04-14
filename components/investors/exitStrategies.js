@@ -8,57 +8,42 @@ const ExitStrategies = () => {
   const MIN = 19_125_000;
   const MAX = 500_000_000;
 
-  const [value, setValue] = useState(MIN); // committed value
-  const [inputValue, setInputValue] = useState(MIN); // typing state
+  const [value, setValue] = useState(MIN);
+  const [inputValue, setInputValue] = useState(MIN);
 
   const ROI = 0.504;
 
   const profit = Math.round(value * ROI);
   const total = value + profit;
 
-  // 👉 clean readable text
   const formatReadable = (val) => {
     const million = val / 1_000_000;
-    return `${Number(million.toFixed(million % 1 === 0 ? 0 : 3))} Million Naira`;
+    return `₦${Number(million.toFixed(million % 1 === 0 ? 0 : 3))} Million`;
   };
 
-  // 👉 input typing (no interruption)
   const handleInputChange = (val) => {
     setInputValue(val || '');
-
     const num = Number(val);
-
-    // ✅ update slider ONLY if valid range
-    if (num >= MIN && num <= MAX) {
-      setValue(num);
-    }
+    if (num >= MIN && num <= MAX) setValue(num);
   };
 
-  // 👉 validate on blur
   const handleInputBlur = () => {
     let num = Number(inputValue);
-
     if (!num || num < MIN) num = MIN;
     if (num > MAX) num = MAX;
-
     setValue(num);
     setInputValue(num);
   };
 
-  // 👉 slider snapping
-  const normalizeSliderValue = (val) => {
-    if (val <= MIN) return MIN;
-    return Math.round(val / 1_000_000) * 1_000_000;
-  };
-
   const handleSliderChange = (val) => {
-    const normalized = normalizeSliderValue(val);
+    const normalized =
+      val <= MIN ? MIN : Math.round(val / 1_000_000) * 1_000_000;
     setValue(normalized);
     setInputValue(normalized);
   };
 
   return (
-    <Section className="exit-strategies-section py-6">
+    <Section className="exit-strategies-section py-6 py-lg-7">
       <div className="container">
         <div className="row align-items-center g-5">
           {/* LEFT */}
@@ -67,13 +52,14 @@ const ExitStrategies = () => {
               Exit Strategies
             </h2>
 
-            <p className="text-gray-700 mb-4">
+            <p className="text-dark-700 mb-4">
               We provide a clear path to liquidity. Investors can choose between
               a direct cash exit upon completion or converting their equity into
               physical property.
             </p>
 
-            <div className="exit-item d-flex gap-3 mb-4">
+            {/* CASH */}
+            <div className="exit-item d-flex gap-3 mb-4 align-items-start">
               <div className="exit-icon">
                 <FaMoneyBillWave />
               </div>
@@ -85,7 +71,8 @@ const ExitStrategies = () => {
               </div>
             </div>
 
-            <div className="exit-item d-flex gap-3">
+            {/* PROPERTY */}
+            <div className="exit-item d-flex gap-3 align-items-start">
               <div className="exit-icon">
                 <FaHome />
               </div>
@@ -109,6 +96,7 @@ const ExitStrategies = () => {
 
               <label className="calculator-label">Initial Investment</label>
 
+              {/* IMPORTANT: keep your class (no Bootstrap override) */}
               <NumberFormat
                 value={inputValue}
                 onValueChange={(v) => handleInputChange(v.value)}
@@ -144,12 +132,11 @@ const ExitStrategies = () => {
 
               <hr className="divider" />
 
-              <div className="result-header">RESULT</div>
-
-              <div className="invest-text">
+              <div className="invest-text py-4">
                 When you invest <strong>{formatReadable(value)}</strong>
               </div>
 
+              {/* RESULTS */}
               <div className="results-row">
                 <div className="result-box profit">
                   <small>ESTIMATED PROFIT</small>
@@ -162,6 +149,7 @@ const ExitStrategies = () => {
                 </div>
               </div>
 
+              {/* ROI */}
               <div className="roi-box">
                 <div className="roi-header">
                   <span>PROJECTED ANNUALIZED ROI</span>

@@ -1,42 +1,56 @@
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { FaArrowRight } from 'react-icons/fa';
+import {
+  FaMoneyBillWave,
+  FaBuilding,
+  FaLayerGroup,
+  FaVectorSquare,
+} from 'react-icons/fa';
+import { Container, Row, Col } from 'react-bootstrap';
 import Section from '../common/Section';
+import { FaArrowRight } from 'react-icons/fa';
+import Button from '../forms/Button';
 
-export const snapshotData = [
+import {
+  FaCoins,
+  FaHouseChimney,
+  FaCubesStacked,
+  FaExpand,
+} from 'react-icons/fa6';
+
+const snapshotData = [
   {
-    title: 'Min Investment Entry',
-    value: '19.12M',
-    subtitle: 'Entry Tier Capital',
-    color: 'warning',
-  },
-  {
-    title: 'Product Price',
-    value: '₦155M+',
-    subtitle: 'Up to ₦203M (Corner)',
+    value: '₦19.12 Million',
+    label: 'Minimum Investment',
+    icon: FaCoins,
     color: 'primary',
   },
   {
-    title: 'Total Inventory',
+    value: '₦155 Million',
+    label: 'Product Price',
+    icon: FaHouseChimney,
+    color: 'warning',
+  },
+  {
     value: '14 Units',
-    subtitle: 'Tri-Level Terraces',
+    label: 'Total Inventory',
+    icon: FaCubesStacked,
     color: 'success',
   },
   {
-    title: 'Property Title',
-    value: 'C of O',
-    subtitle: 'Certificate of Occupancy',
-    color: 'danger',
+    value: '4054 SqM',
+    label: 'Total Land Size',
+    icon: FaExpand,
+    color: 'info',
   },
 ];
 
 export default function ProjectSnapshot() {
   return (
-    <Section biggerPadding className="snapshot-section">
+    <Section className="py-6 py-lg-7 bg-white">
       <Container>
-        <Row className="align-items-center g-5">
+        <Row className="g-5 align-items-start">
           {/* LEFT */}
-          <Col lg={5} className="mb-4 mb-lg-0">
-            <p className="text-uppercase small text-primary-700 mb-2">
+          <Col lg={5}>
+            <p className="text-uppercase small text-primary-600 mb-2">
               At a Glance
             </p>
 
@@ -44,18 +58,33 @@ export default function ProjectSnapshot() {
               Project Snapshot
             </h2>
 
-            {/* ✅ ACCESSIBILITY FIX */}
-            <p className="text-dark-800 mb-4">
+            <p className="text-dark-700 mb-4">
               Blissville represents a pinnacle of tri-level architectural
               design, offering investors a rare entry into high-yield
               residential development with guaranteed flood mitigation and
               premium finishes.
             </p>
 
-            <Button
-              variant="success"
-              className="px-4 py-2 d-inline-flex align-items-center gap-2"
-            >
+            <hr className="my-5 text-dark-600" />
+
+            {/* METRICS */}
+            <div className="d-flex flex-wrap gap-7 mb-4">
+              <div>
+                <div className="fw-bold text-success-700 lh-1 fs-2">32%</div>
+                <small className="text-uppercase text-xs fw-semibold text-dark-700">
+                  Projected Year 1 ROI
+                </small>
+              </div>
+
+              <div>
+                <div className="fw-bold text-dark-700 lh-1 fs-2">C of O</div>
+                <small className="text-uppercase text-xs fw-semibold text-dark-700">
+                  Secured Title Doc
+                </small>
+              </div>
+            </div>
+
+            <Button color="primary" size="lg">
               View Project <FaArrowRight size={12} />
             </Button>
           </Col>
@@ -63,24 +92,35 @@ export default function ProjectSnapshot() {
           {/* RIGHT */}
           <Col lg={{ span: 6, offset: 1 }}>
             <Row className="g-4">
-              {snapshotData.map((item, index) => (
-                <Col xs={12} sm={6} key={index}>
-                  <div
-                    className={`snapshot-card border-${item.color}  bg-${item.color}-50 h-100`}
-                  >
-                    <p
-                      className={`small text-uppercase mb-2 fw-semibold text-${item.color}-700`}
-                    >
-                      {item.title}
-                    </p>
+              {snapshotData.map((item, i) => {
+                const Icon = item.icon;
 
-                    <h4 className="fw-bold text-dark-900 mb-1">{item.value}</h4>
+                return (
+                  <Col sm={6} key={i}>
+                    <div className="snapshot-card h-100 p-4 rounded-3 border">
+                      {/* ICON */}
+                      <div
+                        className={`d-inline-flex align-items-center justify-content-center rounded-3 bg-${item.color}-100 text-${item.color}-600 mb-5`}
+                        style={{ width: 36, height: 36 }}
+                      >
+                        <Icon size={16} />
+                      </div>
 
-                    {/* ✅ BETTER CONTRAST */}
-                    <small className="text-dark-700">{item.subtitle}</small>
-                  </div>
-                </Col>
-              ))}
+                      {/* VALUE */}
+                      <div
+                        className={`fw-semibold font-secondary text-dark-900 fs-5 mb-0`}
+                      >
+                        {item.value}
+                      </div>
+
+                      {/* LABEL */}
+                      <small className="text-dark-700 text-xs font-primary">
+                        {item.label}
+                      </small>
+                    </div>
+                  </Col>
+                );
+              })}
             </Row>
           </Col>
         </Row>

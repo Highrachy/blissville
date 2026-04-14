@@ -1,15 +1,15 @@
-import { Ship } from 'iconsax-react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { FaArrowRight } from 'react-icons/fa';
 import { FaCar, FaShip, FaBuilding, FaPlane } from 'react-icons/fa';
 import Section from '../common/Section';
+import Button from '../forms/Button';
 
 export const neighborhoodData = [
   {
     icon: FaCar,
     label: 'Business Hub',
     title: 'Victoria Island',
-    time: '45m',
+    time: '~45m',
     meta: 'Commute Time',
     color: 'primary',
   },
@@ -33,7 +33,7 @@ export const neighborhoodData = [
     icon: FaPlane,
     label: 'Future Infrastructure',
     title: 'Intl Airport',
-    time: '20m',
+    time: '~35m',
     meta: 'Lekki-Epe Axis',
     color: 'warning',
   },
@@ -41,7 +41,10 @@ export const neighborhoodData = [
 
 export default function NeighborhoodSection() {
   return (
-    <Section biggerPadding className="neighborhood-section">
+    <Section
+      biggerPadding
+      className="py-6 py-lg-7 bg-white neighborhood-section"
+    >
       <Container>
         <Row className="g-5 align-items-start">
           {/* LEFT */}
@@ -50,38 +53,36 @@ export default function NeighborhoodSection() {
               Connectivity
             </p>
 
-            <h2 className="display-5 fw-normal text-primary-800 mb-3">
+            <h2 className="display-5 fw-normal text-dark-900 mb-3">
               Neighborhood
             </h2>
 
             <p className="text-dark-700 mb-4">
               Strategically positioned at the nexus of commerce and leisure.
-              Blissville Terraces offers unparalleled access to the city&rsquo;s
-              vital hubs via multiple transit modalities.
+              Blissville Terraces offers unparalleled access to the city’s vital
+              hubs via multiple transit modalities.
             </p>
 
+            {/* ADVANTAGE */}
             <div className="advantage-highlight mb-4">
-              <div className="d-flex align-items-start gap-3">
+              <div className="d-flex gap-3">
                 <div className="advantage-icon">
-                  <FaShip size={12} />
+                  <FaShip size={14} />
                 </div>
 
                 <div className="advantage-text">
-                  <div className="fw-semibold text-info-900">
+                  <div className="fw-semibold text-dark-900">
                     Strategic Advantage
                   </div>
 
-                  <small className="text-info-700">
+                  <small className="text-dark-700">
                     Exclusive Waterfront Accessibility
                   </small>
                 </div>
               </div>
             </div>
 
-            <Button
-              variant="dark"
-              className="px-4 py-2 d-inline-flex align-items-center gap-2"
-            >
+            <Button color="primary" size="lg">
               View Location On Google Map <FaArrowRight size={12} />
             </Button>
           </Col>
@@ -94,25 +95,34 @@ export default function NeighborhoodSection() {
 
                 return (
                   <Col md={6} key={index}>
-                    <div className="neighborhood-card h-100">
-                      <div className={`icon-box icon-${item.color}`}>
-                        <Icon size={18} />
+                    <div className="snapshot-card h-100 p-4 rounded-3 border">
+                      {/* ICON */}
+                      <div
+                        className={`d-inline-flex align-items-center justify-content-center rounded-3 bg-${item.color}-100 text-${item.color}-600 mb-3`}
+                        style={{ width: 36, height: 36 }}
+                      >
+                        <Icon size={16} />
                       </div>
 
-                      <p className="small text-uppercase text-muted mb-1">
+                      {/* LABEL */}
+                      <div className="text-uppercase text-xs text-dark-700 mb-0 fw-light">
                         {item.label}
-                      </p>
+                      </div>
 
-                      <h5 className="fw-semibold text-dark-900 mb-3">
+                      {/* TITLE */}
+                      <div className="fw-bold text-dark-900 mb-5">
                         {item.title}
-                      </h5>
+                      </div>
 
+                      {/* FOOT */}
                       <div className="d-flex justify-content-between align-items-center">
-                        <span className={`fw-bold fs-4 text-${item.color}`}>
+                        <span className={`fw-bold fs-5 text-${item.color}-800`}>
                           {item.time}
                         </span>
 
-                        <small className="text-dark-700">{item.meta}</small>
+                        <small className="text-dark-700 text-xs">
+                          {item.meta}
+                        </small>
                       </div>
                     </div>
                   </Col>

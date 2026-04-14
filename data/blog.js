@@ -48,6 +48,15 @@ const BLOG_POSTS = [
     image: '/assets/img/blog/the-blue-bliss.jpg',
     slug: '/blog/the-blue-bliss-why-your-next-investment-should-breathe',
   },
+  {
+    id: 7,
+    title:
+      'The Sangotedo Inflection Point: From Acceleration to Explosive Equity',
+    excerpt:
+      "Sangotedo has emerged as Lagos' fastest-growing investment corridor, with rapid appreciation, infrastructure expansion, and rare waterfront opportunities driving explosive equity growth.",
+    image: '/assets/img/blog/sangotedo-inflection.jpg',
+    slug: '/blog/sangotedo-inflection-point',
+  },
 ];
 
 export default BLOG_POSTS;

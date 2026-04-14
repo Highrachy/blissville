@@ -15,10 +15,14 @@ const Button = ({
   color,
   type,
   href,
+  wide,
   ...props
 }) => {
   const isLink = !!href;
-  const btnClassName = classNames('btn', `btn-${color}`, className);
+  const wideClassName = 'px-5 py-4';
+  const btnClassName = classNames('btn', `btn-${color}`, className, {
+    [wideClassName]: wide,
+  });
   return isLink ? (
     <Link href={href} passHref>
       <a className={btnClassName} role="button" {...props}>
@@ -48,6 +52,7 @@ Button.propTypes = {
   loadingText: PropTypes.any,
   showLoadingText: PropTypes.bool,
   onClick: PropTypes.func,
+  wide: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -59,6 +64,7 @@ Button.defaultProps = {
   loadingText: null,
   showLoadingText: true,
   onClick: () => {},
+  wide: false,
 };
 
 export default Button;

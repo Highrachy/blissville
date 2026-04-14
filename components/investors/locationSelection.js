@@ -1,6 +1,8 @@
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { FaArrowRight, FaTint } from 'react-icons/fa';
+import { Container, Row, Col } from 'react-bootstrap';
+import { FaArrowRight } from 'react-icons/fa';
+import { MdFlood } from 'react-icons/md';
 import Section from '../common/Section';
+import Button from '../forms/Button';
 
 const locationDetails = [
   { label: 'Estate', value: 'Caribbean Lake City' },
@@ -22,55 +24,41 @@ export default function LocationSection() {
       <Container>
         <Row className="g-5 align-items-center">
           {/* LEFT */}
-          <Col lg={6} className="d-flex">
-            <div className="w-100">
-              <h2 className="display-5 fw-normal text-white mb-4">
-                Location Intelligence
-              </h2>
+          <Col lg={6}>
+            <h2 className="location-title mb-4">Location Intelligence</h2>
 
-              {/* HEADER */}
-              <div className="d-flex justify-content-between text-uppercase small mb-3 fw-semibold">
-                <span className="text-accent">Details</span>
-                <span className="text-accent">Information</span>
+            <div className="location-table-section pe-lg-5">
+              <div className="location-header d-flex justify-content-between mb-3">
+                <span>Details</span>
+                <span>Information</span>
               </div>
 
-              {/* TABLE */}
               <div className="location-table">
                 {locationDetails.map((item, index) => (
-                  <div
-                    key={index}
-                    className="d-flex justify-content-between py-3 border-bottom border-divider"
-                  >
-                    <span className="text-muted-strong">{item.label}</span>
+                  <div key={index} className="location-row">
+                    <span className="location-label">{item.label}</span>
 
-                    <span className="text-white fw-medium text-end">
-                      {item.value}
-                    </span>
+                    <span className="location-value">{item.value}</span>
                   </div>
                 ))}
               </div>
-
-              <Button
-                variant="success"
-                className="mt-4 px-4 py-2 d-inline-flex align-items-center gap-2"
-              >
-                Schedule Site Visitation <FaArrowRight size={12} />
-              </Button>
             </div>
+
+            <Button color="info" size="lg" className="mt-4">
+              Schedule Site Visitation <FaArrowRight size={12} />
+            </Button>
           </Col>
 
           {/* RIGHT */}
           <Col lg={6}>
             <div className="flood-card">
-              <div className="mb-3 text-accent">
-                <FaTint size={26} />
+              <div className="flood-icon mb-3">
+                <MdFlood size={36} />
               </div>
 
-              <h4 className="text-white fw-semibold mb-3">
-                Flood Prevention Protocols
-              </h4>
+              <h4 className="flood-title mb-3">Flood Prevention Protocols</h4>
 
-              <p className="text-body-dark mb-4">
+              <p className="flood-text mb-4">
                 The site is protected from floods by two interconnected
                 solutions, a state of the art shoreline protection technology
                 installed by Willem Olaf Willem Engineering company, and a
