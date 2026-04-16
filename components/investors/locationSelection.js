@@ -3,6 +3,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import { MdFlood } from 'react-icons/md';
 import Section from '../common/Section';
 import Button from '../forms/Button';
+import { ScheduleVisitationButton } from '../common/ScheduleVisit';
 
 const locationDetails = [
   { label: 'Estate', value: 'Caribbean Lake City' },
@@ -43,10 +44,14 @@ export default function LocationSection() {
                 ))}
               </div>
             </div>
-
-            <Button color="info" size="lg" className="mt-4">
-              Schedule Site Visitation <FaArrowRight size={12} />
-            </Button>
+            <ScheduleVisitationButton
+              text={
+                <>
+                  Schedule Site Visitation <FaArrowRight size={12} />
+                </>
+              }
+              className="mt-4 px-5 py-3"
+            />
           </Col>
 
           {/* RIGHT */}

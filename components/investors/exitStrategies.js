@@ -3,6 +3,9 @@ import Slider from 'rc-slider';
 import NumberFormat from 'react-number-format';
 import { FaMoneyBillWave, FaHome } from 'react-icons/fa';
 import Section from '../common/Section';
+import { Building4, MoneyRecive } from 'iconsax-react';
+import Button from '../forms/Button';
+import { FaArrowRight } from 'react-icons/fa6';
 
 const ExitStrategies = () => {
   const MIN = 19_125_000;
@@ -48,25 +51,36 @@ const ExitStrategies = () => {
         <div className="row align-items-center g-5">
           {/* LEFT */}
           <div className="col-lg-6">
-            <h2 className="display-6 fw-semibold text-dark-900 mb-3">
+            <h2 className="display-5 fw-normal text-primary-500 mb-3">
               Exit Strategies
             </h2>
 
-            <p className="text-dark-700 mb-4">
+            <p className="text-dark-800 mb-4">
               We provide a clear path to liquidity. Investors can choose between
               a direct cash exit upon completion or converting their equity into
               physical property.
             </p>
 
             {/* CASH */}
-            <div className="exit-item d-flex gap-3 mb-4 align-items-start">
+            <div className="exit-item d-flex gap-3 mb-5 align-items-start">
               <div className="exit-icon">
-                <FaMoneyBillWave />
+                <MoneyRecive size="20" variant="Outline" />
               </div>
               <div>
-                <h6 className="fw-semibold mb-1">Cash Exit</h6>
-                <small className="text-dark-700">
-                  Capital + Profit returned upon unit sale post-construction.
+                <h6 className="fw-semibold text-primary-700 mb-1">Cash Exit</h6>
+
+                <small className="text-dark-800 d-block">
+                  Hold through completion and receive your capital plus profit
+                  from unit sales.
+                </small>
+
+                <small className="text-dark-800 d-block mt-1">
+                  <span className="fw-semibold">Timeline:</span> 15 to 18 months
+                </small>
+
+                <small className="text-dark-800 d-block mt-1">
+                  <span className="fw-semibold">Best for:</span> Investors
+                  seeking liquidity and predictable returns
                 </small>
               </div>
             </div>
@@ -74,14 +88,33 @@ const ExitStrategies = () => {
             {/* PROPERTY */}
             <div className="exit-item d-flex gap-3 align-items-start">
               <div className="exit-icon">
-                <FaHome />
+                <Building4 size="20" variant="Outline" />
               </div>
               <div>
-                <h6 className="fw-semibold mb-1">Property Conversion</h6>
-                <small className="text-dark-700">
-                  Equity credited towards the purchase of a physical unit.
+                <h6 className="fw-semibold text-primary-700 mb-1">
+                  Property Conversion
+                </h6>
+
+                <small className="text-dark-800 d-block">
+                  Convert your equity into ownership of a completed residential
+                  unit.
+                </small>
+
+                <small className="text-dark-800 d-block mt-1">
+                  Fixed conversion pricing with long-term value appreciation
+                </small>
+
+                <small className="text-dark-800 d-block mt-1">
+                  <span className="fw-semibold">Best for:</span> Asset builders,
+                  diaspora investors, and long-term holders
                 </small>
               </div>
+            </div>
+            <hr className="text-gray-600 my-5" />
+            <div className="mt-5">
+              <Button color="primary" className="px-5" href="/investors/apply">
+                Become an Investor <FaArrowRight size={12} />
+              </Button>
             </div>
           </div>
 
@@ -139,12 +172,12 @@ const ExitStrategies = () => {
               {/* RESULTS */}
               <div className="results-row">
                 <div className="result-box profit">
-                  <small>ESTIMATED PROFIT</small>
+                  <small>ESTIMATED PROFIT*</small>
                   <h5>₦{profit.toLocaleString()}</h5>
                 </div>
 
                 <div className="result-box total">
-                  <small>TOTAL RETURN</small>
+                  <small>TOTAL RETURN*</small>
                   <h5>₦{total.toLocaleString()}</h5>
                 </div>
               </div>
@@ -163,6 +196,10 @@ const ExitStrategies = () => {
                   />
                 </div>
               </div>
+              <small className="calculator-disclaimer text-dark-700 mt-3">
+                <sup>*</sup> Projected returns are exclusive of taxes and may
+                vary.
+              </small>
             </div>
           </div>
         </div>

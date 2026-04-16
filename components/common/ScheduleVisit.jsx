@@ -86,6 +86,7 @@ export const ScheduleVisitationButton = ({
   wideButton = false,
   text = 'Schedule Visit',
   color = 'info',
+  className = '',
 }) => {
   const handleSubmit = async (values, actions) => {
     const payload = {
@@ -119,7 +120,7 @@ export const ScheduleVisitationButton = ({
   return (
     <FormikModalButton
       color={color}
-      className={`btn text-white ${wideButton ? 'btn-wide' : ''}`}
+      className={`btn ${className} text-white ${wideButton ? 'btn-wide' : ''}`}
       name="schedule-visit"
       schema={visitationSchema}
       initialValues={{}}

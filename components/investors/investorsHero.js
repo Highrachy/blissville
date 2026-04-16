@@ -27,8 +27,9 @@ export default function InvestorsHero() {
               <Button
                 color="primary"
                 className="px-4 py-3 d-inline-flex align-items-center gap-2"
+                href="#investment-structure"
               >
-                View Investment Details <FaArrowRight size={12} />
+                View Investment Structure <FaArrowRight size={12} />
               </Button>
             </div>
           </Col>

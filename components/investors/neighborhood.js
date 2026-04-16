@@ -82,8 +82,14 @@ export default function NeighborhoodSection() {
               </div>
             </div>
 
-            <Button color="primary" size="lg">
-              View Location On Google Map <FaArrowRight size={12} />
+            <Button
+              color="primary"
+              className="px-5"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://www.google.com/maps?saddr=My+Location&daddr=6.480150,3.646269`}
+            >
+              View on Google Maps <FaArrowRight size={12} />
             </Button>
           </Col>
 

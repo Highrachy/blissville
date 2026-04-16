@@ -1,9 +1,3 @@
-import {
-  FaMoneyBillWave,
-  FaBuilding,
-  FaLayerGroup,
-  FaVectorSquare,
-} from 'react-icons/fa';
 import { Container, Row, Col } from 'react-bootstrap';
 import Section from '../common/Section';
 import { FaArrowRight } from 'react-icons/fa';
@@ -50,7 +44,7 @@ export default function ProjectSnapshot() {
         <Row className="g-5 align-items-start">
           {/* LEFT */}
           <Col lg={5}>
-            <p className="text-uppercase small text-primary-600 mb-2">
+            <p className="text-uppercase small text-primary-700 mb-2">
               At a Glance
             </p>
 
@@ -68,7 +62,7 @@ export default function ProjectSnapshot() {
             <hr className="my-5 text-dark-600" />
 
             {/* METRICS */}
-            <div className="d-flex flex-wrap gap-7 mb-4">
+            <div className="d-flex flex-wrap gap-3 gap-lg-7 mb-5">
               <div>
                 <div className="fw-bold text-success-700 lh-1 fs-2">32%</div>
                 <small className="text-uppercase text-xs fw-semibold text-dark-700">
@@ -77,14 +71,18 @@ export default function ProjectSnapshot() {
               </div>
 
               <div>
-                <div className="fw-bold text-dark-700 lh-1 fs-2">C of O</div>
+                <div className="fw-bold text-info-700 lh-1 fs-2">C of O</div>
                 <small className="text-uppercase text-xs fw-semibold text-dark-700">
                   Secured Title Doc
                 </small>
               </div>
             </div>
 
-            <Button color="primary" size="lg">
+            <Button
+              color="primary"
+              className="px-5"
+              href="/our-projects/blissville-terraces"
+            >
               View Project <FaArrowRight size={12} />
             </Button>
           </Col>
@@ -100,7 +98,7 @@ export default function ProjectSnapshot() {
                     <div className="snapshot-card h-100 p-4 rounded-3 border">
                       {/* ICON */}
                       <div
-                        className={`d-inline-flex align-items-center justify-content-center rounded-3 bg-${item.color}-100 text-${item.color}-600 mb-5`}
+                        className={`d-inline-flex align-items-center justify-content-center rounded-3 bg-${item.color}-100 text-${item.color}-700 mb-5`}
                         style={{ width: 36, height: 36 }}
                       >
                         <Icon size={16} />

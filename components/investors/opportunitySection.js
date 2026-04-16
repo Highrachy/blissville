@@ -45,7 +45,7 @@ export default function OpportunitySection() {
               alt="Smiling investor writing in notebook"
               width={520}
               height={560}
-              className="w-100 rounded-4 shadow-sm"
+              className="w-100 rounded-4 shadow-sm img-fluid img-cover"
               priority
             />
           </Col>
@@ -94,8 +94,8 @@ export default function OpportunitySection() {
               })}
             </Row>
 
-            <Button color="primary" size="lg">
-              Invest Now <FaArrowRight size={12} />
+            <Button className="px-5" color="primary" href="/investors/apply">
+              Become an Investor <FaArrowRight size={12} />
             </Button>
           </Col>
         </Row>

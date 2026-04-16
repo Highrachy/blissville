@@ -60,13 +60,15 @@ export default function DevelopmentProgress() {
               <div className="col-lg-7 content-side p-4 p-lg-5 position-relative">
                 <span className="eyebrow mb-3">● LIVE MONTHLY TRACKER</span>
 
-                <h2 className="title mb-4">Development Progress</h2>
+                <h2 className="display-6 fw-normal text-dark-900 mb-4">
+                  Development Progress
+                </h2>
 
                 {/* PROGRESS */}
                 <div className="mb-4">
                   <div className="d-flex justify-content-between mb-2">
                     <span className="fw-semibold text-dark-800">
-                      Infrastructure & Groundwork
+                      Construction (In Progress)
                     </span>
                     <span className="progress-value">20%</span>
                   </div>
@@ -101,8 +103,9 @@ export default function DevelopmentProgress() {
                 <hr className="divider my-4" />
 
                 <Button
-                  color="primary"
-                  className="d-inline-flex align-items-center gap-2"
+                  color="primary-light"
+                  href="/our-properties/blissville-terraces/4-bedroom-waterview-terrace-duplex#gallery"
+                  className="px-4 py-3 d-inline-flex align-items-center gap-2"
                 >
                   <FaPlay size={12} />
                   View Project Update Images
@@ -117,8 +120,6 @@ export default function DevelopmentProgress() {
                     src="/assets/img/investors/construction-progress.jpg"
                     alt="Construction progress"
                     className="progress-img"
-                    height="800"
-                    width="800"
                   />
 
                   <div className="update-card d-flex align-items-center gap-3">

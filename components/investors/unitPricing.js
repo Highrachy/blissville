@@ -82,9 +82,7 @@ export default function UnitPricing() {
                     {unit.features.map((f, idx) => (
                       <Col xs={6} key={idx}>
                         <div className="feature-item">
-                          <span className={`icon-box icon-${f.variant}`}>
-                            {f.icon}
-                          </span>
+                          <span className={`icon-box icon-dark`}>{f.icon}</span>
                           <span>{f.text}</span>
                         </div>
                       </Col>
@@ -113,19 +111,26 @@ export default function UnitPricing() {
 
         {/* VALUE STATEMENT */}
         <div className="unit-extra text-center mt-5">
-          <p className="unit-extra-text mb-4">
-            All units are developed to not just benefit from the serenity of the
-            environment, but are also designed for energy sustainability.
+          <p className="unit-extra-meta mb-5">
+            Sophisticated Security System &nbsp;|&nbsp; Sporting Facilities
+            &nbsp;|&nbsp; Creek Access &nbsp;|&nbsp; Landscaped Grounds
           </p>
-          <p className="unit-extra-meta mb-4">
-            Sophisticated Security System | Sporting Facilities | Creek Access |
-            Landscaped Grounds
+        </div>
+        <hr className="text-gray-500" />
+        <div className="unit-extra text-center mt-5">
+          <p className="unit-extra-text mb-4">
+            All units are developed to benefit from the serenity of the
+            environment while also supporting energy sustainability.
           </p>
         </div>
 
         {/* CTA */}
         <div className="text-center mt-4">
-          <Button color="dark" size="lg" className="unit-cta">
+          <Button
+            color="secondary"
+            href="/our-properties/blissville-terraces/4-bedroom-waterview-terrace-duplex"
+            className="px-5"
+          >
             View Property Details <FaArrowRight size={12} />
           </Button>
         </div>

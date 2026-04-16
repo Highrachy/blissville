@@ -25,7 +25,7 @@ const tiers = [
   },
   {
     id: 'custom',
-    title: 'CUSTOM',
+    title: 'CUSTOM TIER',
     description: 'Minimum investment is ₦19.125M.',
     price: 'Flexible',
   },
@@ -35,7 +35,10 @@ export default function InvestmentTiers() {
   const [active, setActive] = useState('custom');
 
   return (
-    <Section className="investment-section py-6 py-lg-7">
+    <Section
+      id="investment-structure"
+      className="investment-section py-6 py-lg-7"
+    >
       <Container>
         {/* HEADER */}
         <div className="mb-5">
@@ -43,7 +46,7 @@ export default function InvestmentTiers() {
             Investment Structure
           </p>
 
-          <h2 className="display-5 fw-semibold text-dark-900">
+          <h2 className="display-5 fw-normal text-dark-900">
             Investment Tiers
           </h2>
         </div>
@@ -77,9 +80,8 @@ export default function InvestmentTiers() {
                   );
                 })}
               </div>
-
-              <Button color="dark" className="tier-btn align-self-start">
-                Start Investing <FaArrowRight size={12} />
+              <Button color="primary" className="mt-4" href="/investors/apply">
+                Become an Investor <FaArrowRight size={12} />
               </Button>
             </div>
           </Col>

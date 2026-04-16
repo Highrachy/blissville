@@ -1,3 +1,4 @@
+import Footer from '@/components/common/Footer';
 import { PageHeader } from '@/components/common/Header';
 import DeveloperSection from '@/components/investors/developerSection';
 import DevelopmentProgress from '@/components/investors/developmentProgress';
@@ -8,8 +9,9 @@ import JoinVision from '@/components/investors/joinVision';
 import LocationSection from '@/components/investors/locationSelection';
 import NeighborhoodSection from '@/components/investors/neighborhood';
 import OpportunitySection from '@/components/investors/opportunitySection';
+import PathToPartnership from '@/components/investors/pathToPartnership';
 import ProjectSnapshot from '@/components/investors/projectSnapshot';
-import RiskAndPath from '@/components/investors/riskAndPath';
+import RiskAndMitigation from '@/components/investors/riskAndMitigation';
 import UnitPricing from '@/components/investors/unitPricing';
 import Navigation from '@/components/layouts/Navigation';
 import SeoHead from '@/components/utils/SeoHead';
@@ -47,8 +49,10 @@ const NewInvestorsPage = () => {
       <InvestmentTiers />
       <ExitStrategies />
       <DevelopmentProgress />
-      <RiskAndPath />
+      <RiskAndMitigation />
+      <PathToPartnership />
       <JoinVision />
+      <Footer />
     </>
   );
 };

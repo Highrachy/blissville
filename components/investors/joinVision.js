@@ -4,7 +4,7 @@ import Button from '../forms/Button';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-import { FaVideo, FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 
 export default function JoinVision() {
   const [step, setStep] = useState(1);
@@ -43,6 +43,7 @@ export default function JoinVision() {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/contacts`, {
         data: {
           ...form,
+          subject: `Callback Request - ${form.subject}`,
           source: 'Investors Page',
         },
       });
@@ -51,7 +52,7 @@ export default function JoinVision() {
 
       setForm({
         name: '',
-        subject: 'Standard Block (19.1M)',
+        subject: 'Standard Block (₦19.125M)',
         email: '',
         phone: '',
       });
@@ -93,11 +94,7 @@ export default function JoinVision() {
             </div>
 
             <div className="d-flex gap-3 mt-5 flex-wrap">
-              <Button color="primary">
-                <FaVideo size={12} /> Invest Now
-              </Button>
-
-              <Button color="success">
+              <Button color="success" className="px-5" href="/contact-us">
                 Send Us a Message <FaArrowRight size={12} />
               </Button>
             </div>
@@ -130,9 +127,10 @@ export default function JoinVision() {
                       value={form.subject}
                       onChange={handleChange}
                     >
-                      <option>Standard Block (19.1M)</option>
-                      <option>Large Portfolio</option>
-                      <option>Full Ownership</option>
+                      <option>Standard Block (₦19.125M)</option>
+                      <option>Large Portfolio (₦38.2M)</option>
+                      <option>Full Ownership (₦155M+)</option>
+                      <option>Custom Block (₦19.125M+)</option>
                     </select>
                   </div>
 

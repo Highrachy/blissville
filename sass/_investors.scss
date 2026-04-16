@@ -397,25 +397,7 @@
     }
 
     .finished {
-      color: $success-600;
-    }
-  }
-
-  /* =========================
-     CTA
-  ========================= */
-  .unit-cta {
-    background: $dark-900;
-    color: #fff;
-    border-radius: 8px;
-    padding: 0.7rem 1.5rem;
-
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    &:hover {
-      background: darken($dark-900, 6%);
+      color: $info-700;
     }
   }
 
@@ -439,7 +421,7 @@
 
     .unit-extra-text {
       font-size: 1.2rem;
-      color: $gray-700;
+      color: $dark-800;
       line-height: 1.6;
     }
 
@@ -492,16 +474,16 @@
     }
 
     &.active {
-      background: $primary;
+      background: $primary-50;
       border-color: $primary;
 
       .tier-title,
       .tier-desc {
-        color: #fff;
+        color: $primary-800;
       }
 
       .tier-price {
-        color: #f5c24b;
+        color: $primary-700;
       }
     }
   }
@@ -525,7 +507,7 @@
 
   .tier-price {
     font-weight: 600;
-    color: #a86f00;
+    color: $primary;
     white-space: nowrap;
   }
 
@@ -809,8 +791,8 @@
       width: 42px;
       height: 42px;
       border-radius: 10px;
-      background: rgba($warning-500, 0.1);
-      color: $warning-500;
+      background: rgba($primary-700, 0.1);
+      color: $primary-700;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -960,10 +942,9 @@
   }
 
   .divider {
-    border-top: 1px dashed rgba($primary, 0.3);
+    border-top: 1px dashed $primary-500;
   }
 
-  /* UPDATE CARD (YOUR EXACT STYLE) */
   .update-card {
     position: absolute;
     bottom: 20px;
@@ -1012,197 +993,431 @@
   }
 }
 
-.risk-mitigation-section {
-  background: #f6f9ff;
+.risk-governance-section {
+  background: #e2e9f1;
 
-  .section-title {
-    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-    font-weight: 500;
-    color: $dark-900;
+  .header-block {
+    margin-bottom: 2.5rem;
   }
 
-  /* =========================
-     GRID (4 PER ROW)
-  ========================= */
-
-  .risk-grid,
-  .path-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.2rem;
+  .section-subtext {
+    color: $gray-700;
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 1rem;
   }
 
-  /* =========================
-     ICON BASE
-  ========================= */
-
-  .card-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-
-    display: flex;
+  /* AUDIT */
+  .audit-row {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
 
-    margin-bottom: 0.9rem;
-  }
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $primary-600;
 
-  /* COLOR SYSTEM */
-  .blue .card-icon {
-    background: rgba(37, 99, 235, 0.12);
-    color: #2563eb;
-  }
-
-  .green .card-icon {
-    background: rgba(22, 163, 74, 0.12);
-    color: #16a34a;
-  }
-
-  .teal .card-icon {
-    background: rgba(13, 148, 136, 0.12);
-    color: #0d9488;
-  }
-
-  .lime .card-icon {
-    background: rgba(101, 163, 13, 0.12);
-    color: #65a30d;
-  }
-
-  /* =========================
-     RISK CARDS (DIFFERENT STYLE)
-  ========================= */
-
-  .risk-card {
-    background: #f8fafc; // slightly different from ownership
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-
-    padding: 1.3rem;
-
-    display: flex;
-    flex-direction: column;
-
-    min-height: 200px;
-
-    transition: all 0.2s ease;
-
-    &:hover {
-      box-shadow: 0 10px 25px rgba($dark-900, 0.05);
+    svg {
+      font-size: 1rem;
+      color: $primary-500;
     }
   }
 
-  .card-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    font-weight: 600;
-    color: $gray-600;
-    margin-bottom: 0.3rem;
+  /* TABLE CARD */
+  .risk-table {
+    background: $white;
+    border-radius: 16px;
+    border: 1px solid $gray-200;
+    overflow: hidden;
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.05);
   }
 
-  .card-title {
-    font-size: 0.95rem;
+  /* HEADER */
+  .risk-head {
+    display: grid;
+    grid-template-columns: 1.5fr 2.2fr 1.3fr 1fr;
+
+    background: $primary-700;
+    color: $white;
+
+    padding: 1.4rem 2.2rem;
+
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+  }
+
+  /* ROW */
+  .risk-row {
+    display: grid;
+    grid-template-columns: 1.5fr 2.2fr 1.3fr 1fr;
+
+    padding: 1.9rem 2.2rem;
+    align-items: center;
+
+    border-top: 1px solid $gray-200;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: $primary-50;
+    }
+  }
+
+  /* DOMAIN */
+  .risk-domain {
+    .title {
+      font-weight: 600;
+      color: $primary-700;
+      margin-bottom: 0px;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: $gray-700;
+      font-weight: 500;
+    }
+  }
+
+  /* MITIGATION */
+  .risk-mitigation {
+    color: $gray-800;
+    line-height: 1.65;
+    padding-right: 2rem;
+    max-width: 520px;
+    font-size: 0.9rem;
+  }
+
+  /* EXPOSURE */
+  .risk-exposure {
+    padding-right: 2rem;
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .percent {
+      font-size: 0.8rem;
+      color: $gray-700;
+    }
+
+    .progress {
+      height: 6px;
+      background: $gray-200;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .bar.primary {
+      background: linear-gradient(90deg, $primary-500, $primary-700);
+    }
+
+    .bar.success {
+      background: linear-gradient(90deg, $secondary-500, $secondary-700);
+    }
+  }
+
+  /* STATUS */
+  .risk-status {
+    display: flex;
+    align-items: center;
+  }
+
+  .badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+  }
+
+  .badge.primary {
+    background: $primary-100;
+    color: $primary-700;
+  }
+
+  .badge.success {
+    background: $secondary-100;
+    color: $secondary-700;
+  }
+
+  /* MOBILE */
+  @media (max-width: 991px) {
+    .risk-head {
+      display: none;
+    }
+
+    .risk-row {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+
+      padding: 1.5rem;
+      border-radius: 14px;
+      background: $white;
+      margin-bottom: 1rem;
+    }
+
+    .risk-mitigation,
+    .risk-exposure {
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .risk-table {
+      background: transparent; // remove wrapper illusion
+      border: none;
+      box-shadow: none;
+    }
+
+    .risk-row {
+      display: block;
+
+      background: $white;
+      border: 1px solid $gray-300; // stronger than before
+      border-radius: 16px;
+
+      padding: 1.4rem 1.4rem 1.5rem;
+      margin-bottom: 1rem;
+
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04); // subtle depth
+
+      overflow: hidden; // prevents border clipping
+    }
+
+    /* spacing inside card */
+    .risk-domain {
+      margin-bottom: 0.6rem;
+    }
+
+    .risk-mitigation {
+      margin-bottom: 1rem;
+    }
+
+    .risk-exposure {
+      margin-bottom: 1rem;
+    }
+
+    /* ensure progress doesn't overflow */
+    .risk-exposure .progress {
+      width: 100%;
+    }
+
+    /* badge spacing */
+    .risk-status {
+      margin-top: 0.4rem;
+    }
+  }
+}
+
+.path-section {
+  background: $gray-50;
+
+  .path-title {
+    font-size: clamp(1.8rem, 2.4vw, 2.2rem);
     font-weight: 600;
     color: $primary-700;
     margin-bottom: 0.5rem;
   }
 
-  .card-risk {
-    font-size: 0.85rem;
-    color: $dark-800;
-    margin-bottom: 0.4rem;
+  .path-subtitle {
+    font-size: 0.95rem;
+    color: $gray-700;
+    max-width: 520px;
+    margin: 0 auto;
   }
 
-  .card-mitigation {
-    font-size: 0.85rem;
-    color: $dark-700;
-    line-height: 1.5;
+  /* GRID */
+  .path-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
   }
 
-  .card-footer {
-    margin-top: auto;
-  }
-
-  /* =========================
-     OWNERSHIP CARDS
-  ========================= */
-
+  /* CARD */
   .path-card {
-    position: relative;
-    background: #ffffff;
-    border: 1px solid #d9dee6;
-    border-radius: 10px;
+    background: $white;
+    border: 1px solid $gray-200;
+    border-radius: 12px;
+    padding: 1.6rem;
 
-    padding: 1.4rem;
-    min-height: 180px;
-
-    transition: all 0.25s ease;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba($dark-900, 0.06);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.05);
+      border-color: $gray-300;
     }
   }
 
-  .card-number {
-    position: absolute;
-    top: 14px;
-    right: 18px;
-
-    font-size: 38px;
-    font-weight: 600;
-    color: #e2e8f0;
+  /* TOP */
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 
-  .card-text {
-    font-size: 0.85rem;
-    color: $dark-700;
+  /* ICON */
+  .icon-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* NUMBER */
+  .step-number {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: $gray-300;
+
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* TEXT */
+  .step-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $primary-700;
+    margin-bottom: 0.4rem;
+
+    transition: color 0.3s ease;
+  }
+
+  .step-desc {
+    font-size: 0.9rem;
+    color: $gray-700;
     line-height: 1.5;
+
+    transition: color 0.3s ease;
   }
 
   /* =========================
-     STATUS
+     COLOR SYSTEM
   ========================= */
 
-  .status-badge {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-
-    padding: 6px 12px;
-    border-radius: 999px;
+  .icon-primary {
+    background: $primary-50;
+    color: $primary-600;
   }
 
-  .status-badge.active {
-    background: #1e3a8a;
-    color: #fff;
+  .icon-info {
+    background: $info-50;
+    color: $info-600;
   }
 
-  .status-badge.secured {
-    background: #14532d;
-    color: #fff;
+  .icon-success {
+    background: $secondary-50;
+    color: $secondary-600;
   }
 
-  .status-badge.in-progress {
-    background: #dbe3ef;
-    color: #1e3a8a;
+  .icon-warning {
+    background: $warning-50;
+    color: $warning-700;
   }
 
   /* =========================
-     RESPONSIVE
+     HOVER STATES
   ========================= */
 
-  @media (max-width: 1200px) {
-    .risk-grid,
-    .path-grid {
-      grid-template-columns: repeat(2, 1fr);
+  .path-card:hover {
+    .icon-wrap {
+      transform: translateY(-2px) scale(1.05);
+    }
+
+    .step-number {
+      transform: scale(1.1);
+    }
+
+    .step-desc {
+      color: $dark-800; // 👈 brighter, more readable
     }
   }
 
-  @media (max-width: 576px) {
-    .risk-grid,
+  /* PRIMARY */
+  .path-card.primary:hover {
+    .icon-wrap {
+      background: $primary-200;
+      color: $primary-700;
+    }
+
+    .step-number,
+    .step-title {
+      color: $primary-600;
+    }
+  }
+
+  /* INFO */
+  .path-card.info:hover {
+    .icon-wrap {
+      background: $info-200;
+      color: $info-700;
+    }
+
+    .step-number,
+    .step-title {
+      color: $info-600;
+    }
+  }
+
+  /* SUCCESS */
+  .path-card.success:hover {
+    .icon-wrap {
+      background: $secondary-200;
+      color: $secondary-700;
+    }
+
+    .step-number,
+    .step-title {
+      color: $secondary-600;
+    }
+  }
+
+  /* WARNING */
+  .path-card.warning:hover {
+    .icon-wrap {
+      background: $warning-100;
+      color: $warning-700;
+    }
+
+    .step-number,
+    .step-title {
+      color: $warning-600;
+    }
+  }
+
+  .cta-sub {
+    margin-top: 0.9rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: $gray-700;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 991px) {
     .path-grid {
       grid-template-columns: 1fr;
+    }
+
+    .path-card {
+      padding: 1.4rem;
     }
   }
 }
