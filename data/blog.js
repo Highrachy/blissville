@@ -50,8 +50,7 @@ const BLOG_POSTS = [
   },
   {
     id: 7,
-    title:
-      'The Sangotedo Inflection Point: From Acceleration to Explosive Equity',
+    title: 'Why Sangotedo Properties Keep Growing',
     excerpt:
       "Sangotedo has emerged as Lagos' fastest-growing investment corridor, with rapid appreciation, infrastructure expansion, and rare waterfront opportunities driving explosive equity growth.",
     image: '/assets/img/blog/sangotedo-inflection.jpg',

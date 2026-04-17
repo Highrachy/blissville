@@ -12,7 +12,7 @@ export default function SangotedoInflectionBlog() {
   return (
     <>
       <SeoHead
-        title="The Sangotedo Inflection Point | Blissville"
+        title="Why Sangotedo Properties Keep Growing | Blissville"
         description="From Acceleration to Explosive Equity. Discover why Sangotedo is Lagos’ fastest-growing real estate corridor."
         canonical="https://www.blissville.com.ng/blog/the-sangotedo-inflection-point"
         ogImage="/assets/img/blog/sangotedo-inflection.jpg"
@@ -21,7 +21,7 @@ export default function SangotedoInflectionBlog() {
       <Navigation />
 
       <PageHeader
-        title="The Sangotedo Inflection Point"
+        title="Why Sangotedo Properties Keep Growing"
         bgImage="/assets/img/blog/sangotedo-inflection.jpg"
       />
 
@@ -76,12 +76,12 @@ const BlogCoverImage = () => (
 const BlogContent = () => (
   <article>
     <h2 className="fw-bold text-primary mb-4">
-      The Sangotedo Inflection Point
+      Why Sangotedo Properties Keep Growing
     </h2>
 
-    <h4 className="fw-bold font-primary mb-4">
+    {/* <h4 className="fw-bold font-primary mb-4">
       From Acceleration to Explosive Equity
-    </h4>
+    </h4> */}
 
     <p>
       As we move into the second quarter of 2026, the narrative of the Lagos
