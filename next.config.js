@@ -8,6 +8,16 @@ const nextConfig = {
     ],
   },
   optimizeFonts: false,
+
+  async redirects() {
+    return [
+      {
+        source: '/blog/sangotedo-inflection-point',
+        destination: '/blog/why-sangotedo-properties-keep-growing',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

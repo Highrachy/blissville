@@ -54,7 +54,7 @@ const BLOG_POSTS = [
     excerpt:
       "Sangotedo has emerged as Lagos' fastest-growing investment corridor, with rapid appreciation, infrastructure expansion, and rare waterfront opportunities driving explosive equity growth.",
     image: '/assets/img/blog/sangotedo-inflection.jpg',
-    slug: '/blog/sangotedo-inflection-point',
+    slug: '/blog/why-sangotedo-properties-keep-growing',
   },
 ];
 

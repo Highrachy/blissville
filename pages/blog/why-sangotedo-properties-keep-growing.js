@@ -13,8 +13,8 @@ export default function SangotedoInflectionBlog() {
     <>
       <SeoHead
         title="Why Sangotedo Properties Keep Growing | Blissville"
-        description="From Acceleration to Explosive Equity. Discover why Sangotedo is Lagos’ fastest-growing real estate corridor."
-        canonical="https://www.blissville.com.ng/blog/the-sangotedo-inflection-point"
+        description="From Acceleration to Explosive Equity. Discover why Sangotedo is Lagos' fastest-growing real estate corridor."
+        canonical="https://www.blissville.com.ng/blog/why-sangotedo-properties-keep-growing"
         ogImage="/assets/img/blog/sangotedo-inflection.jpg"
       />
 
