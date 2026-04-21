@@ -7,7 +7,6 @@ import { BenefitSlider } from '@/components/common/Benefits';
 import { TestimonialSection } from '@/components/common/Testimonials';
 import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
-import { InvestToday } from './investors';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import ActionButtonGroup from '@/components/layouts/ActionButtonGroup';
 import { ArrowRight } from '@/components/Icons/Icons';
@@ -27,6 +26,7 @@ import { useState } from 'react';
 import { CoreValuesSlider } from '@/components/common/CoreValues';
 import { VideoContainer } from './our-projects/[slug]';
 import BlogSection from '@/components/blog/BlogSection';
+import { BeyondTheHypeHeroSection } from './beyond-the-hype';
 
 const BASE_CONTENT = {
   image:
@@ -71,10 +71,9 @@ export default function Home({ slides, projects, properties }) {
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
       <ProjectsSlideshow projects={projects} />
-      {/* <MassiveInfrastructureSection /> */}
+      <BeyondTheHypeHeroSection />
       <BlogSection showLastPosts={true} />
       <TestimonialSection />
-      <InvestToday showButton />
       <ScheduleVisit />
       <Footer />
       <ReferralModal referralCode={query.ref} inviteCode={query.inviteCode} />
@@ -370,7 +369,7 @@ export async function getStaticProps() {
         'filters[featured][$eq]': 'true',
         'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
       },
-    }
+    },
   );
 
   const projectRes = await axios.get(
@@ -381,7 +380,7 @@ export async function getStaticProps() {
         sort: 'createdAt:desc',
         'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
       },
-    }
+    },
   );
 
   const propertiesRes = await axios.get(
@@ -392,7 +391,7 @@ export async function getStaticProps() {
         sort: 'createdAt:desc',
         'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
       },
-    }
+    },
   );
 
   const slides = slideRes.data.data.map(({ id, attributes }) => ({

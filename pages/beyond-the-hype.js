@@ -21,7 +21,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 
-const HeroSection = () => (
+export const BeyondTheHypeHeroSection = () => (
   <section className="bg-light2 py-5 py-lg-6">
     <Container>
       <div className="row align-items-center g-5">
@@ -64,7 +64,7 @@ const HeroSection = () => (
             <div className="d-flex flex-wrap gap-3 mb-4">
               <Button
                 color="primary"
-                href="#exclusive-guide"
+                href="/beyond-the-hype#exclusive-guide"
                 className="fw-semibold px-5 py-4 d-inline-flex align-items-center gap-2"
               >
                 <FaFilePdf />
@@ -585,7 +585,7 @@ export default function BeyondTheHype() {
     <>
       <Navigation />
 
-      <HeroSection />
+      <BeyondTheHypeHeroSection />
       <FeaturesSection />
       <AuthoritySection />
       <SpotlightSection />
