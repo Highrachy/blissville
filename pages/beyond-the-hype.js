@@ -16,10 +16,26 @@ import {
 } from 'iconsax-react';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
+
+export const CLARITY_EVENTS = {
+  // Page
+  BTH_PAGE_VIEW: 'bth_page_view',
+
+  // Hero
+  BTH_HERO_CTA_CLICK: 'bth_hero_cta_click',
+
+  // Form journey
+  BTH_FORM_START: 'bth_form_start',
+  BTH_FORM_SUBMIT_ATTEMPT: 'bth_form_submit_attempt',
+  BTH_FORM_ERROR: 'bth_form_error',
+
+  // Conversion
+  BTH_GUIDE_DOWNLOAD: 'bth_guide_download',
+};
 
 export const BeyondTheHypeHeroSection = () => (
   <section className="bg-light2 py-5 py-lg-6">
@@ -66,6 +82,11 @@ export const BeyondTheHypeHeroSection = () => (
                 color="primary"
                 href="/beyond-the-hype#exclusive-guide"
                 className="fw-semibold px-5 py-4 d-inline-flex align-items-center gap-2"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.clarity) {
+                    window.clarity('event', CLARITY_EVENTS.BTH_HERO_CTA_CLICK);
+                  }
+                }}
               >
                 <FaFilePdf />
                 Get the Free Guide
@@ -333,7 +354,15 @@ export const ClarityFormSection = ({
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', CLARITY_EVENTS.BTH_FORM_SUBMIT_ATTEMPT);
+    }
+
     if (!isValid) {
+      if (typeof window !== 'undefined' && window.clarity) {
+        window.clarity('event', CLARITY_EVENTS.BTH_FORM_ERROR);
+      }
+
       setTouched({ name: true, email: true, phone: true });
       return;
     }
@@ -355,6 +384,10 @@ export const ClarityFormSection = ({
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      if (typeof window !== 'undefined' && window.clarity) {
+        window.clarity('event', CLARITY_EVENTS.BTH_GUIDE_DOWNLOAD);
+      }
 
       toast.success('Your download is starting... Please check your device.');
       setSent(true);
@@ -426,6 +459,17 @@ export const ClarityFormSection = ({
                           onKeyDown={(e) =>
                             e.key === 'Enter' && phoneRef.current.focus()
                           }
+                          onFocus={() => {
+                            if (
+                              typeof window !== 'undefined' &&
+                              window.clarity
+                            ) {
+                              window.clarity(
+                                'event',
+                                CLARITY_EVENTS.BTH_FORM_START,
+                              );
+                            }
+                          }}
                         />
                         <div className="invalid-feedback">
                           Enter your full name
@@ -581,6 +625,11 @@ const CheckItem = ({ text }) => (
 );
 
 export default function BeyondTheHype() {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', CLARITY_EVENTS.BTH_PAGE_VIEW);
+    }
+  }, []);
   return (
     <>
       <Navigation />

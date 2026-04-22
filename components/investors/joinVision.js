@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Section from '../common/Section';
 import Button from '../forms/Button';
 import axios from 'axios';
@@ -10,12 +10,27 @@ export default function JoinVision() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
+  const CLARITY_EVENTS = {
+    JV_FORM_START: 'jv_form_start',
+    JV_STEP_1_COMPLETE: 'jv_step_1_complete',
+    JV_STEP_2_VIEW: 'jv_step_2_view',
+    JV_SUBMIT_ATTEMPT: 'jv_submit_attempt',
+    JV_SUBMIT_SUCCESS: 'jv_submit_success',
+    JV_SUBMIT_ERROR: 'jv_submit_error',
+  };
+
   const [form, setForm] = useState({
     name: '',
-    subject: 'Standard Block (19.1M)',
+    subject: 'I want to invest',
     email: '',
     phone: '',
   });
+
+  useEffect(() => {
+    if (step === 2 && typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', CLARITY_EVENTS.JV_STEP_2_VIEW);
+    }
+  }, [CLARITY_EVENTS.JV_STEP_2_VIEW, step]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,11 +41,19 @@ export default function JoinVision() {
       toast.error('Please complete required fields');
       return;
     }
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', CLARITY_EVENTS.JV_STEP_1_COMPLETE);
+    }
+
     setStep(2);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', CLARITY_EVENTS.JV_SUBMIT_ATTEMPT);
+    }
 
     if (!form.email) {
       toast.error('Email is required');
@@ -48,11 +71,15 @@ export default function JoinVision() {
         },
       });
 
+      if (typeof window !== 'undefined' && window.clarity) {
+        window.clarity('event', CLARITY_EVENTS.JV_SUBMIT_SUCCESS);
+      }
+
       toast.success('Request submitted successfully');
 
       setForm({
         name: '',
-        subject: 'Standard Block (₦19.125M)',
+        subject: 'I want to invest',
         email: '',
         phone: '',
       });
@@ -60,6 +87,9 @@ export default function JoinVision() {
       setStep(1);
     } catch (err) {
       toast.error('Submission failed');
+      if (typeof window !== 'undefined' && window.clarity) {
+        window.clarity('event', CLARITY_EVENTS.JV_SUBMIT_ERROR);
+      }
     }
 
     setLoading(false);
@@ -117,20 +147,36 @@ export default function JoinVision() {
                       onChange={handleChange}
                       placeholder=""
                       required
+                      onFocus={() => {
+                        if (typeof window !== 'undefined' && window.clarity) {
+                          window.clarity('event', CLARITY_EVENTS.JV_FORM_START);
+                        }
+                      }}
                     />
                   </div>
 
                   <div className="form-group">
-                    <label>INVESTMENT TYPE</label>
+                    <label>SUBJECT</label>
                     <select
                       name="subject"
                       value={form.subject}
                       onChange={handleChange}
                     >
-                      <option>Standard Block (₦19.125M)</option>
-                      <option>Large Portfolio (₦38.2M)</option>
-                      <option>Full Ownership (₦155M+)</option>
-                      <option>Custom Block (₦19.125M+)</option>
+                      <option value="I want to invest">I want to invest</option>
+
+                      <option value="Request pricing & payment plan">
+                        Request pricing & payment plan
+                      </option>
+
+                      <option value="Schedule a site inspection">
+                        Schedule a site inspection
+                      </option>
+
+                      <option value="Understand ROI & returns">
+                        Understand ROI & returns
+                      </option>
+
+                      <option value="Other inquiry">Other inquiry</option>
                     </select>
                   </div>
 

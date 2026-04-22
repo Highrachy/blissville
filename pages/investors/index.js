@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Footer from '@/components/common/Footer';
 import DeveloperSection from '@/components/investors/developerSection';
 import DevelopmentProgress from '@/components/investors/developmentProgress';
@@ -16,7 +16,82 @@ import UnitPricing from '@/components/investors/unitPricing';
 import Navigation from '@/components/layouts/Navigation';
 import SeoHead from '@/components/utils/SeoHead';
 
+/* =========================
+   CLARITY EVENTS CONSTANTS
+========================= */
+const CLARITY_EVENTS = {
+  INVESTORS_PAGE_VIEW: 'investors_page_view',
+  INVESTORS_VIEW_OPPORTUNITY: 'investors_view_opportunity',
+  INVESTORS_VIEW_PRICING: 'investors_view_pricing',
+  INVESTORS_VIEW_TIERS: 'investors_view_tiers',
+  INVESTORS_VIEW_RISK: 'investors_view_risk',
+  INVESTORS_VIEW_CTA: 'investors_view_cta',
+};
+
 const Investors = () => {
+  /* =========================
+     REFS FOR SECTIONS
+  ========================= */
+  const opportunityRef = useRef(null);
+  const pricingRef = useRef(null);
+  const tiersRef = useRef(null);
+  const riskRef = useRef(null);
+  const ctaRef = useRef(null);
+
+  /* =========================
+     TRACK EVENT HELPER
+  ========================= */
+  const trackEvent = (eventName) => {
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', eventName);
+    }
+  };
+
+  /* =========================
+     PAGE VIEW
+  ========================= */
+  useEffect(() => {
+    trackEvent(CLARITY_EVENTS.INVESTORS_PAGE_VIEW);
+  }, []);
+
+  /* =========================
+     INTERSECTION OBSERVER
+  ========================= */
+  useEffect(() => {
+    const elements = [
+      { ref: opportunityRef, event: CLARITY_EVENTS.INVESTORS_VIEW_OPPORTUNITY },
+      { ref: pricingRef, event: CLARITY_EVENTS.INVESTORS_VIEW_PRICING },
+      { ref: tiersRef, event: CLARITY_EVENTS.INVESTORS_VIEW_TIERS },
+      { ref: riskRef, event: CLARITY_EVENTS.INVESTORS_VIEW_RISK },
+      { ref: ctaRef, event: CLARITY_EVENTS.INVESTORS_VIEW_CTA },
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const match = elements.find(
+              (el) => el.ref.current === entry.target,
+            );
+            if (match) {
+              trackEvent(match.event);
+              obs.unobserve(entry.target); // fire once only
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.4, // triggers when 40% visible
+      },
+    );
+
+    elements.forEach(({ ref }) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <SeoHead
@@ -37,20 +112,45 @@ const Investors = () => {
           'Waterfront real estate Nigeria',
         ]}
       />
+
       <Navigation />
+
       <InvestorsHero />
+
       <ProjectSnapshot />
-      <OpportunitySection />
+
+      <div ref={opportunityRef}>
+        <OpportunitySection />
+      </div>
+
       <LocationSection />
+
       <NeighborhoodSection />
-      <UnitPricing />
+
+      <div ref={pricingRef}>
+        <UnitPricing />
+      </div>
+
       <DeveloperSection />
-      <InvestmentTiers />
+
+      <div ref={tiersRef}>
+        <InvestmentTiers />
+      </div>
+
       <ExitStrategies />
+
       <DevelopmentProgress />
-      <RiskAndMitigation />
+
+      <div ref={riskRef}>
+        <RiskAndMitigation />
+      </div>
+
       <PathToPartnership />
-      <JoinVision />
+
+      <div ref={ctaRef}>
+        <JoinVision />
+      </div>
+
       <Footer />
     </>
   );
