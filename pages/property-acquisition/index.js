@@ -25,7 +25,7 @@ import CheckboxGroup from '@/components/forms/CheckboxGroup';
 import Upload from '@/components/forms/Upload';
 import Image from 'next/image';
 import { titles } from '@/utils/constants';
-import { PaddedSection } from 'pages/investors/apply';
+import { PaddedSection } from 'pages/investors/apply2';
 import InputFormat from '@/components/forms/InputFormat';
 import FormikButton from '@/components/forms/FormikButton';
 import Modal from '@/components/ui/Modal';
@@ -260,7 +260,7 @@ const InterestAndRelationship = () => (
         label="Resident Type"
         options={valuesToOptions(
           ['4 Bedroom Waterview Terrace Duplex'],
-          'Select Resident Type'
+          'Select Resident Type',
         )}
       />
     </div>
@@ -272,7 +272,7 @@ const InterestAndRelationship = () => (
         optional
         options={valuesToOptions(
           ['Yes', 'No'],
-          'Any other office, house or Flat bought or rented from Highrachy?'
+          'Any other office, house or Flat bought or rented from Highrachy?',
         )}
       />
       <Select
@@ -282,7 +282,7 @@ const InterestAndRelationship = () => (
         optional
         options={valuesToOptions(
           ['Owner Occupation', 'Sublease'],
-          'Select Intended Use of Property'
+          'Select Intended Use of Property',
         )}
       />
     </div>
@@ -316,7 +316,7 @@ const TransactionDetails = () => (
             'Fixed Payment (14 Months)',
             'Flexi Payment (Customized)',
           ],
-          'Select Payment Plan'
+          'Select Payment Plan',
         )}
       />
       <InputFormat
@@ -517,8 +517,8 @@ export const ActionButtons = ({
         `${missingFields.join(', ')} ${Humanize.pluralize(
           missingFields.length,
           'is',
-          'are'
-        )} required`
+          'are',
+        )} required`,
       );
     }
     return [...missingFields].length === 0;

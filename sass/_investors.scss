@@ -1526,3 +1526,117 @@
     }
   }
 }
+
+.investment-intro {
+  max-width: 900px;
+  margin: 0 auto;
+
+  &__title {
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: $primary;
+  }
+}
+
+/* Panel (main card) */
+.investment-panel {
+  border: 1px solid $gray-300;
+  border-radius: 8px;
+  background: #fff;
+  padding: 2.5rem 3rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 24px rgba($dark-900, 0.03);
+  max-width: 900px;
+}
+
+/* Investment Option Card */
+.investment-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  width: 100%;
+  padding: 1.75rem;
+
+  border: 1px solid $gray-400;
+  border-radius: 6px;
+  background: lighten($gray-100, 3%);
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &__content {
+    max-width: 90%;
+  }
+
+  &__title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    font-size: 1.25rem;
+  }
+
+  &__price {
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+    margin-top: 16px;
+  }
+
+  &__desc {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  &__title,
+  &__price,
+  &__desc {
+    color: $gray-700;
+  }
+
+  &:hover {
+    border-color: $primary;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba($dark-900, 0.05);
+
+    &__title,
+    &__price,
+    &__desc {
+      color: $gray-800;
+    }
+  }
+
+  &__check {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: $primary;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  &.is-active {
+    background: $primary-50;
+    border: 3px solid $primary-200;
+
+    .investment-option__title,
+    .investment-option__desc {
+      color: $primary-800;
+    }
+
+    .investment-option__price {
+      color: $primary-700;
+    }
+    &.is-active .investment-option__check {
+      color: #fff;
+      background: $primary-800;
+    }
+  }
+}

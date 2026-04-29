@@ -29,7 +29,6 @@ import InputFormat from '@/components/forms/InputFormat';
 import Image from 'next/image';
 import { titles } from '@/utils/constants';
 import SeoHead from '@/components/utils/SeoHead';
-import classNames from 'classnames';
 
 const InvestmentApplicationForm = () => {
   return (
@@ -61,111 +60,6 @@ const InvestmentApplicationForm = () => {
       <InvestmentForm />
       <Footer />
     </>
-  );
-};
-
-const IntroTextForm = () => {
-  const { values, setFieldValue } = useFormikContext();
-
-  const investmentType = values?.investmentType;
-
-  const handleSelect = (type) => {
-    setFieldValue('investmentType', type);
-    setFieldValue('investmentRange', '');
-  };
-
-  const equityOptions = ['₦19,125,000.00', '₦38,250,000.00', 'OTHERS'];
-
-  const guaranteedOptions = ['₦10M - ₦19.9M', '₦20M and Above'];
-
-  const currentOptions =
-    investmentType === 'guaranteed'
-      ? guaranteedOptions
-      : investmentType === 'equity'
-        ? equityOptions
-        : [];
-
-  return (
-    <section>
-      <h3 className="text-gray-900 mt-5 mb-3">Begin your Application below</h3>
-
-      <div className="investment-panel">
-        {/* STEP 1 */}
-        <div className="apply-section">
-          <p className="text-md fw-medium mb-2">Select an Investment Type</p>
-
-          <div className="row g-3">
-            <section className="col-md-6">
-              <div
-                onClick={() => handleSelect('guaranteed')}
-                className={classNames('investment-option', {
-                  'is-active': investmentType === 'guaranteed',
-                })}
-              >
-                <div className="investment-option__content">
-                  <h6 className="investment-option__title">
-                    Guaranteed Investment
-                  </h6>
-                  <p className="investment-option__desc">
-                    Get fixed returns in 12 months with a clear and predictable
-                    payout.
-                  </p>
-                  <h4 className="investment-option__price">From ₦10M</h4>
-                </div>
-
-                {investmentType === 'guaranteed' && (
-                  <span className="investment-option__check">✓</span>
-                )}
-              </div>
-            </section>
-
-            <section className="col-md-6">
-              <div
-                onClick={() => handleSelect('equity')}
-                className={classNames('investment-option', {
-                  'is-active': investmentType === 'equity',
-                })}
-              >
-                <div className="investment-option__content">
-                  <h6 className="investment-option__title">
-                    Equity Investment
-                  </h6>
-                  <p className="investment-option__desc">
-                    Earn higher returns based on project performance over time.
-                  </p>
-                  <h4 className="investment-option__price">From ₦19.125M</h4>
-                </div>
-
-                {investmentType === 'equity' && (
-                  <span className="investment-option__check">✓</span>
-                )}
-              </div>
-            </section>
-          </div>
-        </div>
-
-        {/* STEP 2 */}
-        <div className="mt-5">
-          <p className="text-md fw-medium mb-2">
-            Select an Investment Package (optional)
-          </p>
-
-          <div className="col-md-6 px-0">
-            <Select
-              name="investmentRange"
-              label=""
-              disabled={!investmentType}
-              options={valuesToOptions(
-                currentOptions,
-                investmentType
-                  ? 'Select Investment Package'
-                  : 'Select investment type first',
-              )}
-            />
-          </div>
-        </div>
-      </div>
-    </section>
   );
 };
 
@@ -206,23 +100,29 @@ const IntroText = () => (
         welcoming you as a valued investment partner in our project.
       </p>
     </div>
-
     <div className="col-md-5 col-lg-5">
-      <div className="rounded-4 overflow-hidden shadow-sm">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-2.jpg"
-          alt="Blissville modern terrace apartments"
-          width={560}
-          height={420}
-          className="w-100 h-100 img-cover"
-          priority
-        />
-      </div>
+      <Image
+        src="/assets/img/investors/investment-tree.jpg"
+        alt="Hero Image"
+        width={1500}
+        className="rounded pe-md-3"
+        height={1688}
+      />
     </div>
     <div className="dotted-border-muted my-5"></div>
 
-    <IntroTextForm />
+    <h3>Select an Investment Package</h3>
+    <Select
+      name="investmentRange"
+      formGroupClassName="col-md-6"
+      label="Investment Package"
+      helpText="Minimum investment is ₦19,125,000"
+      optional
+      options={valuesToOptions(
+        ['₦19,125,000', '₦38,250,000', 'Others'],
+        'Select Investment Package',
+      )}
+    />
   </div>
 );
 
@@ -319,7 +219,6 @@ const PersonalInformation = () => (
     </div>
   </>
 );
-
 const InvestmentInfo = () => (
   <>
     <div className="row">
@@ -338,69 +237,63 @@ const InvestmentInfo = () => (
     </div>
   </>
 );
-
-const TermsAndCondition = () => {
-  const { values } = useFormikContext();
-  const investmentType = values?.investmentType;
-
-  return (
-    <>
-      <InvestorTerms investmentType={investmentType} />
-      <div className="dotted-border-muted my-5"></div>{' '}
-      <div className="mt-3">
-        <Upload
-          label="Upload your Signature"
-          changeText="Update Signature"
-          defaultImage="/assets/img/placeholder/image.png"
-          imgOptions={{
-            className: 'mb-3 img-xl img-contain',
-            width: 100,
-            height: 200,
-          }}
-          name="signature"
-          uploadText={`Upload Signature`}
-          folder={'investor-signature'}
-        />
-      </div>
-      <div className="mt-4">
-        <CheckboxGroup
-          inline
-          name="declaration"
-          options={[
-            {
-              label: (
-                <>
-                  I hereby declare that the information given in this
-                  application is correct to the best of my knowledge and believe
-                  same to be true.
-                </>
-              ),
-              value: true,
-            },
-          ]}
-        />
-      </div>
-      <div className="mt-2 mb-5">
-        <CheckboxGroup
-          inline
-          name="confirmation"
-          options={[
-            {
-              label: (
-                <>
-                  By submitting this form, I hereby acknowledge that I have read
-                  and understand the terms and conditions contained herein and
-                  agree to be bound by the same.
-                </>
-              ),
-              value: true,
-            },
-          ]}
-        />
-      </div>
-    </>
-  );
-};
+const TermsAndCondition = () => (
+  <>
+    <InvestorTerms />
+    <div className="dotted-border-muted my-5"></div>{' '}
+    <div className="mt-3">
+      <Upload
+        label="Upload your Signature"
+        changeText="Update Signature"
+        defaultImage="/assets/img/placeholder/image.png"
+        imgOptions={{
+          className: 'mb-3 img-xl img-contain',
+          width: 100,
+          height: 200,
+        }}
+        name="signature"
+        uploadText={`Upload Signature`}
+        folder={'investor-signature'}
+      />
+    </div>
+    <div className="mt-4">
+      <CheckboxGroup
+        inline
+        name="declaration"
+        options={[
+          {
+            label: (
+              <>
+                I hereby declare that the information given in this application
+                is correct to the best of my knowledge and believe same to be
+                true.
+              </>
+            ),
+            value: true,
+          },
+        ]}
+      />
+    </div>
+    <div className="mt-2 mb-5">
+      <CheckboxGroup
+        inline
+        name="confirmation"
+        options={[
+          {
+            label: (
+              <>
+                By submitting this form, I hereby acknowledge that I have read
+                and understand the terms and conditions contained herein and
+                agree to be bound by the same.
+              </>
+            ),
+            value: true,
+          },
+        ]}
+      />
+    </div>
+  </>
+);
 
 export const PaddedSection = ({ children, title }) => (
   <section className="pb-5">
@@ -422,13 +315,11 @@ const InvestmentForm = ({ apartment }) => {
   const handleSubmit = async (values, actions) => {
     const payload = {
       ...values,
-      investmentRange:
-        `${values?.investmentRange} - ${values?.investmentType}` || 'None',
+      investmentRange: values?.investmentRange || 'None',
     };
 
     delete payload.confirmation;
     delete payload.declaration;
-    delete payload.investmentType;
 
     try {
       axios({
@@ -489,9 +380,7 @@ const InvestmentForm = ({ apartment }) => {
         showAllFormikState
         persistForm
         initialValues={
-          isDevEnvironment()
-            ? investorTestData
-            : { investmentRange: 'None', investmentType: 'guaranteed' }
+          isDevEnvironment() ? investorTestData : { investmentRange: 'None' }
         }
       >
         <PaddedSection>
@@ -601,9 +490,7 @@ const ActionButtons = ({
         // Submit Button on last step
         <FormikButton
           className="px-5"
-          disabled={
-            !values?.['confirmation']?.[0] || !values?.['declaration']?.[0]
-          }
+          disabled={!values?.['confirmation']?.[0]}
         >
           Submit Application
         </FormikButton>

@@ -5,23 +5,46 @@ import Button from './Button';
 import { toast } from 'react-toastify';
 
 const FormikButton = ({ children, ...props }) => {
-  const formikProps = useFormikContext();
-  // const [loading, setLoading] = React.useState(false);
+  const {
+    submitForm,
+    validateForm,
+    isSubmitting,
+    isValid,
+    touched,
+    setTouched,
+  } = useFormikContext();
 
-  // React.useEffect(() => {
-  //   setLoading(formikProps.isSubmitting);
-  // }, [formikProps.isSubmitting]);
+  const handleClick = async () => {
+    // Trigger validation
+    const errors = await validateForm();
 
-  const handleClick = () => {
-    // formikProps.setSubmitting(true);
-    formikProps.handleSubmit();
-    const errors = formikProps.errors;
-    errors && toast.error(Object.values(errors)[0]);
+    // Mark all fields as touched (so errors show)
+    setTouched(
+      Object.keys(errors).reduce((acc, key) => {
+        acc[key] = true;
+        return acc;
+      }, {}),
+    );
+
+    if (Object.keys(errors).length > 0) {
+      toast.error(Object.values(errors)[0]);
+      return;
+    }
+
+    // Submit only if valid
+    submitForm();
   };
 
   return (
-    <Button onClick={handleClick} {...props} loading={formikProps.isSubmitting}>
-      {children}
+    <Button onClick={handleClick} disabled={isSubmitting} {...props}>
+      {isSubmitting ? (
+        <>
+          <span className="spinner-border spinner-border-sm me-2" />
+          Processing...
+        </>
+      ) : (
+        children
+      )}
     </Button>
   );
 };

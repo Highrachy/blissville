@@ -36,6 +36,7 @@ export const investorSchema = {
   employerName: optionalValidation(stringValidation('Employer Name')),
   officeAddress: stringValidation('Office Address'),
   investmentRange: optionalValidation(stringValidation('Investment Range')),
+  investmentType: stringValidation('Investment Type'),
   amountToInvest: stringValidation('Amount to Invest'),
   bankAccountName: stringValidation('Bank Account Name'),
   accountNumber: stringValidation('Account Number'),
@@ -61,17 +62,17 @@ export const propertyAcquisitionSchema = {
   emailNOK: optionalValidation(email),
   residentType: stringValidation('Resident Type'),
   previousHighrachyTransactions: optionalValidation(
-    stringValidation('Previous Highrachy Transactions')
+    stringValidation('Previous Highrachy Transactions'),
   ),
   intendedUseOfProperty: optionalValidation(
-    stringValidation('Intended Use of Property')
+    stringValidation('Intended Use of Property'),
   ),
   nameOnTitleDocument: stringValidation('Name on Title Document'),
   nameOfAgent: optionalValidation(stringValidation('Name of Agent')),
   telephoneNoAgent: optionalValidation(phoneNumber),
   paymentPlan: stringValidation('Payment Plan'),
   amountImmediatelyAvailableForPayment: positiveNumberValidation(
-    'Amount Immediately Available for Payment'
+    'Amount Immediately Available for Payment',
   ),
   nameOfBanker: optionalValidation(stringValidation('Name of Banker')),
   customersSignature: stringValidation('Signature'),

@@ -14,6 +14,7 @@ export const investorTestData = {
   employerName: 'None',
   officeAddress: 'No 264,Ikorodu Road, Obanikoro',
   investmentRange: '₦25 Million',
+  investmentType: 'guaranteed',
   amountToInvest: '15000000',
   bankAccountName: 'GTB',
   accountNumber: '01234242432',
