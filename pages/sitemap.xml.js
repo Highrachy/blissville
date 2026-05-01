@@ -1,3 +1,5 @@
+import BLOG_POSTS from '@/data/blog';
+
 export async function getServerSideProps({ res }) {
   const baseUrl = 'https://www.blissville.com.ng';
 
@@ -20,16 +22,21 @@ export async function getServerSideProps({ res }) {
     '/our-properties/blissville-apartments/3-bedroom-apartments',
   ];
 
+  const blogPages = BLOG_POSTS.map((post) => post.slug);
+  const allPages = [...pages, ...blogPages];
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-    ${pages
+    ${allPages
       .map(
         (page) => `
         <url>
           <loc>${baseUrl}${page}</loc>
           <lastmod>${new Date().toISOString()}</lastmod>
-          <changefreq>weekly</changefreq>
-          <priority>0.8</priority>
+          <changefreq>${
+            page.startsWith('/blog') ? 'weekly' : 'monthly'
+          }</changefreq>
+          <priority>${page.startsWith('/blog') ? '0.7' : '0.8'}</priority>
         </url>
       `,
       )
