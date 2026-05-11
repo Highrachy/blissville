@@ -43,7 +43,7 @@ export default function OurProjects({ projects }) {
       />
 
       <Section>
-        <div className="container text-center">
+        <div className="container text-center d-none">
           <Fade top>
             <h2 className="fw-bold mb-3 mt-3 text-primary">
               Creating Spaces That Inspire Modern Living
@@ -99,7 +99,7 @@ export async function getStaticProps() {
         sort: 'createdAt:desc',
         'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
       },
-    }
+    },
   );
 
   const projects = projectRes.data.data;

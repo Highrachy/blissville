@@ -56,6 +56,15 @@ const BLOG_POSTS = [
     image: '/assets/img/blog/sangotedo-inflection.jpg',
     slug: '/blog/why-sangotedo-properties-keep-growing',
   },
+  {
+    id: 8,
+    title:
+      'From Bar Beach to Eko Atlantic: Why Sangotedo is the Next Lagos Success Story',
+    excerpt:
+      'Lagos transforms fast, and Sangotedo is next. Discover how infrastructure, gentrification, and economic shifts are turning this corridor into the next prime real estate destination.',
+    image: '/assets/img/blog/sangotedo-success.jpg',
+    slug: '/blog/sangotedo-next-lagos-success-story',
+  },
 ];
 
 export default BLOG_POSTS;
