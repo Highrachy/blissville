@@ -160,3 +160,9 @@ export const changePasswordSchema = {
   password,
   confirmPassword,
 };
+
+export const unsubscribeSchema = {
+  email,
+  reason: required('Reason'),
+  message: optionalValidation(stringValidation('Message', 2)),
+};

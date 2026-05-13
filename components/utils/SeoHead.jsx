@@ -5,6 +5,7 @@ export default function SeoHead({
   description = 'Discover luxury and affordable homes in Lagos, Lekki, and Sangotedo. Explore waterfront terraces and family-friendly estates by trusted developer Highrachy.',
   canonical = 'https://www.blissville.com.ng',
   ogImage = 'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg',
+  robots = 'index, follow',
   keywords = [
     'Lagos real estate for sale',
     'Affordable real estate in Lagos',
@@ -81,7 +82,7 @@ export default function SeoHead({
 
       {/* Misc */}
       <meta name="author" content="Highrachy" />
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={robots} />
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
 
