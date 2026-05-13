@@ -39,8 +39,12 @@ export const CoreValuesSlider = () => {
           onReachEnd={(swiper) => {
             // Wait a moment before restarting autoplay
             setTimeout(() => {
-              swiper.slideTo(0); // Go back to first slide
-              swiper.autoplay.start(); // Resume autoplay
+              if (swiper && !swiper.destroyed) {
+                swiper.slideTo(0); // Go back to first slide
+                if (swiper.autoplay) {
+                  swiper.autoplay.start(); // Resume autoplay
+                }
+              }
             }, 5000);
           }}
           grabCursor={true}

@@ -11,7 +11,7 @@ export default function InvestorsHero() {
         <Row className="align-items-center g-5">
           {/* LEFT */}
           <Col lg={6}>
-            <h1 className="display-4 fw-normal text-dark-900 lh-sm mb-4">
+            <h1 className="display-4 fw-semibold text-dark-900 lh-sm mb-4">
               <span className="text-primary-600">Blissville Terraces:</span>
               <br />
               Own the Future of Real Estate.

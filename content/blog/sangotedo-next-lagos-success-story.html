@@ -1,81 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import Image from 'next/image';
-import Navigation from '@/components/layouts/Navigation';
-import Footer from '@/components/common/Footer';
-import ScheduleVisit from '@/components/common/ScheduleVisit';
-import SeoHead from '@/components/utils/SeoHead';
-import { PageHeader } from '@/components/common/Header';
-import Button from '@/components/forms/Button';
+<article>
 
-export default function SangotedoSuccessStory() {
-  return (
-    <>
-      <SeoHead
-        title="From Bar Beach to Eko Atlantic: Why Sangotedo is the Next Lagos Success Story | Blissville"
-        description="Discover why Sangotedo is following the same growth path as Lekki and Eko Atlantic, and why smart investors are moving early."
-        canonical="https://www.blissville.com.ng/blog/sangotedo-next-lagos-success-story"
-        ogImage="/assets/img/blog/sangotedo-success.jpg"
-      />
-
-      <Navigation />
-
-      <PageHeader
-        title="Why Sangotedo is the Next Lagos Success Story"
-        bgImage="/assets/img/blog/sangotedo-success.jpg"
-      />
-
-      <ArticleWrapper>
-        <BlogCoverImage />
-        <BlogContent />
-      </ArticleWrapper>
-
-      <ScheduleVisit />
-      <Footer />
-    </>
-  );
-}
-
-/* -----------------------------------------------------
-   WRAPPER
-------------------------------------------------------- */
-const ArticleWrapper = ({ children }) => (
-  <div
-    className="container"
-    style={{
-      maxWidth: '800px',
-      paddingTop: '3rem',
-      paddingBottom: '3rem',
-      lineHeight: '1.85',
-      fontSize: '1.15rem',
-    }}
-  >
-    {children}
-  </div>
-);
-
-/* -----------------------------------------------------
-   COVER IMAGE
-------------------------------------------------------- */
-const BlogCoverImage = () => (
-  <div className="mb-5">
-    <Image
-      src="/assets/img/blog/sangotedo-success.jpg"
-      alt="Sangotedo Real Estate Growth"
-      width={1200}
-      height={800}
-      className="rounded-3 img-cover shadow-sm"
-      style={{ width: '100%', height: 'auto' }}
-    />
-  </div>
-);
-
-const BlogContent = () => (
-  <article>
-    <h2 className="fw-bold text-primary mb-4">
-      From Bar Beach to Eko Atlantic: Why Sangotedo is the Next Lagos Success
-      Story
-    </h2>
 
     <p>
       In Lagos, we don&rsquo;t just tell time by years; we tell it by
@@ -97,7 +21,7 @@ const BlogContent = () => (
       are pointing to one destination: <strong>Sangotedo</strong>.
     </p>
 
-    <h3 className="fw-bold mt-6 mb-3">
+    <h3 class="fw-bold mt-6 mb-3">
       The Nostalgia Trigger: Why Landscapes Shift
     </h3>
 
@@ -113,7 +37,7 @@ const BlogContent = () => (
       Eko Atlantic effect is happening in Sangotedo right now.
     </p>
 
-    <h4 className="text-dark mt-6">
+    <h4 class="text-dark mt-6">
       1. The Coastal Road Effect: From Hidden Gem to Main Street
     </h4>
 
@@ -124,18 +48,18 @@ const BlogContent = () => (
     </p>
 
     <p>
-      <strong className="text-primary">The Trigger:</strong> Think of how the
+      <strong class="text-primary">The Trigger:</strong> Think of how the
       Lekki-Ikoyi Link Bridge instantly doubled property values in Lekki.
     </p>
 
     <p>
-      <strong className="text-primary">The Sangotedo Reality:</strong> With the
+      <strong class="text-primary">The Sangotedo Reality:</strong> With the
       expansion of the Lekki-Epe Expressway and the proximity to the new Coastal
       Road, Sangotedo is losing its distance. It&rsquo;s no longer far,
       it&rsquo;s central.
     </p>
 
-    <h4 className="text-dark mt-6">2. The Shoprite Anchor</h4>
+    <h4 class="text-dark mt-6">2. The Shoprite Anchor</h4>
 
     <p>
       Remember when Palms Mall in Lekki was the only place to be? It signaled
@@ -149,27 +73,27 @@ const BlogContent = () => (
       live.
     </p>
 
-    <h4 className="text-dark mt-6">3. The Shift from Leisure to Legacy</h4>
+    <h4 class="text-dark mt-6">3. The Shift from Leisure to Legacy</h4>
 
     <p>
       Lagosians are moving from buying leisure land to building legacy homes.
     </p>
 
     <p>
-      <strong className="text-primary">The Trigger:</strong> Much like how the
+      <strong class="text-primary">The Trigger:</strong> Much like how the
       old Kuramo Waters transitioned from a local hangout to a high-value real
       estate zone, Sangotedo is transitioning from a weekend getaway spot to a
       primary residence hub for the Lagos elite and middle class.
     </p>
 
     <p>
-      <strong className="text-primary">Why Invest?</strong> Buying in Sangotedo
+      <strong class="text-primary">Why Invest?</strong> Buying in Sangotedo
       now is like buying in Agungi or Chevron ten years ago. You aren&apos;t
       just buying land; you are buying the future version of a prime island
       location.
     </p>
 
-    <h4 className="text-dark mt-6">4. The Industrial Gold Rush</h4>
+    <h4 class="text-dark mt-6">4. The Industrial Gold Rush</h4>
 
     <p>
       In her article on{' '}
@@ -192,7 +116,7 @@ const BlogContent = () => (
       that old neighborhoods simply can&apos;t retrofit.
     </p>
 
-    <h4 className="text-dark mt-6">
+    <h4 class="text-dark mt-6">
       5. Caribbean Lake City: The New Waterfront Premium
     </h4>
 
@@ -209,7 +133,7 @@ const BlogContent = () => (
       bypasses traffic via water transportation.
     </p>
 
-    <h3 className="fw-bold mt-6 mb-3">
+    <h3 class="fw-bold mt-6 mb-3">
       The Bottom Line: Don&rsquo;t Be the &ldquo;Had I Known&rdquo; Investor
     </h3>
 
@@ -227,16 +151,15 @@ const BlogContent = () => (
       a high-yield rental and investment property, the time to move is now.
     </p>
 
-    <p className="fw-bold mt-6">Ready to own a piece of Urban Lagos?</p>
+    <p class="fw-bold mt-6">Ready to own a piece of Urban Lagos?</p>
 
-    <div className="mt-3">
-      <Button className="px-5 py-3" href="/our-projects">
+    <div class="mt-3">
+      <a class="btn btn-primary px-5 py-3" href="/our-projects">
         CLICK HERE TO VIEW OUR PORTFOLIO
-      </Button>
+      </a>
     </div>
 
-    <p className="mt-3">
+    <p class="mt-3">
       or send us a DM to book a site inspection this weekend!
     </p>
   </article>
-);

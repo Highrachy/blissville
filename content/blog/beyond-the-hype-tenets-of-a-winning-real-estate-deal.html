@@ -1,81 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import Image from 'next/image';
-import Navigation from '@/components/layouts/Navigation';
-import Footer from '@/components/common/Footer';
-import ScheduleVisit from '@/components/common/ScheduleVisit';
-import SeoHead from '@/components/utils/SeoHead';
-import { PageHeader } from '@/components/common/Header';
+<article>
+    
 
-export default function BeyondTheHypeWinningDeal() {
-  return (
-    <>
-      <SeoHead
-        title="Beyond the Hype: Tenets of a Winning Real Estate Deal | Blissville"
-        description="Beyond the hype of quick sales, learn the core tenets of a winning real estate deal &mdash; from strategic location to legal clarity and community."
-        canonical="https://www.blissville.com.ng/blog/beyond-the-hype-tenets-of-a-winning-real-estate-deal"
-        ogImage="/assets/img/blog/beyond-the-hype.jpg"
-      />
-
-      <Navigation />
-
-      <PageHeader
-        title="Beyond the Hype: Tenets of a Winning Real Estate Deal"
-        bgImage="/assets/img/blog/beyond-the-hype.jpg"
-      />
-
-      <ArticleWrapper>
-        <BlogCoverImage />
-        <BlogContent />
-      </ArticleWrapper>
-
-      <ScheduleVisit />
-      <Footer />
-    </>
-  );
-}
-
-/* -----------------------------------------------------
-   MEDIUM-STYLE WRAPPER
-------------------------------------------------------- */
-const ArticleWrapper = ({ children }) => (
-  <div
-    className="container"
-    style={{
-      maxWidth: '800px',
-      paddingTop: '3rem',
-      paddingBottom: '3rem',
-      lineHeight: '1.85',
-      fontSize: '1.15rem',
-    }}
-  >
-    {children}
-  </div>
-);
-
-/* -----------------------------------------------------
-   COVER IMAGE
-------------------------------------------------------- */
-const BlogCoverImage = () => (
-  <div className="mb-5">
-    <Image
-      src="/assets/img/blog/beyond-the-hype.jpg"
-      alt="Winning Real Estate Deal in Lagos"
-      width={1920}
-      height={1080}
-      className="rounded-3 shadow-sm"
-      style={{ width: '100%', height: 'auto' }}
-    />
-  </div>
-);
-
-const BlogContent = () => (
-  <article>
-    <h2 className="fw-bold mb-4">
-      BEYOND THE HYPE: TENETS OF A WINNING REAL ESTATE DEAL
-    </h2>
-
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       The Foundation: Why We Invest in Real Estate
     </h3>
 
@@ -100,7 +26,7 @@ const BlogContent = () => (
       highlighting why some properties consistently outperform the rest.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       Tenet 1: Strategic Location is About Future Growth
     </h3>
 
@@ -132,7 +58,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       Tenet 2: The Need for Human-Centered Design
     </h3>
 
@@ -166,7 +92,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       Tenet 3: Legal Clarity and Developer Credibility
     </h3>
 
@@ -200,7 +126,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       Tenet 4: Investment is an Association of Ambition
     </h3>
 
@@ -233,7 +159,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">The Winning Deal: Blissville Terraces</h3>
+    <h3 class="fw-bold mt-5 mb-3">The Winning Deal: Blissville Terraces</h3>
 
     <p>
       Located in the emerging growth corridor of Sangotedo, Blissville Terraces
@@ -270,7 +196,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">Why Choose Blissville Terraces?</h3>
+    <h3 class="fw-bold mt-5 mb-3">Why Choose Blissville Terraces?</h3>
 
     <ol>
       <li>
@@ -296,7 +222,7 @@ const BlogContent = () => (
       </li>
     </ol>
 
-    <h3 className="fw-bold mt-5 mb-3">Conclusion: Invest with Intention</h3>
+    <h3 class="fw-bold mt-5 mb-3">Conclusion: Invest with Intention</h3>
 
     <p>
       In Africa&rsquo;s rapidly evolving real estate landscape, lasting returns
@@ -311,4 +237,3 @@ const BlogContent = () => (
       by the strategic vision of Highrachy.
     </p>
   </article>
-);

@@ -1,82 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import Image from 'next/image';
-import Navigation from '@/components/layouts/Navigation';
-import Footer from '@/components/common/Footer';
-import SeoHead from '@/components/utils/SeoHead';
-import { PageHeader } from '@/components/common/Header';
-import ScheduleVisit from '@/components/common/ScheduleVisit';
-
-export default function BlueBlissInvestment() {
-  return (
-    <>
-      <SeoHead
-        title='The "Blue Bliss": Why Your Next Investment Should Breathe | Blissville'
-        description="Discover the 'Blue Bliss' lifestyle at Blissville Terraces &mdash; where waterfront living meets peace of mind, wellness, and high-yield investment potential."
-        canonical="https://www.blissville.com.ng/blog/the-blue-bliss-why-your-next-investment-should-breathe"
-        ogImage="/assets/img/blog/the-blue-bliss.jpg"
-      />
-
-      <Navigation />
-
-      <PageHeader
-        title='The "Blue Bliss": Why Your Next Investment Should Breathe'
-        bgImage="/assets/img/blog/the-blue-bliss.jpg"
-      />
-
-      <ArticleWrapper>
-        <BlogCoverImage />
-        <BlogContent />
-      </ArticleWrapper>
-
-      <ScheduleVisit />
-      <Footer />
-    </>
-  );
-}
-
-/* -----------------------------------------------------
-   MEDIUM-STYLE WRAPPER
-------------------------------------------------------- */
-const ArticleWrapper = ({ children }) => (
-  <div
-    className="container"
-    style={{
-      maxWidth: '800px',
-      paddingTop: '3rem',
-      paddingBottom: '3rem',
-      lineHeight: '1.85',
-      fontSize: '1.15rem',
-    }}
-  >
-    {children}
-  </div>
-);
-
-/* -----------------------------------------------------
-   COVER IMAGE
-------------------------------------------------------- */
-const BlogCoverImage = () => (
-  <div className="mb-5">
-    <Image
-      src="/assets/img/blog/the-blue-bliss.jpg"
-      alt='The "Blue Bliss": Waterfront Living at Blissville Terraces'
-      width={1920}
-      height={1080}
-      className="rounded-3 shadow-sm"
-      style={{ width: '100%', height: 'auto' }}
-    />
-  </div>
-);
-
-/* -----------------------------------------------------
-   BLOG CONTENT
-------------------------------------------------------- */
-const BlogContent = () => (
-  <article>
-    <h2 className="fw-bold mb-4">
-      The &ldquo;Blue Bliss&rdquo;: Why Your Next Investment Should Breathe
-    </h2>
+<article>
+    
 
     <p>
       In the chaotic heart of Lagos, where the pulse of the city never seems to
@@ -104,7 +27,7 @@ const BlogContent = () => (
       the beauty of the tide with absolute peace of mind.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">A Sanctuary for the Soul</h3>
+    <h3 class="fw-bold mt-5 mb-3">A Sanctuary for the Soul</h3>
 
     <p>
       Imagine waking up to the peaceful sound of the Omu Creek instead of noisy
@@ -131,7 +54,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       2. The Investor&rsquo;s Edge: High-Yield Serenity
     </h3>
 
@@ -163,7 +86,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">3. Where Ambition Meets Quietude</h3>
+    <h3 class="fw-bold mt-5 mb-3">3. Where Ambition Meets Quietude</h3>
 
     <p>
       Blissville Terraces sits at the perfect intersection of high-octane Lagos
@@ -189,7 +112,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">Your Legacy, Refined</h3>
+    <h3 class="fw-bold mt-5 mb-3">Your Legacy, Refined</h3>
 
     <p>
       Standard luxury is bought; <strong>&ldquo;Blue Bliss&rdquo;</strong> is
@@ -198,8 +121,7 @@ const BlogContent = () => (
       future.
     </p>
 
-    <p className="fw-bold lead mb-7">
+    <p class="fw-bold lead mb-7">
       Stop buying property. Start investing in peace of mind.
     </p>
   </article>
-);

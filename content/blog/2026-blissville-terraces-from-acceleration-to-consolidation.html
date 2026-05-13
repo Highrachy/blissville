@@ -1,79 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import Image from 'next/image';
-import Navigation from '@/components/layouts/Navigation';
-import Footer from '@/components/common/Footer';
-import SeoHead from '@/components/utils/SeoHead';
-import { PageHeader } from '@/components/common/Header';
-import ScheduleVisit from '@/components/common/ScheduleVisit';
-
-export default function BlissvilleTerraces2026Update() {
-  return (
-    <>
-      <SeoHead
-        title="2026: Blissville Terraces—From Acceleration to Consolidation | Blissville"
-        description="As Blissville Terraces enters 2026, rapid acceleration gives way to consolidation, infrastructure delivery, and peak investment opportunity."
-        canonical="https://www.blissville.com.ng/blog/2026-blissville-terraces-from-acceleration-to-consolidation"
-        ogImage="/assets/img/blog/blissville-terraces-2026.jpg"
-      />
-
-      <Navigation />
-
-      <PageHeader
-        title="2026: Blissville Terraces—From Acceleration to Consolidation"
-        bgImage="/assets/img/blog/blissville-terraces-2026.jpg"
-      />
-
-      <ArticleWrapper>
-        <BlogCoverImage />
-        <BlogContent />
-      </ArticleWrapper>
-
-      <ScheduleVisit />
-      <Footer />
-    </>
-  );
-}
-
-/* -----------------------------------------------------
-   MEDIUM-STYLE WRAPPER
-------------------------------------------------------- */
-const ArticleWrapper = ({ children }) => (
-  <div
-    className="container"
-    style={{
-      maxWidth: '800px',
-      paddingTop: '3rem',
-      paddingBottom: '3rem',
-      lineHeight: '1.85',
-      fontSize: '1.15rem',
-    }}
-  >
-    {children}
-  </div>
-);
-
-/* -----------------------------------------------------
-   COVER IMAGE
-------------------------------------------------------- */
-const BlogCoverImage = () => (
-  <div className="mb-5">
-    <Image
-      src="/assets/img/blog/blissville-terraces-2026.jpg"
-      alt="2026: Blissville Terraces—From Acceleration to Consolidation"
-      width={1920}
-      height={1080}
-      className="rounded-3 shadow-sm"
-      style={{ width: '100%', height: 'auto' }}
-    />
-  </div>
-);
-
-const BlogContent = () => (
-  <article>
-    <h2 className="fw-bold mb-4">
-      2026: Blissville Terraces&mdash;From Acceleration to Consolidation
-    </h2>
+<article>
+    
 
     <p>Welcome to 2026!</p>
 
@@ -87,7 +13,7 @@ const BlogContent = () => (
       move steadily towards delivery.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       The Economic Engine: A Powerhouse Year for Housing
     </h3>
 
@@ -111,7 +37,7 @@ const BlogContent = () => (
       preservation in 2026.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       Infrastructure: Tangible Progress at Your Doorstep
     </h3>
 
@@ -134,7 +60,7 @@ const BlogContent = () => (
       Aerotropolis hub.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       The Heart of the Transformation: Blissville Terraces
     </h3>
 
@@ -154,7 +80,7 @@ const BlogContent = () => (
       with trees and lakefront views that promote holistic wellness.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">Security and Smart Living</h3>
+    <h3 class="fw-bold mt-5 mb-3">Security and Smart Living</h3>
 
     <p>
       Life at Blissville offers peace of mind. The estate is equipped with 24/7
@@ -164,7 +90,7 @@ const BlogContent = () => (
       gym, and an astro-turf sports space.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       The Bottom Line: The Window is Closing
     </h3>
 
@@ -182,4 +108,3 @@ const BlogContent = () => (
       designed for the savvy investor.
     </p>
   </article>
-);

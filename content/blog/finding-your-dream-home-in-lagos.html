@@ -1,84 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import Image from 'next/image';
-import Navigation from '@/components/layouts/Navigation';
-import Footer from '@/components/common/Footer';
-import ScheduleVisit from '@/components/common/ScheduleVisit';
-import SeoHead from '@/components/utils/SeoHead';
-import { PageHeader } from '@/components/common/Header';
-
-export default function FindingDreamHome() {
-  return (
-    <>
-      <SeoHead
-        title="Finding Your Dream Home in Lagos | Simple Real Estate Guide"
-        description="A simple guide to help you find your dream home in Lagos. Learn budgeting, location selection, verification, and safe property practices."
-        canonical="https://www.blissville.com.ng/blog/finding-your-dream-home-in-lagos"
-        ogImage="/assets/img/blog/lagos-view.jpg"
-      />
-
-      <Navigation />
-
-      {/* HERO USING PAGE NAVIGATION */}
-      <PageHeader
-        title="Finding Your Dream Home in Lagos"
-        bgImage="/assets/img/blog/lagos-view.jpg"
-      />
-
-      {/* ARTICLE CONTENT */}
-      <ArticleWrapper>
-        <BlogCoverImage />
-        <BlogContent />
-      </ArticleWrapper>
-
-      <ScheduleVisit />
-      <Footer />
-    </>
-  );
-}
-
-/* -----------------------------------------------------
-   MEDIUM-STYLE WRAPPER
-------------------------------------------------------- */
-const ArticleWrapper = ({ children }) => (
-  <div
-    className="container"
-    style={{
-      maxWidth: '800px',
-      paddingTop: '3rem',
-      paddingBottom: '3rem',
-      lineHeight: '1.85',
-      fontSize: '1.15rem',
-    }}
-  >
-    {children}
-  </div>
-);
-
-/* -----------------------------------------------------
-   BEAUTIFUL LARGE COVER IMAGE
-------------------------------------------------------- */
-const BlogCoverImage = () => (
-  <div className="mb-5">
-    <Image
-      src="/assets/img/blog/lagos-view.jpg"
-      alt="Lagos Real Estate"
-      width={1920}
-      height={1080}
-      className="rounded-3 shadow-sm"
-      style={{ width: '100%', height: 'auto' }}
-    />
-  </div>
-);
-
-/* -----------------------------------------------------
-   YOUR EXACT CONTENT (UNEDITED)
-------------------------------------------------------- */
-const BlogContent = () => (
-  <article>
-    <h2 className="fw-bold mb-4">
-      Finding Your Dream Home in Lagos: A Simple Guide
-    </h2>
+<article>
+    
 
     <p>
       Finding your perfect home in Lagos, Nigeria, is an exciting deal! It takes
@@ -91,7 +12,7 @@ const BlogContent = () => (
       here are the essential steps for navigating the Lagos property market:
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">Financial Clarity and Budget Setting</h3>
+    <h3 class="fw-bold mt-5 mb-3">Financial Clarity and Budget Setting</h3>
 
     <ol>
       <li>
@@ -109,7 +30,7 @@ const BlogContent = () => (
       </li>
     </ol>
 
-    <p className="fw-bold mt-4">Explore supportive payment options:</p>
+    <p class="fw-bold mt-4">Explore supportive payment options:</p>
 
     <ol>
       <li>Traditional Home Funding (mortgage) is available through banks.</li>
@@ -123,7 +44,7 @@ const BlogContent = () => (
       </li>
     </ol>
 
-    <h3 className="fw-bold mt-5 mb-3">Location and Property Choice</h3>
+    <h3 class="fw-bold mt-5 mb-3">Location and Property Choice</h3>
 
     <ol>
       <li>
@@ -141,7 +62,7 @@ const BlogContent = () => (
       </li>
     </ol>
 
-    <p className="fw-bold mt-4">Choose your pathway with trusted partners:</p>
+    <p class="fw-bold mt-4">Choose your pathway with trusted partners:</p>
 
     <ol>
       <li>
@@ -154,7 +75,7 @@ const BlogContent = () => (
       </li>
     </ol>
 
-    <h3 className="fw-bold mt-5 mb-3">Peace of Mind: Checking is Key</h3>
+    <h3 class="fw-bold mt-5 mb-3">Peace of Mind: Checking is Key</h3>
 
     <p>
       This is the most critical step to protect your future property. Never skip
@@ -181,16 +102,15 @@ const BlogContent = () => (
       </li>
     </ol>
 
-    <p className="mt-4">
+    <p class="mt-4">
       By following these simple steps with professional guidance, you greatly
       reduce the risk and move closer to owning the home you have always wanted
       in Lagos.
     </p>
 
-    <p className="mt-3">
+    <p class="mt-3">
       At Blissville, we aim to make this journey easy and transparent. We
       provide the expertise and verified opportunities you need to step into
       your new home confidently.
     </p>
   </article>
-);

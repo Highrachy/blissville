@@ -43,12 +43,20 @@ export default function BlogSection({
                 </div>
 
                 <div className="blog-card-body d-flex flex-column">
+                  <div className="d-flex align-items-center mb-2 gap-3 small text-muted">
+                    <span className="text-primary fw-bold text-uppercase" style={{ fontSize: '0.75rem', letterSpacing: '1px' }}>
+                      {post.category}
+                    </span>
+                    <span>&bull;</span>
+                    <span style={{ fontSize: '0.85rem' }}>{post.readTime}</span>
+                  </div>
+
                   <h5 className="fw-bold font-primary mb-2">{post.title}</h5>
 
                   <p className="text-muted mb-4">{post.excerpt}</p>
 
                   <div className="mt-auto">
-                    <Link href={post.slug} passHref>
+                    <Link href={`/blog/${post.slug}`} passHref>
                       <Button
                         color="dark"
                         className="d-inline-flex align-items-center"

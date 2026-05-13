@@ -95,11 +95,11 @@ const Unsubscribe = () => {
               NEWSLETTER PREFERENCES
             </span>
             <h1 className="fw-semibold lh-1 display-4 my-3" style={{ color: '#111827' }}>
-              We're sorry to see <div className="text-primary">you go.</div>
+              We&apos;re sorry to see <div className="text-primary">you go.</div>
             </h1>
             <p className="lead text-dark mx-auto mt-5" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
               Blissville is committed to only sharing property insights that matter.
-              If we missed the mark, we'd value knowing why before you leave our community.
+              If we missed the mark, we&apos;d value knowing why before you leave our community.
             </p>
           </div>
 

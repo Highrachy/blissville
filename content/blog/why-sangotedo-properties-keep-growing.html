@@ -1,87 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import Image from 'next/image';
-import Navigation from '@/components/layouts/Navigation';
-import Footer from '@/components/common/Footer';
-import ScheduleVisit from '@/components/common/ScheduleVisit';
-import SeoHead from '@/components/utils/SeoHead';
-import { PageHeader } from '@/components/common/Header';
-import Button from '@/components/forms/Button';
+<article>
 
-export default function SangotedoInflectionBlog() {
-  return (
-    <>
-      <SeoHead
-        title="Why Sangotedo Properties Keep Growing | Blissville"
-        description="From Acceleration to Explosive Equity. Discover why Sangotedo is Lagos' fastest-growing real estate corridor."
-        canonical="https://www.blissville.com.ng/blog/why-sangotedo-properties-keep-growing"
-        ogImage="/assets/img/blog/sangotedo-inflection.jpg"
-      />
 
-      <Navigation />
-
-      <PageHeader
-        title="Why Sangotedo Properties Keep Growing"
-        bgImage="/assets/img/blog/sangotedo-inflection.jpg"
-      />
-
-      <ArticleWrapper>
-        <BlogCoverImage />
-        <BlogContent />
-      </ArticleWrapper>
-
-      <ScheduleVisit />
-      <Footer />
-    </>
-  );
-}
-
-/* -----------------------------------------------------
-   WRAPPER
-------------------------------------------------------- */
-const ArticleWrapper = ({ children }) => (
-  <div
-    className="container"
-    style={{
-      maxWidth: '800px',
-      paddingTop: '3rem',
-      paddingBottom: '3rem',
-      lineHeight: '1.85',
-      fontSize: '1.15rem',
-    }}
-  >
-    {children}
-  </div>
-);
-
-/* -----------------------------------------------------
-   COVER IMAGE
-------------------------------------------------------- */
-const BlogCoverImage = () => (
-  <div className="mb-5">
-    <Image
-      src="/assets/img/blog/sangotedo-inflection.jpg"
-      alt="Sangotedo Investment Opportunity"
-      width={1200}
-      height={800}
-      className="rounded-3 img-cover shadow-sm"
-      style={{ width: '100%', height: 'auto' }}
-    />
-  </div>
-);
-
-/* -----------------------------------------------------
-   EXACT CONTENT
-------------------------------------------------------- */
-const BlogContent = () => (
-  <article>
-    <h2 className="fw-bold text-primary mb-4">
-      Why Sangotedo Properties Keep Growing
-    </h2>
-
-    {/* <h4 className="fw-bold font-primary mb-4">
+    <h4 class="fw-bold font-primary mb-4">
       From Acceleration to Explosive Equity
-    </h4> */}
+    </h4>
 
     <p>
       As we move into the second quarter of 2026, the narrative of the Lagos
@@ -97,7 +19,7 @@ const BlogContent = () => (
       effectively double their equity every 24 months.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       The Economic Engine: Stability &amp; Scarcity
     </h3>
 
@@ -117,7 +39,7 @@ const BlogContent = () => (
       valuable assets in the region.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       Infrastructure: The &quot;Silent Wealth Creators&quot;
     </h3>
 
@@ -153,7 +75,7 @@ const BlogContent = () => (
       </li>
     </ul>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       A Secondary CBD &amp; Demographic Magnet
     </h3>
 
@@ -165,7 +87,7 @@ const BlogContent = () => (
       gas executives, and creative leaders.
     </p>
 
-    <h3 className="fw-bold mt-5 mb-3">
+    <h3 class="fw-bold mt-5 mb-3">
       The Bottom Line: The Window is Closing
     </h3>
 
@@ -182,18 +104,17 @@ const BlogContent = () => (
       imminent.
     </p>
 
-    <p className="fw-bold mt-4">
+    <p class="fw-bold mt-4">
       Secure your 4-bedroom terrace today to anchor your wealth in a
       high-traffic economic engine
     </p>
 
-    <div className="mt-4">
-      <Button
-        wide
+    <div class="mt-4">
+      <a
+      class="btn btn-primary py-3 px-5"
         href="https://www.blissville.com.ng/blissville-terraces#payment-plan"
       >
         VIEW AVAILABLE UNITS &amp; PAYMENT PLANS
-      </Button>
+    </a>
     </div>
   </article>
-);

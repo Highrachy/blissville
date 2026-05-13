@@ -1,3 +1,11 @@
+export const BLOG_CATEGORIES = {
+  INVESTMENT: 'Investment',
+  GUIDE: 'Guide',
+  LIFESTYLE: 'Lifestyle',
+  UPDATES: 'Updates',
+  MARKET_INSIGHTS: 'Market Insights',
+};
+
 const BLOG_POSTS = [
   {
     id: 1,
@@ -5,7 +13,9 @@ const BLOG_POSTS = [
     excerpt:
       'A deep dive into what truly makes a real estate investment successful beyond marketing hype and quick sales.',
     image: '/assets/img/blog/beyond-the-hype.jpg',
-    slug: '/blog/beyond-the-hype-tenets-of-a-winning-real-estate-deal',
+    slug: 'beyond-the-hype-tenets-of-a-winning-real-estate-deal',
+    category: BLOG_CATEGORIES.INVESTMENT,
+    readTime: '5 min read',
   },
   {
     id: 2,
@@ -13,7 +23,9 @@ const BLOG_POSTS = [
     excerpt:
       'We know the Lagos market can feel complex. That is why we have broken down these three (3) important steps into a simple, easy-to-read guide.',
     image: '/assets/img/blog/lagos-view.jpg',
-    slug: '/blog/finding-your-dream-home-in-lagos',
+    slug: 'finding-your-dream-home-in-lagos',
+    category: BLOG_CATEGORIES.GUIDE,
+    readTime: '4 min read',
   },
   {
     id: 3,
@@ -22,7 +34,9 @@ const BLOG_POSTS = [
     excerpt:
       'How intentional home design, wellness-focused living, and community alignment protect both lifestyle and long-term investment value.',
     image: '/assets/img/blog/the-blissville-effect.jpg',
-    slug: '/blog/the-blissville-effect',
+    slug: 'the-blissville-effect',
+    category: BLOG_CATEGORIES.LIFESTYLE,
+    readTime: '6 min read',
   },
   {
     id: 4,
@@ -30,7 +44,9 @@ const BLOG_POSTS = [
     excerpt:
       'A 2026 outlook on Blissville Terraces as acceleration gives way to consolidation, infrastructure delivery, and peak investment opportunity.',
     image: '/assets/img/blog/blissville-terraces-2026.jpg',
-    slug: '/blog/2026-blissville-terraces-from-acceleration-to-consolidation',
+    slug: '2026-blissville-terraces-from-acceleration-to-consolidation',
+    category: BLOG_CATEGORIES.UPDATES,
+    readTime: '3 min read',
   },
   {
     id: 5,
@@ -38,7 +54,9 @@ const BLOG_POSTS = [
     excerpt:
       'A home should be more than shelter. Discover how thoughtful design, strong foundations, and secure ownership create true peace of mind.',
     image: '/assets/img/blog/blissville-sanctuary.jpg',
-    slug: '/blog/the-value-of-peace-of-mind',
+    slug: 'the-value-of-peace-of-mind',
+    category: BLOG_CATEGORIES.LIFESTYLE,
+    readTime: '4 min read',
   },
   {
     id: 6,
@@ -46,7 +64,9 @@ const BLOG_POSTS = [
     excerpt:
       'Experience waterfront living that combines peace, wellness, and strong investment returns. Discover why "Blue Bliss" is more than a view, it is a lifestyle.',
     image: '/assets/img/blog/the-blue-bliss.jpg',
-    slug: '/blog/the-blue-bliss-why-your-next-investment-should-breathe',
+    slug: 'the-blue-bliss-why-your-next-investment-should-breathe',
+    category: BLOG_CATEGORIES.INVESTMENT,
+    readTime: '5 min read',
   },
   {
     id: 7,
@@ -54,7 +74,9 @@ const BLOG_POSTS = [
     excerpt:
       "Sangotedo has emerged as Lagos' fastest-growing investment corridor, with rapid appreciation, infrastructure expansion, and rare waterfront opportunities driving explosive equity growth.",
     image: '/assets/img/blog/sangotedo-inflection.jpg',
-    slug: '/blog/why-sangotedo-properties-keep-growing',
+    slug: 'why-sangotedo-properties-keep-growing',
+    category: BLOG_CATEGORIES.MARKET_INSIGHTS,
+    readTime: '5 min read',
   },
   {
     id: 8,
@@ -63,7 +85,9 @@ const BLOG_POSTS = [
     excerpt:
       'Lagos transforms fast, and Sangotedo is next. Discover how infrastructure, gentrification, and economic shifts are turning this corridor into the next prime real estate destination.',
     image: '/assets/img/blog/sangotedo-success.jpg',
-    slug: '/blog/sangotedo-next-lagos-success-story',
+    slug: 'sangotedo-next-lagos-success-story',
+    category: BLOG_CATEGORIES.MARKET_INSIGHTS,
+    readTime: '6 min read',
   },
 ];
 

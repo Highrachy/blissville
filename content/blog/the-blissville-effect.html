@@ -1,82 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import Image from 'next/image';
-import Navigation from '@/components/layouts/Navigation';
-import Footer from '@/components/common/Footer';
-import ScheduleVisit, {
-  ScheduleVisitationButton,
-} from '@/components/common/ScheduleVisit';
-import SeoHead from '@/components/utils/SeoHead';
-import { PageHeader } from '@/components/common/Header';
+<article>
 
-export default function TheBlissvilleEffect() {
-  return (
-    <>
-      <SeoHead
-        title="The Blissville Effect: How Premium Home Design Adds Years to Your Life | Blissville"
-        description="Discover how premium home design can enhance your health, longevity, and long-term investment value through intentional living and community."
-        canonical="https://www.blissville.com.ng/blog/the-blissville-effect"
-        ogImage="/assets/img/blog/the-blissville-effect.jpg"
-      />
-
-      <Navigation />
-
-      <PageHeader
-        title="The Blissville Effect"
-        bgImage="/assets/img/blog/the-blissville-effect.jpg"
-      />
-
-      <ArticleWrapper>
-        <BlogCoverImage />
-        <BlogContent />
-      </ArticleWrapper>
-
-      <ScheduleVisit />
-      <Footer />
-    </>
-  );
-}
-
-/* -----------------------------------------------------
-   MEDIUM-STYLE WRAPPER
-------------------------------------------------------- */
-const ArticleWrapper = ({ children }) => (
-  <div
-    className="container"
-    style={{
-      maxWidth: '800px',
-      paddingTop: '3rem',
-      paddingBottom: '3rem',
-      lineHeight: '1.85',
-      fontSize: '1.15rem',
-    }}
-  >
-    {children}
-  </div>
-);
-
-/* -----------------------------------------------------
-   COVER IMAGE
-------------------------------------------------------- */
-const BlogCoverImage = () => (
-  <div className="mb-5">
-    <Image
-      src="/assets/img/blog/the-blissville-effect.jpg"
-      alt="The Blissville Effect: How Premium Home Design Adds Years to Your Life"
-      width={1920}
-      height={1080}
-      className="rounded-3 shadow-sm"
-      style={{ width: '100%', height: 'auto' }}
-    />
-  </div>
-);
-
-const BlogContent = () => (
-  <article>
-    <h2 className="fw-bold mb-4">
-      The Blissville Effect: How Your Premium Home Design Can (Literally) Add
-      Years to Your Life and Value to Your Portfolio
-    </h2>
 
     <p>
       We often think of high-end real estate in terms of size and fittings. But
@@ -143,17 +66,13 @@ const BlogContent = () => (
       of your life and the enduring legacy of your family.
     </p>
 
-    <div style={{ margin: '2.5rem 0', textAlign: 'center' }}>
-      <strong
-        style={{ fontSize: '1.2rem', display: 'block', marginBottom: '1rem' }}
-      >
+    <div style="margin: 2.5rem 0; text-align: center;">
+      <strong style="font-size: 1.2rem; display: block; margin-bottom: 1rem;">
         Ready to experience the premium lifestyle that protects both your health
         and your wealth?
       </strong>
-      <ScheduleVisitationButton
-        text="Schedule Your Blissville Tour Now"
-        color="primary"
-      />
+      <a class="btn btn-primary px-5 py-3" href="/contact-us">
+        Schedule Your Blissville Tour Now
+      </a>
     </div>
   </article>
-);
