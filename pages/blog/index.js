@@ -1,11 +1,17 @@
 import React from 'react';
 import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
-import { PageHeader } from '@/components/common/Header';
 import SeoHead from '@/components/utils/SeoHead';
 import BlogSection from '@/components/blog/BlogSection';
+import BlogHero from '@/components/blog/BlogHero';
+import BlogCTA from '@/components/blog/BlogCTA';
+import NewsletterBlock from '@/components/blog/NewsletterBlock';
+import BLOG_POSTS from '@/data/blog';
 
 export default function BlogIndex() {
+  // Use the 3 newest posts as the carousel slides
+  const featuredPosts = BLOG_POSTS.slice().reverse().slice(0, 3);
+
   return (
     <>
       <SeoHead
@@ -26,13 +32,15 @@ export default function BlogIndex() {
 
       <Navigation />
 
-      <PageHeader
-        title="Insights & Articles"
-        bgImage="/assets/img/blog/beyond-the-hype.jpg"
-      />
+      <main className="bg-primary-50 pb-5" style={{ minHeight: '100vh' }}>
+        <BlogHero posts={featuredPosts} />
 
-      {/* Blog Listing */}
-      <BlogSection hideLinkButton />
+        <BlogSection />
+
+        <BlogCTA />
+
+        <NewsletterBlock />
+      </main>
 
       <Footer />
     </>

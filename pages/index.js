@@ -72,7 +72,7 @@ export default function Home({ slides, projects, properties }) {
       <BenefitSlider />
       <ProjectsSlideshow projects={projects} />
       <BeyondTheHypeHeroSection />
-      <BlogSection showLastPosts={true} />
+      <BlogSection isLandingPage={true} />
       <TestimonialSection />
       <ScheduleVisit />
       <Footer />

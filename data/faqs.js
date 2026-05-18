@@ -1,6 +1,8 @@
+import React from 'react';
+
 const faqs = [
   {
-    name: 'Blissville Terraces',
+    name: 'Blissville Terraces (The Project)',
     faqs: [
       {
         question:
@@ -71,6 +73,37 @@ const faqs = [
         showOnHomePage: false,
       },
       {
+        question: 'Where is Blissville Terraces located?',
+        answer: (
+          <>
+            <p>
+              Blissville Terraces is located in Sangotedo, Lekki, a fast-growing
+              area with access to major roads, malls, schools, and business hubs.
+            </p>
+          </>
+        ),
+        showOnHomePage: true,
+      },
+      {
+        question: 'What kind of living experience should I expect?',
+        answer: (
+          <>
+            <p>
+              The estate is designed to offer a peaceful and well-organized
+              environment while still keeping you close to the city and daily
+              essentials.
+            </p>
+          </>
+        ),
+        showOnHomePage: false,
+      },
+    ],
+  },
+
+  {
+    name: 'Buying & Payment',
+    faqs: [
+      {
         question: 'How do I own a unit in Blissville Terraces?',
         answer: (
           <>
@@ -82,6 +115,70 @@ const faqs = [
         ),
         showOnHomePage: false,
       },
+      {
+        question:
+          'Is financing available through banks or developers? (I.e., can I get a mortgage or other financing options to buy a unit?)',
+        answer: (
+          <>
+            <p>
+              Yes, financing is available through banks or the developer,
+              subject to applicable terms and conditions.
+            </p>
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'Does Blissville Terraces offer flexible payment plans?',
+        answer: (
+          <>
+            <p>
+              Yes, flexible payment plans tailored to various budget needs,
+              including installment options, are available.
+            </p>
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'Does Blissville Terraces offer home loan services?',
+        answer: (
+          <>
+            <p>No, home loan services are not offered by the developer.</p>
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'Can I visit the site before making a decision?',
+        answer: (
+          <>
+            <p>
+              Yes, you can visit the site to inspect the location and see the
+              development progress before making any commitment.
+            </p>
+          </>
+        ),
+        showOnHomePage: true,
+      },
+      {
+        question: 'How long do I have to complete my payment?',
+        answer: (
+          <>
+            <p>
+              The payment timeline depends on the plan you choose and will be
+              clearly stated in your agreement.
+            </p>
+          </>
+        ),
+        showOnHomePage: false,
+      },
+    ],
+  },
+
+  {
+    name: 'Legal & Ownership',
+    faqs: [
       {
         question:
           'How is my ownership registered and what legal documents am I entitled to?',
@@ -99,70 +196,6 @@ const faqs = [
       },
       {
         question:
-          'Is financing available through banks or developers? (I.e., can I get a mortgage or other financing options to buy a unit?)',
-        answer: (
-          <>
-            <p>
-              Yes, financing is available through banks or the developer,
-              subject to applicable terms and conditions.
-            </p>
-          </>
-        ),
-        showOnHomePage: false,
-      },
-      {
-        question: 'What is the long-term value of the property?',
-        answer: (
-          <>
-            <p>
-              The long-term value is expected to appreciate due to its prime
-              location, energy-efficient features, proximity to key amenities,
-              and the exceptional lifestyle it offers. Market trends and
-              infrastructure development will further influence its value.
-            </p>
-          </>
-        ),
-        showOnHomePage: true,
-      },
-      {
-        question: 'Does Blissville Terraces offer flexible payment plans?',
-        answer: (
-          <>
-            <p>
-              Yes, flexible payment plans tailored to various budget needs,
-              including installment options, are available.
-            </p>
-          </>
-        ),
-        showOnHomePage: false,
-      },
-      {
-        question: `What happens if I can't complete the payment?`,
-        answer: (
-          <>
-            <p>
-              If payment is not completed, penalties may apply and interest will
-              be charged on any outstanding balance. Depending on the purchase
-              agreement, the sale may be canceled. A grace period is provided to
-              remedy the situation; failure to pay within this period may result
-              in rescission of the transaction and refunds processed as per the
-              contract terms.
-            </p>
-          </>
-        ),
-        showOnHomePage: false,
-      },
-      {
-        question: 'Does Blissville Terraces offer home loan services?',
-        answer: (
-          <>
-            <p>No, home loan services are not offered by the developer.</p>
-          </>
-        ),
-        showOnHomePage: false,
-      },
-      {
-        question:
           'Are there hidden charges/fees after purchasing a unit in Blissville Terraces?',
         answer: (
           <>
@@ -177,34 +210,12 @@ const faqs = [
         showOnHomePage: true,
       },
       {
-        question:
-          'When is the delivery and operational date of Blissville Terraces?',
-        answer: (
-          <>
-            <p>The expected delivery and operational date is Q4 2026.</p>
-          </>
-        ),
-        showOnHomePage: false,
-      },
-      {
         question: 'How many units can I own?',
         answer: (
           <>
             <p>
               Typically, there is no limit on the number of units you can own in
               Blissville Terraces.
-            </p>
-          </>
-        ),
-        showOnHomePage: false,
-      },
-      {
-        question: 'Is co-ownership an available option?',
-        answer: (
-          <>
-            <p>
-              Yes, co-ownership is available, subject to the Terms and
-              Conditions.
             </p>
           </>
         ),
@@ -225,6 +236,38 @@ const faqs = [
           </>
         ),
         showOnHomePage: false,
+      },
+      {
+        question: 'Is the land title secure?',
+        answer: (
+          <>
+            <p>
+              Yes, the property is backed by a valid title, giving you legal
+              security and peace of mind over your ownership.
+            </p>
+          </>
+        ),
+        showOnHomePage: true,
+      },
+    ],
+  },
+
+  {
+    name: 'Investment & Value',
+    faqs: [
+      {
+        question: 'What is the long-term value of the property?',
+        answer: (
+          <>
+            <p>
+              The long-term value is expected to appreciate due to its prime
+              location, energy-efficient features, proximity to key amenities,
+              and the exceptional lifestyle it offers. Market trends and
+              infrastructure development will further influence its value.
+            </p>
+          </>
+        ),
+        showOnHomePage: true,
       },
       {
         question:
@@ -252,164 +295,37 @@ const faqs = [
         ),
         showOnHomePage: false,
       },
-    ],
-  },
-  {
-    name: 'Investors',
-    faqs: [
       {
-        question: 'Give an overview of your Investment?',
-        answer: (
-          <div className="panel-body">
-            <p>
-              Our projects strategically aim at&nbsp;
-              <strong>providing energy efficient luxurious condominiums</strong>
-              &nbsp;for the ever growing middle class within the Lekki suburbs.
-              We aim to continually avail this market segment with unique
-              edifices that are affordable to acquire and conveniently manage,
-              while they enjoy the luxuries available in today&apos;s real
-              estate industry. Seasoned industry experts diligently working with
-              proven project management methodologies will handle the day to day
-              conceptualization, planning, execution and control of the
-              projects.
-            </p>
-            <p>
-              Truth be told, we don&apos;t just sell homes we provide peace of
-              mind to our stakeholders.
-            </p>
-            <p>
-              We intend to continuously and progressively expand our portfolio
-              nationwide over the next five years and provide similar housing
-              solutions suitable for strategically selected locations like Ibeju
-              Lekki, Portharcourt, Uyo, Abuja and Kaduna.
-            </p>
-            <p>
-              <strong>
-                We forecast that our initial projects will have&nbsp;a future
-                valuation greater than N1.3B and an exit value of approximately
-                N1.2B.&nbsp;We are seeking investments ranging from N80M to
-                N200M and more to be disbursed as required by our projects over
-                the next 24months.
-              </strong>
-              &nbsp;Once initiated, our projects are modeled to finance
-              themselves via cash flow. We seek investors who share our vision
-              of enhancing lives and the environment by providing energy
-              efficient residential dwellings, and are willing to benefit from
-              our exciting pipeline of projects by keying in at this inception
-              stage.
-            </p>
-          </div>
-        ),
-
-        showOnHomePage: false,
-      },
-      {
-        question: 'What are your Mid Term Forecasts?',
-        answer: (
-          <div className="panel-body">
-            <p>
-              Informed by our research results and projections, we intend to run
-              at least 3 Blissvile Estates within the Lagos metropolis. This
-              provides a platform to boost our brand recognition and introduce a
-              broader range of products and services to the market.
-            </p>
-            <p>These include but are not limited to;</p>
-            <ul>
-              <li>Procurement and supply channels</li>
-              <li>Recreational and capacity building services</li>
-            </ul>
-          </div>
-        ),
-        showOnHomePage: false,
-      },
-    ],
-  },
-  {
-    name: 'About Blissville Condominiums',
-    faqs: [
-      {
-        question: 'Tell me about Blissville Condominiums',
+        question:
+          'When is the delivery and operational date of Blissville Terraces?',
         answer: (
           <>
-            <p>
-              Our projects strategically aim at providing energy efficient
-              luxurious condos that are well within your grasp.Unique edifices
-              that don&apos;t just cater for the affordability on procurement
-              but also ensure that the lives of the occupants are enhanced at
-              minimum running and maintenance cost. The architectural designs
-              respond imaginatively to the cultural climatic and environment
-              conditions as such only the most suitable materials are considered
-              and specified. We don&apos;t just sell homes, we guarantee your
-              future.
-            </p>
-            <p>
-              We intend to continuously and progressively expand our portfolio
-              nationwide over the next five years and provide similar housing
-              solutions suitable for strategically selected locations like Ibeju
-              Lekki, Porthharcourt, Uyo, Abuja and Kaduna.,
-            </p>
+            <p>The expected delivery and operational date is Q4 2026.</p>
           </>
         ),
-
         showOnHomePage: false,
       },
       {
-        question: <>Where is Blissville located?</>,
+        question: 'Can I rent out my property after purchase?',
         answer: (
           <>
             <p>
-              Blissville Uno is located off Buena vista road by KM 20 within the
-              fast developing community beside the Lekki conservation centre,
-              more easily described as across the Expressway from Chevron. We
-              are accessible via multiple routes giving you the option of choice
-              while on the move.
+              Yes, you can rent out your property, and the location makes it
+              attractive for tenants.
             </p>
           </>
         ),
         showOnHomePage: false,
       },
       {
-        question: 'What are the features of Blissville',
+        question: 'Why is this a good time to invest?',
         answer: (
-          <div className="px-3">
-            <h4>Safety and Security:</h4>
+          <>
             <p>
-              <strong>&apos;Safety first&apos;</strong>&nbsp;is the watch phrase
-              as we implement several standardized security features;
+              The area is developing quickly, which means property values are
+              rising. Buying early allows you to benefit from that growth.
             </p>
-            <ul>
-              <li>Perimeter fence, electrically protected</li>
-              <li>
-                Automated gates that can be controlled by the push of a button
-              </li>
-              <li>Panic Alarm system</li>
-              <li>Fire detection and firefighting apparatus</li>
-            </ul>
-            <h4>Power and ICT:</h4>
-            <p>
-              We have harnessed superior architectural designs with
-              technological systems that enhance lives and save time and lots of
-              money;
-            </p>
-            <ul>
-              <li>Smart solar and inverter systems</li>
-              <li>Efficient lighting systems</li>
-              <li>Cable TV distribution network</li>
-              <li>Core fiber internet connectivity</li>
-              <li>Intercom and Gate Management</li>
-            </ul>
-            <h4>Ambience and Lifestyle:</h4>
-            <p>
-              We provide plush luxury at affordable rates via a wide range of
-              recreational amenities including;
-            </p>
-            <ul>
-              <li>Children&apos;s play area&nbsp;</li>
-              <li>Rooftop gym/ Dance room</li>
-              <li>Sky lounge with exciting views</li>
-              <li>Dedicated parking for vehicles</li>
-            </ul>
-          </div>
+          </>
         ),
         showOnHomePage: false,
       },
