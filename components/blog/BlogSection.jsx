@@ -26,13 +26,14 @@ export default function BlogSection({
 
   // Pagination Config
   const POSTS_PER_PAGE = 12;
+  const POSTS_ON_HOMEPAGE = 2;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPosts = sortedPosts.length;
   const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
 
   const postsToShow = isLandingPage
-    ? sortedPosts.slice(0, 4)
+    ? sortedPosts.slice(0, POSTS_ON_HOMEPAGE)
     : (posts ? sortedPosts : sortedPosts.slice(startIndex, startIndex + POSTS_PER_PAGE));
 
   const handlePageChange = (pageNum) => {

@@ -54,7 +54,10 @@ export const aboutUs = {
 export const investors = {
   title: 'Investors',
   url: 'investors',
-  children: {},
+  children: {
+    '/investors': 'Investment Page',
+    '/investors/apply': 'Become an Investor',
+  },
 };
 
 export const contactUs = {
@@ -75,7 +78,6 @@ const navigation = [
   insights,
   investors,
   contactUs,
-  login,
 ];
 
 export default navigation;

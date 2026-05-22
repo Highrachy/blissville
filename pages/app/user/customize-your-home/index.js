@@ -14,7 +14,7 @@ import { Buildings } from 'iconsax-react';
 import classNames from 'classnames';
 import PaginatedContent from '@/components/admin/PaginatedContent';
 import { userMenu } from '@/data/admin/sideMenu';
-import SingleProperty from '@/components/common/SinglePropertyNew';
+import SingleProperty from '@/components/common/SingleProperty';
 import Section from '@/components/common/Section';
 
 const MyProperties = () => {

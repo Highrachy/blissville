@@ -71,7 +71,9 @@ export default function Home({ slides, projects, properties }) {
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
       <ProjectsSlideshow projects={projects} />
+      <div className="my-6">
       <BeyondTheHypeHeroSection />
+      </div>
       <BlogSection isLandingPage={true} />
       <TestimonialSection />
       <ScheduleVisit />
@@ -387,7 +389,7 @@ export async function getStaticProps() {
     `${process.env.NEXT_PUBLIC_API_URL}/api/properties?populate=*`,
     {
       params: {
-        'pagination[pageSize]': 3,
+        'pagination[pageSize]': 2,
         sort: 'createdAt:desc',
         'filters[status][$eq]': PROPERTY_STATUS.ACTIVE,
       },

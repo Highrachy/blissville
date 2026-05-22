@@ -43,7 +43,10 @@ export const footerLinks = [
     title: 'Past Projects',
     url: '/past-projects',
   },
-
+  {
+    title: 'Login',
+    url: '/login',
+  },
   {
     title: 'Terms of Use and Privacy',
     url: '/terms-of-use',
