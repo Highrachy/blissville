@@ -3,8 +3,8 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { useChatMessage } from 'context/chat';
 
 export const SALES_CONTACTS = [
-  { number: '2349055555146', label: '0905 555 5146' },
-  { number: '2349055555496', label: '0905 555 5496' },
+  { number: '2349055555146', label: 'Sales Advisor' },
+  { number: '2349055555496', label: 'Customer Support' },
 ];
 
 const FloatingChatButton = () => {
@@ -78,7 +78,7 @@ const FloatingChatButton = () => {
             ))}
           </div>
 
-          <div className="card-footer bg-white text-center border-top-0 py-2">
+          <div className="card-footer bg-body text-center border-top-0 py-2">
             <small className="text-muted tiny-text">
               Powered by&nbsp;
               <a

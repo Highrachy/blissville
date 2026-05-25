@@ -5,6 +5,7 @@ import {
   PHONE_NUMBER_ALT,
 } from '@/utils/constants';
 import Link from 'next/link';
+import ThemeToggle from './ThemeToggle';
 
 const Footer = () => (
   <>
@@ -19,6 +20,9 @@ const Footer = () => (
                 delivering true value through smart, convenient, and efficient
                 housing solutions across Africa.
               </p>
+              <div className="mt-4">
+                <ThemeToggle />
+              </div>
             </div>
             <div className="col-md-5 offset-md-1 col-sm-6 col-6">
               <h6 className="text-white pb-2">Quick Links</h6>

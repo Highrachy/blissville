@@ -1,8 +1,15 @@
 .benefits-card {
-  background: $primary-50;
-  border: 1px solid $gray-300;
-  border-radius: 8px;
-  padding: 5rem 2rem;
+  background: var(--bs-light); /* Gray background */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
 }
 
 .features-section {
@@ -21,10 +28,10 @@
       color: #b84707;
     }
     &.green::marker {
-      color: #009e45;
+      color: var(--theme-secondary);
     }
     &.blue::marker {
-      color: #1f4e9f;
+      color: var(--theme-primary);
     }
   }
 }

@@ -48,7 +48,7 @@ export default function NewsletterBlock() {
           <span className="d-block text-uppercase text-muted fw-bold mb-3" style={{ fontSize: '0.75rem', letterSpacing: '0.2em' }}>
             PROJECT PROGRESS
           </span>
-          <h2 className="fw-bold mb-5" style={{ color: '#1a365d', fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', lineHeight: '1.2' }}>
+          <h2 className="fw-bold mb-5" style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', lineHeight: '1.2' }}>
             Witness the evolution of your future home.
           </h2>
 
@@ -59,7 +59,7 @@ export default function NewsletterBlock() {
           >
             {({ isSubmitting, errors, touched }) => (
               <Form className="mx-auto mb-4" style={{ maxWidth: '550px' }}>
-                <div className="bg-white rounded p-1 d-flex shadow-sm border">
+                <div className="bg-body rounded p-1 d-flex shadow-sm border">
                   <Field
                     type="email"
                     name="email"

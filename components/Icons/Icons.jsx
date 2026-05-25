@@ -3,7 +3,7 @@ import { FiChevronLeft } from 'react-icons/fi';
 import { FaFacebookF, FaTape } from 'react-icons/fa';
 import { FaLayerGroup, FaXTwitter } from 'react-icons/fa6';
 import { FaLinkedinIn } from 'react-icons/fa';
-import { FaInstagram } from 'react-icons/fa';
+import { FaInstagram, FaYoutube } from 'react-icons/fa';
 import { FaBed } from 'react-icons/fa';
 import { FaBath } from 'react-icons/fa';
 import { FaToilet } from 'react-icons/fa';
@@ -18,6 +18,7 @@ export const FacebookIcon = () => <FaFacebookF />;
 export const TwitterIcon = () => <FaXTwitter />;
 export const LinkedInIcon = () => <FaLinkedinIn />;
 export const InstagramIcon = () => <FaInstagram />;
+export const YouTubeIcon = () => <FaYoutube />;
 
 export const RightAngleIcon = () => <FiChevronRight />;
 export const LeftAngleIcon = () => <FiChevronLeft />;

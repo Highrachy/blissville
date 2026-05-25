@@ -15,7 +15,7 @@ $navbar-height: 80px;
   }
   z-index: 999;
   transition: width 0.1s ease, margin 0.1s ease-in-out;
-  background-color: #fff;
+  background-color: var(--bs-body-bg) ;
 
   .sidebar-header {
     height: $navbar-height;

@@ -158,19 +158,18 @@ const ContactInfo = () => (
                 </div>
               </li>
             </ul>
-            <ul className="list-inline icon-md2">
-              <h4>Connect with us on social Media</h4>
-              {socialMediaLinks.map(({ url, icon }, index) => (
-                <li
-                  className="list-inline-item"
-                  key={`contact-social-media-${index}`}
-                >
-                  <Link href={url} passHref>
-                    <a className="text-reset">{icon}</a>
+            <div className="mt-5">
+              <h4 className="mb-4">Connect with us on social media</h4>
+              <div className="d-flex gap-3 flex-wrap">
+                {socialMediaLinks.map(({ url, icon }, index) => (
+                  <Link href={url} passHref key={`contact-social-media-${index}`}>
+                    <a className="social-circle-btn d-flex align-items-center justify-content-center text-decoration-none">
+                      {icon}
+                    </a>
                   </Link>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

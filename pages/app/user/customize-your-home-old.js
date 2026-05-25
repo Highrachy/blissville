@@ -34,7 +34,7 @@ const SingleProperty = ({ type = 1, now }) => {
           <aside className="px-5 py-5">
             <h4>
               3 Bedroom Apartments{' '}
-              <small className="badge bg-light">Shell</small>
+              <small className="badge bg-body-tertiary">Shell</small>
             </h4>
             <p className="text-gray-700 font-secondary mb-2">
               <Building variant="Bulk" color="#66768E" /> &nbsp; Blissville Duos

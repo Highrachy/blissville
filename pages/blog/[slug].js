@@ -204,7 +204,7 @@ export default function BlogPost({ post, htmlContent, relatedPosts }) {
         </article>
       </main>
 
-      <div className="bg-light pt-5 pb-5">
+      <div className="bg-body-tertiary pt-5 pb-5">
         <BlogSection
           title="Related Stories"
           posts={relatedPosts}

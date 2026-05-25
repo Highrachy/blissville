@@ -163,7 +163,7 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="py-6 bg-white">
+    <section className="py-6 bg-body">
       <Container>
         <Fade bottom>
           <div className="text-center mb-5">
@@ -436,7 +436,7 @@ export const ClarityFormSection = ({
           <Fade bottom delay={100}>
             <div className="row justify-content-center">
               <div className="col-12 col-md-10 col-lg-8">
-                <div className="bg-white rounded-4 shadow-sm p-3 p-md-4 p-lg-5">
+                <div className="bg-body rounded-4 shadow-sm p-3 p-md-4 p-lg-5">
                   {!sent ? (
                     <form onSubmit={onSubmit} className="row g-3">
                       {/* NAME */}

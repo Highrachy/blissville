@@ -127,10 +127,11 @@ const ExitStrategies = () => {
                 Investment Calculator
               </h4>
 
-              <label className="calculator-label">Initial Investment</label>
+              <label className="calculator-label" htmlFor="investment-input">Initial Investment</label>
 
               {/* IMPORTANT: keep your class (no Bootstrap override) */}
               <NumberFormat
+                id="investment-input"
                 value={inputValue}
                 onValueChange={(v) => handleInputChange(v.value)}
                 onBlur={handleInputBlur}

@@ -71,7 +71,7 @@ export default function ProjectHeaderSection({
       </div>
 
       {/* Info Grid */}
-      <div className="bg-white mb-5">
+      <div className="bg-body mb-5">
         <div className="d-flex flex-wrap justify-content-between align-items-start">
           <ProjectInfoItem
             icon={<FaBuilding size={18} />}

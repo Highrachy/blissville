@@ -85,7 +85,7 @@
   padding: 4rem 3rem 2rem;
   margin-bottom: 6rem;
   &.altBg {
-    background: white;
+    background: var(--bs-body-bg) ;
     border-radius: 2rem;
     box-shadow: 0px 4px 88px 0px rgba(0, 0, 0, 0.05);
     transform: skewY(-8deg);
@@ -761,53 +761,62 @@ td {
 }
 
 .chat-modal {
-  margin-bottom: 14px;
-  min-width: 270px;
-  border-radius: 14px;
+  margin-bottom: 20px;
+  min-width: 320px;
+  border-radius: 16px;
   overflow: hidden;
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
 
   .chat-header {
-    padding: 12px 16px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #eaeaea;
-    border-top-left-radius: 14px;
-    border-top-right-radius: 14px;
+    padding: 16px 20px;
+    background-color: var(--bs-body-bg);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    
+    span.text-dark {
+      font-size: 0.95rem;
+      font-weight: 700 !important;
+    }
   }
 
   .chat-option-btn {
     text-align: left;
-    transition: all 0.3s ease;
-    border-bottom: 1px solid #f1f1f1;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 16px 20px;
     border-radius: 0;
-    background-color: #fff;
+    background-color: var(--bs-body-bg);
     color: #212529;
 
     .agent-label {
-      color: $gray-700;
-      font-size: 0.9rem;
+      color: $gray-800;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+      letter-spacing: -0.01em;
     }
 
     .agent-number {
-      font-size: 0.8rem;
-      margin-top: -3px;
-      color: $gray-800;
+      font-size: 0.85rem;
+      color: $gray-600;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
     }
 
     &:hover {
-      background-color: $primary-100;
-      color: $primary-600;
-      transform: translateX(2px);
-      font-weight: 500;
+      background-color: rgba(37, 211, 102, 0.05); /* Soft whatsapp green tint */
+      transform: translateX(4px);
 
       .agent-label {
-        color: $primary-600;
+        color: #128c7e;
       }
 
       .agent-number {
-        color: $gray-800 !important;
+        color: #25d366;
       }
     }
   }
@@ -815,11 +824,20 @@ td {
   .btn-close {
     width: 0.6rem;
     height: 0.6rem;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+    
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .tiny-text {
-    font-size: 10px;
-    letter-spacing: 0.3px;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: $gray-500;
   }
 }
 
@@ -930,12 +948,12 @@ td {
 
 .overview-card {
   border: 1px solid $gray-200;
-  background: white;
+  background: var(--bs-body-bg) ;
 }
 
 .payment-plan-card {
   border: 1px solid $gray-300;
-  background: white;
+  background: var(--bs-body-bg) ;
   padding: 2.5rem;
   border-radius: 8px;
 }
@@ -977,5 +995,23 @@ td {
   @media (min-width: 768px) {
     height: 100%;
     min-height: 100%;
+  }
+}
+
+.social-circle-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--bs-secondary-bg);
+  color: var(--theme-primary);
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: translateY(-3px);
+    background-color: var(--theme-primary);
+    color: #fff;
+    box-shadow: 0 8px 15px rgba(var(--theme-primary-rgb), 0.2);
   }
 }

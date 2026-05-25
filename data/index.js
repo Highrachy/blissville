@@ -2,6 +2,7 @@ import { InstagramIcon } from '@/components/Icons/Icons';
 import { LinkedInIcon } from '@/components/Icons/Icons';
 import { TwitterIcon } from '@/components/Icons/Icons';
 import { FacebookIcon } from '@/components/Icons/Icons';
+import { YouTubeIcon } from '@/components/Icons/Icons';
 
 export const socialMediaLinks = [
   {
@@ -15,6 +16,14 @@ export const socialMediaLinks = [
   {
     icon: <InstagramIcon />,
     url: 'https://instagram.com/blissvillecondos',
+  },
+  {
+    icon: <LinkedInIcon />,
+    url: 'https://www.linkedin.com/company/blissville',
+  },
+  {
+    icon: <YouTubeIcon />,
+    url: 'https://www.youtube.com/@Blissvilleng',
   },
 ];
 

@@ -39,7 +39,7 @@ const snapshotData = [
 
 export default function ProjectSnapshot() {
   return (
-    <Section className="py-6 py-lg-7 bg-white">
+    <Section className="py-6 py-lg-7 bg-body">
       <Container>
         <Row className="g-5 align-items-start">
           {/* LEFT */}

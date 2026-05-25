@@ -241,3 +241,63 @@ $brand-colors: (
     }
   }
 }
+
+// -----------------------------------------------------------------------------
+// Dark Mode Overrides for Utility Classes
+// -----------------------------------------------------------------------------
+[data-bs-theme="dark"] {
+  // Override gray and dark text colors to invert
+  @each $shade, $color in map-get($brand-colors, 'gray') {
+    .text-gray-#{$shade}, .text-dark-#{$shade} {
+      color: var(--bs-body-color) !important;
+    }
+    
+    // For light backgrounds (50-300), convert to dark tertiary backgrounds
+    @if $shade == '50' or $shade == '100' or $shade == '200' or $shade == '300' {
+      .bg-gray-#{$shade}, .bg-dark-#{$shade} {
+        background-color: var(--bs-tertiary-bg) !important;
+        color: var(--bs-body-color) !important;
+      }
+    }
+  }
+
+  // 2. Brand Colors (Primary, Secondary, Info, Warning, Error, Success)
+  @each $group, $shades in $brand-colors {
+    @if $group != 'gray' and $group != 'dark' and $group != 'shades' {
+      
+      // Fix text colors (make dark text lighter)
+      .text-#{$group}-900, .text-#{$group}-800, .text-#{$group}-700 {
+        color: color($group, '200') !important; 
+      }
+      .text-#{$group}-600, .text-#{$group}-500 {
+        color: color($group, '300') !important;
+      }
+
+      // Fix background colors (make light backgrounds darker)
+      .bg-#{$group}-50, .bg-#{$group}-100, .bg-#{$group}-200 {
+        background-color: color($group, '900') !important;
+        color: color($group, '100') !important;
+      }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Global CSS Variables for Theme Support
+// -----------------------------------------------------------------------------
+:root {
+  --theme-primary: #{$primary-500};
+  --theme-secondary: #{$secondary-500};
+  
+  --theme-primary-hover: #{$primary-600};
+  --theme-secondary-hover: #{$secondary-600};
+}
+
+[data-bs-theme="dark"] {
+  // Use lighter 300 shades for text visibility in dark mode, but preserve feel
+  --theme-primary: #{$primary-300};
+  --theme-secondary: #{$secondary-300};
+  
+  --theme-primary-hover: #{$primary-200};
+  --theme-secondary-hover: #{$secondary-200};
+}

@@ -43,7 +43,7 @@ export default function NeighborhoodSection() {
   return (
     <Section
       biggerPadding
-      className="py-6 py-lg-7 bg-white neighborhood-section"
+      className="py-6 py-lg-7 bg-body neighborhood-section"
     >
       <Container>
         <Row className="g-5 align-items-start">

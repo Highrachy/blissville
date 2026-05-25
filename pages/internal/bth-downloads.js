@@ -203,7 +203,7 @@ export default function Dashboard() {
           <Row className="g-4">
             {/* DAILY */}
             <Col lg={4}>
-              <div className="bg-white p-3 rounded-4 border border-gray-200">
+              <div className="bg-body p-3 rounded-4 border border-gray-200">
                 <h6 className="fw-semibold text-primary-700 mb-3">
                   Daily Activity
                 </h6>
@@ -250,7 +250,7 @@ export default function Dashboard() {
 
             {/* TABLE */}
             <Col lg={8}>
-              <div className="bg-white p-3 rounded-4 border border-gray-200">
+              <div className="bg-body p-3 rounded-4 border border-gray-200">
                 <div className="d-flex justify-content-between mb-3">
                   <h6 className="fw-semibold text-primary-700">
                     Recent Downloads

@@ -225,7 +225,7 @@ export const PropertyInformation = ({ property, similarProperties }) => {
 
 export const PropertyIconSection = ({ property }) => {
   return (
-    <div className="bg-white my-5">
+    <div className="bg-body my-5">
       <div className="d-flex flex-wrap justify-content-between align-items-start">
         <ProjectInfoItem
           icon={<FaLayerGroup size={18} />}

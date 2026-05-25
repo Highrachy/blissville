@@ -17,9 +17,9 @@ const Section = ({
   return (
     <section
       className={classNames(className, 'position-relative', {
-        'bg-gray-50': altBg,
-        'bg-light': altBg2,
-        'bg-light2': altBg3,
+        'bg-body-tertiary': altBg,
+        'bg-body-secondary': altBg2,
+        'bg-body': altBg3,
         'py-5 py-lg-7': !noPaddingBottom && !noPaddingTop && !biggerPadding,
         'pt-5 pt-lg-7': noPaddingBottom && !biggerPadding,
         'pb-5 pb-lg-7': noPaddingTop && !biggerPadding,

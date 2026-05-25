@@ -26,7 +26,7 @@ export default function BlogSection({
 
   // Pagination Config
   const POSTS_PER_PAGE = 12;
-  const POSTS_ON_HOMEPAGE = 2;
+  const POSTS_ON_HOMEPAGE = 4;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPosts = sortedPosts.length;
   const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
@@ -107,7 +107,7 @@ export default function BlogSection({
 
       {/* Optional Title (e.g. "Related Stories") */}
       {title && (
-        <h4 className="fw-bold text-dark mb-4" style={{ color: '#0d1b3e' }}>{title}</h4>
+        <h4 className="fw-bold text-dark mb-4">{title}</h4>
       )}
 
       {/* Blog Grid */}

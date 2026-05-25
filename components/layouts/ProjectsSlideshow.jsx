@@ -21,7 +21,6 @@ const OurProjects = ({ projects, title }) => {
         <div className="row">
           {projects?.length > 1 ? (
             <Swiper
-              // install Swiper modules
               modules={[Autoplay, Pagination, A11y]}
               autoHeight={true}
               autoplay={{

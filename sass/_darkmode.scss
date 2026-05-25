@@ -1,0 +1,459 @@
+/* 
+ * Global Dark Mode Overrides 
+ * This ensures custom typography and images dynamically adapt to the dark theme.
+ */
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: #181a1f !important; /* Premium Slate Dark */
+  --bs-body-bg-rgb: 24, 26, 31 !important;
+  --bs-tertiary-bg: #21252b !important; /* Elevated Slate Surface */
+  --bs-tertiary-bg-rgb: 33, 37, 43 !important;
+  --bs-body-color: #f3f4f6 !important; /* Highly accessible off-white */
+  
+  /* Radically soften global dark mode borders so they aren't blindingly white */
+  --bs-border-color: rgba(255, 255, 255, 0.08) !important;
+  --bs-border-color-translucent: rgba(255, 255, 255, 0.05) !important;
+  
+  /* 1. Typography Overrides */
+  
+  /* Target all custom hardcoded text classes and reset them to adapt */
+  [class*="text-dark"],
+  [class*="text-gray-900"],
+  [class*="text-gray-800"],
+  [class*="text-gray-700"] {
+    color: var(--bs-body-color) !important;
+  }
+
+  [class*="text-gray-600"],
+  [class*="text-gray-500"],
+  .text-muted {
+    color: #9ca3af !important; /* Clean neutral gray for secondary text */
+  }
+
+  /* Ensure headers use the correct color */
+  h1, h2, h3, h4, h5, h6,
+  .display-1, .display-2, .display-3, .display-4, .display-5, .display-6,
+  .hero-title, .section-title {
+    color: var(--bs-heading-color) !important;
+  }
+
+  /* Navigation Link overrides for better contrast */
+  .nav-link:hover,
+  .nav-link.active,
+  .dropdown-item:hover,
+  .dropdown-item.active {
+    color: var(--theme-primary) !important;
+    background-color: rgba(105, 136, 191, 0.1) !important; /* using primary-300 rgb */
+  }
+  
+  /* .nav-btn-cta */
+  .nav-btn-cta {
+    background: linear-gradient(135deg, #1f4e9f, #2b6cb0) !important;
+    color: #ffffff !important;
+    border: none !important;
+    
+    &:hover, &:focus, &:active {
+      color: #ffffff !important;
+      opacity: 0.9;
+    }
+  }
+  
+  /* Core Values / Benefits text colors */
+  .benefits-card h6,
+  .core-value-card h4,
+  .list-dotted__value {
+    color: var(--bs-heading-color) !important;
+  }
+  
+  .benefits-card p {
+    color: #9ca3af !important;
+  }
+
+  /* 2. Image and Background Optimizations */
+  /* Dim down bright images in property cards, sliders, and core values */
+  .property-card-img,
+  .img-fill img,
+  .core-value-img,
+  .swiper-slide img,
+  .img-fluid {
+    /* More aggressive dimming for better dark mode eye comfort */
+    filter: brightness(0.75) contrast(1.1) !important;
+    transition: filter 0.3s ease;
+  }
+  
+  /* Prevent logos from being dimmed */
+  .navbar-brand img,
+  .footer-logo {
+    filter: none !important;
+  }
+
+  /* ProjectsSlideshow Background Overlay */
+  .bg-image-top {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 0;
+      pointer-events: none;
+    }
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  /* BeyondTheHype Hero Background Fix */
+  .bth-hero,
+  section.bg-light2 {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 0;
+      pointer-events: none;
+    }
+    > .container {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  /* Fix beyond the hype inner cards (they might be too dark or too light) */
+  .benefits-card,
+  .premium-project-card {
+    background-color: var(--bs-tertiary-bg) !important;
+    border: 1px solid var(--bs-border-color-translucent) !important;
+  }
+
+  /* 3. Blog & Articles Overrides */
+  .article-title,
+  .blog-card-title,
+  .newsletter-title {
+    color: var(--theme-primary) !important;
+  }
+  
+  .article-excerpt,
+  .article-content,
+  .newsletter-text,
+  .blog-card-excerpt {
+    color: var(--bs-body-color) !important;
+  }
+
+  blockquote {
+    background-color: var(--bs-tertiary-bg) !important;
+    color: var(--bs-body-color) !important;
+    border-left-color: var(--theme-secondary) !important;
+  }
+  
+  .newsletter-exclusive {
+     background-color: var(--bs-tertiary-bg) !important;
+  }
+
+  /* 4. Investors & Properties Explicit Overrides */
+  .investor-card,
+  .property-listing,
+  .gallery-listing,
+  .floorplan-listing,
+  .unit-card,
+  .tier-item,
+  .calculator-card,
+  .result-box,
+  .roi-box,
+  .unit-section,
+  .tier-card,
+  .snapshot-card,
+  .exit-strategies-section,
+  .risk-governance-section,
+  .path-section,
+  .path-card,
+  .investment-section,
+  .investment-option {
+    background-color: var(--bs-tertiary-bg) !important;
+    color: var(--bs-body-color) !important;
+  }
+
+  /* 5. Additional UI Fixes */
+  .overview-cards,
+  .card,
+  .unit-card,
+  .blog-card,
+  .snapshot-card,
+  .tier-card,
+  .overview-card {
+    border: 1px solid var(--bs-border-color-translucent) !important;
+  }
+
+  footer.bg-dark {
+    background-color: #1a1d20 !important; /* Dark gray based on light mode bg-dark */
+    border-top: 1px solid var(--bs-border-color-translucent) !important;
+  }
+
+  .blog-card-meta,
+  .article-author-block,
+  .share-insight,
+  .newsletter-block {
+    border-color: var(--bs-border-color-translucent) !important;
+  }
+
+  /* /investors page specifics */
+  .unit-section {
+    .unit-pricing {
+      color: var(--bs-heading-color) !important;
+    }
+  }
+
+  .unit-extra-text {
+    color: #9ca3af !important;
+  }
+
+  .bg-success-100 {
+    background-color: rgba(25, 135, 84, 0.15) !important;
+    color: #4ade80 !important;
+  }
+  
+  .bg-primary2 {
+    background-color: rgba(31, 78, 159, 0.15) !important;
+    color: var(--theme-primary) !important;
+  }
+
+  .tier-item {
+    background-color: var(--bs-tertiary-bg) !important;
+    border: 1px solid var(--bs-border-color-translucent) !important;
+    
+    .tier-price {
+      color: var(--theme-primary) !important;
+    }
+    .tier-title, .tier-feature {
+      color: var(--bs-body-color) !important;
+    }
+    .tier-icon {
+       filter: brightness(1.5);
+    }
+  }
+
+  .donut-wrapper {
+    .donut-value { color: var(--bs-heading-color) !important; }
+    .legend-item { color: var(--bs-body-color) !important; }
+    text { fill: var(--bs-body-color) !important; }
+  }
+
+  .exit-icon {
+    background-color: rgba(255,255,255,0.05) !important;
+    color: var(--theme-primary) !important;
+  }
+
+  .calculator-card {
+    background-color: var(--bs-tertiary-bg) !important;
+    
+    label { color: var(--bs-heading-color) !important; }
+    
+    .form-control, .form-select {
+      background-color: var(--bs-body-bg) !important;
+      color: var(--bs-body-color) !important;
+      border-color: var(--bs-border-color-translucent) !important;
+    }
+    
+    .result-box, .result-box.profit {
+      background-color: rgba(255, 255, 255, 0.03) !important;
+      border-color: var(--bs-border-color-translucent) !important;
+      .result-label { color: #9ca3af !important; }
+      .result-value { color: var(--theme-primary) !important; }
+    }
+  }
+
+  .development-progress {
+    .content-side {
+      background-color: var(--bs-tertiary-bg) !important;
+      border-color: var(--bs-border-color-translucent) !important;
+    }
+    .update-card {
+      background-color: var(--bs-body-bg) !important;
+      border-color: var(--bs-border-color-translucent) !important;
+    }
+  }
+
+  .risk-governance-section {
+    .audit-row {
+      background-color: rgba(31, 78, 159, 0.1) !important; 
+      color: var(--bs-body-color) !important;
+    }
+    .risk-table {
+      background-color: transparent !important;
+      tr { border-bottom-color: var(--bs-border-color-translucent) !important; }
+      th, td { 
+        color: var(--bs-body-color) !important; 
+        border-color: var(--bs-border-color-translucent) !important;
+      }
+      tr:hover, tr:hover > * { 
+        background-color: rgba(255,255,255,0.03) !important; 
+        color: var(--bs-body-color) !important;
+      }
+      .badge { background-color: rgba(255,255,255,0.1) !important; color: #fff !important; }
+      .title { color: var(--bs-heading-color) !important; }
+      .subtitle { color: #9ca3af !important; }
+    }
+  }
+
+  .path-grid {
+    background-color: transparent !important;
+  }
+  
+  .path-card {
+    background-color: var(--bs-tertiary-bg) !important;
+    border-color: var(--bs-border-color-translucent) !important;
+    .path-title { color: var(--bs-heading-color) !important; }
+    .path-text { color: var(--bs-body-color) !important; }
+  }
+
+  /* Projects [slug] specific */
+  .pi-option-item {
+    background-color: var(--bs-tertiary-bg) !important;
+    border-color: var(--bs-border-color-translucent) !important;
+    color: var(--bs-body-color) !important;
+    
+    &.pi-primary { background-color: rgba(31, 78, 159, 0.15) !important; }
+    &.pi-secondary { background-color: rgba(43, 108, 176, 0.15) !important; }
+    &.pi-success { background-color: rgba(25, 135, 84, 0.15) !important; }
+  }
+
+  /* FAQs Page */
+  .faq-main, .faq-body {
+    background-color: var(--bs-body-bg) !important;
+  }
+  .faq-section-title {
+    color: var(--bs-heading-color) !important;
+  }
+  .faq-accordion {
+    .accordion-item {
+      background-color: var(--bs-tertiary-bg) !important;
+      border-color: var(--bs-border-color-translucent) !important;
+    }
+    .accordion-button {
+      background-color: var(--bs-tertiary-bg) !important;
+      color: var(--bs-heading-color) !important;
+      &::after { filter: invert(1); }
+      &:not(.collapsed) {
+        background-color: rgba(255,255,255,0.03) !important;
+      }
+    }
+    .accordion-body {
+      color: var(--bs-body-color) !important;
+    }
+  }
+
+  .faq-tabs-wrapper {
+    .nav-link {
+      color: var(--bs-body-color) !important;
+      &:hover { color: var(--theme-primary) !important; }
+    }
+    .nav-link.active {
+      color: var(--theme-primary) !important;
+      border-bottom-color: var(--theme-primary) !important;
+    }
+  }
+
+  .faq-item__question { 
+    color: var(--bs-heading-color) !important; 
+    border-color: var(--bs-border-color-translucent) !important;
+  }
+  .faq-item__answer { color: var(--bs-body-color) !important; }
+  
+  .faq-item__icon { 
+    color: var(--theme-primary) !important; 
+  }
+  
+  .faq-still-help__icon { 
+    color: var(--theme-primary) !important; 
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--bs-border-color-translucent) !important;
+  }
+
+  /* Google Map */
+  .google-map {
+    background-color: var(--bs-tertiary-bg) !important;
+    iframe { opacity: 0.8; filter: grayscale(20%) invert(90%) contrast(1.2); }
+  }
+
+  .pill-overlay.category-pill {
+    background-color: var(--bs-tertiary-bg) !important;
+    color: var(--bs-body-color) !important;
+  }
+
+  .logo-light-only {
+    display: none !important;
+  }
+  .logo-dark-only {
+    display: block !important;
+  }
+
+  /* 6. WhatsApp Floating Chat Overrides */
+  .chat-modal {
+    background-color: var(--bs-tertiary-bg) !important;
+    border: 1px solid var(--bs-border-color-translucent) !important;
+
+    .chat-header {
+      background-color: var(--bs-tertiary-bg) !important;
+      border-bottom: 1px solid var(--bs-border-color-translucent) !important;
+      
+      span.text-dark {
+        color: var(--bs-body-color) !important;
+      }
+
+      .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+      }
+    }
+
+    .chat-option-btn {
+      background-color: var(--bs-tertiary-bg) !important;
+      border-bottom: 1px solid var(--bs-border-color-translucent) !important;
+      color: var(--bs-body-color) !important;
+
+      .agent-label {
+        color: var(--bs-heading-color) !important;
+      }
+
+      .agent-number {
+        color: #9ca3af !important;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.04) !important;
+        color: var(--theme-primary) !important;
+
+        .agent-label {
+          color: var(--theme-primary) !important;
+        }
+
+        .agent-number {
+          color: #d1d5db !important;
+        }
+      }
+    }
+
+    .card-footer {
+      background-color: var(--bs-tertiary-bg) !important;
+      border-top: 1px solid var(--bs-border-color-translucent) !important;
+      
+      .text-muted {
+        color: #6b7280 !important;
+      }
+    }
+  }
+  /* Text Primary adjustments for Dark Mode */
+  [class*="text-primary-600"],
+  [class*="text-primary-700"],
+  [class*="text-primary-800"],
+  [class*="text-primary-900"],
+  .text-primary-500 {
+    color: var(--theme-primary) !important;
+  }
+}
+
+.logo-dark-only {
+  display: none !important;
+}

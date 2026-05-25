@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export default function DeveloperSection() {
   return (
-    <Section className="py-6 py-lg-7 bg-white">
+    <Section className="py-6 py-lg-7 bg-body">
       <Container>
         <Row className="align-items-center g-5">
           {/* LEFT */}
@@ -52,10 +52,18 @@ export default function DeveloperSection() {
             </p>
 
             {/* LOGO */}
-            <div className="mb-4 mt-4">
+            <div className="mb-4 mt-4 logo-light-only">
               <Image
                 src="/assets/img/highrachy-logo.png"
                 alt="Highrachy logo"
+                width={220}
+                height={60}
+              />
+            </div>
+            <div className="mb-4 mt-4 logo-dark-only">
+              <Image
+                src="/assets/img/highrachy-logo-dark.png"
+                alt="Highrachy logo dark"
                 width={220}
                 height={60}
               />

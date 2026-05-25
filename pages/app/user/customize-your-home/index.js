@@ -95,7 +95,7 @@ const MySingleProperty = ({ id, attributes, userId }) => {
                 </p>
               </div>
               <span className="h6 fw-light">
-                <small className="badge text-xs mt-n3 bg-light">
+                <small className="badge text-xs mt-n3 bg-body-tertiary">
                   {attributes.package.split(' ')[0]}
                 </small>
               </span>

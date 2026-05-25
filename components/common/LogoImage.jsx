@@ -2,8 +2,10 @@ import { isFestivePeriod } from '@/utils/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { useTheme } from 'context/ThemeContext';
 
 const LogoImage = () => {
+  const { theme } = useTheme();
   return (
     <Link href="/" passHref>
       <a>
@@ -16,7 +18,7 @@ const LogoImage = () => {
           />
         ) : (
           <Image
-            src="/assets/img/logo.png"
+            src={theme === 'dark' ? '/assets/img/logo-dark.png' : '/assets/img/logo.png'}
             alt="blissville logo"
             width={171}
             height={47}

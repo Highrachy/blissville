@@ -4,6 +4,7 @@ import React from 'react';
 import '../sass/import.css';
 import '../sass/App.scss';
 import UserProvider from 'context/user';
+import { ThemeProvider } from 'context/ThemeContext';
 import { ToastContainer, Slide } from 'react-toastify';
 // Import Swiper styles
 import 'swiper/css';
@@ -17,8 +18,9 @@ import { Toaster } from 'react-hot-toast';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <UserProvider>
-      <Toaster />
+    <ThemeProvider>
+      <UserProvider>
+        <Toaster />
       <ChatMessageProvider>
         <XmasFall />
         <ToastContainer autoClose={10000} transition={Slide} theme="colored" />
@@ -80,6 +82,7 @@ function MyApp({ Component, pageProps }) {
         <FloatingChatButton />
       </ChatMessageProvider>
     </UserProvider>
+    </ThemeProvider>
   );
 }
 

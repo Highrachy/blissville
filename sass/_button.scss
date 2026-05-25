@@ -21,7 +21,7 @@
 }
 
 .btn-outline-light {
-  background: white !important;
+  background: var(--bs-body-bg) !important;
   border-color: $gray-400 !important;
   color: $primary-700 !important;
 }
@@ -72,7 +72,7 @@
   line-height: 2.5rem;
   border: 1px solid $gray-200;
   border-radius: 4px;
-  background: #fff;
+  background: var(--bs-body-bg) ;
   margin-bottom: 1.25rem;
   outline: none !important;
   cursor: pointer;

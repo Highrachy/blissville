@@ -87,7 +87,7 @@ const Unsubscribe = () => {
       />
       <Navigation />
 
-      <main className="bg-light min-vh-100 d-flex flex-column align-items-center py-5">
+      <main className="bg-body-tertiary min-vh-100 d-flex flex-column align-items-center py-5">
         <div className="container" style={{ maxWidth: '700px' }}>
           {/* Header */}
           <div className="text-center mb-5 mt-5">
@@ -150,7 +150,7 @@ const Unsubscribe = () => {
                       return (
                         <div className="col-md-6" key={option.value}>
                           <label
-                            className={`w-100 p-3 border rounded-3 d-flex align-items-center form-check-label h-100 ${isSelected ? 'bg-primary-light text-primary border-primary' : 'bg-light'}`}
+                            className={`w-100 p-3 border rounded-3 d-flex align-items-center form-check-label h-100 ${isSelected ? 'bg-primary-light text-primary border-primary' : 'bg-body-tertiary'}`}
                             style={{ cursor: 'pointer', transition: 'all 0.2s' }}
                           >
                             <input
@@ -177,7 +177,7 @@ const Unsubscribe = () => {
                 name="message"
                 placeholder="Tell us more (optional)"
                 rows={4}
-                inputClassName="bg-light border-0"
+                inputClassName="bg-body-tertiary border-0"
               />
 
               <div className="d-flex flex-column flex-sm-row align-items-center mt-4 gap-3">

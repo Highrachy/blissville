@@ -271,7 +271,7 @@ function FeaturesAmenities() {
           {AMENITY_ITEMS.map(({ label, icon: Icon }) => (
             <div className="col" key={label}>
               <div className="text-center">
-                <div className="bg-light rounded-circle d-inline-flex align-items-center justify-content-center p-3 mb-3">
+                <div className="bg-body-tertiary rounded-circle d-inline-flex align-items-center justify-content-center p-3 mb-3">
                   <Icon className="fs-5 text-dark" aria-hidden />
                 </div>
                 <div className="fw-semibold">{label}</div>
@@ -389,7 +389,7 @@ const PropertyFeatureBlock = ({ property }) => {
 
 function Neighborhood() {
   return (
-    <Section className="bg-light">
+    <Section className="bg-body-tertiary">
       <div className="container">
         <h2 className="h3 fw-bold mb-1">Everything Within Reach</h2>
         <p className="text-dark mt-1 mb-5">
@@ -581,7 +581,7 @@ const ExclusiveGuide = ({ projectName = 'Blissville Terraces' }) => {
           </div>
 
           <div className="col-lg-6">
-            <div className="border rounded-4 p-4 h-100 bg-light">
+            <div className="border rounded-4 p-4 h-100 bg-body-tertiary">
               <h5 className="fw-bold">Inside the Free Guide:</h5>
               <ul className="mb-0">
                 <li>
