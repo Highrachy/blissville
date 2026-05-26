@@ -1,39 +1,57 @@
-/* 
- * Global Dark Mode Overrides 
+/*
+ * Global Dark Mode Overrides
  * This ensures custom typography and images dynamically adapt to the dark theme.
  */
 
-[data-bs-theme="dark"] {
+[data-bs-theme='dark'] {
   --bs-body-bg: #181a1f !important; /* Premium Slate Dark */
   --bs-body-bg-rgb: 24, 26, 31 !important;
-  --bs-tertiary-bg: #21252b !important; /* Elevated Slate Surface */
+  --bs-tertiary-bg: #1f2733 !important; /* Elevated Slate Surface */
   --bs-tertiary-bg-rgb: 33, 37, 43 !important;
   --bs-body-color: #f3f4f6 !important; /* Highly accessible off-white */
-  
+
   /* Radically soften global dark mode borders so they aren't blindingly white */
   --bs-border-color: rgba(255, 255, 255, 0.08) !important;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.05) !important;
-  
+
   /* 1. Typography Overrides */
-  
+
   /* Target all custom hardcoded text classes and reset them to adapt */
-  [class*="text-dark"],
-  [class*="text-gray-900"],
-  [class*="text-gray-800"],
-  [class*="text-gray-700"] {
+  .text-dark,
+  .text-darker,
+  .text-dark-900,
+  .text-dark-800,
+  .text-dark-700,
+  .text-dark-600,
+  .text-dark-500,
+  [class*='text-gray-900'],
+  [class*='text-gray-800'],
+  [class*='text-gray-700'] {
     color: var(--bs-body-color) !important;
   }
 
-  [class*="text-gray-600"],
-  [class*="text-gray-500"],
-  .text-muted {
+  [class*='text-gray-600'],
+  [class*='text-gray-500'],
+  .text-muted,
+  .text-dark-light {
     color: #9ca3af !important; /* Clean neutral gray for secondary text */
   }
 
   /* Ensure headers use the correct color */
-  h1, h2, h3, h4, h5, h6,
-  .display-1, .display-2, .display-3, .display-4, .display-5, .display-6,
-  .hero-title, .section-title {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .display-1,
+  .display-2,
+  .display-3,
+  .display-4,
+  .display-5,
+  .display-6,
+  .hero-title,
+  .section-title {
     color: var(--bs-heading-color) !important;
   }
 
@@ -43,28 +61,35 @@
   .dropdown-item:hover,
   .dropdown-item.active {
     color: var(--theme-primary) !important;
-    background-color: rgba(105, 136, 191, 0.1) !important; /* using primary-300 rgb */
+    background-color: rgba(
+      105,
+      136,
+      191,
+      0.1
+    ) !important; /* using primary-300 rgb */
   }
-  
+
   /* .nav-btn-cta */
   .nav-btn-cta {
     background: linear-gradient(135deg, #1f4e9f, #2b6cb0) !important;
     color: #ffffff !important;
     border: none !important;
-    
-    &:hover, &:focus, &:active {
+
+    &:hover,
+    &:focus,
+    &:active {
       color: #ffffff !important;
       opacity: 0.9;
     }
   }
-  
+
   /* Core Values / Benefits text colors */
   .benefits-card h6,
   .core-value-card h4,
   .list-dotted__value {
     color: var(--bs-heading-color) !important;
   }
-  
+
   .benefits-card p {
     color: #9ca3af !important;
   }
@@ -80,7 +105,7 @@
     filter: brightness(0.75) contrast(1.1) !important;
     transition: filter 0.3s ease;
   }
-  
+
   /* Prevent logos from being dimmed */
   .navbar-brand img,
   .footer-logo {
@@ -122,6 +147,43 @@
     }
   }
 
+  /* Common light surfaces that need dark complements */
+  .bg-white,
+  .bg-light,
+  .bg-light2 {
+    background-color: var(--bs-tertiary-bg) !important;
+    color: var(--bs-body-color) !important;
+  }
+
+  .border-light {
+    border-color: var(--bs-border-color-translucent) !important;
+  }
+
+  .btn-white {
+    background-color: var(--bs-tertiary-bg) !important;
+    border-color: var(--bs-border-color-translucent) !important;
+    color: var(--bs-body-color) !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: rgba(255, 255, 255, 0.04) !important;
+      border-color: var(--bs-border-color) !important;
+      color: var(--bs-body-color) !important;
+    }
+  }
+
+  .badge.bg-light {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: var(--bs-body-color) !important;
+    border: 1px solid var(--bs-border-color-translucent) !important;
+  }
+
+  .dotted-border,
+  .dotted-border-muted {
+    border-bottom-color: var(--bs-border-color-translucent) !important;
+  }
+
   /* Fix beyond the hype inner cards (they might be too dark or too light) */
   .benefits-card,
   .premium-project-card {
@@ -135,7 +197,7 @@
   .newsletter-title {
     color: var(--theme-primary) !important;
   }
-  
+
   .article-excerpt,
   .article-content,
   .newsletter-text,
@@ -148,9 +210,9 @@
     color: var(--bs-body-color) !important;
     border-left-color: var(--theme-secondary) !important;
   }
-  
+
   .newsletter-exclusive {
-     background-color: var(--bs-tertiary-bg) !important;
+    background-color: var(--bs-tertiary-bg) !important;
   }
 
   /* 4. Investors & Properties Explicit Overrides */
@@ -188,8 +250,31 @@
   }
 
   footer.bg-dark {
-    background-color: #1a1d20 !important; /* Dark gray based on light mode bg-dark */
+    background-color: #1f2730 !important; /* Requested dark footer surface */
     border-top: 1px solid var(--bs-border-color-translucent) !important;
+  }
+
+  .footer-bottom-bar {
+    background-color: #182029 !important; /* slightly deeper than footer for separation */
+    border-top-color: rgba(255, 255, 255, 0.12) !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+  }
+
+  .theme-switch {
+    color: rgba(255, 255, 255, 0.92) !important;
+  }
+
+  .theme-switch:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  .theme-switch__icon {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .footer-bottom-bar__right {
+    color: rgba(255, 255, 255, 0.88) !important;
   }
 
   .blog-card-meta,
@@ -201,8 +286,121 @@
 
   /* /investors page specifics */
   .unit-section {
+    background-color: var(--bs-body-bg) !important;
+
+    .unit-card {
+      background-color: var(--bs-tertiary-bg) !important;
+      border-color: var(--bs-border-color-translucent) !important;
+    }
+
+    .feature-item {
+      color: #d1d5db !important;
+    }
+
+    .icon-box {
+      border: 1px solid var(--bs-border-color-translucent) !important;
+
+      &.icon-primary {
+        background: rgba(31, 78, 159, 0.18) !important;
+        color: #bfdbfe !important;
+      }
+      &.icon-success {
+        background: rgba(0, 158, 69, 0.16) !important;
+        color: #86efac !important;
+      }
+      &.icon-info {
+        background: rgba(14, 165, 233, 0.16) !important;
+        color: #7dd3fc !important;
+      }
+      &.icon-warning {
+        background: rgba(202, 138, 4, 0.16) !important;
+        color: #fcd34d !important;
+      }
+    }
+
     .unit-pricing {
       color: var(--bs-heading-color) !important;
+
+      small {
+        color: #9ca3af !important;
+        opacity: 1 !important;
+      }
+
+      .shell {
+        color: #93c5fd !important;
+      }
+
+      .finished {
+        color: #7dd3fc !important;
+      }
+    }
+  }
+
+  .snapshot-card {
+    background-color: var(--bs-tertiary-bg) !important;
+    border-color: var(--bs-border-color-translucent) !important;
+  }
+
+  .rounded-pill.bg-info-100 {
+    background-color: rgba(14, 165, 233, 0.16) !important;
+    border: 1px solid rgba(14, 165, 233, 0.28) !important;
+    color: #7dd3fc !important;
+  }
+
+  .exit-strategies-section {
+    background-color: var(--bs-body-bg) !important;
+
+    .calculator-card {
+      background-color: var(--bs-tertiary-bg) !important;
+      border-color: rgba(31, 78, 159, 0.22) !important;
+    }
+
+    .calculator-badge {
+      background-color: rgba(0, 158, 69, 0.28) !important;
+      color: #d1fae5 !important;
+      border: 1px solid rgba(0, 158, 69, 0.35) !important;
+    }
+
+    .calculator-label {
+      color: #93c5fd !important;
+    }
+
+    .slider-range {
+      color: #9ca3af !important;
+    }
+
+    .divider {
+      border-top-color: rgba(105, 136, 191, 0.45) !important;
+    }
+
+    .invest-text {
+      color: #d1d5db !important;
+
+      strong {
+        color: var(--bs-heading-color) !important;
+      }
+    }
+
+    .result-box {
+      background-color: rgba(255, 255, 255, 0.03) !important;
+      border: 1px solid var(--bs-border-color-translucent) !important;
+
+      small {
+        color: #9ca3af !important;
+      }
+
+      h5 {
+        color: var(--bs-heading-color) !important;
+      }
+    }
+
+    .roi-box {
+      background: linear-gradient(
+        135deg,
+        rgba(22, 55, 113, 0.85),
+        rgba(31, 78, 159, 0.75)
+      ) !important;
+      border: 1px solid rgba(255, 255, 255, 0.06) !important;
     }
   }
 
@@ -210,11 +408,29 @@
     color: #9ca3af !important;
   }
 
+  .investment-section {
+    background-color: var(--bs-body-bg) !important;
+
+    .tier-desc,
+    .legend-label {
+      color: #9ca3af !important;
+    }
+
+    .legend-value,
+    .donut-value {
+      color: var(--bs-heading-color) !important;
+    }
+
+    .tier-title {
+      color: var(--bs-heading-color) !important;
+    }
+  }
+
   .bg-success-100 {
     background-color: rgba(25, 135, 84, 0.15) !important;
     color: #4ade80 !important;
   }
-  
+
   .bg-primary2 {
     background-color: rgba(31, 78, 159, 0.15) !important;
     color: var(--theme-primary) !important;
@@ -223,45 +439,83 @@
   .tier-item {
     background-color: var(--bs-tertiary-bg) !important;
     border: 1px solid var(--bs-border-color-translucent) !important;
-    
+
     .tier-price {
       color: var(--theme-primary) !important;
     }
-    .tier-title, .tier-feature {
+    .tier-title,
+    .tier-feature {
       color: var(--bs-body-color) !important;
     }
     .tier-icon {
-       filter: brightness(1.5);
+      filter: brightness(1.5);
     }
   }
 
   .donut-wrapper {
-    .donut-value { color: var(--bs-heading-color) !important; }
-    .legend-item { color: var(--bs-body-color) !important; }
-    text { fill: var(--bs-body-color) !important; }
+    .donut-value {
+      color: var(--bs-heading-color) !important;
+    }
+    .legend-item {
+      color: var(--bs-body-color) !important;
+    }
+    text {
+      fill: var(--bs-body-color) !important;
+    }
   }
 
   .exit-icon {
-    background-color: rgba(255,255,255,0.05) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
     color: var(--theme-primary) !important;
   }
 
   .calculator-card {
     background-color: var(--bs-tertiary-bg) !important;
-    
-    label { color: var(--bs-heading-color) !important; }
-    
-    .form-control, .form-select {
+    border: 1px solid var(--bs-border-color-translucent) !important;
+
+    label {
+      color: var(--bs-heading-color) !important;
+    }
+
+    .form-control,
+    .form-select {
       background-color: var(--bs-body-bg) !important;
       color: var(--bs-body-color) !important;
       border-color: var(--bs-border-color-translucent) !important;
     }
-    
-    .result-box, .result-box.profit {
+
+    .calculator-input {
+      background-color: var(--bs-body-bg) !important;
+      color: var(--bs-body-color) !important;
+      border-color: var(--bs-border-color-translucent) !important;
+
+      &:focus {
+        border-color: rgba(105, 136, 191, 0.45) !important;
+        box-shadow: 0 0 0 0.15rem rgba(105, 136, 191, 0.18) !important;
+        outline: none !important;
+      }
+    }
+
+    .result-box,
+    .result-box.profit {
       background-color: rgba(255, 255, 255, 0.03) !important;
       border-color: var(--bs-border-color-translucent) !important;
-      .result-label { color: #9ca3af !important; }
-      .result-value { color: var(--theme-primary) !important; }
+      .result-label {
+        color: #9ca3af !important;
+      }
+      .result-value {
+        color: var(--theme-primary) !important;
+      }
+    }
+
+    .result-box.profit {
+      background-color: rgba(202, 138, 4, 0.1) !important;
+      border-color: rgba(202, 138, 4, 0.22) !important;
+    }
+
+    .result-box.total {
+      background-color: rgba(0, 158, 69, 0.1) !important;
+      border-color: rgba(0, 158, 69, 0.22) !important;
     }
   }
 
@@ -271,42 +525,120 @@
       border-color: var(--bs-border-color-translucent) !important;
     }
     .update-card {
-      background-color: var(--bs-body-bg) !important;
+      background-color: rgba(24, 26, 31, 0.65) !important;
+      backdrop-filter: blur(10px);
       border-color: var(--bs-border-color-translucent) !important;
+
+      small {
+        color: #9ca3af !important;
+      }
+      .time {
+        color: #93c5fd !important;
+      }
+    }
+
+    .progress-img {
+      filter: brightness(0.55) contrast(1.15) saturate(0.95) !important;
     }
   }
 
   .risk-governance-section {
     .audit-row {
-      background-color: rgba(31, 78, 159, 0.1) !important; 
+      background-color: rgba(31, 78, 159, 0.1) !important;
       color: var(--bs-body-color) !important;
     }
     .risk-table {
-      background-color: transparent !important;
-      tr { border-bottom-color: var(--bs-border-color-translucent) !important; }
-      th, td { 
-        color: var(--bs-body-color) !important; 
-        border-color: var(--bs-border-color-translucent) !important;
+      background-color: var(--bs-tertiary-bg) !important;
+      border: 1px solid var(--bs-border-color-translucent) !important;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25) !important;
+    }
+
+    .risk-head {
+      background: linear-gradient(135deg, #163771, #1f4e9f) !important;
+      color: #e5e7eb !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    .risk-row {
+      border-top-color: var(--bs-border-color-translucent) !important;
+
+      &:hover {
+        background: rgba(105, 136, 191, 0.1) !important;
       }
-      tr:hover, tr:hover > * { 
-        background-color: rgba(255,255,255,0.03) !important; 
-        color: var(--bs-body-color) !important;
+    }
+
+    .risk-domain {
+      .title {
+        color: #93c5fd !important;
       }
-      .badge { background-color: rgba(255,255,255,0.1) !important; color: #fff !important; }
-      .title { color: var(--bs-heading-color) !important; }
-      .subtitle { color: #9ca3af !important; }
+      .subtitle {
+        color: #9ca3af !important;
+      }
+    }
+
+    .risk-mitigation {
+      color: #d1d5db !important;
+    }
+
+    .risk-exposure {
+      .label {
+        color: #e5e7eb !important;
+      }
+      .percent {
+        color: #9ca3af !important;
+      }
+      .progress {
+        background: rgba(255, 255, 255, 0.06) !important;
+      }
+    }
+
+    .badge.primary {
+      background: rgba(31, 78, 159, 0.18) !important;
+      color: #bfdbfe !important;
+      border: 1px solid rgba(31, 78, 159, 0.35) !important;
+    }
+
+    .badge.success {
+      background: rgba(0, 158, 69, 0.16) !important;
+      color: #86efac !important;
+      border: 1px solid rgba(0, 158, 69, 0.35) !important;
     }
   }
 
   .path-grid {
     background-color: transparent !important;
   }
-  
+
   .path-card {
     background-color: var(--bs-tertiary-bg) !important;
     border-color: var(--bs-border-color-translucent) !important;
-    .path-title { color: var(--bs-heading-color) !important; }
-    .path-text { color: var(--bs-body-color) !important; }
+
+    .card-top {
+      border-bottom-color: var(--bs-border-color-translucent) !important;
+    }
+
+    .step-number {
+      color: rgba(255, 255, 255, 0.18) !important;
+    }
+    .step-title {
+      color: #bfdbfe !important;
+    }
+    .step-desc {
+      color: #9ca3af !important;
+    }
+
+    .icon-wrap {
+      border: 1px solid var(--bs-border-color-translucent) !important;
+    }
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.14) !important;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28) !important;
+
+      .step-desc {
+        color: #d1d5db !important;
+      }
+    }
   }
 
   /* Projects [slug] specific */
@@ -314,14 +646,21 @@
     background-color: var(--bs-tertiary-bg) !important;
     border-color: var(--bs-border-color-translucent) !important;
     color: var(--bs-body-color) !important;
-    
-    &.pi-primary { background-color: rgba(31, 78, 159, 0.15) !important; }
-    &.pi-secondary { background-color: rgba(43, 108, 176, 0.15) !important; }
-    &.pi-success { background-color: rgba(25, 135, 84, 0.15) !important; }
+
+    &.pi-primary {
+      background-color: rgba(31, 78, 159, 0.15) !important;
+    }
+    &.pi-secondary {
+      background-color: rgba(43, 108, 176, 0.15) !important;
+    }
+    &.pi-success {
+      background-color: rgba(25, 135, 84, 0.15) !important;
+    }
   }
 
   /* FAQs Page */
-  .faq-main, .faq-body {
+  .faq-main,
+  .faq-body {
     background-color: var(--bs-body-bg) !important;
   }
   .faq-section-title {
@@ -335,9 +674,11 @@
     .accordion-button {
       background-color: var(--bs-tertiary-bg) !important;
       color: var(--bs-heading-color) !important;
-      &::after { filter: invert(1); }
+      &::after {
+        filter: invert(1);
+      }
       &:not(.collapsed) {
-        background-color: rgba(255,255,255,0.03) !important;
+        background-color: rgba(255, 255, 255, 0.03) !important;
       }
     }
     .accordion-body {
@@ -348,7 +689,9 @@
   .faq-tabs-wrapper {
     .nav-link {
       color: var(--bs-body-color) !important;
-      &:hover { color: var(--theme-primary) !important; }
+      &:hover {
+        color: var(--theme-primary) !important;
+      }
     }
     .nav-link.active {
       color: var(--theme-primary) !important;
@@ -356,18 +699,20 @@
     }
   }
 
-  .faq-item__question { 
-    color: var(--bs-heading-color) !important; 
+  .faq-item__question {
+    color: var(--bs-heading-color) !important;
     border-color: var(--bs-border-color-translucent) !important;
   }
-  .faq-item__answer { color: var(--bs-body-color) !important; }
-  
-  .faq-item__icon { 
-    color: var(--theme-primary) !important; 
+  .faq-item__answer {
+    color: var(--bs-body-color) !important;
   }
-  
-  .faq-still-help__icon { 
-    color: var(--theme-primary) !important; 
+
+  .faq-item__icon {
+    color: var(--theme-primary) !important;
+  }
+
+  .faq-still-help__icon {
+    color: var(--theme-primary) !important;
     background-color: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid var(--bs-border-color-translucent) !important;
   }
@@ -375,7 +720,10 @@
   /* Google Map */
   .google-map {
     background-color: var(--bs-tertiary-bg) !important;
-    iframe { opacity: 0.8; filter: grayscale(20%) invert(90%) contrast(1.2); }
+    iframe {
+      opacity: 0.8;
+      filter: grayscale(20%) invert(90%) contrast(1.2);
+    }
   }
 
   .pill-overlay.category-pill {
@@ -398,7 +746,7 @@
     .chat-header {
       background-color: var(--bs-tertiary-bg) !important;
       border-bottom: 1px solid var(--bs-border-color-translucent) !important;
-      
+
       span.text-dark {
         color: var(--bs-body-color) !important;
       }
@@ -438,17 +786,17 @@
     .card-footer {
       background-color: var(--bs-tertiary-bg) !important;
       border-top: 1px solid var(--bs-border-color-translucent) !important;
-      
+
       .text-muted {
         color: #6b7280 !important;
       }
     }
   }
   /* Text Primary adjustments for Dark Mode */
-  [class*="text-primary-600"],
-  [class*="text-primary-700"],
-  [class*="text-primary-800"],
-  [class*="text-primary-900"],
+  [class*='text-primary-600'],
+  [class*='text-primary-700'],
+  [class*='text-primary-800'],
+  [class*='text-primary-900'],
   .text-primary-500 {
     color: var(--theme-primary) !important;
   }

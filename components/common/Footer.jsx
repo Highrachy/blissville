@@ -20,9 +20,6 @@ const Footer = () => (
                 delivering true value through smart, convenient, and efficient
                 housing solutions across Africa.
               </p>
-              <div className="mt-4">
-                <ThemeToggle />
-              </div>
             </div>
             <div className="col-md-5 offset-md-1 col-sm-6 col-6">
               <h6 className="text-white pb-2">Quick Links</h6>
@@ -67,6 +64,27 @@ const Footer = () => (
         </div>
       </section>
     </footer>
+    <section className="footer-bottom-bar" aria-label="Site controls">
+      <div className="container">
+        <div className="footer-bottom-bar__inner">
+          <div className="footer-bottom-bar__left">
+            <span className="me-2">Powered by</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/img/highrachy-logo-dark.png"
+              alt="Highrachy logo"
+              width={76}
+              height={23}
+              className="footer-bottom-bar__logo"
+            />
+          </div>
+
+          <div className="footer-bottom-bar__right">
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+    </section>
   </>
 );
 
