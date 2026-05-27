@@ -30,10 +30,17 @@ import InputFormat from '@/components/forms/InputFormat';
 import FormikButton from '@/components/forms/FormikButton';
 import Modal from '@/components/ui/Modal';
 import Link from 'next/link';
+import SeoHead from '@/components/utils/SeoHead';
 
 const PropertyAcquisitionForm = () => {
   return (
     <>
+      <SeoHead
+        title="Property Acquisition | Blissville by Highrachy"
+        description="Submit your interest in Blissville property acquisition opportunities and get guided through the next steps."
+        canonical="https://www.blissville.com.ng/property-acquisition"
+        robots="noindex, nofollow"
+      />
       <Navigation />
       <AcquisitionForm />
       <Footer />

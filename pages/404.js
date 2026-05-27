@@ -3,9 +3,16 @@ import { PageHeader } from '@/components/common/Header';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
 import Navigation from '@/components/layouts/Navigation';
+import SeoHead from '@/components/utils/SeoHead';
 
 const Page404 = () => (
   <>
+    <SeoHead
+      title="Page Not Found | Blissville by Highrachy"
+      description="The page you're looking for doesn't exist."
+      canonical="https://www.blissville.com.ng/404"
+      robots="noindex, nofollow"
+    />
     <Navigation />
     <PageHeader
       title="PAGE NOT FOUND"

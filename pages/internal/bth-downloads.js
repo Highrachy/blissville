@@ -6,6 +6,7 @@ import { Container, Row, Col, Table, Button, Badge } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { FaDownload, FaCalendarDay, FaInbox } from 'react-icons/fa';
 import { FaCopy } from 'react-icons/fa6';
+import SeoHead from '@/components/utils/SeoHead';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -145,6 +146,12 @@ export default function Dashboard() {
 
   return (
     <>
+      <SeoHead
+        title="Internal Dashboard | Blissville by Highrachy"
+        description="Internal dashboard."
+        canonical="https://www.blissville.com.ng/internal/bth-downloads"
+        robots="noindex, nofollow"
+      />
       <Navigation />
 
       <section className="bg-gray-100 py-5">

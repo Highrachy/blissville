@@ -29,8 +29,8 @@ const ContactUs = () => {
   return (
     <>
       <SeoHead
-        title="Contact Blissville | Get in Touch with Highrachy Real Estate"
-        description="Contact Blissville by Highrachy today. Visit our Lagos office or reach out for inquiries about luxury homes, waterfront terraces, investment opportunities, and real estate partnerships."
+        title="Contact Blissville | Highrachy Real Estate"
+        description="Get in touch with Blissville by Highrachy today. Visit our Victoria Island office or contact us for luxury home inquiries and site visits in Lagos."
         canonical="https://www.blissville.com.ng/contact-us"
         ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg"
         keywords={[
@@ -161,10 +161,14 @@ const ContactInfo = () => (
             <div className="mt-5">
               <h4 className="mb-4">Connect with us on social media</h4>
               <div className="d-flex gap-3 flex-wrap">
-                {socialMediaLinks.map(({ url, icon }, index) => (
+                {socialMediaLinks.map(({ name, url, icon }, index) => (
                   <Link href={url} passHref key={`contact-social-media-${index}`}>
-                    <a className="social-circle-btn d-flex align-items-center justify-content-center text-decoration-none">
+                    <a
+                      className="social-circle-btn d-flex align-items-center justify-content-center text-decoration-none"
+                      aria-label={`Follow us on ${name}`}
+                    >
                       {icon}
+                      <span className="visually-hidden">{name}</span>
                     </a>
                   </Link>
                 ))}
@@ -184,7 +188,7 @@ const ContactUsForm = () => {
         <div className="row justify-content-center">
           <div className="col-md-10">
             <div className="text-center">
-              <h1>Send Us a Message</h1>
+              <h2 className="h1">Send Us a Message</h2>
               <p className="lead">
                 We&apos;ll update you within the next 24 hours
               </p>

@@ -20,7 +20,7 @@ export const CompactPropertyCard = ({ id, attributes, projectSlug }) => {
           {/* Image column */}
           <div className="col-12 col-md-5">
             <Link href={href} passHref>
-              <a className="cp-image-container d-block position-relative">
+              <a className="cp-image-container d-block position-relative" aria-label={`View details for ${name}`}>
                 <Image
                   src={image}
                   alt={name}

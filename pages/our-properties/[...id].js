@@ -77,8 +77,8 @@ export default function SinglePropertyPage({
       : 'Lagos, Nigeria';
 
   const canonicalUrl = `https://www.blissville.com.ng/our-properties/${
-    project?.slug || 'project'
-  }/${property?.slug}`;
+    project?.slug?.toLowerCase() || 'project'
+  }/${property?.slug?.toLowerCase()}`;
   const { name, beds, description, image, price, parkingSpace } = property;
   const ogImage =
     image ||
@@ -538,7 +538,12 @@ export async function getStaticProps({ params }) {
     },
   });
 
-  const propertyData = data?.data[0]?.attributes;
+  const propertyData = data?.data?.[0]?.attributes;
+  if (!propertyData) {
+    return {
+      notFound: true,
+    };
+  }
   const project = propertyData.project;
   const projectId = project?.data?.id;
 

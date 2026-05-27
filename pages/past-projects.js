@@ -18,8 +18,8 @@ export default function PastProjects({ projects }) {
     <>
       <Navigation />
       <SeoHead
-        title="Past Projects | Completed Real Estate Developments by Highrachy in Lagos"
-        description="Discover completed real estate projects by Highrachy — the developer behind Blissville Homes. Explore our legacy of quality developments across Lekki, Sangotedo, and Lagos that combine comfort, design, and long-term value."
+        title="Past Projects | Highrachy Real Estate Lagos"
+        description="Explore completed premium developments by Highrachy in Lagos. See our proven track record of delivering quality waterfront homes and lasting value."
         canonical="https://www.blissville.com.ng/past-projects"
         ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"
         keywords={[

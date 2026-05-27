@@ -66,6 +66,7 @@ function ShareBlock({ url, text, onCopy, onEmail, copied }) {
         <a
           href="#"
           className="share-icon-link"
+          aria-label="Share on X (Twitter)"
           onClick={(e) => {
             e.preventDefault();
             openShare(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
@@ -76,6 +77,7 @@ function ShareBlock({ url, text, onCopy, onEmail, copied }) {
         <a
           href="#"
           className="share-icon-link"
+          aria-label="Share on Facebook"
           onClick={(e) => {
             e.preventDefault();
             openShare(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`);
@@ -86,6 +88,7 @@ function ShareBlock({ url, text, onCopy, onEmail, copied }) {
         <a
           href="#"
           className="share-icon-link"
+          aria-label="Share on LinkedIn"
           onClick={(e) => {
             e.preventDefault();
             openShare(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`);
@@ -96,6 +99,7 @@ function ShareBlock({ url, text, onCopy, onEmail, copied }) {
         <a
           href="#"
           className="share-icon-link"
+          aria-label="Share on WhatsApp"
           onClick={(e) => {
             e.preventDefault();
             openShare(`https://wa.me/?text=${encodeURIComponent(`${text} ${url}`)}`);
@@ -103,12 +107,18 @@ function ShareBlock({ url, text, onCopy, onEmail, copied }) {
         >
           <FaWhatsapp size={20} />
         </a>
-        <a href="#" className="share-icon-link" onClick={onEmail}>
+        <a
+          href="#"
+          className="share-icon-link"
+          aria-label="Share via Email"
+          onClick={onEmail}
+        >
           <FaEnvelope size={18} />
         </a>
         <a
           href="#"
           className="share-icon-link"
+          aria-label="Copy Page Link"
           onClick={onCopy}
           title={copied ? 'Copied!' : 'Copy Link'}
         >

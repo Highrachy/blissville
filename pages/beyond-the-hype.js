@@ -1,5 +1,6 @@
 import Navigation from '@/components/layouts/Navigation';
 import Footer from '@/components/common/Footer';
+import SeoHead from '@/components/utils/SeoHead';
 import Image from 'next/image';
 import { Container } from 'react-bootstrap';
 import Fade from 'react-reveal/Fade';
@@ -59,9 +60,9 @@ export const BeyondTheHypeHeroSection = () => (
 
           {/* SUBTITLE */}
           <Fade bottom delay={150}>
-            <h5 className="text-primary-700 fw-semibold mb-4">
+            <h2 className="text-primary-700 fw-semibold mb-4 h5">
               The Blueprint for Real Estate Wealth
-            </h5>
+            </h2>
           </Fade>
 
           {/* COPY */}
@@ -200,7 +201,7 @@ const FeaturesSection = () => {
                   </div>
 
                   {/* TITLE */}
-                  <h6 className="fw-semibold text-darker mb-2">{item.title}</h6>
+                  <h3 className="fw-semibold text-darker mb-2 h6">{item.title}</h3>
 
                   {/* TEXT */}
                   <p className="text-muted mb-0">{item.text}</p>
@@ -562,9 +563,9 @@ export const ClarityFormSection = ({
                         <FaCheckCircle className="text-success" size={22} />
                       </div>
 
-                      <h6 className="fw-semibold lead mb-1">
+                      <h3 className="fw-semibold lead mb-1 h6">
                         Thank you. Your guide is on the way.
-                      </h6>
+                      </h3>
 
                       <p className="mb-2 text-muted">
                         Your download should begin automatically.
@@ -611,7 +612,7 @@ const AuthorityItem = ({ icon: Icon, color, bg, title, text }) => (
     </div>
 
     <div className="mb-3">
-      <h6 className="fw-semibold text-dark mb-1">{title}</h6>
+      <h3 className="fw-semibold text-dark mb-1 h6">{title}</h3>
       <p className="text-muted mb-0">{text}</p>
     </div>
   </div>
@@ -632,6 +633,12 @@ export default function BeyondTheHype() {
   }, []);
   return (
     <>
+      <SeoHead
+        title="Beyond the Hype | Blissville by Highrachy"
+        description="Get the Beyond the Hype guide: clear, practical insights to help you buy property in Lagos with confidence."
+        canonical="https://www.blissville.com.ng/beyond-the-hype"
+        ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg"
+      />
       <Navigation />
 
       <BeyondTheHypeHeroSection />

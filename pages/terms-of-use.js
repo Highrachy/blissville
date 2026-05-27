@@ -10,7 +10,7 @@ const TermsOfUsePage = () => {
     <>
       <SeoHead
         title="Terms of Use & Privacy Policy | Blissville by Highrachy"
-        description="Read the Terms of Use and Privacy Policy for Blissville by Highrachy. Learn about our data handling, website use policies, and user rights for our real estate platform in Lagos, Nigeria."
+        description="Read the Terms of Use and Privacy Policy for Blissville by Highrachy. Learn about our user agreement and data protection policies for our properties."
         canonical="https://www.blissville.com.ng/terms-of-use"
         ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"
         keywords={[
@@ -57,7 +57,7 @@ const Content = () => (
         By using this Website and agreeing to these Terms, you represent and
         warrant that you have the legal capacity to accept these Terms.
       </p>
-      <h6 className="tou-header">1. Definitions</h6>
+      <h2 className="tou-header h6">1. Definitions</h2>
       <ol>
         <li>
           <p>
@@ -99,7 +99,7 @@ const Content = () => (
           </p>
         </li>
       </ol>
-      <h6 className="tou-header">2. About the Website</h6>
+      <h2 className="tou-header h6">2. About the Website</h2>
       <p>
         Blissville is a leading real estate brand in Africa. We offer
         affordable, energy-efficient luxury homes that enhance your living
@@ -107,7 +107,7 @@ const Content = () => (
         services and come with flexible payment plans. We ensure seamless
         ownership transfers and use natural elements to boost comfort.
       </p>
-      <h6 className="tou-header">3. Acceptable Use</h6>
+      <h2 className="tou-header h6">3. Acceptable Use</h2>
       <ol type="a">
         <li>
           We may provide you with other items in connection with your use of
@@ -131,7 +131,7 @@ const Content = () => (
           granted by this Website.
         </li>
       </ol>
-      <h6 className="tou-header">4. Prohibited Use</h6>
+      <h2 className="tou-header h6">4. Prohibited Use</h2>
       <p>You agree not to use the Service in the following manner:</p>
       <ol type="a">
         <li>
@@ -198,7 +198,7 @@ const Content = () => (
           authorisation by the Blissville team.
         </li>
       </ol>
-      <h6 className="tou-header">5. CONTENT</h6>
+      <h2 className="tou-header h6">5. CONTENT</h2>
       <p>
         All the content on this web site, including any and all graphics, text,
         icons, hyperlinks, private information, designs, trademarks, software,
@@ -216,7 +216,7 @@ const Content = () => (
         liable for those content or information.
       </p>
 
-      <h6 className="tou-header">6. PRIVACY</h6>
+      <h2 className="tou-header h6">6. PRIVACY</h2>
       <p>
         To use our Services, we require that you provide certain personal
         information. By using our Services, you hereby grant us the authority to
@@ -250,11 +250,11 @@ const Content = () => (
         Policy is always protected under the terms of this Privacy Policy.
       </p>
 
-      <h5 className="tou-title">a. Information we collect and use:</h5>
+      <h3 className="tou-title h5">a. Information we collect and use:</h3>
 
       <p>When you use the Services, we collect information as follows:</p>
 
-      <h5 className="tou-title">Personal Information</h5>
+      <h3 className="tou-title h5">Personal Information</h3>
       <p>
         While you may use some of the Services without registering, certain
         Services do require that you register with Us for them to function
@@ -266,7 +266,7 @@ const Content = () => (
         the personal information that you submit to Us.
       </p>
 
-      <h5 className="tou-title">Email Newsletters</h5>
+      <h3 className="tou-title h5">Email Newsletters</h3>
       <p>
         At registration and at various times as you use the Sites, you will be
         given the option of providing us with personal information in order to
@@ -285,7 +285,7 @@ const Content = () => (
         from our database, please use the Contact Us link provided on the site.
       </p>
 
-      <h5 className="tou-title">Market Research</h5>
+      <h3 className="tou-title h5">Market Research</h3>
       <p>
         From time to time, we may conduct online research surveys on behalf of
         ourselves and third parties through email invitations, pop-up surveys
@@ -297,14 +297,14 @@ const Content = () => (
         age of 18 to participate in market research surveys.
       </p>
 
-      <h5 className="tou-title">Emails You Send to Us</h5>
+      <h3 className="tou-title h5">Emails You Send to Us</h3>
       <p>
         This Privacy Policy does not apply to information, content, business
         information, ideas, concepts or inventions that you send to us by email.
         If you want to keep content or business information, ideas, concepts or
         inventions private or proprietary, do not send them in an email to us.
       </p>
-      <h5 className="tou-title">Services and Device Information</h5>
+      <h3 className="tou-title h5">Services and Device Information</h3>
       <p>
         When you access and use the Services, we automatically collect and store
         in server logs information from your browser or mobile device such as
@@ -321,7 +321,7 @@ const Content = () => (
         may disable through the device settings.
       </p>
 
-      <h5 className="tou-title">Cookies</h5>
+      <h3 className="tou-title h5">Cookies</h3>
       <p>
         We and our partners use cookies to collect information about your use of
         the Services. “Cookies” are small data files assigned to your browser
@@ -351,7 +351,7 @@ const Content = () => (
         your browsing activity and your interests.
       </p>
 
-      <h5 className="tou-title">How Information Collected About You Is Used</h5>
+      <h3 className="tou-title h5">How Information Collected About You Is Used</h3>
       <p>
         Information about your use of the Services may be used for the following
         purposes:
@@ -414,7 +414,7 @@ const Content = () => (
         We will not sell your personal information to third parties for their
         use without your consent.
       </p>
-      <h5 className="tou-title"> Sharing Your Information</h5>
+      <h3 className="tou-title h5"> Sharing Your Information</h3>
       <p>Our Subsidiaries and Corporate Affiliates</p>
 
       <p>
@@ -428,9 +428,9 @@ const Content = () => (
         in accordance with this Privacy Policy unless any changes to the Privacy
         Policy are made.
       </p>
-      <h5 className="tou-title">
+      <h3 className="tou-title h5">
         Third-Party Advertisers and Third-Party Websites
-      </h5>
+      </h3>
       <p>
         We may share information that we have about you, such as a cookie ID or
         IP address, with third party advertising service providers who may use
@@ -458,12 +458,12 @@ const Content = () => (
         include third party service providers whose services are embedded into
         and/or appear within the Services.
       </p>
-      <h5 className="tou-title">
+      <h3 className="tou-title h5">
         Compliance with Law, Regulation, and Law Enforcement Requests
-      </h5>
+      </h3>
       <p>To cooperate with government and law enforcement officers.</p>
 
-      <h6 className="tou-header">6. Indemnification</h6>
+      <h2 className="tou-header h6">6. Indemnification</h2>
       <p>
         You hereby agree to indemnify Blissville, its employees, agents and
         representatives from and against all liabilities, cost, demands, cause
@@ -473,7 +473,7 @@ const Content = () => (
         regulation.
       </p>
 
-      <h6 className="tou-header">7. No Warranties</h6>
+      <h2 className="tou-header h6">7. No Warranties</h2>
       <ul>
         <li>
           You agree that you use this Website solely at your risk as we do not
@@ -498,7 +498,7 @@ const Content = () => (
         </li>
       </ul>
 
-      <h6 className="tou-header"> 8. Service Interruptions.</h6>
+      <h2 className="tou-header h6"> 8. Service Interruptions.</h2>
       <p>Changes to These Terms and Conditions</p>
       <p>
         We reserve the right, at Our sole discretion, to modify or replace these
@@ -514,7 +514,7 @@ const Content = () => (
         website and the Service.
       </p>
 
-      <h6 className="tou-header">9. Termination/Restriction of Access</h6>
+      <h2 className="tou-header h6">9. Termination/Restriction of Access</h2>
       <ul>
         <li>
           Blissville reserve the right to, at its sole discretion, terminate
@@ -532,7 +532,7 @@ const Content = () => (
         </li>
       </ul>
 
-      <h5 className="tou-title">Termination</h5>
+      <h3 className="tou-title h5">Termination</h3>
       <p>
         We may terminate or suspend Your access immediately, without prior
         notice or liability, for any reason whatsoever, including without
@@ -542,7 +542,7 @@ const Content = () => (
         Upon termination, Your right to use the Service will cease immediately.
       </p>
 
-      <h5 className="tou-title">Limitation of Liability</h5>
+      <h3 className="tou-title h5">Limitation of Liability</h3>
       <p>
         Notwithstanding any damages that You might incur, the entire liability
         of the Company and any of its suppliers under any provision of this
@@ -570,9 +570,9 @@ const Content = () => (
         permitted by law.
       </p>
 
-      <h5 className="tou-title">
+      <h3 className="tou-title h5">
         &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; Disclaimer
-      </h5>
+      </h3>
       <p>
         The Service is provided to You &quot;AS IS&quot; and &quot;AS
         AVAILABLE&quot; and with all faults and defects without warranty of any
@@ -613,34 +613,34 @@ const Content = () => (
         applicable law.
       </p>
 
-      <h6 className="tou-header">10. Assignment </h6>
+      <h2 className="tou-header h6">10. Assignment </h2>
       <p>
         You shall not be permitted to assign, transfer any rights and/or
         obligations under these Term.
       </p>
 
-      <h6 className="tou-header">11. Entire Agreement</h6>
+      <h2 className="tou-header h6">11. Entire Agreement</h2>
       <p>
         These Terms, disclaimers any other agreement relating to the use of this
         Website constitutes the entire agreement and shall supersede any other
         agreement.
       </p>
 
-      <h6 className="tou-header">12. Separate Agreement</h6>
+      <h2 className="tou-header h6">12. Separate Agreement</h2>
       <p>
         You may have other legal agreements with us. Those agreements are
         separate from these Terms. These Terms are not intended to alter, amend,
         revise or replace the Terms of the other agreements.
       </p>
 
-      <h6 className="tou-header">13. Applicable Laws</h6>
+      <h2 className="tou-header h6">13. Applicable Laws</h2>
       <p>
         These Terms may be governed and construed in accordance with the Laws,
         regulations or guidelines of the Federal Republic of Nigeria and other
         treaties, regulations which is applicable in Nigeria.
       </p>
 
-      <h5 className="tou-title">Contact Us</h5>
+      <h3 className="tou-title h5">Contact Us</h3>
       <p>
         If you have any questions about these Terms and Conditions, You can
         contact us:
@@ -657,7 +657,7 @@ const Content = () => (
           </a>
         </li>
         <li>
-          By calling: <a href="tel:+2349055555146"></a>+234 905 555 5146
+          By calling: <a href="tel:+2349055555146">+234 905 555 5146</a>
         </li>
         <li>
           By visiting our address:

@@ -405,7 +405,7 @@ function Neighborhood() {
                   <div className="d-flex align-items-center py-3">
                     <span className="location-icon me-3" />
                     <div>
-                      <h6 className="mb-0 text-dark fw-semibold">{name}</h6>
+                      <h3 className="mb-0 text-dark fw-semibold h6">{name}</h3>
                       <p className="my-0 text-muted small">{category}</p>
                     </div>
                   </div>
@@ -442,7 +442,7 @@ const ReviewsSection = () => {
             <div className="testimonial-listing__container col-lg-9 col-md-10 col-sm-11 col-11 mx-auto">
               <div className="py-2">
                 <p className="lead mb-4">{testimonial}</p>
-                <h5 className="text-primary">{name}</h5>
+                <h4 className="text-primary h5">{name}</h4>
               </div>
             </div>
           </aside>
@@ -582,7 +582,7 @@ const ExclusiveGuide = ({ projectName = 'Blissville Terraces' }) => {
 
           <div className="col-lg-6">
             <div className="border rounded-4 p-4 h-100 bg-body-tertiary">
-              <h5 className="fw-bold">Inside the Free Guide:</h5>
+              <h3 className="fw-bold h5">Inside the Free Guide:</h3>
               <ul className="mb-0">
                 <li>
                   Why Blissville Terraces is more than just another property
@@ -624,7 +624,7 @@ export default function SingleProjectPage({ property }) {
     <>
       <SeoHead
         title="Blissville Terraces | Luxury Waterfront Duplexes in Sangotedo, Lagos"
-        description="Explore Blissville Terraces — luxury 4-bedroom waterfront duplexes in Sangotedo, Lagos. Enjoy lake views, modern architecture, and smart living near Novare Mall and Lagos Business School. Built by trusted developer Highrachy."
+        description="Explore Blissville Terraces: luxury 4-bedroom waterview duplexes in Sangotedo, Lagos near Novare Mall. Smart, energy-efficient homes by Highrachy."
         canonical="https://www.blissville.com.ng/our-projects/blissville-terraces"
         ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-2-night.jpg"
         keywords={[

@@ -18,6 +18,7 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import SeoHead from '@/components/utils/SeoHead';
 import {
   PAYMENT_SOURCE,
   PAYMENT_SOURCE_NAME,
@@ -48,6 +49,12 @@ const Invoice = () => {
 
   return (
     <>
+      <SeoHead
+        title="Payment Verification | Blissville by Highrachy"
+        description="Verify your Blissville payment reference and view your receipt details."
+        canonical="https://www.blissville.com.ng/verify-payment"
+        robots="noindex, nofollow"
+      />
       <Navigation />
       <PageHeader
         title="Payment Verification"

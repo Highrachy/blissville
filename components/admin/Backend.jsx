@@ -17,6 +17,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import LogoImage from '../common/LogoImage';
+import SeoHead from '../utils/SeoHead';
+import Link from 'next/link';
 const Backend = ({ children, role = USER_ROLES.USER, title }) => {
   const { width } = useWindowSize();
   const isDesktop = width > 991;
@@ -65,12 +67,40 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
 
   const currentRole = user?.permission || getPermissionFromStore() || role;
 
+  const seoHeader = (
+    <SeoHead
+      title={`${title || 'Dashboard'} | Blissville by Highrachy`}
+      description="Account dashboard."
+      canonical="https://www.blissville.com.ng/app"
+      robots="noindex, nofollow"
+    />
+  );
+
   if (!user) {
-    return <p> Loading... </p>;
+    return (
+      <>
+        {seoHeader}
+        <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-light text-center px-4">
+          <h1 className="visually-hidden">Loading Dashboard</h1>
+          <div className="spinner-border text-primary mb-3" role="status" style={{ width: '3rem', height: '3rem' }}>
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="lead fw-semibold text-dark mb-2">Loading your dashboard, please wait...</p>
+          <p className="text-muted small mb-4">Accessing secure property portal</p>
+          <Link href="/">
+            <a className="btn btn-outline-primary px-4 py-2 text-decoration-none">
+              Back to Home Page
+            </a>
+          </Link>
+        </div>
+      </>
+    );
   }
 
   return (
-    <section className="admin-container">
+    <>
+      {seoHeader}
+      <section className="admin-container">
       <Sidebar
         isFolded={isFolded}
         setIsFolded={setIsFolded}
@@ -106,7 +136,8 @@ const Backend = ({ children, role = USER_ROLES.USER, title }) => {
         {title && <TopTitle>{title}</TopTitle>}
         <div className="container-fluid">{children}</div>
       </div>
-    </section>
+      </section>
+    </>
   );
 };
 

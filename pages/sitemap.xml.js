@@ -6,24 +6,36 @@ export async function getServerSideProps({ res }) {
   const pages = [
     '',
     '/about-us',
-    '/projects',
     '/our-projects/blissville-terraces',
-    '/our-projects/blissville-apartments',
+    '/our-projects',
     '/past-projects',
     '/our-properties',
     '/investors',
     '/faqs',
     '/contact-us',
-    '/privacy-policy',
     '/blissville-terraces',
     '/beyond-the-hype',
-    '/our-properties/blissville-apartments/4-bedroom-apartments',
-    '/our-properties/blissville-apartments/4-bedroom-waterview-terrace-duplex',
-    '/our-properties/blissville-apartments/3-bedroom-apartments',
+    '/testimonials',
+    '/terms-of-use',
   ];
 
+  let dynamicProjects = [];
+  let dynamicProperties = [];
+
+  try {
+    const projectsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/projects`);
+    const { data: projectsData } = await projectsRes.json();
+    dynamicProjects = projectsData?.map((p) => `/our-projects/${p.attributes.slug.toLowerCase()}`) || [];
+  } catch (error) {}
+
+  try {
+    const propertiesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties?populate=*`);
+    const { data: propertiesData } = await propertiesRes.json();
+    dynamicProperties = propertiesData?.map((p) => `/our-properties/${p.attributes.project.data.attributes.slug.toLowerCase()}/${p.attributes.slug.toLowerCase()}`) || [];
+  } catch (error) {}
+
   const blogPages = BLOG_POSTS.map((post) => post.slug);
-  const allPages = [...pages, ...blogPages];
+  const allPages = [...new Set([...pages, ...blogPages, ...dynamicProjects, ...dynamicProperties])];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">

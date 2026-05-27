@@ -117,7 +117,6 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
   return (
     <>
       <header className={`header-wrapper ${scrolled ? 'header-scrolled' : ''}`}>
-        {/* <TopNav /> */}
         <Navbar expand="lg" className={`navbar-main show ${scrolled ? 'navbar-scrolled' : ''}`}>
           <Container>
             <Navbar.Brand>

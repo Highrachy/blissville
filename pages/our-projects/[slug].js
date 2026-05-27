@@ -63,11 +63,12 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     })) || [];
 
   const { slug } = router.query;
+  const safeSlug = slug?.toLowerCase();
 
-  const shareUrl = `https://blissville.com.ng/our-projects/${slug}`;
+  const shareUrl = `https://blissville.com.ng/our-projects/${safeSlug}`;
   const neighborhoods = project?.neighborhoods?.data || [];
   const property = project?.properties?.data?.[0]?.attributes || {};
-  const canonicalUrl = `https://www.blissville.com.ng/our-projects/${slug}`;
+  const canonicalUrl = `https://www.blissville.com.ng/our-projects/${safeSlug}`;
   const ogImage =
     image ||
     'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg';
@@ -222,7 +223,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         </div>
       </Section>
 
-      <Gallery galleries={project?.project_galleries?.data || []} />
+      <Gallery galleries={project?.project_galleries?.data || []} projectName={name} />
 
       <LocationMapSection
         locationMapURL={locationMapURL}
@@ -356,6 +357,8 @@ export const LocationMapSection = ({
               <img
                 src={locationMapURL}
                 alt={`${name} Location Map`}
+                width={800}
+                height={400}
                 className="img-fluid border border-2 border-light rounded img-cover"
                 style={{
                   width: '100%',
@@ -647,10 +650,11 @@ const GalleryGrid = () => {
         {IMAGES.map((src, i) => (
           <div className="col" key={i}>
             <div className="thumb rounded-3 overflow-hidden position-relative h-100">
-              <img
+              <Image
                 src={src}
                 alt={`Gallery ${i + 1}`}
                 layout="fill"
+                objectFit="cover"
                 className="img-fluid img-cover h-100"
                 priority={i === 0}
               />
@@ -662,7 +666,7 @@ const GalleryGrid = () => {
   );
 };
 
-export const Gallery = ({ galleries, className }) => {
+export const Gallery = ({ galleries, className, projectName }) => {
   if (!galleries || galleries.length === 0) {
     return null;
   }
@@ -690,7 +694,7 @@ export const Gallery = ({ galleries, className }) => {
                     <div className="card h-100">
                       <Image
                         src={gallery.attributes.image}
-                        alt={description}
+                        alt={description?.slice(0, 80) || projectName || 'Project image'}
                         width={600}
                         height={500}
                         objectFit="cover"
@@ -716,11 +720,9 @@ export async function getStaticProps({ params }) {
   let { data } = await res.json();
 
   if (!data || data.length === 0) {
-    const resAll = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/projects?populate=*&sort=createdAt:desc`,
-    );
-    const { data: allData } = await resAll.json();
-    data = allData;
+    return {
+      notFound: true,
+    };
   }
 
   const propertiesRes = await axios.get(

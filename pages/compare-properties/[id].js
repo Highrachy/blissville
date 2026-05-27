@@ -9,11 +9,18 @@ import { ArrowLeft } from 'iconsax-react';
 import Image from 'next/image';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import SeoHead from '@/components/utils/SeoHead';
 
 const CompareProperties = ({ property, otherProperties }) => {
   const [selectedProperty, setSelectedProperty] = React.useState(null);
   return (
     <>
+      <SeoHead
+        title="Compare Properties | Blissville by Highrachy"
+        description="Compare two Blissville properties side-by-side to find the right fit."
+        canonical="https://www.blissville.com.ng/compare-properties"
+        robots="noindex, nofollow"
+      />
       <Navigation />
       <PageHeader
         title="Compare Property"
@@ -57,7 +64,7 @@ const SelectPropertyToCompare = ({
   return (
     <Section>
       <div className="container">
-        <h5 className="mb-4">Select property to compare:</h5>
+        <h2 className="mb-4 h5">Select property to compare:</h2>
         <div className="card bg-gray">
           <div className="row g-4 py-4">
             <div className="col-md-4"></div>

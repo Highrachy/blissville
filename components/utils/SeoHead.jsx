@@ -1,9 +1,10 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 export default function SeoHead({
-  title = 'Blissville by Highrachy | Luxury & Affordable Homes in Lagos',
-  description = 'Discover luxury and affordable homes in Lagos, Lekki, and Sangotedo. Explore waterfront terraces and family-friendly estates by trusted developer Highrachy.',
-  canonical = 'https://www.blissville.com.ng',
+  title = 'Blissville | Luxury & Affordable Homes in Lagos',
+  description = 'Discover luxury and affordable waterfront homes in Lagos by Highrachy. Explore modern family-friendly terraced duplexes in Lekki & Sangotedo.',
+  canonical,
   ogImage = 'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3.jpg',
   robots = 'index, follow',
   keywords = [
@@ -20,6 +21,10 @@ export default function SeoHead({
     'Detached homes Omu Resort',
   ],
 }) {
+  const router = useRouter();
+  const currentUrl = `https://www.blissville.com.ng${router.asPath.split('?')[0]}`;
+  const resolvedCanonical = canonical || currentUrl;
+
   const keywordContent = keywords.join(', ');
 
   // --- Schema.org Structured Data ---
@@ -27,7 +32,7 @@ export default function SeoHead({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Highrachy Investment and Technology Ltd.',
-    url: canonical,
+    url: resolvedCanonical,
     logo: 'https://www.blissville.com.ng/logo.png',
     description,
     sameAs: [
@@ -50,9 +55,29 @@ export default function SeoHead({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Blissville by Highrachy',
-    url: canonical,
+    url: resolvedCanonical,
     description:
       'Blissville by Highrachy offers luxury and affordable homes in Lagos. Discover terraces, apartments, and smart estates designed for modern living.',
+  };
+
+  const pathnames = router.asPath.split('?')[0].split('/').filter((x) => x);
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.blissville.com.ng',
+      },
+      ...pathnames.map((path, index) => ({
+        '@type': 'ListItem',
+        position: index + 2,
+        name: path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' '),
+        item: `https://www.blissville.com.ng/${pathnames.slice(0, index + 1).join('/')}`,
+      })),
+    ],
   };
 
   return (
@@ -61,13 +86,13 @@ export default function SeoHead({
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywordContent} />
-      <link rel="canonical" href={canonical} />
+      <link rel="canonical" href={resolvedCanonical} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:url" content={canonical} />
+      <meta property="og:url" content={resolvedCanonical} />
       <meta property="og:image" content={ogImage} />
 
       {/* Twitter Card */}
@@ -86,14 +111,11 @@ export default function SeoHead({
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      {/* Fix: No content freshness information */}
-      <meta property="og:updated_time" content={new Date().toISOString()} />
-
       {/* ✅ Schema.org JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([organizationSchema, websiteSchema]),
+          __html: JSON.stringify([organizationSchema, websiteSchema, breadcrumbSchema]),
         }}
       />
     </Head>

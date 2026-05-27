@@ -150,7 +150,7 @@ const AdsSection = () => {
     'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/launch-ads.jpg';
   return (
     <Link passHref href="/blissville-terraces">
-      <a>
+      <a aria-label="View Blissville Terraces Pre-launch Offer">
         <section className="ads-section position-relative d-flex align-items-center justify-content-center">
           <div className="ads-overlay"></div>
           <div className="ads-content">
@@ -354,9 +354,9 @@ export function VideoCoverSection({ videoSrc }) {
       {/* 🌫️ Transparent Overlay Text */}
       <div className="position-absolute bottom-0 start-0 w-100 text-center pb-5">
         <div className="bg-dark bg-opacity-50 py-3 px-4 d-inline-block rounded-1">
-          <h1 className="text-white fw-bold h3 mb-0">
+          <h2 className="text-white fw-bold h3 mb-0">
             Welcome to Blissville Terraces
-          </h1>
+          </h2>
         </div>
       </div>
     </section>

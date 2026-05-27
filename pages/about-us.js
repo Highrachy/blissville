@@ -17,8 +17,8 @@ export default function AboutUs() {
   return (
     <>
       <SeoHead
-        title="About Blissville | Highrachy Real Estate Developers in Lagos, Nigeria"
-        description="Learn about Blissville by Highrachy — a trusted real estate brand in Lagos focused on delivering affordable, energy-efficient, and luxurious homes in Sangotedo, Lekki, and across Nigeria."
+        title="About Blissville | Highrachy Real Estate Developers"
+        description="Discover Blissville by Highrachy, a trusted Lagos developer delivering affordable, energy-efficient luxury homes in Sangotedo and Lekki."
         canonical="https://www.blissville.com.ng/about-us"
         ogImage="https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg"
         keywords={[

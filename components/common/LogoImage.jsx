@@ -8,7 +8,7 @@ const LogoImage = () => {
   const { theme } = useTheme();
   return (
     <Link href="/" passHref>
-      <a>
+      <a aria-label="Blissville Home">
         {isFestivePeriod() ? (
           <Image
             src="/assets/img/xmas/logo.svg"
