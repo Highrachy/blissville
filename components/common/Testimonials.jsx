@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import { testimonials } from '@/data/testimonials';
 import { QuoteUp } from 'iconsax-react';
 import { Roll, Slide, Zoom } from 'react-reveal';
+import { Pagination, Autoplay, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 export const TestimonialSection = () => (
   <Section altBg>
@@ -21,7 +23,30 @@ export const TestimonialSection = () => (
         </Slide>
       </div>
       <div className="row pt-5">
-        <OneTestimonial {...testimonials[0]} />
+        {testimonials?.length > 1 ? (
+          <Swiper
+            modules={[Autoplay, Pagination, A11y]}
+            autoHeight={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: true,
+            }}
+            navigation={false}
+            slidesPerView={1}
+            spaceBetween={10}
+            pagination={{ clickable: true }}
+            loop={true}
+            className="pb-5"
+          >
+            {testimonials.map((testimonial, index) => (
+              <SwiperSlide key={testimonial.name + index}>
+                <OneTestimonial {...testimonial} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <OneTestimonial {...testimonials[0]} />
+        )}
       </div>
     </div>
   </Section>

@@ -157,7 +157,7 @@ const PaymentCard = ({ plan, property, hideDetails }) => {
       </div>
 
       <div className="d-flex align-items-baseline">
-        <span className="display-6 fw-bold" style={{ color: plan.colorDark }}>
+        <span className={`display-6 display-plan-price fw-bold plan-price-${plan.name.toLowerCase().split(' ')[0]}`} style={{ color: plan.colorDark }}>
           {priceTag}
         </span>
       </div>
@@ -198,7 +198,7 @@ const PaymentCard = ({ plan, property, hideDetails }) => {
           <PlanItem
             label="Total"
             value={
-              <span className="fw-bold text-primary text-price">
+              <span className={`fw-bold display-plan-price plan-price-${plan.name.toLowerCase().split(' ')[0]} text-price`}>
                 {totalLabel}
               </span>
             }

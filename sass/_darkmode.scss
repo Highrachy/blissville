@@ -4,11 +4,24 @@
  */
 
 [data-bs-theme='dark'] {
-  --bs-body-bg: #181a1f !important; /* Premium Slate Dark */
-  --bs-body-bg-rgb: 24, 26, 31 !important;
-  --bs-tertiary-bg: #1f2733 !important; /* Elevated Slate Surface */
-  --bs-tertiary-bg-rgb: 33, 37, 43 !important;
+  --bs-body-bg: #0b1220 !important; /* Premium Deep Navy (Waterfront inspired) */
+  --bs-body-bg-rgb: 11, 18, 32 !important;
+  --bs-secondary-bg: #101a2e !important; /* Intermediate Deep Navy Surface */
+  --bs-secondary-bg-rgb: 16, 26, 46 !important;
+  --bs-tertiary-bg: #15223c !important; /* Elevated Deep Navy Surface */
+  --bs-tertiary-bg-rgb: 21, 34, 60 !important;
   --bs-body-color: #f3f4f6 !important; /* Highly accessible off-white */
+
+  /* Ensure utility classes map perfectly to navy variables in dark mode */
+  .bg-body {
+    background-color: var(--bs-body-bg) !important;
+  }
+  .bg-body-secondary {
+    background-color: var(--bs-secondary-bg) !important;
+  }
+  .bg-body-tertiary {
+    background-color: var(--bs-tertiary-bg) !important;
+  }
 
   /* Radically soften global dark mode borders so they aren't blindingly white */
   --bs-border-color: rgba(255, 255, 255, 0.08) !important;
@@ -233,6 +246,7 @@
   .path-section,
   .path-card,
   .investment-section,
+  .overview-card,
   .investment-option {
     background-color: var(--bs-tertiary-bg) !important;
     color: var(--bs-body-color) !important;
@@ -250,12 +264,12 @@
   }
 
   footer.bg-dark {
-    background-color: #1f2730 !important; /* Requested dark footer surface */
+    background-color: var(--bs-tertiary-bg) !important; /* Aligned with elevated navy surface */
     border-top: 1px solid var(--bs-border-color-translucent) !important;
   }
 
   .footer-bottom-bar {
-    background-color: #182029 !important; /* slightly deeper than footer for separation */
+    background-color: var(--bs-body-bg) !important; /* Aligned with deep navy body */
     border-top-color: rgba(255, 255, 255, 0.12) !important;
     color: rgba(255, 255, 255, 0.92) !important;
   }
@@ -469,20 +483,34 @@
     color: var(--theme-primary) !important;
   }
 
+  /* Global Form Controls & Inputs Dark Mode Compliance */
+  .form-control,
+  .form-select {
+    background-color: var(--bs-body-bg) !important;
+    color: var(--bs-body-color) !important;
+    border-color: var(--bs-border-color-translucent) !important;
+
+    &:focus {
+      background-color: var(--bs-body-bg) !important;
+      color: var(--bs-body-color) !important;
+      border-color: rgba(105, 136, 191, 0.45) !important;
+      box-shadow: 0 0 0 0.15rem rgba(105, 136, 191, 0.18) !important;
+      outline: none !important;
+    }
+  }
+
+  .form-text {
+    color: #9ca3af !important;
+  }
+
+  .form-label,
+  label {
+    color: var(--bs-heading-color) !important;
+  }
+
   .calculator-card {
     background-color: var(--bs-tertiary-bg) !important;
     border: 1px solid var(--bs-border-color-translucent) !important;
-
-    label {
-      color: var(--bs-heading-color) !important;
-    }
-
-    .form-control,
-    .form-select {
-      background-color: var(--bs-body-bg) !important;
-      color: var(--bs-body-color) !important;
-      border-color: var(--bs-border-color-translucent) !important;
-    }
 
     .calculator-input {
       background-color: var(--bs-body-bg) !important;
@@ -525,7 +553,7 @@
       border-color: var(--bs-border-color-translucent) !important;
     }
     .update-card {
-      background-color: rgba(24, 26, 31, 0.65) !important;
+      background-color: rgba(11, 18, 32, 0.65) !important;
       backdrop-filter: blur(10px);
       border-color: var(--bs-border-color-translucent) !important;
 
@@ -641,20 +669,102 @@
     }
   }
 
-  /* Projects [slug] specific */
+  /* Projects [slug] specific option items dark mode optimization */
   .pi-option-item {
     background-color: var(--bs-tertiary-bg) !important;
     border-color: var(--bs-border-color-translucent) !important;
     color: var(--bs-body-color) !important;
 
+    .pi-option-title {
+      color: var(--bs-heading-color) !important;
+    }
+    .pi-option-meta,
+    .pi-option-icon {
+      color: #9ca3af !important;
+    }
+    .pi-option-arrow {
+      color: #9ca3af !important;
+    }
+
     &.pi-primary {
       background-color: rgba(31, 78, 159, 0.15) !important;
+      border-color: rgba(31, 78, 159, 0.3) !important;
+      .pi-option-title {
+        color: $primary-200 !important;
+      }
+      .pi-option-meta,
+      .pi-option-icon {
+        color: $primary-300 !important;
+      }
+      .pi-option-arrow {
+        color: $primary-300 !important;
+      }
+      
+      &:hover {
+        background-color: rgba(31, 78, 159, 0.3) !important;
+        border-color: rgba(31, 78, 159, 0.5) !important;
+        .pi-option-title {
+          color: $white !important;
+        }
+        .pi-option-meta,
+        .pi-option-icon {
+          color: $primary-100 !important;
+        }
+      }
     }
+    
     &.pi-secondary {
-      background-color: rgba(43, 108, 176, 0.15) !important;
+      background-color: rgba(0, 144, 63, 0.12) !important; /* Eco-friendly green base */
+      border-color: rgba(0, 144, 63, 0.25) !important;
+      .pi-option-title {
+        color: $secondary-200 !important;
+      }
+      .pi-option-meta,
+      .pi-option-icon {
+        color: $secondary-300 !important;
+      }
+      .pi-option-arrow {
+        color: $secondary-300 !important;
+      }
+      
+      &:hover {
+        background-color: rgba(0, 144, 63, 0.22) !important;
+        border-color: rgba(0, 144, 63, 0.45) !important;
+        .pi-option-title {
+          color: $white !important;
+        }
+        .pi-option-meta,
+        .pi-option-icon {
+          color: $secondary-100 !important;
+        }
+      }
     }
-    &.pi-success {
-      background-color: rgba(25, 135, 84, 0.15) !important;
+    
+    &.pi-info {
+      background-color: rgba(2, 132, 199, 0.12) !important; /* Connected cyan/blue base */
+      border-color: rgba(2, 132, 199, 0.25) !important;
+      .pi-option-title {
+        color: $info-200 !important;
+      }
+      .pi-option-meta,
+      .pi-option-icon {
+        color: $info-300 !important;
+      }
+      .pi-option-arrow {
+        color: $info-300 !important;
+      }
+      
+      &:hover {
+        background-color: rgba(2, 132, 199, 0.22) !important;
+        border-color: rgba(2, 132, 199, 0.4) !important;
+        .pi-option-title {
+          color: $white !important;
+        }
+        .pi-option-meta,
+        .pi-option-icon {
+          color: $info-100 !important;
+        }
+      }
     }
   }
 
@@ -792,13 +902,128 @@
       }
     }
   }
-  /* Text Primary adjustments for Dark Mode */
+  /* Text Primary & Secondary adjustments for Dark Mode */
   [class*='text-primary-600'],
   [class*='text-primary-700'],
   [class*='text-primary-800'],
   [class*='text-primary-900'],
   .text-primary-500 {
     color: var(--theme-primary) !important;
+  }
+
+  [class*='text-secondary-600'],
+  [class*='text-secondary-700'],
+  [class*='text-secondary-800'],
+  [class*='text-secondary-900'],
+  .text-secondary-500 {
+    color: var(--theme-secondary) !important;
+  }
+
+  .text-muted-light {
+    color: #9ca3af !important;
+  }
+
+  /* ── Payment Plan Card Dark Mode Optimization ──────────────────────────── */
+  .payment-plan-card {
+    background-color: var(--bs-secondary-bg) !important; /* Elevated deep navy surface */
+    border-color: var(--bs-border-color) !important; /* Soft dark border */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+
+    /* Pricing texts in dark mode: use higher contrast premium brand colors */
+    .display-plan-price {
+      &.plan-price-outright {
+        color: $primary-300 !important; /* Waterfront light blue */
+      }
+      &.plan-price-fixed {
+        color: $info-300 !important; /* Connected light blue/cyan */
+      }
+      &.plan-price-flexi {
+        color: $secondary-300 !important; /* Eco-friendly light green */
+      }
+    }
+  }
+
+  .list-dotted li {
+    border-top-color: var(--bs-border-color) !important;
+  }
+  .list-dotted__label {
+    color: #9ca3af !important; /* Accessible gray text */
+  }
+
+  /* ── Pill Button Group Dark Mode Optimization ──────────────────────────── */
+  .btn-group.rounded-pill {
+    background-color: var(--bs-secondary-bg) !important; /* Soft dark track background */
+    border-color: var(--bs-border-color) !important;
+
+    .btn {
+      color: #9ca3af !important; /* Accessible soft grey for inactive tabs */
+      background: transparent !important;
+
+      &.btn-primary {
+        background-color: var(--theme-primary) !important; /* Premium active tab color */
+        color: $white !important;
+      }
+
+      &:hover:not(.btn-primary) {
+        color: var(--bs-body-color) !important;
+        background-color: rgba(255, 255, 255, 0.04) !important;
+      }
+    }
+  }
+
+  /* ── FAQ Section / Page Dark Mode Optimization ────────────────────────── */
+  .faq-tabs-wrapper {
+    background-color: var(--bs-secondary-bg) !important;
+    border-bottom-color: var(--bs-border-color) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .faq-tab {
+    color: #9ca3af !important;
+    
+    &:hover {
+      color: var(--theme-primary) !important;
+    }
+    
+    &--active {
+      color: var(--theme-primary) !important;
+      border-bottom-color: var(--theme-primary) !important;
+    }
+  }
+
+  .faq-item {
+    border-bottom-color: var(--bs-border-color) !important;
+    
+    &:first-child {
+      border-top-color: var(--bs-border-color) !important;
+    }
+  }
+
+  .faq-item__question {
+    color: var(--bs-heading-color) !important;
+    
+    &:hover {
+      color: var(--theme-primary) !important;
+    }
+  }
+
+  .faq-item__answer-inner {
+    p, ul, ol, li {
+      color: var(--bs-body-color) !important; /* Highly readable off-white */
+    }
+  }
+
+  .faq-still-help {
+    .faq-still-help__icon {
+      background-color: var(--bs-tertiary-bg) !important;
+      color: var(--theme-primary) !important;
+    }
+    .faq-still-help__title {
+      color: var(--bs-heading-color) !important;
+    }
+    .faq-still-help__text {
+      color: #9ca3af !important;
+    }
   }
 }
 

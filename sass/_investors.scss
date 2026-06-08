@@ -1,3 +1,8 @@
+@keyframes progress-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .snapshot-card {
   background: $gray-50;
   border-color: $gray-300 !important;
@@ -978,6 +983,76 @@
       font-weight: 600;
       color: $primary-700;
       font-size: 14px;
+    }
+  }
+
+  /* Spinning icon for Live tracker */
+  .progress-update-info {
+    .sync-spinner {
+      animation: progress-spin 8s linear infinite;
+      font-size: 0.62rem;
+    }
+  }
+
+  /* Unified Premium Card for slideshow caption & bullets */
+  .progress-info-card {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    
+    padding: 0.65rem 1.25rem;
+    background: rgba(5, 8, 16, 0.85); // Darker transparent brand slate bar for high readability
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    pointer-events: none; // so clicks fall through to Swiper container
+
+    p.progress-desc-text {
+      margin: 0;
+      font-size: 0.72rem; // slightly smaller text to be less obstructive
+      line-height: 1.4;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.95);
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  /* Custom Slideshow Pagination underneath text */
+  .progress-swiper-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+    pointer-events: auto; // enable clicking dots to change slide
+
+    .swiper-pagination-bullet {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35) !important; // clean translucent white
+      opacity: 1 !important;
+      margin: 0 !important;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.6) !important;
+      }
+
+      &-active {
+        background: #fff !important;
+        width: 18px !important; // Pill-shape active dot
+        border-radius: 4px !important;
+      }
     }
   }
 

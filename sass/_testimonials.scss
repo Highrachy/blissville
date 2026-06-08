@@ -1,0 +1,586 @@
+// =============================================================================
+// Blissville — Testimonials SCSS
+// Custom rules that cannot be replicated via Bootstrap 5 utilities alone.
+// Uses SASS variables from variables.scss and _colors.scss for consistency.
+// =============================================================================
+
+// ── Brand Design System Variables ──────────────────────────────────────────
+$brand-navy:         $primary-800;     // Aligned with deep navy brand color (#112b57)
+$brand-navy-deep:    $primary-850;     // Deep dark navy (#0b1329) for dark mode containers
+$brand-navy-deepest: $primary-900;     // Premium black/navy (#06090f) for dark mode panels
+$brand-blue:         $primary-500;     // Brand blue (#1f4e9f)
+$brand-green:        $secondary-500;   // Brand green (#009e45)
+
+// ── Experience Badge (Green Dot Pill Tag) ─────────────────────────────────────
+.tm-badge-green-dot {
+  background: $gray-100; /* Soft grey background pill from screenshot */
+  color: $gray-800;
+  border: 1px solid rgba($gray-900, 0.04);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+}
+
+.tm-dot {
+  width: 8px;
+  height: 8px;
+  background-color: $brand-green; /* brand green dot */
+  border-radius: 50%;
+  display: inline-block;
+}
+
+// ── Stat block with no borders ──────────────────────────────────────────────
+.tm-stat-container {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem; /* Spacious horizontal gap from screenshot */
+  padding: 1.5rem 0;
+  
+  @media (max-width: 575.98px) {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+}
+
+.tm-stat-item {
+  text-align: left;
+}
+
+.tm-stat-value {
+  color: $brand-navy; // Deep Brand Navy
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.tm-stat-label {
+  color: $gray-500; // Slate-500
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+// ── Floating Hero Info Card ───────────────────────────────────────────────────
+.tm-info-card {
+  position: absolute;
+  bottom: 2rem;
+  left: -2rem;
+  background: $white;
+  border-radius: 1.25rem;
+  padding: 0.85rem 1.5rem;
+  box-shadow: 0 15px 35px rgba($brand-navy, 0.08);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgba($brand-navy, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba($brand-navy, 0.12);
+  }
+
+  @media (max-width: 991.98px) {
+    position: static;
+    margin-top: 1.5rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Overlapping Avatars capsule inside floating card */
+.tm-hero-avatars-capsule {
+  display: flex;
+  align-items: center;
+  background: $gray-100; /* light grey track */
+  border-radius: 2rem;
+  padding: 0.25rem 0.5rem;
+  gap: 0.25rem;
+}
+
+.tm-avatar-grey {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid $white;
+  margin-right: -8px; // overlapping stacking!
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.tm-avatar-blue-plus {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: $brand-navy;
+  color: $white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $white;
+  z-index: 2;
+}
+
+.tm-info-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+
+  .tm-info-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: $brand-navy;
+  }
+
+  .tm-info-sub {
+    font-size: 0.72rem;
+    color: $gray-500;
+    font-weight: 500;
+  }
+}
+
+// ── Quote block styling ───────────────────────────────────────────────────────
+.tm-quote-marks {
+  font-size: 5rem;
+  line-height: 0.5;
+  font-family: Georgia, serif;
+  color: rgba($brand-blue, 0.15);
+  margin-bottom: -1rem;
+}
+
+.tm-blockquote-text {
+  font-family: var(--font-secondary, 'Jost', sans-serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: $brand-navy;
+  margin-bottom: 1.5rem;
+}
+
+.tm-author-avatar-square {
+  width: 52px;
+  height: 52px;
+  border-radius: 0.75rem; /* square-ish with rounded corners */
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba($black, 0.05);
+}
+
+.tm-author-name {
+  color: $brand-blue;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.tm-author-title {
+  color: $gray-500;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+// ── Quote Section Bg (Dark Mode Compliant) ───────────────────────────────────
+.tm-quote-section-bg {
+  background-color: $gray-50;
+  transition: background-color 0.3s ease;
+  
+  [data-bs-theme='dark'] & {
+    background-color: $brand-navy-deep; /* Matches investors deep navy/black background */
+  }
+}
+
+// ── Quote Slider Controls ─────────────────────────────────────────────────────
+.tm-slider-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba($black, 0.12);
+  background: transparent;
+  color: $brand-blue;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+
+  &:hover {
+    background: $brand-blue;
+    color: $white;
+    border-color: $brand-blue;
+    transform: scale(1.05);
+  }
+  
+  [data-bs-theme='dark'] & {
+    border-color: rgba($white, 0.15);
+    color: $primary-300;
+    
+    &:hover {
+      background: $brand-blue;
+      color: $white;
+      border-color: $brand-blue;
+    }
+  }
+}
+
+.tm-slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $gray-300;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.active {
+    background: $brand-blue;
+    width: 20px;
+    border-radius: 4px;
+  }
+  
+  [data-bs-theme='dark'] & {
+    background: $gray-700;
+    
+    &.active {
+      background: $primary-300;
+    }
+  }
+}
+
+// ── Testimonial review cards ──────────────────────────────────────────────────
+.tm-voice-card-premium {
+  background: $gray-50; /* off-white slate color */
+  border: 1px solid rgba($black, 0.02);
+  border-radius: 20px; /* Consistent 20px border radius with investors page! */
+  padding: 2.25rem 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 15px rgba($black, 0.01);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-5px);
+    background: $white;
+    box-shadow: 0 15px 30px rgba($brand-navy, 0.06);
+    border-color: rgba($brand-navy, 0.05);
+  }
+}
+
+.tm-star-green {
+  color: $brand-green !important;
+}
+
+.tm-card-text {
+  font-size: 0.95rem;
+  color: $gray-700; // Slate-700
+  line-height: 1.6;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.tm-card-footer-simple {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba($black, 0.04);
+  padding-top: 1.25rem;
+  margin-top: auto;
+}
+
+.tm-card-author-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: $brand-navy;
+}
+
+.tm-card-author-title {
+  font-size: 0.75rem;
+  color: $gray-500;
+  font-weight: 500;
+}
+
+.tm-google-avatar-shadow {
+  box-shadow: 0 4px 8px rgba($black, 0.06);
+  border: 1.5px solid $white;
+  
+  [data-bs-theme='dark'] & {
+    border-color: $gray-900;
+  }
+}
+
+// ── Visual Spaces Gallery (World Class Custom Grid) ───────────────────────────
+.tm-gallery-section-bg {
+  background-color: $gray-50;
+  transition: background-color 0.3s ease;
+
+  [data-bs-theme='dark'] & {
+    background-color: $brand-navy-deepest; /* Premium investors page black/navy */
+  }
+}
+
+.tm-gallery-grid-custom {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: 320px 320px;
+  gap: 1.5rem; /* Perfect spacious gap from screenshot */
+
+  @media (max-width: 991.98px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  @media (max-width: 575.98px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tm-gallery-item-custom {
+  position: relative;
+  border-radius: 20px; /* Consistent 20px border radius with investors page! */
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba($brand-navy, 0.03);
+  border: 1px solid rgba($black, 0.015);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+  }
+  
+  [data-bs-theme='dark'] & {
+    border-color: rgba($white, 0.05);
+  }
+}
+
+.tm-gallery-wavy {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+
+  @media (max-width: 991.98px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.tm-gallery-wardrobe {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+
+  @media (max-width: 991.98px) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+.tm-gallery-pool {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+
+  @media (max-width: 991.98px) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+.tm-gallery-sunset {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+
+  @media (max-width: 991.98px) {
+    grid-column: auto;
+    grid-row: auto;
+    height: 240px;
+  }
+}
+
+.tm-gallery-armchair {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+
+  @media (max-width: 991.98px) {
+    grid-column: auto;
+    grid-row: auto;
+    height: 240px;
+  }
+}
+
+// ── Social links outlined icons ───────────────────────────────────────────────
+.tm-social-link-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba($black, 0.15);
+  color: $gray-500;
+  text-decoration: none;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: $brand-blue;
+    border-color: $brand-blue;
+    color: $white;
+    transform: translateY(-2px);
+  }
+}
+
+.tm-hashtag {
+  color: $brand-blue;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+// ── CTA Card Custom deep blue and button ──────────────────────────────────────
+.tm-cta-card-navy {
+  background: $brand-navy; /* Exact rich deep navy from mockup */
+  border-radius: 20px; /* Consistent 20px border radius! */
+  padding: 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-shadow: 0 20px 40px rgba($brand-navy, 0.15);
+}
+
+.tm-cta-btn-green {
+  background-color: $brand-green !important;
+  border: none !important;
+  color: $white !important;
+  border-radius: 50px !important;
+  padding: 0.75rem 1.75rem !important;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  font-size: 0.9rem;
+  width: fit-content;
+
+  &:hover {
+    background-color: darken($brand-green, 10%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba($brand-green, 0.25);
+  }
+}
+
+// ── Section Title Badge ───────────────────────────────────────────────────────
+.tm-section-line-custom {
+  width: 2.5rem;
+  height: 2px;
+  background-color: $brand-blue;
+  display: inline-block;
+}
+
+.tm-section-subtitle-custom {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: $gray-500;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+// ── Image Border Radius Mockup (Consistent with /investors) ───────────────────
+.tm-img-rounded-mockup {
+  border-radius: 20px; /* Consistent 20px border radius with /investors page image wrap! */
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba($brand-navy, 0.06);
+}
+
+// ── Dark Mode overrides ───────────────────────────────────────────────────────
+[data-bs-theme='dark'] {
+  .tm-badge-green-dot {
+    background: $gray-800;
+    color: $gray-300;
+    border-color: rgba($white, 0.05);
+  }
+
+  .tm-stat-value {
+    color: $gray-50;
+  }
+
+  .tm-info-card {
+    background: $gray-900;
+    border-color: rgba($white, 0.08);
+    box-shadow: 0 15px 35px rgba($black, 0.3);
+
+    .tm-info-title {
+      color: $gray-50;
+    }
+  }
+
+  .tm-hero-avatars-capsule {
+    background: $gray-800;
+  }
+
+  .tm-avatar-grey {
+    border-color: $gray-900;
+  }
+
+  .tm-avatar-blue-plus {
+    border-color: $gray-900;
+  }
+
+  .tm-blockquote-text {
+    color: $gray-50;
+  }
+
+  .tm-voice-card-premium {
+    background: $gray-900;
+    border-color: rgba($white, 0.05);
+
+    &:hover {
+      background: $gray-800;
+      border-color: rgba($white, 0.1);
+      box-shadow: 0 15px 30px rgba($black, 0.4);
+    }
+  }
+
+  .tm-card-text {
+    color: $gray-300;
+  }
+
+  .tm-card-author-name {
+    color: $gray-50;
+  }
+
+  .tm-card-footer-simple {
+    border-top-color: rgba($white, 0.06);
+  }
+
+  .tm-social-link-custom {
+    border-color: rgba($white, 0.15);
+    color: $gray-500;
+    &:hover {
+      background: $brand-blue;
+      border-color: $brand-blue;
+      color: $white;
+    }
+  }
+}

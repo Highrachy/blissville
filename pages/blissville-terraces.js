@@ -122,7 +122,7 @@ const GalleryGrid = () => (
             alt={`Gallery ${i + 1}`}
             width={600}
             height={600}
-            className="img-fluid img-cover h-100 rounded-3"
+            className="img-fluid img-cover h-100 rounded-4 shadow-sm"
             priority={i === 0}
           />
         </div>
@@ -143,12 +143,12 @@ const Features = ({ property }) => {
     <div className="row row-cols-2 row-cols-md-2 g-3">
       {features.map((f) => (
         <div className="col" key={f.label}>
-          <div className="border rounded-4 text-muted py-5 px-4 h-100">
-            <div className="mb-2 fw-bold fs-5">
-              <span className="pe-2">{f.icon}</span>
+          <div className="border rounded-4 p-4 h-100 bg-body-tertiary transition-hover shadow-sm">
+            <div className="mb-1 text-muted small fw-semibold text-uppercase letter-spacing-1">
+              <span className="pe-2 text-primary">{f.icon}</span>
               {f.label}
             </div>
-            <div className="fw-semibold">{f.value}</div>
+            <div className="fw-bold fs-5 text-dark-800">{f.value}</div>
           </div>
         </div>
       ))}
@@ -222,9 +222,9 @@ const OverviewSection = ({ property }) => (
         {/* Left: Copy + Stats */}
         <div className="col-12 col-md-6">
           <h2 className="fw-extrabold h2 h1-md">
-            Designed for <span className="text-primary-600">Comfort</span>.{' '}
+            Designed for <span className="text-primary">Comfort</span>.{' '}
             <br /> Built for{' '}
-            <span className="text-secondary-700">Tomorrow</span>.
+            <span className="text-secondary">Tomorrow</span>.
           </h2>
 
           <p className="mt-3">
@@ -236,13 +236,13 @@ const OverviewSection = ({ property }) => (
 
           <div className="mt-4">
             <Link href="/beyond-the-hype#exclusive-guide" passHref>
-              <a className="d-flex text-primary-700 align-items-center gap-3 text-decoration-none">
+              <a className="d-flex text-primary align-items-center gap-3 text-decoration-none">
                 <span className="fs-1">
                   <FaFilePdf />
                 </span>
                 <span>
-                  <div className="small">Get our Free Guide:</div>
-                  <div className="fw-bold">
+                  <div className="small text-muted">Get our Free Guide:</div>
+                  <div className="fw-bold text-dark-800">
                     Beyond the Hype of Modern Housing
                   </div>
                 </span>
@@ -272,7 +272,7 @@ function FeaturesAmenities() {
             <div className="col" key={label}>
               <div className="text-center">
                 <div className="bg-body-tertiary rounded-circle d-inline-flex align-items-center justify-content-center p-3 mb-3">
-                  <Icon className="fs-5 text-dark" aria-hidden />
+                  <Icon className="fs-5 text-primary" aria-hidden />
                 </div>
                 <div className="fw-semibold">{label}</div>
               </div>
@@ -392,7 +392,7 @@ function Neighborhood() {
     <Section className="bg-body-tertiary">
       <div className="container">
         <h2 className="h3 fw-bold mb-1">Everything Within Reach</h2>
-        <p className="text-dark mt-1 mb-5">
+        <p className="text-muted mt-1 mb-5">
           Schools, malls, gyms, parks, and transport are all conveniently
           located in the Sangotedo corridor.
         </p>
@@ -405,7 +405,7 @@ function Neighborhood() {
                   <div className="d-flex align-items-center py-3">
                     <span className="location-icon me-3" />
                     <div>
-                      <h3 className="mb-0 text-dark fw-semibold h6">{name}</h3>
+                      <h3 className="mb-0 text-dark-800 fw-semibold h6">{name}</h3>
                       <p className="my-0 text-muted small">{category}</p>
                     </div>
                   </div>
@@ -460,7 +460,7 @@ const ExclusiveGuide = ({ projectName = 'Blissville Terraces' }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+ 
     const payload = {
       name: form.name,
       email: form.email,
@@ -500,7 +500,7 @@ const ExclusiveGuide = ({ projectName = 'Blissville Terraces' }) => {
       <div className="container">
         <div className="row align-items-center gy-4" id="exclusive-guide">
           <div className="col-lg-6">
-            <h2 className="fw-bold text-dark mb-4">
+            <h2 className="fw-bold text-dark-800 mb-4">
               Get the Free Guide: <br /> Beyond the Hype of Modern Housing
             </h2>
             <p className="text-muted lh-lg">
@@ -601,13 +601,14 @@ const ExclusiveGuide = ({ projectName = 'Blissville Terraces' }) => {
 };
 
 export default function SingleProjectPage({ property }) {
+  // Recreated sub-navigation to make top menus work perfectly
   const navigation = [
     { title: 'Overview', url: '#overview' },
     { title: 'Gallery', url: '#gallery' },
-    { title: 'Payment Plans', url: '#payment-plans' },
+    { title: 'Payment Plans', url: '#payment-plan' },
     { title: 'Amenities', url: '#amenities' },
     { title: 'Location', url: '#location' },
-    { title: 'Contact', url: '#contact' },
+    { title: 'Contact Us', url: 'contact-us' }, // Renders as CTA button linking to page
   ];
 
   const router = useRouter();
@@ -644,13 +645,21 @@ export default function SingleProjectPage({ property }) {
       <HeroSection property={property} />
       <PropertyFeatureBlock property={property} />
       <OverviewSection property={property} />
-      <FeaturesAmenities />
+      
+      {/* Wrapped in correct anchor IDs so the sub-menu links match and work perfectly */}
+      <div id="amenities">
+        <FeaturesAmenities />
+      </div>
+      
       <Neighborhood />
-      <CustomPlan property={property} />
+      
+      <div id="payment-plan">
+        <CustomPlan property={property} />
+      </div>
 
       <ReviewsSection />
 
-      <div className="pb-6">
+      <div id="gallery" className="pb-6">
         <Gallery galleries={mergedGalleries} />
       </div>
 
@@ -663,12 +672,18 @@ export default function SingleProjectPage({ property }) {
         </div>
       </Section>
 
-      <LocationMapSection
-        locationMapURL={project?.locationMapURL}
-        name={project?.name}
-        googleMapLatLng={project?.googleMapLatLng}
-      />
-      <ScheduleVisit />
+      <div id="location">
+        <LocationMapSection
+          locationMapURL={project?.locationMapURL}
+          name={project?.name}
+          googleMapLatLng={project?.googleMapLatLng}
+        />
+      </div>
+      
+      <div id="contact">
+        <ScheduleVisit />
+      </div>
+      
       <Footer />
     </>
   );

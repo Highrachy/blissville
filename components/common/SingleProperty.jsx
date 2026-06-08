@@ -21,9 +21,13 @@ const SingleProperty = ({ id, attributes }) => {
             objectFit="cover"
             className="card-img-top property-card-img"
           />
-          <span className={`property-badge ${isSoldOut ? 'badge-sold' : 'badge-featured'}`}>
-            {isSoldOut ? 'SOLD OUT' : 'FEATURED'}
-          </span>
+          {isSoldOut && (
+            <span
+              className={`property-badge ${isSoldOut ? 'badge-sold' : 'badge-featured'}`}
+            >
+              {isSoldOut ? 'SOLD OUT' : 'AVAILABLE'}
+            </span>
+          )}
         </div>
         <div className="card-body p-4 d-flex flex-column justify-content-between">
           <div>
@@ -39,9 +43,11 @@ const SingleProperty = ({ id, attributes }) => {
                 <a className="project-link">{project.name}</a>
               </Link>
               <span className="separator mx-2">•</span>
-              <span className="location-text">{getLocationFromAddress(project, true)}</span>
+              <span className="location-text">
+                {getLocationFromAddress(project, true)}
+              </span>
             </div>
-            
+
             <div className="property-amenities d-flex align-items-center gap-3 mb-3">
               <div className="amenity-item">
                 <SizeIcon />
@@ -60,13 +66,16 @@ const SingleProperty = ({ id, attributes }) => {
             </div>
           </div>
 
-          <div className="pt-2">
-            <Link href={`/our-properties/${project?.slug || 'project-name'}/${slug || 'property-name'}`} passHref>
-              <a className="property-details-link d-inline-flex align-items-center gap-2">
-                <span>View Details</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="btn-arrow">
-                  <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+          <div>
+            <Link
+              href={`/our-properties/${project?.slug || 'project-name'}/${slug || 'property-name'}`}
+              passHref
+            >
+              <a
+                className="btn btn-secondary mt-md-3 mt-2 btn-sm px-4 py-2 text-white text-sm fw-medium"
+                role="button"
+              >
+                View Property
               </a>
             </Link>
           </div>
@@ -77,4 +86,3 @@ const SingleProperty = ({ id, attributes }) => {
 };
 
 export default SingleProperty;
-

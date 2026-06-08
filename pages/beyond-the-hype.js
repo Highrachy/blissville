@@ -39,7 +39,7 @@ export const CLARITY_EVENTS = {
 };
 
 export const BeyondTheHypeHeroSection = () => (
-  <section className="bg-light2 py-5 py-lg-6">
+  <section className="bg-light2 py-6 py-lg-7">
     <Container>
       <div className="row align-items-center g-5">
         {/* LEFT */}
@@ -201,7 +201,9 @@ const FeaturesSection = () => {
                   </div>
 
                   {/* TITLE */}
-                  <h3 className="fw-semibold text-darker mb-2 h6">{item.title}</h3>
+                  <h3 className="fw-semibold text-darker mb-2 h6">
+                    {item.title}
+                  </h3>
 
                   {/* TEXT */}
                   <p className="text-muted mb-0">{item.text}</p>

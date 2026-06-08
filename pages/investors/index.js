@@ -28,6 +28,57 @@ const CLARITY_EVENTS = {
   INVESTORS_VIEW_CTA: 'investors_view_cta',
 };
 
+const CURRENT_DEVELOPMENT_PERCENTAGE = 25;
+
+const DEVELOPMENT_PROGRESS_DATA = {
+  percentage: CURRENT_DEVELOPMENT_PERCENTAGE,
+  lastUpdated: 'June 5, 2026',
+  currentStatusLabel: 'Construction (In Progress)',
+  images: [
+    {
+      src: '/assets/img/investors/progress/bored-pile-drilling-building-3.jpg',
+      description:
+        'Bored pile drilling and installation works ongoing for Building 3 foundation.',
+    },
+    {
+      src: '/assets/img/investors/progress/pile-cap-concreting-for-building-2.jpg',
+      description: 'Pile Cap Concreting for Building 2 ',
+    },
+    {
+      src: '/assets/img/investors/progress/concreting-of-pilecap-on-building-2.jpg',
+      description: 'Concreting of Pilecap on Building 2',
+    },
+  ],
+  phases: [
+    {
+      label: 'PHASE 01',
+      title: 'Site Clearing',
+      short: 'Completed',
+      full: 'Site clearing completed including debris removal, leveling, and preparation for structural work.',
+      active: true,
+    },
+    {
+      label: 'PHASE 02',
+      title: 'Construction',
+      short: `In Progress · ${CURRENT_DEVELOPMENT_PERCENTAGE}%`,
+      full: `Foundation complete. Structural framing and block work currently progressing at ${CURRENT_DEVELOPMENT_PERCENTAGE}%.`,
+      active: true,
+    },
+    {
+      label: 'PHASE 03',
+      title: 'Snagging',
+      short: 'Est. Q3 2027',
+      full: 'Final inspection phase ensuring all finishes, fittings, and systems meet required standards.',
+    },
+    {
+      label: 'PHASE 04',
+      title: 'Handover',
+      short: 'Est. Q3 2027',
+      full: 'Completed units delivered to investors with full documentation and title processing.',
+    },
+  ],
+};
+
 const Investors = () => {
   /* =========================
      REFS FOR SECTIONS
@@ -139,7 +190,7 @@ const Investors = () => {
 
       <ExitStrategies />
 
-      <DevelopmentProgress />
+      <DevelopmentProgress {...DEVELOPMENT_PROGRESS_DATA} />
 
       <div ref={riskRef}>
         <RiskAndMitigation />

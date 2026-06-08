@@ -1,14 +1,14 @@
 import React from 'react';
 import SingleProject from '../common/SingleProjectNew';
-
 import { Pagination, Autoplay, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Section from '../common/Section';
 
 const OurProjects = ({ projects, title }) => {
   if (!projects || projects?.length === 0) return null;
   return (
-    <section
+    <Section
+      noPaddingTop
       className="bg-image-top"
       style={{ backgroundImage: 'url("/assets/img/bg/bg-projects.jpg")' }}
     >
@@ -44,7 +44,7 @@ const OurProjects = ({ projects, title }) => {
           )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 

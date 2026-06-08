@@ -2,39 +2,19 @@ import { useState, useRef } from 'react';
 import Section from '../common/Section';
 import Button from '../forms/Button';
 import { FaPlay, FaSyncAlt, FaInfoCircle } from 'react-icons/fa';
+import { Pagination, Autoplay, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-const phases = [
-  {
-    label: 'PHASE 01',
-    title: 'Site Clearing',
-    short: 'Completed',
-    full: 'Site clearing completed including debris removal, leveling, and preparation for structural work.',
-    active: true,
-  },
-  {
-    label: 'PHASE 02',
-    title: 'Construction',
-    short: 'In Progress · 20%',
-    full: 'Foundation complete. Structural framing and block work currently progressing at 20%.',
-    active: true,
-  },
-  {
-    label: 'PHASE 03',
-    title: 'Snagging',
-    short: 'Est. Q3 2027',
-    full: 'Final inspection phase ensuring all finishes, fittings, and systems meet required standards.',
-  },
-  {
-    label: 'PHASE 04',
-    title: 'Handover',
-    short: 'Est. Q3 2027',
-    full: 'Completed units delivered to investors with full documentation and title processing.',
-  },
-];
-
-export default function DevelopmentProgress() {
+export default function DevelopmentProgress({
+  percentage = 25,
+  lastUpdated = 'June 1, 2026',
+  currentStatusLabel = 'Construction (In Progress)',
+  phases = [],
+  images = [],
+}) {
   const [activeIndex, setActiveIndex] = useState(null);
   const [coords, setCoords] = useState({ top: 0, left: 0 });
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   const containerRef = useRef(null);
 
@@ -68,13 +48,23 @@ export default function DevelopmentProgress() {
                 <div className="mb-4">
                   <div className="d-flex justify-content-between mb-2">
                     <span className="fw-semibold text-dark-800">
-                      Construction (In Progress)
+                      {currentStatusLabel}
                     </span>
-                    <span className="progress-value">20%</span>
+                    <span className="progress-value">{percentage}%</span>
                   </div>
 
-                  <div className="progress custom-progress">
-                    <div className="progress-bar" style={{ width: '20%' }} />
+                  <div className="progress custom-progress mb-2">
+                    <div
+                      className="progress-bar"
+                      style={{ width: `${percentage}%` }}
+                    />
+                  </div>
+
+                  <div className="progress-update-info d-flex align-items-center gap-2">
+                    <FaSyncAlt className="sync-spinner text-success" size={10} />
+                    <span className="text-muted" style={{ fontSize: '0.72rem', letterSpacing: '0.04em' }}>
+                      Last Updated: <strong className="text-dark-800">{lastUpdated}</strong>
+                    </span>
                   </div>
                 </div>
 
@@ -115,22 +105,50 @@ export default function DevelopmentProgress() {
               {/* RIGHT */}
               <div className="col-lg-5 image-side">
                 <div className="image-wrap">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/img/investors/construction-progress.jpg"
-                    alt="Construction progress"
-                    className="progress-img"
-                  />
+                  {images && images.length > 0 ? (
+                    <Swiper
+                      modules={[Pagination, Autoplay, A11y]}
+                      spaceBetween={0}
+                      slidesPerView={1}
+                      pagination={images.length > 1 ? { el: '.progress-swiper-pagination', clickable: true } : false}
+                      autoplay={images.length > 1 ? { delay: 5000, disableOnInteraction: false } : false}
+                      observer={true}
+                      observeParents={true}
+                      className="progress-swiper h-100"
+                      onSlideChange={(swiper) => setActiveSlideIndex(swiper.realIndex)}
+                    >
+                      {images.map((img, idx) => (
+                        <SwiperSlide key={idx} className="position-relative h-100">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={img.src}
+                            alt={img.description || `Development progress ${idx + 1}`}
+                            className="progress-img"
+                          />
+                        </SwiperSlide>
+                      ))}
 
-                  <div className="update-card d-flex align-items-center gap-3">
-                    <div className="icon">
-                      <FaSyncAlt size={12} />
-                    </div>
-                    <div>
-                      <small>LAST UPDATE</small>
-                      <div className="time">April 1, 2026</div>
-                    </div>
-                  </div>
+                      {(images.length > 1 || images[activeSlideIndex]?.description) && (
+                        <div className="progress-info-card">
+                          {images[activeSlideIndex]?.description && (
+                            <p className="progress-desc-text">
+                              {images[activeSlideIndex].description}
+                            </p>
+                          )}
+                          {images.length > 1 && (
+                            <div className="progress-swiper-pagination"></div>
+                          )}
+                        </div>
+                      )}
+                    </Swiper>
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src="/assets/img/investors/construction-progress.jpg"
+                      alt="Construction progress"
+                      className="progress-img"
+                    />
+                  )}
                 </div>
               </div>
             </div>

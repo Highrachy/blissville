@@ -71,9 +71,7 @@ export default function Home({ slides, projects, properties }) {
       <FeaturedProperties properties={properties} />
       <BenefitSlider />
       <ProjectsSlideshow projects={projects} />
-      <div className="my-6">
       <BeyondTheHypeHeroSection />
-      </div>
       <BlogSection isLandingPage={true} />
       <TestimonialSection />
       <ScheduleVisit />
