@@ -223,7 +223,10 @@ export default function SingleProjectPage({ project, featuredProperties }) {
         </div>
       </Section>
 
-      <Gallery galleries={project?.project_galleries?.data || []} projectName={name} />
+      <Gallery
+        galleries={project?.project_galleries?.data || []}
+        projectName={name}
+      />
 
       <LocationMapSection
         locationMapURL={locationMapURL}
@@ -694,7 +697,11 @@ export const Gallery = ({ galleries, className, projectName }) => {
                     <div className="card h-100">
                       <Image
                         src={gallery.attributes.image}
-                        alt={description?.slice(0, 80) || projectName || 'Project image'}
+                        alt={
+                          description?.slice(0, 80) ||
+                          projectName ||
+                          'Project image'
+                        }
                         width={600}
                         height={500}
                         objectFit="cover"

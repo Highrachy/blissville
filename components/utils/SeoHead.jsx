@@ -22,7 +22,11 @@ export default function SeoHead({
   ],
 }) {
   const router = useRouter();
-  const currentUrl = `https://www.blissville.com.ng${router.asPath.split('?')[0]}`;
+  const normalizedPath = `/${router.asPath
+    .split('?')[0]
+    .replace(/^\/+/, '')
+    .replace(/\/+/g, '/')}`;
+  const currentUrl = `https://www.blissville.com.ng${normalizedPath === '/' ? '' : normalizedPath}`;
   const resolvedCanonical = canonical || currentUrl;
 
   const keywordContent = keywords.join(', ');
@@ -60,7 +64,7 @@ export default function SeoHead({
       'Blissville by Highrachy offers luxury and affordable homes in Lagos. Discover terraces, apartments, and smart estates designed for modern living.',
   };
 
-  const pathnames = router.asPath.split('?')[0].split('/').filter((x) => x);
+  const pathnames = normalizedPath.split('/').filter((x) => x);
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -115,7 +119,11 @@ export default function SeoHead({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([organizationSchema, websiteSchema, breadcrumbSchema]),
+          __html: JSON.stringify([
+            organizationSchema,
+            websiteSchema,
+            breadcrumbSchema,
+          ]),
         }}
       />
     </Head>

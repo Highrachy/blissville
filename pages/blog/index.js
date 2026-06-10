@@ -32,14 +32,14 @@ export default function BlogIndex() {
 
       <Navigation />
 
-      <main className="bg-primary-50 pb-5" style={{ minHeight: '100vh' }}>
+      <main className="pb-5 bg-primary-50" style={{ minHeight: '100vh' }}>
         <BlogHero posts={featuredPosts} />
 
         <BlogSection />
 
-        <BlogCTA />
+        {/* <BlogCTA /> */}
 
-        <NewsletterBlock />
+        {/* <NewsletterBlock /> */}
       </main>
 
       <Footer />

@@ -394,17 +394,20 @@
 
 // Premium Contact Us CTA Button Styles
 .nav-btn-cta {
-  background: linear-gradient(135deg, #1f4e9f, #2b6cb0) !important;
+  background: linear-gradient(135deg, #1f4e9f, #0f4092) !important;
   color: #ffffff !important;
   font-weight: 600 !important;
-  font-size: 0.8rem !important;
+  font-size: 0.82rem !important;
   border-radius: 30px !important;
-  padding: 0.5rem 1.5rem !important;
-  box-shadow: 0 4px 15px rgba(31, 78, 159, 0.2);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  padding: 0.6rem 1.6rem !important;
+  box-shadow: 0 4px 14px rgba(31, 78, 159, 0.25);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
   display: inline-block;
   text-align: center;
   border: none !important;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 
   @media (min-width: 992px) {
     margin-left: 1.5rem !important;
@@ -416,21 +419,42 @@
 
   @media (max-width: 991px) {
     margin: 1.5rem 0.5rem 0.5rem 0.5rem !important;
-    border-radius: 8px !important;
-    padding: 0.75rem 1.5rem !important;
-    font-size: 0.9rem !important;
+    border-radius: 30px !important;
+    padding: 0.75rem 1.75rem !important;
+    font-size: 0.88rem !important;
   }
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &:focus-visible {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(31, 78, 159, 0.35);
-    background: linear-gradient(135deg, #2b6cb0, #1f4e9f) !important;
+    box-shadow: 0 8px 22px rgba(31, 78, 159, 0.4);
+    background: linear-gradient(135deg, #0f4092, #0a2f6c) !important;
     color: #ffffff !important;
   }
 
   &:active {
     transform: translateY(0);
     box-shadow: 0 4px 10px rgba(31, 78, 159, 0.2);
+  }
+
+  &.nav-link,
+  &.nav-link.active,
+  &.nav-link.text-primary,
+  &.nav-link.active.text-primary,
+  &.nav-url,
+  &.nav-url.active {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #1f4e9f, #0f4092) !important;
+  }
+
+  &.nav-link:hover,
+  &.nav-link.active:hover,
+  &.nav-link.text-primary:hover,
+  &.nav-link.active.text-primary:hover,
+  &.nav-url:hover,
+  &.nav-url.active:hover {
+    background: linear-gradient(135deg, #0f4092, #0a2f6c) !important;
   }
 }
 

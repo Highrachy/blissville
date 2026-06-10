@@ -24,12 +24,21 @@ function HeroSlide({ post, isSinglePost = false, isActive = true }) {
       {/* Content */}
       <div className="hero-content-wrapper">
         <div className="hero-meta-row">
-          {!isSinglePost && <span className="badge-light">FEATURED ARTICLE</span>}
+          {!isSinglePost && (
+            <span className="badge-light">FEATURED ARTICLE</span>
+          )}
 
           {isSinglePost && (
             <>
-              <span className="d-flex align-items-center gap-2">
-                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <span className="gap-2 d-flex align-items-center">
+                <svg
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
                   <circle cx="12" cy="12" r="10" />
                   <path d="M12 6v6l4 2" />
                 </svg>
@@ -45,9 +54,7 @@ function HeroSlide({ post, isSinglePost = false, isActive = true }) {
 
         <h1 className="hero-title">{post.title}</h1>
 
-        {post.excerpt && (
-          <p className="hero-excerpt">{post.excerpt}</p>
-        )}
+        {post.excerpt && <p className="hero-excerpt">{post.excerpt}</p>}
 
         <footer className="hero-footer">
           {isSinglePost && (
@@ -91,7 +98,7 @@ function BlogHeroCarousel({ posts }) {
       setActive(index);
       setTimeout(() => setAnimating(false), 700);
     },
-    [animating]
+    [animating],
   );
 
   // Auto-advance every 6 s, only if not paused
@@ -125,9 +132,9 @@ function BlogHeroCarousel({ posts }) {
   };
 
   return (
-    <section className="container-fluid px-0">
+    <section className="px-0 container-fluid">
       <div
-        className="featured-hero-full hero-carousel shadow-lg"
+        className="shadow-lg featured-hero-full hero-carousel"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
@@ -180,8 +187,10 @@ export default function BlogHero({ post, posts, isSinglePost = false }) {
   // Single post fallback / single-post page
   if (!post) return null;
   return (
-    <section className="container-fluid px-0">
-      <div className={`featured-hero-full ${isSinglePost ? 'single-article-hero' : ''} shadow-lg`}>
+    <section className="px-0 container-fluid">
+      <div
+        className={`featured-hero-full ${isSinglePost ? 'single-article-hero' : ''} shadow-lg`}
+      >
         <HeroSlide post={post} isSinglePost={isSinglePost} isActive />
       </div>
     </section>

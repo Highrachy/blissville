@@ -46,7 +46,6 @@ export default function InvestorsHero() {
                   width={560}
                   height={420}
                   className="w-100 h-100 img-cover"
-                  priority
                 />
               </div>
             </div>

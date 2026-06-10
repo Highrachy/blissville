@@ -1,17 +1,26 @@
 import navigation from '@/data/navigation';
 import React, { useContext, useState, useEffect } from 'react';
-import {
-  Container,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from 'react-bootstrap';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import ActiveLink from '../utils/ActiveLink';
 import { UserContext } from 'context/user';
 import axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { UserProfileNav } from '../admin/Backend';
 import LogoImage from '../common/LogoImage';
+
+const normalizeHref = (path = '') => {
+  if (!path) return '/';
+  if (path.includes('#')) {
+    const [basePath, hash] = path.split('#');
+    const normalizedBase = basePath
+      ? `/${basePath.replace(/^\/+/, '').replace(/\/+/g, '/')}`
+      : '';
+
+    return `${normalizedBase || '/'}#${hash}`;
+  }
+
+  return `/${path.replace(/^\/+/, '').replace(/\/+/g, '/')}`;
+};
 
 const Navigation = ({ parentPage, navigation: navData = navigation }) => {
   const { loginUser, user } = useContext(UserContext);
@@ -40,7 +49,7 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
             headers: {
               Authorization: getTokenFromStore(),
             },
-          }
+          },
         );
         if (response.status === 200) {
           loginUser(response.data);
@@ -70,9 +79,7 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
               active={parentPage === url}
             >
               {Object.entries(children).map(([childUrl, childTitle], idx) => {
-                const childHref = childUrl.includes('#')
-                  ? childUrl
-                  : `/${childUrl}`;
+                const childHref = normalizeHref(childUrl);
                 return childUrl.includes('#') ? (
                   <NavDropdown.Item
                     key={`${childUrl}-dropdown-${idx}`}
@@ -93,7 +100,7 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
               })}
             </NavDropdown>
           ) : title?.toLowerCase() === 'contact us' ? (
-            <ActiveLink href={`/${url}`} passHref>
+            <ActiveLink href={normalizeHref(url)} passHref>
               <Nav.Link aria-current="page" className="nav-btn-cta nav-url">
                 {title}
               </Nav.Link>
@@ -103,7 +110,7 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
               {title}
             </a>
           ) : (
-            <ActiveLink href={`/${url}`} passHref>
+            <ActiveLink href={normalizeHref(url)} passHref>
               <Nav.Link aria-current="page" className={`nav-url`}>
                 {title}
               </Nav.Link>
@@ -111,18 +118,24 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
           )}
         </React.Fragment>
       );
-    }
+    },
   );
 
   return (
     <>
       <header className={`header-wrapper ${scrolled ? 'header-scrolled' : ''}`}>
-        <Navbar expand="lg" className={`navbar-main show ${scrolled ? 'navbar-scrolled' : ''}`}>
+        <Navbar
+          expand="lg"
+          className={`navbar-main show ${scrolled ? 'navbar-scrolled' : ''}`}
+        >
           <Container>
             <Navbar.Brand>
               <LogoImage />
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="blissville-navbar" className="navbar-toggler">
+            <Navbar.Toggle
+              aria-controls="blissville-navbar"
+              className="navbar-toggler"
+            >
               <span className="hamburger-box">
                 <span className="hamburger-inner"></span>
               </span>

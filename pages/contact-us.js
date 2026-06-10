@@ -96,7 +96,7 @@ const Map = () => (
 );
 
 const ContactInfo = () => (
-  <Section noPaddingTop altBg className="pt-3">
+  <Section noPaddingTop altBg2 className="pt-3">
     <div id="form" className="contact-form-area">
       <div className="container">
         <div className="contact-info-wrapper mt-7">
@@ -162,7 +162,11 @@ const ContactInfo = () => (
               <h4 className="mb-4">Connect with us on social media</h4>
               <div className="d-flex gap-3 flex-wrap">
                 {socialMediaLinks.map(({ name, url, icon }, index) => (
-                  <Link href={url} passHref key={`contact-social-media-${index}`}>
+                  <Link
+                    href={url}
+                    passHref
+                    key={`contact-social-media-${index}`}
+                  >
                     <a
                       className="social-circle-btn d-flex align-items-center justify-content-center text-decoration-none"
                       aria-label={`Follow us on ${name}`}
