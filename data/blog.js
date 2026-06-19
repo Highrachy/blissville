@@ -10,7 +10,8 @@ export const BLOG_CATEGORIES = {
 const DEFAULT_AUTHOR = {
   name: 'Oluwatodimu Adeleke',
   role: 'Author',
-  avatar: 'https://highrachy.s3.amazonaws.com/team/picture/0a9d3fd0-08c2-11ef-b90e-e51880c7684a.png',
+  avatar:
+    'https://highrachy.s3.amazonaws.com/team/picture/0a9d3fd0-08c2-11ef-b90e-e51880c7684a.png',
 };
 
 const BLOG_POSTS = [
@@ -110,6 +111,19 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.MARKET_DATA,
     readTime: '6 min read',
     date: 'May 10, 2026',
+    author: DEFAULT_AUTHOR,
+  },
+  {
+    id: 9,
+    title:
+      'Landlords, Omonile, and Floods: Why Your Lagos House Hunt is Actually a Search for Peace',
+    excerpt:
+      'Buying property in Lagos is about more than finding a beautiful house. Learn how smart infrastructure, strong communities, and verified titles can protect your investment and give you lasting peace of mind.',
+    image: '/assets/img/blog/lagos-house-hunt-peace.jpg',
+    slug: 'buy-property-in-lagos-avoid-landlords-omonile-and-floods',
+    category: BLOG_CATEGORIES.ADVISORY,
+    readTime: '5 min read',
+    date: 'June 18, 2026',
     author: DEFAULT_AUTHOR,
   },
 ];
