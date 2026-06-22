@@ -166,3 +166,10 @@ export const unsubscribeSchema = {
   reason: required('Reason'),
   message: optionalValidation(stringValidation('Message', 2)),
 };
+
+export const subscribeSchema = {
+  firstName: stringValidation('First Name'),
+  lastName: stringValidation('Last Name'),
+  email,
+};
+

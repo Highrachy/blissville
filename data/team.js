@@ -64,10 +64,10 @@ export const team = [
     title: 'Legal',
     description: '-',
   },
-  {
-    name: 'Eniola Alesin',
-    image: 'eniola.png',
-    title: 'Project',
-    description: '-',
-  },
+  // {
+  //   name: 'Eniola Alesin',
+  //   image: 'eniola.png',
+  //   title: 'Project',
+  //   description: '-',
+  // },
 ];
