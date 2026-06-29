@@ -31,15 +31,10 @@ export const insights = {
   children: {
     '/blog': 'Articles & Insights',
     '/faqs': 'FAQs',
+    '/testimonials': 'Testimonials',
     '/beyond-the-hype': 'Beyond the Hype Guide',
   },
 };
-
-// export const faqs = {
-//   title: 'Faqs',
-//   url: 'faqs',
-//   children: {},
-// };
 
 export const aboutUs = {
   title: 'About Us',

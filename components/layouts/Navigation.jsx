@@ -23,7 +23,8 @@ const normalizeHref = (path = '') => {
 };
 
 const Navigation = ({ parentPage, navigation: navData = navigation }) => {
-  const { loginUser, user } = useContext(UserContext);
+  const userContext = useContext(UserContext);
+  const { loginUser = () => {}, user = null } = userContext || {};
   const [scrolled, setScrolled] = useState(false);
 
   const token = getTokenFromStore(true);

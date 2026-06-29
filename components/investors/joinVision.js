@@ -96,7 +96,7 @@ export default function JoinVision() {
   };
 
   return (
-    <Section className="join-vision-section">
+    <Section id="join-our-vision" className="join-vision-section">
       <div className="container">
         <div className="row align-items-center g-5">
           {/* LEFT */}

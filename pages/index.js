@@ -4,7 +4,6 @@ import Button from '@/components/forms/Button';
 import TopNavigation from '@/components/layouts/Navigation';
 import Image from 'next/image';
 import { BenefitSlider } from '@/components/common/Benefits';
-import { TestimonialSection } from '@/components/common/Testimonials';
 import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
 import ScheduleVisit from '@/components/common/ScheduleVisit';
 import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
@@ -27,6 +26,7 @@ import { CoreValuesSlider } from '@/components/common/CoreValues';
 import { VideoContainer } from './our-projects/[slug]';
 import BlogSection from '@/components/blog/BlogSection';
 import { BeyondTheHypeHeroSection } from './beyond-the-hype';
+import { SuccessStoriesSection } from './testimonials';
 
 const BASE_CONTENT = {
   image:
@@ -73,7 +73,7 @@ export default function Home({ slides, projects, properties }) {
       <ProjectsSlideshow projects={projects} />
       <BeyondTheHypeHeroSection />
       <BlogSection isLandingPage={true} />
-      <TestimonialSection />
+      <SuccessStoriesSection />
       <ScheduleVisit />
       <Footer />
       <ReferralModal referralCode={query.ref} inviteCode={query.inviteCode} />

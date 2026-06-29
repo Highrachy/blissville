@@ -1,586 +1,351 @@
-// =============================================================================
-// Blissville — Testimonials SCSS
-// Custom rules that cannot be replicated via Bootstrap 5 utilities alone.
-// Uses SASS variables from variables.scss and _colors.scss for consistency.
-// =============================================================================
-
-// ── Brand Design System Variables ──────────────────────────────────────────
-$brand-navy:         $primary-800;     // Aligned with deep navy brand color (#112b57)
-$brand-navy-deep:    $primary-850;     // Deep dark navy (#0b1329) for dark mode containers
-$brand-navy-deepest: $primary-900;     // Premium black/navy (#06090f) for dark mode panels
-$brand-blue:         $primary-500;     // Brand blue (#1f4e9f)
-$brand-green:        $secondary-500;   // Brand green (#009e45)
-
-// ── Experience Badge (Green Dot Pill Tag) ─────────────────────────────────────
-.tm-badge-green-dot {
-  background: $gray-100; /* Soft grey background pill from screenshot */
-  color: $gray-800;
-  border: 1px solid rgba($gray-900, 0.04);
-  border-radius: 999px;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-transform: uppercase;
+.tm-page {
+  background: linear-gradient(180deg, $gray-50 0%, $white 28%, $gray-50 100%);
 }
 
-.tm-dot {
-  width: 8px;
-  height: 8px;
-  background-color: $brand-green; /* brand green dot */
-  border-radius: 50%;
-  display: inline-block;
+#join-our-vision {
+  scroll-margin-top: 6.5rem;
 }
 
-// ── Stat block with no borders ──────────────────────────────────────────────
-.tm-stat-container {
-  display: flex;
-  align-items: center;
-  gap: 3.5rem; /* Spacious horizontal gap from screenshot */
-  padding: 1.5rem 0;
-  
-  @media (max-width: 575.98px) {
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
-}
-
-.tm-stat-item {
-  text-align: left;
-}
-
-.tm-stat-value {
-  color: $brand-navy; // Deep Brand Navy
-  font-size: 2.2rem;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 0.35rem;
-  letter-spacing: -0.02em;
-}
-
-.tm-stat-label {
-  color: $gray-500; // Slate-500
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-// ── Floating Hero Info Card ───────────────────────────────────────────────────
-.tm-info-card {
-  position: absolute;
-  bottom: 2rem;
-  left: -2rem;
-  background: $white;
-  border-radius: 1.25rem;
-  padding: 0.85rem 1.5rem;
-  box-shadow: 0 15px 35px rgba($brand-navy, 0.08);
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  border: 1px solid rgba($brand-navy, 0.04);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 40px rgba($brand-navy, 0.12);
-  }
-
-  @media (max-width: 991.98px) {
-    position: static;
-    margin-top: 1.5rem;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* Overlapping Avatars capsule inside floating card */
-.tm-hero-avatars-capsule {
-  display: flex;
-  align-items: center;
-  background: $gray-100; /* light grey track */
-  border-radius: 2rem;
-  padding: 0.25rem 0.5rem;
-  gap: 0.25rem;
-}
-
-.tm-avatar-grey {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid $white;
-  margin-right: -8px; // overlapping stacking!
-  overflow: hidden;
+.tm-hero-section,
+.tm-success-section,
+.tm-community-section {
   position: relative;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 }
 
-.tm-avatar-blue-plus {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: $brand-navy;
-  color: $white;
-  font-size: 0.65rem;
+.tm-hero-section {
+  background:
+    radial-gradient(
+      circle at 12% 14%,
+      rgba($secondary-500, 0.08),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 90% 16%,
+      rgba($primary-500, 0.1),
+      transparent 36%
+    ),
+    linear-gradient(180deg, $gray-50 0%, $white 100%);
+}
+
+.tm-impact-badge {
+  background: $secondary-100;
+  color: $secondary-500;
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid $white;
-  z-index: 2;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px rgba($secondary-500, 0.12);
 }
 
-.tm-info-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.25;
+.tm-hero-copy {
+  max-width: 32rem;
+  line-height: 1.82;
+}
 
-  .tm-info-title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: $brand-navy;
-  }
+.tm-hero-btn {
+  box-shadow: 0 16px 30px rgba($primary-500, 0.2);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
-  .tm-info-sub {
-    font-size: 0.72rem;
-    color: $gray-500;
-    font-weight: 500;
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 38px rgba($primary-500, 0.28);
   }
 }
 
-// ── Quote block styling ───────────────────────────────────────────────────────
+.tm-hero-visual {
+  isolation: isolate;
+}
+
+.tm-hero-media-card,
+.tm-quote-media-card {
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba($primary-800, 0.08);
+  box-shadow: 0 28px 60px rgba($primary-800, 0.12);
+  background: $white;
+}
+
+.tm-section-intro {
+  margin-bottom: 4rem;
+}
+
+.tm-success-section {
+  background: linear-gradient(
+    180deg,
+    rgba($primary-50, 0.55) 0%,
+    rgba($white, 0.92) 100%
+  );
+}
+
 .tm-quote-marks {
-  font-size: 5rem;
+  font-size: 8rem;
   line-height: 0.5;
   font-family: Georgia, serif;
-  color: rgba($brand-blue, 0.15);
-  margin-bottom: -1rem;
+  font-weight: 700;
+  color: rgba($primary-500, 0.18);
 }
 
 .tm-blockquote-text {
-  font-family: var(--font-secondary, 'Jost', sans-serif);
-  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
-  font-weight: 500;
+  font-size: 1.5rem;
   line-height: 1.45;
-  color: $brand-navy;
-  margin-bottom: 1.5rem;
+  color: $primary-700;
+  margin-bottom: 1.2rem;
 }
 
-.tm-author-avatar-square {
-  width: 52px;
-  height: 52px;
-  border-radius: 0.75rem; /* square-ish with rounded corners */
-  object-fit: cover;
-  box-shadow: 0 4px 10px rgba($black, 0.05);
+.tm-quote-copy {
+  color: $gray-800;
+  font-size: 0.97rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
 }
 
-.tm-author-name {
-  color: $brand-blue;
-  font-weight: 700;
-  font-size: 0.95rem;
-  line-height: 1.2;
+.tm-slider-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
-.tm-author-title {
-  color: $gray-500;
-  font-size: 0.78rem;
-  font-weight: 500;
-}
-
-// ── Quote Section Bg (Dark Mode Compliant) ───────────────────────────────────
-.tm-quote-section-bg {
-  background-color: $gray-50;
-  transition: background-color 0.3s ease;
-  
-  [data-bs-theme='dark'] & {
-    background-color: $brand-navy-deep; /* Matches investors deep navy/black background */
-  }
-}
-
-// ── Quote Slider Controls ─────────────────────────────────────────────────────
 .tm-slider-btn {
+  width: 2.35rem;
+  height: 2.35rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1px solid rgba($black, 0.12);
+  border-radius: 999px;
+  border: 1px solid rgba($primary-500, 0.16);
   background: transparent;
-  color: $brand-blue;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
+  color: $primary-500;
   font-size: 0.9rem;
-  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 10px 20px rgba($primary-500, 0.06);
 
   &:hover {
-    background: $brand-blue;
+    background: $primary-500;
+    border-color: $primary-500;
     color: $white;
-    border-color: $brand-blue;
-    transform: scale(1.05);
-  }
-  
-  [data-bs-theme='dark'] & {
-    border-color: rgba($white, 0.15);
-    color: $primary-300;
-    
-    &:hover {
-      background: $brand-blue;
-      color: $white;
-      border-color: $brand-blue;
-    }
+    transform: translateY(-1px);
   }
 }
 
 .tm-slider-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border: 0;
+  border-radius: 999px;
   background: $gray-300;
+  padding: 0;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
 
   &.active {
-    background: $brand-blue;
     width: 20px;
-    border-radius: 4px;
+    background: $primary-500;
   }
-  
-  [data-bs-theme='dark'] & {
-    background: $gray-700;
-    
+}
+
+.tm-quote-media {
+  min-height: 27.5rem;
+}
+
+.tm-community-title {
+  color: #051d43;
+  font-family: var(--font-secondary, 'Jost', sans-serif);
+  font-size: clamp(1.7rem, 3.7vw, 2.35rem);
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.tm-voice-card-premium {
+  background: linear-gradient(160deg, $gray-50 0%, $white 100%);
+  border: 1px solid rgba($primary-800, 0.05);
+  border-radius: 1.25rem;
+  padding: 2rem 1.6rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 14px 28px rgba($primary-800, 0.06);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba($primary-800, 0.11);
+  }
+}
+
+.tm-google-badge {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  background: #e8ecef;
+  color: #7f8a99;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.tm-verified-badge {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e6f9ee;
+  color: $secondary-500;
+}
+
+.tm-review-star {
+  color: #ffb300;
+}
+
+.tm-review-text {
+  color: $gray-800;
+  font-size: 0.95rem;
+  line-height: 1.68;
+  min-height: 110px;
+  margin-bottom: 0;
+}
+
+.tm-review-footer {
+  border-top-color: #f0f2f5 !important;
+}
+
+.tm-review-avatar {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: #ecf0f8;
+  color: $primary-700;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.tm-review-name {
+  color: $gray-900;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.tm-review-title {
+  color: $gray-600;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+[data-bs-theme='dark'] {
+  .tm-page {
+    background: linear-gradient(180deg, #091223 0%, #0d172b 35%, #091223 100%);
+  }
+
+  .tm-hero-section {
+    background:
+      radial-gradient(
+        circle at 12% 14%,
+        rgba($secondary-500, 0.14),
+        transparent 34%
+      ),
+      radial-gradient(
+        circle at 90% 16%,
+        rgba($primary-500, 0.2),
+        transparent 36%
+      ),
+      linear-gradient(180deg, #0d172b 0%, #0a1222 100%);
+  }
+
+  .tm-impact-badge {
+    background: rgba($secondary-500, 0.18);
+    color: #d7f5e3;
+  }
+
+  .tm-hero-copy,
+  .tm-quote-copy,
+  .tm-rating-summary,
+  .tm-review-text,
+  .tm-review-title {
+    color: #b7c3d7 !important;
+  }
+
+  .tm-hero-media-card,
+  .tm-quote-media-card,
+  .tm-voice-card-premium {
+    border-color: rgba($white, 0.08);
+    box-shadow: 0 28px 60px rgba($black, 0.28);
+  }
+
+  .tm-success-section {
+    background: linear-gradient(180deg, #0b1326 0%, #0c1629 100%);
+  }
+
+  .tm-quote-marks {
+    color: rgba($primary-300, 0.22);
+  }
+
+  .tm-blockquote-text,
+  .tm-review-name {
+    color: $white;
+  }
+
+  .tm-slider-btn {
+    border-color: rgba($white, 0.16);
+    color: $primary-300;
+    background: rgba($white, 0.02);
+  }
+
+  .tm-slider-dot {
+    background: rgba($white, 0.24);
+
     &.active {
       background: $primary-300;
     }
   }
-}
 
-// ── Testimonial review cards ──────────────────────────────────────────────────
-.tm-voice-card-premium {
-  background: $gray-50; /* off-white slate color */
-  border: 1px solid rgba($black, 0.02);
-  border-radius: 20px; /* Consistent 20px border radius with investors page! */
-  padding: 2.25rem 2rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 4px 15px rgba($black, 0.01);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    transform: translateY(-5px);
-    background: $white;
-    box-shadow: 0 15px 30px rgba($brand-navy, 0.06);
-    border-color: rgba($brand-navy, 0.05);
-  }
-}
-
-.tm-star-green {
-  color: $brand-green !important;
-}
-
-.tm-card-text {
-  font-size: 0.95rem;
-  color: $gray-700; // Slate-700
-  line-height: 1.6;
-  font-weight: 500;
-  margin-bottom: 2rem;
-}
-
-.tm-card-footer-simple {
-  display: flex;
-  align-items: center;
-  border-top: 1px solid rgba($black, 0.04);
-  padding-top: 1.25rem;
-  margin-top: auto;
-}
-
-.tm-card-author-name {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: $brand-navy;
-}
-
-.tm-card-author-title {
-  font-size: 0.75rem;
-  color: $gray-500;
-  font-weight: 500;
-}
-
-.tm-google-avatar-shadow {
-  box-shadow: 0 4px 8px rgba($black, 0.06);
-  border: 1.5px solid $white;
-  
-  [data-bs-theme='dark'] & {
-    border-color: $gray-900;
-  }
-}
-
-// ── Visual Spaces Gallery (World Class Custom Grid) ───────────────────────────
-.tm-gallery-section-bg {
-  background-color: $gray-50;
-  transition: background-color 0.3s ease;
-
-  [data-bs-theme='dark'] & {
-    background-color: $brand-navy-deepest; /* Premium investors page black/navy */
-  }
-}
-
-.tm-gallery-grid-custom {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  grid-template-rows: 320px 320px;
-  gap: 1.5rem; /* Perfect spacious gap from screenshot */
-
-  @media (max-width: 991.98px) {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-  }
-
-  @media (max-width: 575.98px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.tm-gallery-item-custom {
-  position: relative;
-  border-radius: 20px; /* Consistent 20px border radius with investors page! */
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba($brand-navy, 0.03);
-  border: 1px solid rgba($black, 0.015);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  &:hover img {
-    transform: scale(1.04);
-  }
-  
-  [data-bs-theme='dark'] & {
-    border-color: rgba($white, 0.05);
-  }
-}
-
-.tm-gallery-wavy {
-  grid-column: 1 / 3;
-  grid-row: 1 / 2;
-
-  @media (max-width: 991.98px) {
-    grid-column: 1 / -1;
-  }
-}
-
-.tm-gallery-wardrobe {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-
-  @media (max-width: 991.98px) {
-    grid-column: auto;
-    grid-row: auto;
-  }
-}
-
-.tm-gallery-pool {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-
-  @media (max-width: 991.98px) {
-    grid-column: auto;
-    grid-row: auto;
-  }
-}
-
-.tm-gallery-sunset {
-  grid-column: 3 / 4;
-  grid-row: 1 / 2;
-
-  @media (max-width: 991.98px) {
-    grid-column: auto;
-    grid-row: auto;
-    height: 240px;
-  }
-}
-
-.tm-gallery-armchair {
-  grid-column: 3 / 4;
-  grid-row: 2 / 3;
-
-  @media (max-width: 991.98px) {
-    grid-column: auto;
-    grid-row: auto;
-    height: 240px;
-  }
-}
-
-// ── Social links outlined icons ───────────────────────────────────────────────
-.tm-social-link-custom {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  border: 1px solid rgba($black, 0.15);
-  color: $gray-500;
-  text-decoration: none;
-  transition: all 0.25s ease;
-
-  &:hover {
-    background: $brand-blue;
-    border-color: $brand-blue;
-    color: $white;
-    transform: translateY(-2px);
-  }
-}
-
-.tm-hashtag {
-  color: $brand-blue;
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-// ── CTA Card Custom deep blue and button ──────────────────────────────────────
-.tm-cta-card-navy {
-  background: $brand-navy; /* Exact rich deep navy from mockup */
-  border-radius: 20px; /* Consistent 20px border radius! */
-  padding: 3.5rem 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  box-shadow: 0 20px 40px rgba($brand-navy, 0.15);
-}
-
-.tm-cta-btn-green {
-  background-color: $brand-green !important;
-  border: none !important;
-  color: $white !important;
-  border-radius: 50px !important;
-  padding: 0.75rem 1.75rem !important;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.25s ease;
-  font-size: 0.9rem;
-  width: fit-content;
-
-  &:hover {
-    background-color: darken($brand-green, 10%) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba($brand-green, 0.25);
-  }
-}
-
-// ── Section Title Badge ───────────────────────────────────────────────────────
-.tm-section-line-custom {
-  width: 2.5rem;
-  height: 2px;
-  background-color: $brand-blue;
-  display: inline-block;
-}
-
-.tm-section-subtitle-custom {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: $gray-500;
-  text-transform: uppercase;
-  margin-bottom: 0;
-}
-
-// ── Image Border Radius Mockup (Consistent with /investors) ───────────────────
-.tm-img-rounded-mockup {
-  border-radius: 20px; /* Consistent 20px border radius with /investors page image wrap! */
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba($brand-navy, 0.06);
-}
-
-// ── Dark Mode overrides ───────────────────────────────────────────────────────
-[data-bs-theme='dark'] {
-  .tm-badge-green-dot {
-    background: $gray-800;
-    color: $gray-300;
-    border-color: rgba($white, 0.05);
-  }
-
-  .tm-stat-value {
-    color: $gray-50;
-  }
-
-  .tm-info-card {
-    background: $gray-900;
-    border-color: rgba($white, 0.08);
-    box-shadow: 0 15px 35px rgba($black, 0.3);
-
-    .tm-info-title {
-      color: $gray-50;
-    }
-  }
-
-  .tm-hero-avatars-capsule {
-    background: $gray-800;
-  }
-
-  .tm-avatar-grey {
-    border-color: $gray-900;
-  }
-
-  .tm-avatar-blue-plus {
-    border-color: $gray-900;
-  }
-
-  .tm-blockquote-text {
-    color: $gray-50;
+  .tm-community-section {
+    background:
+      radial-gradient(
+        circle at 90% 12%,
+        rgba($secondary-500, 0.1),
+        transparent 34%
+      ),
+      linear-gradient(180deg, #0a1222 0%, #111b2d 100%);
   }
 
   .tm-voice-card-premium {
-    background: $gray-900;
-    border-color: rgba($white, 0.05);
-
-    &:hover {
-      background: $gray-800;
-      border-color: rgba($white, 0.1);
-      box-shadow: 0 15px 30px rgba($black, 0.4);
-    }
+    background: linear-gradient(160deg, #111d33 0%, #0c1527 100%);
   }
 
-  .tm-card-text {
-    color: $gray-300;
+  .tm-google-badge {
+    background: rgba($white, 0.08);
+    color: #d6dbe4;
   }
 
-  .tm-card-author-name {
-    color: $gray-50;
+  .tm-verified-badge {
+    background: rgba($secondary-500, 0.18);
+    color: #8af1b7;
   }
 
-  .tm-card-footer-simple {
-    border-top-color: rgba($white, 0.06);
+  .tm-review-footer {
+    border-top-color: rgba($white, 0.08) !important;
   }
 
-  .tm-social-link-custom {
-    border-color: rgba($white, 0.15);
-    color: $gray-500;
-    &:hover {
-      background: $brand-blue;
-      border-color: $brand-blue;
-      color: $white;
-    }
+  .tm-review-avatar {
+    background: rgba($primary-500, 0.18);
+    color: #dbe7ff;
   }
 }

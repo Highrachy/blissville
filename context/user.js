@@ -5,7 +5,14 @@ import {
 } from '@/utils/localStorage';
 import { useState, createContext } from 'react';
 
-export const UserContext = createContext(null);
+const defaultUserContext = {
+  user: null,
+  setUser: () => {},
+  loginUser: () => {},
+  logoutUser: () => {},
+};
+
+export const UserContext = createContext(defaultUserContext);
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);

@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import { Container, Row, Col, ProgressBar } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { FaArrowRight } from 'react-icons/fa';
 import Section from '../common/Section';
 import Button from '../forms/Button';
