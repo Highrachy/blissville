@@ -1,0 +1,1086 @@
+// =============================================================================
+// Construction Log - Page styles
+// =============================================================================
+
+// =============================================================================
+// HERO SECTION
+// =============================================================================
+.cl-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+
+  // full-bleed background image
+  &__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    z-index: 0;
+  }
+
+  // blue tinted overlay - matches screenshot
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba($primary-900, 0.78) 0%,
+      rgba($primary-800, 0.55) 55%,
+      rgba($primary-700, 0.3) 100%
+    );
+    z-index: 1;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 5rem;
+    padding-top: 2rem;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba($white, 0.9);
+    background: rgba($white, 0.1);
+    border: 1px solid rgba($white, 0.18);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(6px);
+  }
+
+  &__eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $secondary-400;
+    flex-shrink: 0;
+    animation: cl-dot-pulse 2s ease-in-out infinite;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: clamp(3.25rem, 8vw, 5.5rem);
+    font-weight: 700;
+    color: $white;
+    line-height: 1.02;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  &__title-accent {
+    color: $secondary-400;
+  }
+
+  &__subtitle {
+    font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+    line-height: 1.72;
+    color: rgba($white, 0.82);
+    max-width: 34rem;
+    margin-bottom: 0;
+  }
+
+  // animated double-chevron scroll cue centred at bottom
+  &__scroll-cue {
+    position: absolute;
+    bottom: 1.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba($white, 0.7);
+    animation: cl-chevron-bounce 1.8s ease-in-out infinite;
+
+    svg {
+      display: block;
+      margin-top: -8px; // tighten the two chevrons
+    }
+  }
+}
+
+@keyframes cl-dot-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.75);
+  }
+}
+
+@keyframes cl-chevron-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(-50%) translateY(6px);
+    opacity: 1;
+  }
+}
+
+// =============================================================================
+// FILTER NAVIGATION BAR
+// =============================================================================
+.cl-filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: $white;
+  border-bottom: 1px solid $gray-200;
+  box-shadow: 0 1px 0 rgba($gray-300, 0.5);
+
+  &__nav {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__btn {
+    position: relative;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 1rem 1.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $gray-600;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      color: $primary-700;
+    }
+
+    &.active {
+      color: $primary-700;
+    }
+
+    // first tab gets a left-flush feel
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+
+  // sliding ink underline
+  &__ink {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: $primary-700;
+    border-radius: 2px 2px 0 0;
+    transition:
+      transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+}
+
+// =============================================================================
+// Shared tokens
+// =============================================================================
+
+$cl-img-radius: 6px;
+$cl-img-gap: 12px;
+$cl-section-gap: 4.5rem;
+
+// =============================================================================
+// Section base
+// =============================================================================
+.cl-section,
+.cl-alt-section {
+  padding-top: $cl-section-gap;
+  padding-bottom: $cl-section-gap;
+  background: $gray-50;
+}
+
+.cl-alt-section {
+  background: $white;
+}
+
+// =============================================================================
+// VARIANT 1 — .cl-section
+// Text header on top. Image grid below:
+//   default  -> large image LEFT  | 2 stacked RIGHT
+//   reversed -> 2 stacked LEFT   | large image RIGHT
+// =============================================================================
+
+// Header
+.cl-section__header {
+  margin-bottom: 2.5rem;
+}
+
+.cl-section__header-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cl-section__header-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem 4rem;
+  align-items: start;
+
+  @media (max-width: 767.98px) {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.cl-section__category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $secondary-500;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: $secondary-500;
+    flex-shrink: 0;
+  }
+}
+
+.cl-section__date {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: $gray-600;
+  letter-spacing: 0.04em;
+}
+
+.cl-section__heading {
+  font-family: $font-secondary;
+  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: $primary-800;
+  line-height: 1.14;
+  margin-bottom: 0.5rem;
+}
+
+.cl-section__subheading {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: $gray-600;
+  letter-spacing: 0.02em;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+.cl-section__description {
+  font-size: 0.935rem;
+  line-height: 1.82;
+  color: $gray-700;
+  margin-bottom: 1.25rem;
+}
+
+// Image grid
+.cl-section__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+  gap: $cl-img-gap;
+  align-items: stretch;
+}
+
+// Reversed: swap column widths so stacked column becomes narrower slot on left
+.cl-section--reversed .cl-section__grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
+}
+
+.cl-section__primary {
+  overflow: hidden;
+  border-radius: $cl-img-radius;
+
+  // reversed: primary (large) moves to the right slot
+  .cl-section--reversed & {
+    order: 2;
+  }
+}
+
+.cl-section__secondary {
+  display: flex;
+  flex-direction: column;
+  gap: $cl-img-gap;
+
+  // reversed: secondary (stacked) moves to the left slot
+  .cl-section--reversed & {
+    order: 1;
+  }
+}
+
+.cl-section__secondary-item {
+  flex: 1;
+  overflow: hidden;
+  border-radius: $cl-img-radius;
+  min-height: 0;
+}
+
+// Clickable image button
+.cl-section__img-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  position: relative;
+  overflow: hidden;
+  border-radius: $cl-img-radius;
+
+  &:focus-visible {
+    outline: 2px solid $secondary-500;
+    outline-offset: 2px;
+  }
+}
+
+.cl-section__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: $cl-img-radius;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  .cl-section__img-btn:hover & {
+    transform: scale(1.04);
+  }
+}
+
+.cl-section__img-hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($primary-900, 0);
+  color: $white;
+  border-radius: $cl-img-radius;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    background 0.3s ease;
+  pointer-events: none;
+
+  .cl-section__img-btn:hover & {
+    opacity: 1;
+    background: rgba($primary-900, 0.35);
+  }
+
+  svg {
+    filter: drop-shadow(0 2px 4px rgba($black, 0.3));
+  }
+}
+
+// Footer: gallery link
+.cl-section__footer {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid $gray-200;
+  display: flex;
+  align-items: center;
+}
+
+.cl-section__gallery-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1.35rem 0.65rem 1.1rem;
+  border: 1.5px solid $primary-200;
+  border-radius: 999px;
+  background: $primary-50;
+  cursor: pointer;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: $primary-800;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    background: $primary-600;
+    border-color: $primary-600;
+    color: $white;
+    box-shadow: 0 6px 20px rgba($primary-600, 0.28);
+
+    .cl-section__gallery-link-count {
+      background: rgba($white, 0.18);
+      color: $white;
+    }
+
+    .cl-section__gallery-link-arrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.cl-section__gallery-link-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cl-section__gallery-link-label {
+  // no underline — button outline provides enough affordance
+}
+
+.cl-section__gallery-link-count {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: $primary-600;
+  background: $primary-100;
+  border-radius: 999px;
+  padding: 0.18rem 0.65rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.cl-section__gallery-link-arrow {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  margin-left: 0.1rem;
+}
+
+// =============================================================================
+// VARIANT 2 — .cl-alt-section
+// Side-by-side layout:
+//   default  -> 2x2 grid LEFT  | text panel RIGHT
+//   reversed -> text panel LEFT | 2x2 grid RIGHT
+// =============================================================================
+
+.cl-alt-section__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 4.5rem;
+  align-items: center;
+}
+
+// Reversed: text column wider ratio on left, grid on right
+.cl-alt-section--reversed .cl-alt-section__inner {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+}
+
+.cl-alt-section__images {
+  // default: first slot (left) — no order needed
+  .cl-alt-section--reversed & {
+    order: 2;
+  }
+}
+
+// 2x2 image grid
+.cl-alt-section__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $cl-img-gap;
+}
+
+.cl-alt-section__grid-item {
+  overflow: hidden;
+  border-radius: $cl-img-radius;
+  aspect-ratio: 4 / 3;
+}
+
+// Clickable tile button
+.cl-alt-section__img-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  position: relative;
+  overflow: hidden;
+  border-radius: $cl-img-radius;
+
+  &:focus-visible {
+    outline: 2px solid $secondary-500;
+    outline-offset: 2px;
+  }
+}
+
+.cl-alt-section__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: $cl-img-radius;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  .cl-alt-section__img-btn:hover & {
+    transform: scale(1.05);
+  }
+}
+
+.cl-alt-section__img-hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($primary-900, 0);
+  color: $white;
+  border-radius: $cl-img-radius;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    background 0.3s ease;
+  pointer-events: none;
+
+  .cl-alt-section__img-btn:hover & {
+    opacity: 1;
+    background: rgba($primary-900, 0.35);
+  }
+}
+
+// Gallery link below grid
+.cl-alt-section__footer {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid $gray-200;
+}
+
+.cl-alt-section__gallery-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1.35rem 0.65rem 1.1rem;
+  border: 1.5px solid $primary-200;
+  border-radius: 999px;
+  background: $primary-50;
+  cursor: pointer;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: $primary-800;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    background: $primary-600;
+    border-color: $primary-600;
+    color: $white;
+    box-shadow: 0 6px 20px rgba($primary-600, 0.28);
+
+    .cl-alt-section__gallery-link-count {
+      background: rgba($white, 0.18);
+      color: $white;
+    }
+
+    .cl-alt-section__gallery-link-arrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.cl-alt-section__gallery-link-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cl-alt-section__gallery-link-label {
+  // no underline — button outline provides enough affordance
+}
+
+.cl-alt-section__gallery-link-count {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: $primary-600;
+  background: $primary-100;
+  border-radius: 999px;
+  padding: 0.18rem 0.65rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.cl-alt-section__gallery-link-arrow {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  margin-left: 0.1rem;
+}
+
+// Text panel
+.cl-alt-section__text {
+  // default (grid left, text right): pad from the left
+  padding-left: 1.5rem;
+
+  // reversed (text left, grid right): pad from the right instead
+  .cl-alt-section--reversed & {
+    padding-left: 0;
+    padding-right: 1.5rem;
+    order: 1;
+  }
+}
+
+.cl-alt-section__text-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cl-alt-section__category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $secondary-500;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: $secondary-500;
+    flex-shrink: 0;
+  }
+}
+
+.cl-alt-section__date {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: $gray-600;
+  letter-spacing: 0.04em;
+}
+
+.cl-alt-section__heading {
+  font-family: $font-secondary;
+  font-size: clamp(1.85rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: $primary-800;
+  line-height: 1.14;
+  margin-bottom: 0.5rem;
+}
+
+.cl-alt-section__subheading {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: $gray-600;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+}
+
+.cl-alt-section__description {
+  font-size: 0.935rem;
+  line-height: 1.82;
+  color: $gray-700;
+  margin-bottom: 1.25rem;
+}
+
+.cl-alt-section__divider {
+  width: 3rem;
+  border: none;
+  border-top: 1.5px solid $gray-300;
+  margin: 0 0 1.25rem;
+  opacity: 1;
+}
+
+.cl-alt-section__quote {
+  font-size: 0.92rem;
+  font-style: italic;
+  color: $gray-600;
+  line-height: 1.74;
+  margin-bottom: 0;
+  border-left: none;
+  padding-left: 0;
+}
+
+// =============================================================================
+// Lightbox
+// =============================================================================
+.cl-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba($primary-900, 0.94);
+    backdrop-filter: blur(6px);
+  }
+
+  &__panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    flex-direction: column;
+    max-height: 95vh;
+  }
+
+  &__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.75rem;
+  }
+
+  &__counter {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba($white, 0.6);
+    letter-spacing: 0.08em;
+  }
+
+  &__close {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba($white, 0.2);
+    background: rgba($white, 0.06);
+    color: $white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba($white, 0.16);
+    }
+  }
+
+  &__stage {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-height: 0;
+  }
+
+  &__img-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.is-loaded {
+      opacity: 1;
+    }
+  }
+
+  &__img {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    display: block;
+    user-select: none;
+  }
+
+  &__spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid rgba($white, 0.15);
+    border-top-color: $white;
+    border-radius: 50%;
+    animation: cl-spin 0.7s linear infinite;
+    position: absolute;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba($white, 0.2);
+    background: rgba($white, 0.06);
+    color: $white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+
+    &:hover {
+      background: rgba($white, 0.18);
+    }
+
+    &--prev {
+      left: 0;
+    }
+    &--next {
+      right: 0;
+    }
+  }
+
+  &__caption {
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba($white, 0.65);
+    padding: 0.65rem 0 0.5rem;
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  &__thumbs {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 0.5rem 0 0;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__thumb {
+    flex-shrink: 0;
+    width: 52px;
+    height: 36px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.5;
+    transition:
+      opacity 0.2s ease,
+      border-color 0.2s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &.is-active {
+      border-color: $white;
+      opacity: 1;
+    }
+
+    &:hover:not(.is-active) {
+      opacity: 0.8;
+    }
+  }
+}
+
+@keyframes cl-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// =============================================================================
+// Responsive - stack below lg
+// =============================================================================
+@media (max-width: 991.98px) {
+  // Variant 1: single column, restore natural DOM order
+  .cl-section__grid,
+  .cl-section--reversed .cl-section__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cl-section__primary,
+  .cl-section--reversed .cl-section__primary,
+  .cl-section__secondary,
+  .cl-section--reversed .cl-section__secondary {
+    order: unset;
+  }
+
+  .cl-section__secondary {
+    flex-direction: row;
+  }
+
+  .cl-section__secondary-item {
+    aspect-ratio: 4 / 3;
+  }
+
+  // Variant 2: single column, restore natural DOM order
+  .cl-alt-section__inner,
+  .cl-alt-section--reversed .cl-alt-section__inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .cl-alt-section__images,
+  .cl-alt-section--reversed .cl-alt-section__images,
+  .cl-alt-section__text,
+  .cl-alt-section--reversed .cl-alt-section__text {
+    order: unset;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// =============================================================================
+// Dark mode
+// =============================================================================
+[data-bs-theme='dark'] {
+  .cl-section,
+  .cl-alt-section {
+    background: #0c1629;
+  }
+
+  .cl-alt-section {
+    background: #0a1222;
+  }
+
+  .cl-section__heading,
+  .cl-alt-section__heading {
+    color: $white;
+  }
+
+  .cl-section__subheading,
+  .cl-alt-section__subheading,
+  .cl-section__description,
+  .cl-alt-section__description,
+  .cl-alt-section__quote,
+  .cl-section__date,
+  .cl-alt-section__date {
+    color: #b7c3d7;
+  }
+
+  .cl-section__category,
+  .cl-alt-section__category {
+    color: $secondary-300;
+
+    &::before {
+      background: $secondary-300;
+    }
+  }
+
+  .cl-section__gallery-link,
+  .cl-alt-section__gallery-link {
+    background: rgba($white, 0.05);
+    border-color: rgba($white, 0.15);
+    color: $gray-200;
+
+    &:hover {
+      background: $primary-600;
+      border-color: $primary-600;
+      color: $white;
+    }
+  }
+
+  .cl-section__gallery-link-count,
+  .cl-alt-section__gallery-link-count {
+    background: rgba($white, 0.1);
+    color: $gray-300;
+  }
+
+  .cl-section__footer,
+  .cl-alt-section__footer {
+    border-top-color: rgba($white, 0.1);
+  }
+
+  .cl-alt-section__divider {
+    border-top-color: rgba($white, 0.12);
+  }
+
+  // dark mode filter bar
+  .cl-filter-bar {
+    background: #0a1222;
+    border-bottom-color: rgba($white, 0.08);
+    box-shadow: 0 1px 0 rgba($black, 0.3);
+
+    &__btn {
+      color: rgba($white, 0.5);
+
+      &:hover,
+      &.active {
+        color: $white;
+      }
+    }
+
+    &__ink {
+      background: $primary-300;
+    }
+  }
+}
+
+// =============================================================================
+// PAGE WRAPPER & EMPTY STATE
+// =============================================================================
+.cl-page {
+  min-height: 100vh;
+}
+
+.cl-empty {
+  padding: 5rem 0;
+  text-align: center;
+
+  &__text {
+    font-size: 1rem;
+    color: $gray-600;
+    margin: 0;
+  }
+}

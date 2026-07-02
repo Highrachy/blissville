@@ -126,6 +126,31 @@ const BLOG_POSTS = [
     date: 'June 18, 2026',
     author: DEFAULT_AUTHOR,
   },
+  {
+    id: 10,
+    title:
+      'Tired of Lagos Traffic? How Blissville Sangotedo is Changing the Game',
+    excerpt:
+      'Imagine replacing hours in Lekki traffic with a smooth boat ride to Victoria Island. Discover how Blissville Terraces, private water transport, and strategic infrastructure are redefining premium living in Sangotedo.',
+    image: '/assets/img/blog/aerial-view.jpg',
+    slug: 'tired-of-lagos-traffic-how-blissville-sangotedo-is-changing-the-game',
+    category: BLOG_CATEGORIES.LIFESTYLE,
+    readTime: '5 min read',
+    date: 'June 25, 2026',
+    author: DEFAULT_AUTHOR,
+  },
+  {
+    id: 11,
+    title: 'Q3 Market Insight: How Blissville Sangotedo is Changing the Game',
+    excerpt:
+      "A Q3 2026 market outlook exploring Sangotedo's rapid appreciation, waterfront transportation, Blue Health living, sustainable infrastructure, and why Blissville Terraces is emerging as one of Lagos’ most compelling investment destinations.",
+    image: '/assets/img/blog/bvt-water-and-aerial-view.jpg',
+    slug: 'q3-market-insight-how-blissville-sangotedo-is-changing-the-game',
+    category: BLOG_CATEGORIES.MARKET_DATA,
+    readTime: '6 min read',
+    date: 'July 02, 2026',
+    author: DEFAULT_AUTHOR,
+  },
 ];
 
 export default BLOG_POSTS;
