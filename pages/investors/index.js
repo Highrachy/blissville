@@ -192,7 +192,9 @@ const Investors = () => {
       <DevelopmentProgress {...DEVELOPMENT_PROGRESS_DATA} />
 
       <div ref={riskRef}>
-        <RiskAndMitigation />
+        <RiskAndMitigation
+          currentDevelopmentPercentage={CURRENT_DEVELOPMENT_PERCENTAGE}
+        />
       </div>
 
       <PathToPartnership />

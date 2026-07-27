@@ -1,16 +1,7 @@
 import Section from '../common/Section';
 import { FiShield } from 'react-icons/fi';
 
-const risks = [
-  {
-    title: 'Construction Delay',
-    subtitle: 'Execution Timeline',
-    desc: 'Project already ~20% complete with experienced team and phased delivery milestones.',
-    label: 'Progress',
-    value: 20,
-    status: 'Active Monitoring',
-    type: 'primary',
-  },
+const staticRisks = [
   {
     title: 'Cost Overrun',
     subtitle: 'Budget Control',
@@ -49,7 +40,20 @@ const risks = [
   },
 ];
 
-export default function RiskAndMitigation() {
+export default function RiskAndMitigation({ currentDevelopmentPercentage }) {
+  const risks = [
+    {
+      title: 'Construction Delay',
+      subtitle: 'Execution Timeline',
+      desc: `Project already ~${currentDevelopmentPercentage}% complete with experienced team and phased delivery milestones.`,
+      label: 'Progress',
+      value: currentDevelopmentPercentage,
+      status: 'Active Monitoring',
+      type: 'primary',
+    },
+    ...staticRisks,
+  ];
+
   return (
     <Section className="risk-governance-section">
       <div className="container">
