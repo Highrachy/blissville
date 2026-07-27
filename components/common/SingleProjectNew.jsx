@@ -141,7 +141,7 @@ const SingleProject = ({ id, attributes }) => {
               </li>
               <li>
                 <span className="ppc-info-label">Title </span>
-                <span className="ppc-info-value fs-6 fw-bold">
+                <span className="ppc-info-value fw-bold">
                   Certificate of Occupancy (C of O)
                 </span>
               </li>

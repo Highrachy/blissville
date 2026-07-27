@@ -8,7 +8,8 @@ export const projects = {
   title: 'Projects',
   url: 'projects',
   children: {
-    '/our-projects/blissville-terraces': 'Blissville Terraces',
+    '/our-properties/blissville-terraces/4-bedroom-waterview-terrace-duplex':
+      'Blissville Terraces',
     '/our-projects/blissville-apartments': 'Blissville Apartments',
     // 'our-projects': 'View All Projects',
     // 'our-properties': 'View All  Properties',

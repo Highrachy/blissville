@@ -137,6 +137,30 @@ const BLOG_POSTS = [
     date: 'July 02, 2026',
     author: DEFAULT_AUTHOR,
   },
+  {
+    id: 11,
+    title: 'Maximizing Space: The Art of Efficient Design',
+    excerpt:
+      'A well-designed home is not about having more space, but making every square meter work smarter. Discover how thoughtful layouts create comfort, functionality, and better living.',
+    image: '/assets/img/blog/maximizing-space.jpg',
+    slug: 'maximizing-space-the-art-of-efficient-design',
+    category: BLOG_CATEGORIES.ARCHITECTURE,
+    readTime: '4 min read',
+    date: 'July 15, 2026',
+    author: DEFAULT_AUTHOR,
+  },
+  {
+    id: 12,
+    title: 'Finally, No One Is Stomping Above You',
+    excerpt:
+      'Discover why tri-level terrace living offers something apartment blocks rarely can: true peace and quiet, greater privacy, and a home that belongs entirely to you.',
+    image: '/assets/img/blog/no-one-is-stomping-above-you.jpg',
+    slug: 'finally-no-one-is-stomping-above-you',
+    category: BLOG_CATEGORIES.LIFESTYLE,
+    readTime: '4 min read',
+    date: 'July 22, 2026',
+    author: DEFAULT_AUTHOR,
+  },
 ];
 
 export default BLOG_POSTS;
