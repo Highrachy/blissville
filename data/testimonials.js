@@ -7,6 +7,7 @@ export const FEATURED_QUOTES = [
     buyerType: 'Property Owner',
     outcome: '400% Returns in Property Value',
     image: '/assets/img/home/dream-home.jpg',
+    // video: 'https://youtube.com/shorts/cynIXM_m7fU',
   },
   {
     quote:

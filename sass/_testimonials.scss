@@ -70,6 +70,24 @@
   background: $white;
 }
 
+.tm-quote-video-card {
+  aspect-ratio: 480 / 540;
+}
+
+.tm-quote-video-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
 .tm-section-intro {
   margin-bottom: 4rem;
 }

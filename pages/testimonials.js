@@ -11,9 +11,41 @@ import Section from '@/components/common/Section';
 import JoinVision from '@/components/investors/joinVision';
 import { communityVoices, FEATURED_QUOTES } from '@/data/testimonials';
 
+function getYouTubeEmbedUrl(videoUrl) {
+  if (!videoUrl) {
+    return null;
+  }
+
+  try {
+    const parsedUrl = new URL(videoUrl);
+    const pathnameParts = parsedUrl.pathname.split('/').filter(Boolean);
+
+    let videoId = null;
+
+    if (parsedUrl.hostname.includes('youtu.be')) {
+      videoId = pathnameParts[0] || null;
+    } else if (pathnameParts[0] === 'shorts') {
+      videoId = pathnameParts[1] || null;
+    } else if (pathnameParts[0] === 'embed') {
+      videoId = pathnameParts[1] || null;
+    } else {
+      videoId = parsedUrl.searchParams.get('v');
+    }
+
+    if (!videoId) {
+      return null;
+    }
+
+    return `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&playsinline=1`;
+  } catch {
+    return null;
+  }
+}
+
 export function SuccessStoriesSection() {
   const [activeQuoteIdx, setActiveQuoteIdx] = useState(0);
   const activeQuote = FEATURED_QUOTES[activeQuoteIdx];
+  const activeQuoteEmbedUrl = getYouTubeEmbedUrl(activeQuote?.video);
 
   return (
     <Section className="tm-success-section" biggerPadding>
@@ -30,16 +62,30 @@ export function SuccessStoriesSection() {
         <div className="row align-items-center g-4 g-lg-5 g-xl-6">
           <div className="col-lg-6">
             <div className="pe-2">
-              <div className="tm-quote-media-card rounded-4 overflow-hidden shadow-sm">
-                <Image
-                  src={activeQuote.image}
-                  alt="Premium property interior render"
-                  width={480}
-                  height={540}
-                  layout="responsive"
-                  objectFit="cover"
-                />
-              </div>
+              {activeQuoteEmbedUrl ? (
+                <div className="tm-quote-media-card tm-quote-video-card rounded-4 overflow-hidden shadow-sm">
+                  <div className="tm-quote-video-frame">
+                    <iframe
+                      src={activeQuoteEmbedUrl}
+                      title={`${activeQuote.author} testimonial video`}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="tm-quote-media-card rounded-4 overflow-hidden shadow-sm">
+                  <Image
+                    src={activeQuote.image}
+                    alt="Premium property interior render"
+                    width={480}
+                    height={540}
+                    layout="responsive"
+                    objectFit="cover"
+                  />
+                </div>
+              )}
             </div>
           </div>
 
