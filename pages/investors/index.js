@@ -28,11 +28,13 @@ const CLARITY_EVENTS = {
   INVESTORS_VIEW_CTA: 'investors_view_cta',
 };
 
-const CURRENT_DEVELOPMENT_PERCENTAGE = 29;
+// Monthly development progress percentage and last updated date
+const CURRENT_DEVELOPMENT_PERCENTAGE = 32;
+const LAST_UPDATED = 'August 1, 2026';
 
 const DEVELOPMENT_PROGRESS_DATA = {
   percentage: CURRENT_DEVELOPMENT_PERCENTAGE,
-  lastUpdated: 'July 1, 2026',
+  lastUpdated: LAST_UPDATED,
   currentStatusLabel: 'Construction (In Progress)',
   images: [
     {
