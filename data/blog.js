@@ -161,6 +161,18 @@ const BLOG_POSTS = [
     date: 'July 22, 2026',
     author: DEFAULT_AUTHOR,
   },
+  {
+    id: 13,
+    title:
+      'Groundwork Before Glamour: Why Smart Lagos Investors Buy Off-Plan Real Estate in August',
+    excerpt:
+      'Discover why August presents a strategic buying window for off-plan real estate in Lagos, from post-rain site inspections and construction progress to timing, pricing, and long-term investment value.',
+    image: '/assets/img/blog/groundwork-before-glamour.jpg',
+    slug: 'groundwork-before-glamour-buy-off-plan-real-estate-lagos',
+    category: BLOG_CATEGORIES.INVESTING,
+    readTime: '5 min read',
+    date: 'August 13, 2026',
+    author: DEFAULT_AUTHOR,
+  },
 ];
-
 export default BLOG_POSTS;
