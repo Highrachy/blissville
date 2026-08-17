@@ -1,0 +1,702 @@
+.wellness-page {
+  --wellness-ink: #142238;
+  --wellness-muted: #69768a;
+  --wellness-line: #dfe5ec;
+  --wellness-surface: #ffffff;
+  --wellness-soft: #f3f6f8;
+  --wellness-accent: #009e45;
+  --wellness-accent-dark: #007f38;
+  background:
+    linear-gradient(135deg, rgba($primary-100, 0.65) 0%, rgba($gray-50, 0) 45%),
+    $gray-50;
+  color: var(--wellness-ink);
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    background-image: radial-gradient(
+      rgba($primary-500, 0.1) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+    content: '';
+    height: 22rem;
+    pointer-events: none;
+    position: absolute;
+    right: -4rem;
+    top: 2rem;
+    width: 22rem;
+  }
+}
+
+.wellness-page ~ .floating-chat-wrapper {
+  display: none;
+}
+
+.wellness-section {
+  padding: 4.5rem 0 6rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wellness-container {
+  max-width: 1240px;
+}
+
+.wellness-shell {
+  background: var(--wellness-surface);
+  border: 1px solid rgba($primary-800, 0.08);
+  box-shadow: 0 32px 80px rgba($primary-850, 0.12);
+  display: grid;
+  grid-template-columns: minmax(340px, 0.82fr) minmax(0, 1.18fr);
+  min-height: 760px;
+  overflow: hidden;
+}
+
+.wellness-intro {
+  background: $primary-850;
+  color: $white;
+  min-height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  &::after {
+    background:
+      linear-gradient(
+        180deg,
+        rgba($primary-850, 0.3) 0%,
+        rgba($primary-850, 0.8) 68%
+      ),
+      linear-gradient(90deg, rgba($primary-850, 0.7), transparent);
+    content: '';
+    inset: 0;
+    position: absolute;
+  }
+}
+
+.wellness-intro__image {
+  background-image: url('/assets/img/blog/blissville-wellness-walk.jpg');
+  background-position: 50% center;
+  background-size: cover;
+  filter: saturate(0.85) brightness(0.65);
+  inset: 0;
+  opacity: 0.7;
+  position: absolute;
+  transform: scale(1.01);
+}
+
+.wellness-intro__content {
+  display: flex;
+  flex-direction: column;
+  min-height: 760px;
+  padding: 3.5rem;
+  position: relative;
+  z-index: 1;
+
+  h1 {
+    color: $white;
+    font-family: $font-secondary;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: auto 0 1.8rem;
+    max-width: 10ch;
+
+    span {
+      color: $secondary-300;
+      display: block;
+    }
+  }
+
+  > p {
+    color: rgba($white, 0.9);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin: 0 0 2.5rem;
+    max-width: 38rem;
+  }
+}
+
+.wellness-eyebrow {
+  color: $secondary-300;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.wellness-step-label {
+  color: $secondary-700;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.wellness-event-details {
+  border-bottom: 1px solid rgba($white, 0.16);
+  border-top: 1px solid rgba($white, 0.16);
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.4rem 0;
+}
+
+.wellness-event-detail {
+  align-items: center;
+  display: flex;
+  gap: 0.9rem;
+
+  > svg {
+    color: $secondary-300;
+    flex: 0 0 auto;
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  div {
+    display: grid;
+    gap: 0.05rem;
+  }
+
+  span {
+    color: rgba($white, 0.56);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  strong {
+    color: $white;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+}
+
+.wellness-availability {
+  align-items: flex-start;
+  background: rgba($white, 0.1);
+  border: 1px solid rgba($white, 0.12);
+  display: flex;
+  font-size: 0.78rem;
+  gap: 0.7rem;
+  line-height: 1.5;
+  margin-top: 1.4rem;
+  padding: 0.8rem 1rem;
+
+  svg {
+    color: $secondary-300;
+    flex: 0 0 auto;
+    margin-top: 0.15rem;
+  }
+}
+
+.wellness-form-panel {
+  padding: 4.5rem 4.5rem 4rem;
+}
+
+.wellness-form-heading {
+  border-bottom: 1px solid var(--wellness-line);
+  padding-bottom: 3rem;
+
+  .wellness-step-label {
+    color: $primary-700;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    color: var(--wellness-ink);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0.25rem 0;
+  }
+
+  p {
+    color: var(--wellness-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.wellness-form-section {
+  padding: 4rem 0;
+
+  + .wellness-form-section {
+    border-top: 1px solid var(--wellness-line);
+  }
+}
+
+.wellness-section-heading {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+
+  > span {
+    align-items: center;
+    background: $primary-100;
+    color: $primary-600;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 0.72rem;
+    font-weight: 700;
+    height: 2rem;
+    justify-content: center;
+    width: 2rem;
+  }
+
+  h3,
+  .h3 {
+    color: var(--wellness-ink);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    margin: 0 0 0.25rem;
+  }
+
+  p {
+    color: var(--wellness-muted);
+    font-size: 0.88rem;
+    margin: 0;
+  }
+}
+
+// Micro-label for individual inputs — visually subordinate to questions and headings.
+.wellness-label {
+  color: var(--wellness-muted);
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  width: 100%;
+
+  > span {
+    color: $error-600;
+  }
+
+  small {
+    color: var(--wellness-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    margin-left: 0.4rem;
+    text-transform: none;
+  }
+}
+
+// The survey question itself — reads as a calm, conversational sentence, not a heading.
+.wellness-question legend {
+  color: var(--wellness-ink);
+  display: block;
+  float: none;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 1.1rem;
+  width: 100%;
+
+  .text-danger {
+    color: $error-600;
+  }
+}
+
+.wellness-label--question {
+  color: var(--wellness-ink);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+
+  small {
+    color: var(--wellness-muted);
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+}
+
+.wellness-input {
+  background-color: var(--wellness-surface);
+  border: 1px solid var(--wellness-line);
+  border-radius: 4px;
+  color: var(--wellness-ink);
+  font-size: 0.92rem;
+  min-height: 3.25rem;
+  padding: 0.8rem 0.95rem;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+
+  &::placeholder {
+    color: #9aa5b4;
+  }
+
+  &:hover {
+    border-color: #b5c0cd;
+  }
+
+  &:focus {
+    background-color: var(--wellness-surface);
+    border-color: $primary-500;
+    box-shadow: 0 0 0 4px rgba($primary-500, 0.12);
+    color: var(--wellness-ink);
+  }
+
+  &.is-invalid {
+    border-color: $error-500;
+  }
+}
+
+.wellness-textarea {
+  line-height: 1.6;
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.wellness-question {
+  border: 0;
+  margin: 0 0 2.75rem;
+  padding: 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.wellness-options {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wellness-option {
+  align-items: center;
+  background: var(--wellness-surface);
+  border: 1px solid var(--wellness-line);
+  border-radius: 4px;
+  color: var(--wellness-ink);
+  cursor: pointer;
+  display: flex;
+  gap: 0.75rem;
+  min-height: 3.45rem;
+  padding: 0.65rem 0.75rem;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+
+  input {
+    height: 1px;
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  &:hover {
+    border-color: $primary-300;
+    transform: translateY(-1px);
+  }
+
+  &:has(input:focus-visible) {
+    box-shadow: 0 0 0 4px rgba($primary-500, 0.14);
+  }
+
+  &.is-selected {
+    background: $primary-50;
+    border-color: $primary-500;
+    box-shadow: inset 0 0 0 1px $primary-500;
+  }
+}
+
+.wellness-option__key {
+  align-items: center;
+  background: var(--wellness-soft);
+  border: 1px solid var(--wellness-line);
+  color: var(--wellness-muted);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.68rem;
+  font-weight: 700;
+  height: 1.8rem;
+  justify-content: center;
+  width: 1.8rem;
+
+  .is-selected & {
+    background: $primary-500;
+    border-color: $primary-500;
+    color: $white;
+  }
+
+  svg {
+    height: 1rem;
+    stroke-width: 3;
+    width: 1rem;
+  }
+}
+
+.wellness-option__label {
+  font-size: 0.82rem;
+  font-weight: 550;
+  line-height: 1.35;
+}
+
+.wellness-field-error {
+  color: $error-600;
+  font-size: 0.75rem;
+  grid-column: 1 / -1;
+  margin-top: 0.1rem;
+}
+
+.wellness-submit {
+  align-items: center;
+  border-top: 1px solid var(--wellness-line);
+  display: flex;
+  gap: 1.25rem;
+  padding-top: 2rem;
+
+  > small {
+    color: var(--wellness-muted);
+    font-size: 0.7rem;
+    line-height: 1.45;
+    max-width: 16rem;
+  }
+}
+
+.wellness-submit-button,
+.wellness-secondary-button {
+  align-items: center;
+  border: 0;
+  border-radius: 4px;
+  display: inline-flex;
+  font-size: 0.88rem;
+  font-weight: 700;
+  gap: 0.75rem;
+  justify-content: center;
+  min-height: 3.4rem;
+  padding: 0.8rem 1.25rem;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.wellness-submit-button {
+  background: var(--wellness-accent);
+  box-shadow: 0 10px 24px rgba($secondary-600, 0.2);
+  color: $white;
+  min-width: 14.5rem;
+
+  &:hover:not(:disabled) {
+    background: var(--wellness-accent-dark);
+    box-shadow: 0 12px 28px rgba($secondary-700, 0.26);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 4px rgba($secondary-500, 0.22);
+    outline: 0;
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  svg {
+    height: 1.05rem;
+    width: 1.05rem;
+  }
+}
+
+.wellness-success {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 680px;
+  padding: 2rem 0;
+  text-align: center;
+
+  .wellness-step-label {
+    color: var(--wellness-accent-dark);
+  }
+
+  h2 {
+    color: var(--wellness-ink);
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: 0;
+    margin: 0.75rem 0;
+  }
+
+  p {
+    color: var(--wellness-muted);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    max-width: 31rem;
+  }
+}
+
+.wellness-success__icon {
+  align-items: center;
+  background: $secondary-100;
+  color: $secondary-700;
+  display: flex;
+  height: 4.5rem;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+  width: 4.5rem;
+
+  svg {
+    height: 2rem;
+    stroke-width: 2.5;
+    width: 2rem;
+  }
+}
+
+.wellness-secondary-button {
+  background: transparent;
+  border: 1px solid $primary-500;
+  color: $primary-600;
+
+  &:hover {
+    background: $primary-50;
+  }
+}
+
+[data-bs-theme='dark'] .wellness-page {
+  --wellness-ink: #f5f7fa;
+  --wellness-muted: #aeb9c8;
+  --wellness-line: #334054;
+  --wellness-surface: #111827;
+  --wellness-soft: #1d2736;
+  background: #0b1019;
+
+  .wellness-shell {
+    border-color: #283449;
+    box-shadow: 0 32px 80px rgba($black, 0.32);
+  }
+
+  .wellness-section-heading > span,
+  .wellness-option.is-selected {
+    background: rgba($primary-300, 0.14);
+    color: $primary-200;
+  }
+
+  .wellness-input::placeholder {
+    color: #718096;
+  }
+
+  .wellness-secondary-button:hover {
+    background: rgba($primary-300, 0.1);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .wellness-section {
+    padding: 2rem 0 4rem;
+  }
+
+  .wellness-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .wellness-intro,
+  .wellness-intro__content {
+    min-height: 620px;
+  }
+
+  .wellness-intro__content {
+    padding: 3rem;
+
+    h1 {
+      max-width: 12ch;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .wellness-page::before {
+    display: none;
+  }
+
+  .wellness-section {
+    padding: 0 0 3rem;
+  }
+
+  .wellness-container {
+    padding: 0;
+  }
+
+  .wellness-shell {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .wellness-intro,
+  .wellness-intro__content {
+    min-height: 560px;
+  }
+
+  .wellness-intro__content {
+    padding: 2rem 1.35rem;
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    > p {
+      font-size: 0.94rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .wellness-event-details {
+    padding: 1.1rem 0;
+  }
+
+  .wellness-form-panel {
+    padding: 2.5rem 1.25rem 3rem;
+  }
+
+  .wellness-form-heading {
+    padding-bottom: 1.75rem;
+  }
+
+  .wellness-form-section {
+    padding: 2rem 0;
+  }
+
+  .wellness-options {
+    grid-template-columns: 1fr;
+  }
+
+  .wellness-submit {
+    align-items: stretch;
+    flex-direction: column;
+
+    > small {
+      max-width: none;
+      text-align: center;
+    }
+  }
+
+  .wellness-submit-button {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .wellness-success {
+    min-height: 520px;
+  }
+}
