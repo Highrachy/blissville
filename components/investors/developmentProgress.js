@@ -1,7 +1,13 @@
 import { useState, useRef } from 'react';
 import Section from '../common/Section';
 import Button from '../forms/Button';
-import { FaPlay, FaSyncAlt, FaInfoCircle } from 'react-icons/fa';
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaInfoCircle,
+  FaPlay,
+  FaSyncAlt,
+} from 'react-icons/fa';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -17,6 +23,7 @@ export default function DevelopmentProgress({
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   const containerRef = useRef(null);
+  const swiperRef = useRef(null);
 
   const handleClick = (e, index) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -28,6 +35,25 @@ export default function DevelopmentProgress({
     });
 
     setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const handleSlideNavigation = (direction) => {
+    const swiper = swiperRef.current;
+
+    if (!swiper || images.length < 2) return;
+
+    const isFirstSlide = swiper.activeIndex === 0;
+    const isLastSlide = swiper.activeIndex === images.length - 1;
+
+    if (direction === 'previous' && isFirstSlide) {
+      swiper.slideTo(images.length - 1);
+    } else if (direction === 'next' && isLastSlide) {
+      swiper.slideTo(0);
+    } else if (direction === 'previous') {
+      swiper.slidePrev();
+    } else {
+      swiper.slideNext();
+    }
   };
 
   return (
@@ -133,6 +159,9 @@ export default function DevelopmentProgress({
                       observer={true}
                       observeParents={true}
                       className="progress-swiper h-100"
+                      onSwiper={(swiper) => {
+                        swiperRef.current = swiper;
+                      }}
                       onSlideChange={(swiper) =>
                         setActiveSlideIndex(swiper.realIndex)
                       }
@@ -157,13 +186,42 @@ export default function DevelopmentProgress({
                       {(images.length > 1 ||
                         images[activeSlideIndex]?.description) && (
                         <div className="progress-info-card">
-                          {images[activeSlideIndex]?.description && (
-                            <p className="progress-desc-text">
-                              {images[activeSlideIndex].description}
-                            </p>
-                          )}
+                          <div className="progress-caption-row">
+                            {images[activeSlideIndex]?.description && (
+                              <p className="progress-desc-text">
+                                {images[activeSlideIndex].description}
+                              </p>
+                            )}
+                            {images.length > 1 && (
+                              <span className="progress-slide-count">
+                                {String(activeSlideIndex + 1).padStart(2, '0')}
+                                <span>/</span>
+                                {String(images.length).padStart(2, '0')}
+                              </span>
+                            )}
+                          </div>
                           {images.length > 1 && (
-                            <div className="progress-swiper-pagination"></div>
+                            <div className="progress-controls">
+                              <button
+                                type="button"
+                                className="progress-nav-button"
+                                onClick={() =>
+                                  handleSlideNavigation('previous')
+                                }
+                                aria-label="Show previous construction update"
+                              >
+                                <FaChevronLeft aria-hidden="true" />
+                              </button>
+                              <div className="progress-swiper-pagination"></div>
+                              <button
+                                type="button"
+                                className="progress-nav-button"
+                                onClick={() => handleSlideNavigation('next')}
+                                aria-label="Show next construction update"
+                              >
+                                <FaChevronRight aria-hidden="true" />
+                              </button>
+                            </div>
                           )}
                         </div>
                       )}

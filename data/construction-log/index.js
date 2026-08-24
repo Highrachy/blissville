@@ -41,12 +41,12 @@ export const PROJECT_GALLERIES = [
     type: 'primary',
     id: 'interior',
     filter: 'interior',
-    title: 'ProposedInterior Design',
+    title: 'Proposed Interior Design',
     date: '',
     heading: 'Crafted For\nModern Living',
     subheading: 'Luxury From Within',
     description:
-      'Every room is designed around the way modern families live. Premium finishes, functional kitchens, and elegant bedrooms combine to create a home that is as practical as it is beautiful, making everyday living more comfortable, effortless, and enjoyable.',
+      'These 3D renders showcase the proposed interior design for Blissville Terraces, illustrating how premium finishes, functional kitchens, and elegant bedrooms could come together to create practical, beautiful spaces for modern living.',
     images: BVTInterior,
   },
 
@@ -59,7 +59,7 @@ export const PROJECT_GALLERIES = [
     heading: 'Wellness For\nEveryday Living',
     subheading: 'Resort-Inspired Experiences',
     description:
-      'A truly exceptional community supports every part of your lifestyle. Relax by the waterfront, spend time with family in beautifully landscaped parks, stay active in the wellness centre, enjoy the marina and retail destination, or simply unwind by the pool. Every amenity has been carefully planned to help residents live healthier, happier, and more connected lives.',
+      'A truly exceptional community supports every part of your lifestyle. Relax by the waterfront, spend time with family in beautifully landscaped parks, stay active in the wellness centre, or simply unwind by the pool. Every amenity has been carefully planned to help residents live healthier, happier, and more connected lives.',
     images: CLCWellness,
     reversed: true,
   },

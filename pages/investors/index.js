@@ -35,19 +35,20 @@ const LAST_UPDATED = 'August 1, 2026';
 const DEVELOPMENT_PROGRESS_DATA = {
   percentage: CURRENT_DEVELOPMENT_PERCENTAGE,
   lastUpdated: LAST_UPDATED,
-  currentStatusLabel: 'Construction (In Progress)',
+  currentStatusLabel: 'Carcass (In Progress)',
   images: [
     {
-      src: 'https://highrachy.s3.us-east-1.amazonaws.com/newsletter/q3/roof-beam.jpg',
-      description: 'Roof Beam and Canopies Formwork in progress for Building 1',
+      src: '/assets/img/investors/progress/reinforcement-installation-for-building-3.jpg',
+      description: 'Reinforcement Installation of Room Beam for Building 3.',
     },
     {
-      src: 'https://highrachy.s3.us-east-1.amazonaws.com/newsletter/q3/ground-beam-formwork.jpg',
-      description: 'Ground Beam Formwork Installation for Building 2',
+      src: '/assets/img/investors/progress/setting-out-and-alignment.jpg',
+      description:
+        'Setting out and alignment of LED profile within canopy reinforcement ',
     },
     {
-      src: 'https://highrachy.s3.us-east-1.amazonaws.com/newsletter/q3/ground-beam-rebar.jpg',
-      description: 'Ground beam Rebar Installation for Building 2',
+      src: '/assets/img/investors/progress/canopy-slab-concrete-casting-completed.jpg',
+      description: 'Canopy slab concrete casting completed',
     },
   ],
   phases: [
