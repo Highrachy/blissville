@@ -1230,6 +1230,126 @@
     color: #9ca3af !important;
   }
 
+  /* Internal realtor dashboard */
+  .internal-realtors-dashboard {
+    background: #111827 !important;
+
+    .internal-realtors-stat,
+    .internal-realtors-panel {
+      background: #192231 !important;
+      border-color: rgba($primary-300, 0.18) !important;
+      box-shadow: 0 12px 30px rgba($shades-black, 0.14);
+    }
+
+    .internal-realtors-stat {
+      color: #e8edf5 !important;
+
+      small {
+        color: #aebbd0 !important;
+      }
+
+      strong {
+        color: $shades-white !important;
+      }
+    }
+
+    .internal-realtors-stat--primary {
+      border-top-color: $primary-300 !important;
+    }
+
+    .internal-realtors-stat--secondary {
+      border-top-color: $secondary-300 !important;
+    }
+
+    .internal-realtors-stat--neutral {
+      border-top-color: #8190a5 !important;
+    }
+
+    .internal-realtors-stat__icon {
+      background: rgba($primary-300, 0.12) !important;
+      color: #a9bee2 !important;
+    }
+
+    .internal-realtors-stat--secondary .internal-realtors-stat__icon {
+      background: rgba($secondary-300, 0.1) !important;
+      color: $secondary-300 !important;
+    }
+
+    .internal-realtors-search {
+      .input-group-text,
+      .form-control {
+        background: #111925 !important;
+        border-color: rgba($primary-300, 0.2) !important;
+        color: #edf2f8 !important;
+      }
+
+      .input-group-text {
+        color: #91a5c5 !important;
+      }
+
+      .form-control::placeholder {
+        color: #7f8da1 !important;
+      }
+
+      .form-control:focus {
+        border-color: $primary-300 !important;
+        box-shadow: 0 0 0 0.2rem rgba($primary-300, 0.14) !important;
+      }
+    }
+
+    .internal-realtors-table {
+      --bs-table-bg: #192231;
+      --bs-table-hover-bg: rgba(105, 136, 191, 0.1);
+
+      th {
+        color: #c9d5e7 !important;
+      }
+    }
+
+    .internal-realtors-table__head {
+      background: #121b29 !important;
+    }
+
+    .internal-realtors-avatar {
+      background: rgba($primary-300, 0.16) !important;
+      color: #b8cbed !important;
+    }
+
+    .btn-outline-primary {
+      border-color: #7897cb;
+      color: #b8cbed;
+
+      &:hover,
+      &:focus {
+        background: #315c9f;
+        border-color: #315c9f;
+        color: $shades-white;
+      }
+    }
+  }
+
+  .internal-realtors-modal {
+    .modal-content {
+      background: #192231;
+      border: 1px solid rgba($primary-300, 0.2);
+      box-shadow: 0 24px 70px rgba($shades-black, 0.42);
+    }
+
+    .modal-header,
+    .modal-footer {
+      border-color: rgba($primary-300, 0.16);
+    }
+
+    .btn-close {
+      filter: invert(1) grayscale(100%) brightness(180%);
+    }
+
+    .internal-realtors-avatar {
+      background: rgba($primary-300, 0.16) !important;
+      color: #b8cbed !important;
+    }
+  }
+
   /* ── Payment Plan Card Dark Mode Optimization ──────────────────────────── */
   .payment-plan-card {
     background-color: var(

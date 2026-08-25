@@ -24,15 +24,24 @@ const nextConfig = {
       "default-src * 'unsafe-inline' 'unsafe-eval' data: blob: url:",
       "script-src * 'unsafe-inline' 'unsafe-eval' data: blob: url:",
       "style-src * 'unsafe-inline' data: blob:",
-      "img-src * data: blob: android-webview-video-poster:",
+      'img-src * data: blob: android-webview-video-poster:',
       "connect-src * 'unsafe-inline' 'unsafe-eval' data: blob:",
-      "frame-src * data: blob:",
-      "media-src * data: blob:",
-      "font-src * data: blob:",
+      'frame-src * data: blob:',
+      'media-src * data: blob:',
+      'font-src * data: blob:',
       "object-src 'none'",
     ].join('; ');
 
     return [
+      {
+        source: '/internal/:path*',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow, noarchive',
+          },
+        ],
+      },
       {
         source: '/(.*)',
         headers: [
