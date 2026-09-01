@@ -59,12 +59,6 @@ export const team = [
     description: '-',
   },
   {
-    name: 'Oluwatodimu Adeleke',
-    image: 'emmanuel.png',
-    title: 'Legal',
-    description: '-',
-  },
-  {
     name: 'Adesola Orekoya',
     image: 'adesola.png',
     title: 'Finance',
