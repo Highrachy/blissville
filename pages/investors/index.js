@@ -29,8 +29,8 @@ const CLARITY_EVENTS = {
 };
 
 // Monthly development progress percentage and last updated date
-const CURRENT_DEVELOPMENT_PERCENTAGE = 32;
-const LAST_UPDATED = 'August 1, 2026';
+const CURRENT_DEVELOPMENT_PERCENTAGE = 36;
+const LAST_UPDATED = 'September 1, 2026';
 
 const DEVELOPMENT_PROGRESS_DATA = {
   percentage: CURRENT_DEVELOPMENT_PERCENTAGE,
@@ -38,17 +38,18 @@ const DEVELOPMENT_PROGRESS_DATA = {
   currentStatusLabel: 'Carcass (In Progress)',
   images: [
     {
-      src: '/assets/img/investors/progress/reinforcement-installation-for-building-3.jpg',
-      description: 'Reinforcement Installation of Room Beam for Building 3.',
-    },
-    {
-      src: '/assets/img/investors/progress/setting-out-and-alignment.jpg',
+      src: '/assets/img/investors/progress/ongoing-visitor-wc-blockwork.jpg',
       description:
-        'Setting out and alignment of LED profile within canopy reinforcement ',
+        "Ongoing Visitor's WC blockwork on Unit CR-7, with block laying guided by a builder's line to ensure proper alignment and straightness.",
     },
     {
-      src: '/assets/img/investors/progress/canopy-slab-concrete-casting-completed.jpg',
-      description: 'Canopy slab concrete casting completed',
+      src: '/assets/img/investors/progress/1st-plumbing-installation.jpg',
+      description: '1st-fix plumbing installation works at Building 2',
+    },
+    {
+      src: '/assets/img/investors/progress/h-beam-installed-building-2.jpg',
+      description:
+        'H-beam installed along the beam side formwork to provide additional support and maintain formwork alignment prior to concrete casting',
     },
   ],
   phases: [
