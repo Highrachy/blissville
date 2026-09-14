@@ -43,8 +43,13 @@ export const team = [
     name: 'Evelyn Idiagi',
     image: 'evelyn.jpg',
     title: 'Architect',
-    description:
-      'The ingenious Haruna manages our ICT and research unit. With a bachelor of technology degree in Computer Science & Engineering and a diploma in Application development, he has constantly proven to be an integral part of such a solution oriented team.',
+    description: '-',
+  },
+  {
+    name: 'Sunday Ishola',
+    image: 'ishola.png',
+    title: 'Site Engineer',
+    description: '-',
   },
   {
     name: 'Adimchi Oraegbunam',
