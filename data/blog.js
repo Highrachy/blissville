@@ -7,11 +7,17 @@ export const BLOG_CATEGORIES = {
   ADVISORY: 'Advisory',
 };
 
-const DEFAULT_AUTHOR = {
+const OLUWATODIMU = {
   name: 'Oluwatodimu Adeleke',
   role: 'Author',
   avatar:
     'https://highrachy.s3.amazonaws.com/team/picture/0a9d3fd0-08c2-11ef-b90e-e51880c7684a.png',
+};
+
+const ADIMCHI = {
+  name: 'Adimchi Oraegbunam',
+  role: 'Author',
+  avatar: 'https://www.blissville.com.ng/assets/img/team/adimchi.png',
 };
 
 const BLOG_POSTS = [
@@ -25,7 +31,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.INVESTING,
     readTime: '5 min read',
     date: 'March 12, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 2,
@@ -37,7 +43,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.ADVISORY,
     readTime: '4 min read',
     date: 'March 15, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 3,
@@ -50,7 +56,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.ARCHITECTURE,
     readTime: '6 min read',
     date: 'April 02, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 4,
@@ -62,7 +68,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.MARKET_DATA,
     readTime: '3 min read',
     date: 'April 10, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 5,
@@ -74,7 +80,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.LIFESTYLE,
     readTime: '4 min read',
     date: 'April 18, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 6,
@@ -86,7 +92,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.INVESTING,
     readTime: '5 min read',
     date: 'April 25, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 7,
@@ -98,7 +104,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.MARKET_DATA,
     readTime: '5 min read',
     date: 'May 02, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 8,
@@ -111,7 +117,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.MARKET_DATA,
     readTime: '6 min read',
     date: 'May 10, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 9,
@@ -123,7 +129,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.INVESTING,
     readTime: '5 min read',
     date: 'June 18, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 10,
@@ -135,7 +141,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.MARKET_DATA,
     readTime: '6 min read',
     date: 'July 02, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 11,
@@ -147,7 +153,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.ARCHITECTURE,
     readTime: '4 min read',
     date: 'July 15, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 12,
@@ -159,7 +165,7 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.LIFESTYLE,
     readTime: '4 min read',
     date: 'July 22, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
   },
   {
     id: 13,
@@ -172,7 +178,20 @@ const BLOG_POSTS = [
     category: BLOG_CATEGORIES.INVESTING,
     readTime: '5 min read',
     date: 'August 13, 2026',
-    author: DEFAULT_AUTHOR,
+    author: OLUWATODIMU,
+  },
+  {
+    id: 14,
+    title:
+      "Your Dream Home Starts with a Blank Canvas: The Hidden Cost of Buying Someone Else's Dream Home",
+    excerpt:
+      'A finished home may not be your dream home. Discover how The Canvas at Blissville Terraces gives you the freedom to create a space designed around your life, preferences, and future.',
+    image: '/assets/img/blog/your-dream-home-blank-canvas.jpg',
+    slug: 'your-dream-home-starts-with-a-blank-canvas',
+    category: BLOG_CATEGORIES.LIFESTYLE,
+    readTime: '5 min read',
+    date: 'September 22, 2026',
+    author: ADIMCHI,
   },
 ];
 export default BLOG_POSTS;

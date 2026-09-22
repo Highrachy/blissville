@@ -20,14 +20,35 @@ import {
 } from 'react-icons/fa6';
 
 /**
+ * Extract the inner article body so the page can render its own hero/title
+ * without duplicating the article header from the source HTML file.
+ */
+function getArticleBody(html) {
+  if (!html) return '';
+
+  const bodyStart = html.indexOf('<div class="article-body"');
+  if (bodyStart === -1) return html;
+
+  const bodyContentStart = html.indexOf('>', bodyStart);
+  if (bodyContentStart === -1) return html;
+
+  const bodyEnd = html.lastIndexOf('</div>');
+  if (bodyEnd === -1 || bodyEnd <= bodyContentStart) return html;
+
+  return html.substring(bodyContentStart + 1, bodyEnd);
+}
+
+/**
  * Helper to split HTML content into two parts for mid-article image insertion.
  * Splits after the second paragraph, or the first paragraph, or the first heading.
  */
 function getSplitContent(html) {
   if (!html) return { intro: '', body: '' };
 
+  const articleBody = getArticleBody(html);
+
   const pRegex = /<\/p>/gi;
-  const pMatches = [...html.matchAll(pRegex)];
+  const pMatches = [...articleBody.matchAll(pRegex)];
 
   let splitIndex = 0;
 
@@ -37,17 +58,17 @@ function getSplitContent(html) {
     splitIndex = pMatches[0].index + 4;
   } else {
     const headingRegex = /<(h2|h3|h4)/gi;
-    const matches = [...html.matchAll(headingRegex)];
+    const matches = [...articleBody.matchAll(headingRegex)];
     if (matches.length > 0) {
       splitIndex = matches[0].index;
     } else {
-      splitIndex = html.length;
+      splitIndex = articleBody.length;
     }
   }
 
   return {
-    intro: html.substring(0, splitIndex),
-    body: html.substring(splitIndex),
+    intro: articleBody.substring(0, splitIndex),
+    body: articleBody.substring(splitIndex),
   };
 }
 
