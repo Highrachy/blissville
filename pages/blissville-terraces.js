@@ -25,6 +25,7 @@ import {
   statusIsSuccessful,
 } from '@/utils/helpers';
 import ProjectInterestModal from '@/components/common/ProjectInterestModal';
+import { getPackageDisplayName } from '@/data/packages';
 
 import {
   FaBath,
@@ -191,7 +192,7 @@ const HeroSection = ({ property }) => {
               property={property}
               paymentPlan={0}
               initialPayment={property?.price}
-              packageName={property?.packageName || 'Shell'}
+              packageName={getPackageDisplayName(property?.packageName)}
             />
 
             <Button

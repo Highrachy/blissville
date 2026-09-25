@@ -8,7 +8,11 @@ import { FeaturedProperties } from '@/components/layouts/FeaturedProperties';
 import { Dropdown, Modal } from 'react-bootstrap';
 import ProjectsSlideshow from '@/components/layouts/ProjectsSlideshow';
 import Humanize from 'humanize-plus';
-import { packages, PACKAGE_NAME } from '@/data/packages';
+import {
+  getPackageDisplayName,
+  packages,
+  PACKAGE_NAME,
+} from '@/data/packages';
 import Link from 'next/link';
 import PaymentPlanSlider from '@/components/common/PaymentPlanSlider';
 import { useRouter } from 'next/router';
@@ -204,7 +208,7 @@ export const PropertyInformation = ({ property, similarProperties }) => {
                   property={property}
                   paymentPlan={0}
                   initialPayment={property?.price}
-                  packageName={property?.packageName || 'Shell'}
+                  packageName={getPackageDisplayName(property?.packageName)}
                 />
               </aside>
             </div>

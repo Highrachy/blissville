@@ -18,9 +18,9 @@ export const projectSchema = {
   street2: optionalValidation(stringValidation('Street 2')),
   city: stringValidation('City'),
   state: stringValidation('State'),
-  features: customSelectValidation('Shell Features'),
-  standardFeatures: customSelectValidation('Standard Features'),
-  supremeFeatures: customSelectValidation('Supreme Features'),
+  features: customSelectValidation('The Canvas Features'),
+  standardFeatures: customSelectValidation('The Complete Features'),
+  supremeFeatures: customSelectValidation('The Prestige Features'),
   startingPrice: positiveNumberValidation('Starting Price'),
   paymentPlan: required('Payment Plan'),
   startDate: requiredDate('Start Date'),
@@ -46,9 +46,9 @@ export const propertySchema = {
   toilets: numberValidation('Toilets'),
   floors: customSelectValidation('Floors'),
   parkingSpace: numberValidation('Parking Space'),
-  price: positiveNumberValidation('Price'),
-  standardPrice: optionalValidation(numberValidation('Standard Price')),
-  supremePrice: optionalValidation(numberValidation('Supreme Price')),
+  price: positiveNumberValidation('The Canvas Price'),
+  standardPrice: optionalValidation(numberValidation('The Complete Price')),
+  supremePrice: optionalValidation(numberValidation('The Prestige Price')),
   paymentPlan: optionalValidation(numberValidation('Payment Plan')),
   paymentPlanIncrement: optionalValidation(
     numberValidation('Payment Plan Increment')
@@ -57,10 +57,10 @@ export const propertySchema = {
     positiveNumberValidation('Initial Payment Price')
   ),
   standardInitialPayment: optionalValidation(
-    numberValidation('Standard Initial Payment')
+    numberValidation('The Complete Initial Payment')
   ),
   supremeInitialPayment: optionalValidation(
-    numberValidation('Supreme Initial Payment')
+    numberValidation('The Prestige Initial Payment')
   ),
 };
 

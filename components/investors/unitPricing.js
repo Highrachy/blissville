@@ -94,12 +94,12 @@ export default function UnitPricing() {
                   {/* PRICING */}
                   <div className="unit-pricing">
                     <div>
-                      <small>Shell Price</small>
+                      <small>The Canvas Price</small>
                       <div className="price shell">{unit.shell}</div>
                     </div>
 
                     <div className="text-end">
-                      <small>Finished Price</small>
+                      <small>The Complete Price</small>
                       <div className="price finished">{unit.finished}</div>
                     </div>
                   </div>

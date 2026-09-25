@@ -19,6 +19,7 @@ import toast from 'react-hot-toast';
 import { FaCheckCircle } from 'react-icons/fa';
 import BuyNowButton from '../utils/BuyNowButton';
 import ShareButton from './ShareButton';
+import { getPackageDisplayName } from '@/data/packages';
 
 // ─────────────────────────────────────────────
 // SUCCESS COMPONENT
@@ -122,7 +123,7 @@ const StepOne = ({
         paymentPlan={0}
         initialPayment={property?.price}
         property={property}
-        packageName={property?.packageName || 'Shell'}
+        packageName={getPackageDisplayName(property?.packageName)}
       >
         Buy Now
       </BuyNowButton>

@@ -227,16 +227,16 @@ const PropertyFormFields = ({ isEdit, paymentPlan }) => (
         formGroupClassName="col-sm-6"
       />
     </div>
-    <InputFormat label="Price" name="price" prefix="" />
+    <InputFormat label="The Canvas Price" name="price" prefix="" />
     <div className="row">
       <InputFormat
-        label="Standard Price"
+        label="The Complete Price"
         name="standardPrice"
         prefix=""
         formGroupClassName="col-sm-6"
       />
       <InputFormat
-        label="Supreme Price"
+        label="The Prestige Price"
         name="supremePrice"
         prefix=""
         formGroupClassName="col-sm-6"
@@ -260,7 +260,7 @@ const PropertyFormFields = ({ isEdit, paymentPlan }) => (
         formGroupClassName="col-sm-6"
       />
       <InputFormat
-        label="Initial Payment (Shell)"
+        label="Initial Payment (The Canvas)"
         name="initialPayment"
         prefix=""
         formGroupClassName="col-sm-6"
@@ -268,13 +268,13 @@ const PropertyFormFields = ({ isEdit, paymentPlan }) => (
     </div>
     <div className="row">
       <InputFormat
-        label="Initial Payment (Standard)"
+        label="Initial Payment (The Complete)"
         name="standardInitialPayment"
         prefix=""
         formGroupClassName="col-sm-6"
       />
       <InputFormat
-        label="Initial Payment (Supreme)"
+        label="Initial Payment (The Prestige)"
         name="supremeInitialPayment"
         prefix=""
         formGroupClassName="col-sm-6"

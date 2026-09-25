@@ -75,9 +75,9 @@ export const filterProperties = {
   toilets: {},
   floors: {},
   parkingSpace: {},
-  price: { label: 'Shell Price' },
-  standardPrice: { label: 'Standard Price' },
-  supremePrice: { label: 'Supreme Price' },
+  price: { label: 'The Canvas Price' },
+  standardPrice: { label: 'The Complete Price' },
+  supremePrice: { label: 'The Prestige Price' },
   // status: {
   //   field: FILTER_FIELDS.SELECT,
   //   values: valuesToOptions(Object.values(TENANT_STATUS)),

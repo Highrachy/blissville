@@ -101,7 +101,7 @@ const InterestForm = ({
   paymentPlan = 12,
   initialPayment,
   property,
-  packageName = '*Shell',
+  packageName = '*The Canvas',
   user,
   unitType = '*Center',
   isFlexi = false,

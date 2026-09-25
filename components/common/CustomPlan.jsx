@@ -25,9 +25,9 @@ const PACKAGE_TYPES = {
 };
 
 const PACKAGE_LABELS = {
-  shell: 'Shell',
-  standard: 'Finished',
-  supreme: 'Grand',
+  shell: 'The Canvas',
+  standard: 'The Complete',
+  supreme: 'The Prestige',
 };
 
 const PACKAGE_INITIAL_PAYMENT = {
@@ -42,21 +42,21 @@ PACKAGE INFO
 
 const PACKAGE_INFO = {
   shell: {
-    title: 'Shell Package',
+    title: 'The Canvas Package',
     tagline:
-      'A structurally completed home within a fully serviced smart estate, allowing you to finish the interior to your personal taste.',
+      'A beautifully structured home, ready to become your own. Shape every interior detail around your taste while enjoying the comfort of a fully serviced smart estate.',
   },
 
   standard: {
-    title: 'Finished Package',
+    title: 'The Complete Package',
     tagline:
-      'A move-in ready home with interior finishing completed, including kitchen fittings, wardrobes, doors and electrical systems.',
+      'A thoughtfully finished, move-in-ready home with refined kitchens, wardrobes, doors and electrical systems already in place.',
   },
 
   supreme: {
-    title: 'Grand Package',
+    title: 'The Prestige Package',
     tagline:
-      'A premium smart home experience with advanced energy systems and luxury lifestyle upgrades.',
+      'Our signature expression of elevated living, pairing sophisticated finishes with advanced energy systems and exceptional lifestyle upgrades.',
   },
 };
 
@@ -424,10 +424,10 @@ const BlissvillePaymentPlans = ({ property }) => {
               >
                 <h5 className="fw-bold mb-1">
                   {pkg.title}
-                  {key === 'finished' && (
+                  {key === 'standard' && (
                     <span className="badge bg-primary ms-2">Most Popular</span>
                   )}
-                  {key === 'grand' && (
+                  {key === 'supreme' && (
                     <span className="badge bg-warning text-white ms-2">
                       Premium
                     </span>
@@ -496,7 +496,8 @@ const BlissvillePaymentPlans = ({ property }) => {
 
       {packageType === PACKAGE_TYPES.GRAND && (
         <p className="small text-muted mt-3 text-center">
-          Grand Package comes with flexible payment options tailored to you.
+          The Prestige Package comes with flexible payment options tailored to
+          you.
         </p>
       )}
     </section>

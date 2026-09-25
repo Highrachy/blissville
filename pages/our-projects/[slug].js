@@ -33,6 +33,7 @@ import CompactPropertyCard from '@/components/common/CompactPropertyCard';
 import BuyNowButton from '@/components/utils/BuyNowButton';
 import SeoHead from '@/components/utils/SeoHead';
 import FormTooltip from '@/components/forms/FormToolTip';
+import { getPackageDisplayName } from '@/data/packages';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const router = useRouter();
@@ -121,7 +122,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                 property={property}
                 paymentPlan={0}
                 initialPayment={property?.price}
-                packageName={property?.packageName || 'Shell'}
+                packageName={getPackageDisplayName(property?.packageName)}
               />
             </div>
             <ProjectHeaderSection
@@ -322,8 +323,8 @@ export const FeatureList = ({
                 pkg === PACKAGE.SHELL
                   ? 'Available in all packages'
                   : pkg === PACKAGE.STANDARD
-                    ? 'Available in Finished and Grand Packages'
-                    : 'Available in Grand Package only'
+                    ? 'Available with The Complete or The Prestige'
+                    : 'Exclusive to The Prestige'
               }
               position="top"
             />

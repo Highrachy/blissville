@@ -38,7 +38,7 @@ const ComparePackages = ({ project }) => {
   const columns = [
     {
       key: 'shell',
-      label: 'Shell',
+      label: 'The Canvas',
       icon: ShellPackageIcon,
       features: shellArr,
     },
@@ -46,7 +46,7 @@ const ComparePackages = ({ project }) => {
       ? [
           {
             key: 'standard',
-            label: 'Standard',
+            label: 'The Complete',
             icon: StandardPackageIcon,
             features: standardArr,
           },
@@ -56,7 +56,7 @@ const ComparePackages = ({ project }) => {
       ? [
           {
             key: 'supreme',
-            label: 'Supreme',
+            label: 'The Prestige',
             icon: SupremePackageIcon,
             features: supremeArr,
           },

@@ -172,23 +172,23 @@ const ProjectForm = ({
         </div>
         <CustomSelect
           name="features"
-          label="Features"
+          label="The Canvas Features"
           options={valuesToOptions(featuresArray)}
-          blankOption="Select Shell features"
+          blankOption="Select The Canvas features"
           isMulti
         />
         <CustomSelect
           name="standardFeatures"
-          label="Standard Features"
+          label="The Complete Features"
           options={valuesToOptions(featuresArray)}
-          blankOption="Select Standard features"
+          blankOption="Select The Complete features"
           isMulti
         />
         <CustomSelect
           name="supremeFeatures"
-          label="Supreme Features"
+          label="The Prestige Features"
           options={valuesToOptions(featuresArray)}
-          blankOption="Select Supreme features"
+          blankOption="Select The Prestige features"
           isMulti
         />
         <Select
