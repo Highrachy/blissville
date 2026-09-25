@@ -154,7 +154,10 @@ const PaymentCard = ({ plan, property, hideDetails, unitType }) => {
       </div>
 
       <div className="d-flex align-items-baseline">
-        <span className={`display-6 display-plan-price fw-bold plan-price-${plan.name.toLowerCase().split(' ')[0]}`} style={{ color: plan.colorDark }}>
+        <span
+          className={`display-6 display-plan-price fw-bold plan-price-${plan.name.toLowerCase().split(' ')[0]}`}
+          style={{ color: plan.colorDark }}
+        >
           {priceTag}
         </span>
       </div>
@@ -422,17 +425,7 @@ const BlissvillePaymentPlans = ({ property }) => {
                   setShowFeatureModal(true);
                 }}
               >
-                <h5 className="fw-bold mb-1">
-                  {pkg.title}
-                  {key === 'standard' && (
-                    <span className="badge bg-primary ms-2">Most Popular</span>
-                  )}
-                  {key === 'supreme' && (
-                    <span className="badge bg-warning text-white ms-2">
-                      Premium
-                    </span>
-                  )}
-                </h5>
+                <h5 className="fw-bold mb-1">{pkg.title}</h5>
                 <p className="text-muted small mb-2">{pkg.tagline}</p>
 
                 <p className="fw-semibold text-primary small mb-0">

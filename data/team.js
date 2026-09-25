@@ -46,6 +46,12 @@ export const team = [
     description: '-',
   },
   {
+    name: 'Elu-ojor Okoka',
+    image: 'tomiwa.jpg',
+    title: 'Legal',
+    description: '-',
+  },
+  {
     name: 'Sunday Ishola',
     image: 'ishola.png',
     title: 'Site Engineer',
