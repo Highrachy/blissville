@@ -11,4 +11,5 @@ export const allClients = [
   'esa',
   'schmid',
   'voltronic',
+  'leadway',
 ];
