@@ -34,9 +34,22 @@ import BuyNowButton from '@/components/utils/BuyNowButton';
 import SeoHead from '@/components/utils/SeoHead';
 import FormTooltip from '@/components/forms/FormToolTip';
 import { getPackageDisplayName } from '@/data/packages';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 export default function SingleProjectPage({ project, featuredProperties }) {
   const router = useRouter();
+
+  React.useEffect(() => {
+    if (project?.name) {
+      trackMetaEvent('ViewContent', {
+        content_name: project.name,
+        content_type: 'project',
+        value: project.startingPrice || undefined,
+        currency: 'NGN',
+      });
+    }
+  }, [project?.name, project?.startingPrice]);
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }

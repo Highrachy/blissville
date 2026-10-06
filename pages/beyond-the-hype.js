@@ -21,6 +21,7 @@ import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 export const CLARITY_EVENTS = {
   // Page
@@ -391,6 +392,11 @@ export const ClarityFormSection = ({
       if (typeof window !== 'undefined' && window.clarity) {
         window.clarity('event', CLARITY_EVENTS.BTH_GUIDE_DOWNLOAD);
       }
+
+      trackMetaEvent('Lead', {
+        content_name: 'Beyond the Hype Guide Download',
+        content_category: projectName || 'Investment Guide',
+      });
 
       toast.success('Your download is starting... Please check your device.');
       setSent(true);

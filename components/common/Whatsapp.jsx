@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useChatMessage } from 'context/chat';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 export const SALES_CONTACTS = [
   { number: '2349055555146', label: 'Sales Advisor' },
@@ -30,7 +31,11 @@ const FloatingChatButton = () => {
 
   if (!isVisible) return null;
 
-  const handleContactClick = (number) => {
+  const handleContactClick = (number, label) => {
+    trackMetaEvent('Contact', {
+      content_name: 'WhatsApp',
+      recipient: label || number,
+    });
     window.open(
       `https://wa.me/${number}?text=${encodeURIComponent(message)}`,
       '_blank'
@@ -60,7 +65,7 @@ const FloatingChatButton = () => {
               <button
                 key={contact.number}
                 className="chat-option-btn d-flex align-items-center w-100 border-0 px-3"
-                onClick={() => handleContactClick(contact.number)}
+                onClick={() => handleContactClick(contact.number, contact.label)}
               >
                 <FaWhatsapp className="me-3 text-success" size={22} />
                 <div>

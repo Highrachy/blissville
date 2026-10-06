@@ -15,6 +15,7 @@ import Script from 'next/script';
 import { ChatMessageProvider } from 'context/chat';
 import FloatingChatButton from '@/components/common/Whatsapp';
 import { Toaster } from 'react-hot-toast';
+import MetaPixel from '@/components/MetaPixel';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }) {
       <UserProvider>
         <Toaster />
       <ChatMessageProvider>
+        <MetaPixel />
         <XmasFall />
         <ToastContainer autoClose={10000} transition={Slide} theme="colored" />
         <NextNProgress color="#1f4e9f" />

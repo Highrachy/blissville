@@ -24,6 +24,7 @@ import {
   PAYMENT_SOURCE_NAME,
   PHONE_NUMBER,
 } from '@/utils/constants';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 const Invoice = () => {
   const { query } = useRouter();
@@ -40,6 +41,15 @@ const Invoice = () => {
 
           if (statusIsSuccessful(status)) {
             setTransaction(data);
+            if (data?.transaction?.receiptNo) {
+              trackMetaEvent('Purchase', {
+                value: data.transaction.amount || undefined,
+                currency: 'NGN',
+                content_name: data.property?.name || 'Property Payment',
+                content_type: 'property',
+                transaction_id: data.transaction.receiptNo || reference,
+              });
+            }
           }
         })
         .catch(function (error) {

@@ -20,6 +20,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import BuyNowButton from '../utils/BuyNowButton';
 import ShareButton from './ShareButton';
 import { getPackageDisplayName } from '@/data/packages';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 // ─────────────────────────────────────────────
 // SUCCESS COMPONENT
@@ -143,6 +144,10 @@ const StepOne = ({
 
 function ContactOptions({ propertyName, onBack }) {
   const handleContactClick = (number, type) => {
+    trackMetaEvent('Contact', {
+      content_name: type === 'whatsapp' ? 'WhatsApp' : 'Phone Call',
+      property: propertyName,
+    });
     const cleanNumber = number.replace(/\s+/g, '');
     const message = `Hello, I'm interested in the property: ${propertyName}`;
     const url =
@@ -255,6 +260,10 @@ const MessageForm = ({
               reference: ref,
             },
           });
+          trackMetaEvent('Lead', {
+            content_name: 'Property Enquiry',
+            content_category: propertyName,
+          });
           setAlert({
             type: 'success',
             msg: "Message sent! We'll be in touch.",
@@ -330,6 +339,10 @@ const ScheduleVisitForm = ({ propertyName, onBack, setView }) => {
           if (response.status < 200 || response.status >= 300) {
             toast.error('Failed to schedule visit');
           }
+          trackMetaEvent('Lead', {
+            content_name: 'Schedule a Visit',
+            content_category: propertyName,
+          });
           setAlert({ type: 'success', msg: 'Visit scheduled successfully.' });
           setView('success-schedule');
           toast.success('Visit scheduled successfully.');

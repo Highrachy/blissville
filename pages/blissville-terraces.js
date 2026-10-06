@@ -26,6 +26,7 @@ import {
 } from '@/utils/helpers';
 import ProjectInterestModal from '@/components/common/ProjectInterestModal';
 import { getPackageDisplayName } from '@/data/packages';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 import {
   FaBath,
@@ -479,6 +480,10 @@ const ExclusiveGuide = ({ projectName = 'Blissville Terraces' }) => {
       );
 
       if (statusIsSuccessful(response.status)) {
+        trackMetaEvent('Lead', {
+          content_name: 'Blissville Terraces Guide Download',
+          content_category: projectName || 'Investment Guide',
+        });
         toast.success('Preparing your guide...');
         setSent(true);
 

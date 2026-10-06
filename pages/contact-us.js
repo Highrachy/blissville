@@ -24,6 +24,7 @@ import { getTokenFromStore } from '@/utils/localStorage';
 import { getError, statusIsSuccessful } from '@/utils/helpers';
 import FormikButton from '@/components/forms/FormikButton';
 import SeoHead from '@/components/utils/SeoHead';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 const ContactUs = () => {
   return (
@@ -222,6 +223,9 @@ const ContactForm = () => {
         .then(function (response) {
           const { status } = response;
           if (statusIsSuccessful(status)) {
+            trackMetaEvent('Lead', {
+              content_name: 'Contact Form',
+            });
             toast.success('Information sent successfully');
             actions.resetForm();
             actions.setSubmitting(false);

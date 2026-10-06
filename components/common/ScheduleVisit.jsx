@@ -18,6 +18,7 @@ import FormikModalButton from '../utils/FormikModalButton';
 import Parallax from './Parallax';
 import Section from './Section';
 import Select from '../forms/Select';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 const ScheduleVisit = () => (
   <Parallax bgImage="/assets/img/bg/schedule-a-visit.jpg" isDark={false}>
@@ -103,6 +104,10 @@ export const ScheduleVisitationButton = ({
         .then(function (response) {
           const { status } = response;
           if (statusIsSuccessful(status)) {
+            trackMetaEvent('Lead', {
+              content_name: 'Schedule a Visit',
+              content_category: visiting || 'General Visitation',
+            });
             toast.success('Visitation has been successfully scheduled');
             actions.resetForm({});
             actions.setSubmitting(false);

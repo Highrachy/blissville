@@ -3,6 +3,7 @@ import { KeyIcon, PhoneIcon } from '@/components/Icons/Icons';
 import ActionButton from '@/components/common/ActionButton';
 import { getPrice } from '@/utils/helpers';
 import { PHONE_NUMBER, PHONE_NUMBER_ALT } from '@/utils/constants';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 const ActionButtonGroup = ({
   price = 25_000_000,
@@ -26,6 +27,11 @@ const ActionButtonGroup = ({
           useAltPhone ? PHONE_NUMBER_ALT.OFFICIAL : PHONE_NUMBER.OFFICIAL
         }
         href={useAltPhone ? PHONE_NUMBER_ALT.HREF : PHONE_NUMBER.HREF}
+        onClick={() => {
+          trackMetaEvent('Contact', {
+            content_name: 'Phone Call',
+          });
+        }}
       />
     </div>
   );

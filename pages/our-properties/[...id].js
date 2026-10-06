@@ -49,6 +49,7 @@ import { ProjectInfoItem } from '@/components/common/ProjectHeaderSection';
 import CustomPlan from '@/components/common/CustomPlan';
 import CustomPlanReview from '@/components/common/CustomPlan2';
 import SeoHead from '@/components/utils/SeoHead';
+import { trackMetaEvent } from '@/utils/metaPixel';
 
 export default function SinglePropertyPage({
   property,
@@ -61,20 +62,32 @@ export default function SinglePropertyPage({
 
   const isReviewMode = 'review' in router.query;
 
+  const project = property?.project?.data?.attributes;
+  const projectName = project?.name || 'Blissville Project';
+
+  React.useEffect(() => {
+    if (property?.name) {
+      trackMetaEvent('ViewContent', {
+        content_name: property.name,
+        content_type: 'property',
+        content_category: projectName,
+        value: property?.price || undefined,
+        currency: 'NGN',
+      });
+    }
+  }, [property?.name, property?.price, projectName]);
+
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
-  const project = property?.project?.data?.attributes;
   const faqs = project?.faqs?.data || [];
   const allFaqs = faqs?.map(({ attributes: { question, answer } }) => ({
     question,
     answer,
   }));
-
-  const projectName = project?.name || 'Blissville Project';
   const location =
     project?.city && project?.state
       ? `${project.city}, ${project.state}`
