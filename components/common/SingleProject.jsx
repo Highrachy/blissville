@@ -43,7 +43,9 @@ const SingleProject = ({ type = 1 }) => {
                 </span>
               </li>
               <li>
-                <span className="list-dotted__label">Delivery </span>
+                <span className="list-dotted__label">
+                  {type === '1' ? 'Delivered ' : 'Proposed Delivery '}
+                </span>
                 <span className="list-dotted__value">
                   {type === '1' ? 'April, 2022' : 'July, 2024'}
                 </span>

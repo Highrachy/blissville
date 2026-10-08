@@ -19,7 +19,11 @@ import {
 } from '@/utils/helpers';
 import { getShortDate } from '@/utils/date-helpers';
 import axios from 'axios';
-import { PROJECT_STATUS_NAME, PROPERTY_STATUS } from '@/utils/constants';
+import {
+  PROJECT_STATUS,
+  PROJECT_STATUS_NAME,
+  PROPERTY_STATUS,
+} from '@/utils/constants';
 import ProjectInterestModal, {
   ProjectInterestContent,
 } from '@/components/common/ProjectInterestModal';
@@ -68,6 +72,13 @@ export default function SingleProjectPage({ project, featuredProperties }) {
     googleMapLatLng,
     videoURL,
   } = project || {};
+
+  const isCompleted =
+    status === PROJECT_STATUS.COMPLETED ||
+    status === 4 ||
+    status === '4' ||
+    PROJECT_STATUS_NAME[status]?.toLowerCase() === 'completed' ||
+    status?.toString().toLowerCase() === 'completed';
 
   const faqs = project?.faqs?.data || [];
   const allFaqs =
@@ -174,7 +185,7 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                     </span>
                   </li>
                   <li>
-                    <span className="list-dotted__label">Title </span>
+                    <span className="list-dotted__label">Land Title </span>
                     <span className="list-dotted__value">
                       Certificate of Occupancy (C of O)
                     </span>
@@ -186,7 +197,9 @@ export default function SingleProjectPage({ project, featuredProperties }) {
                     </span>
                   </li>
                   <li>
-                    <span className="list-dotted__label">Delivery </span>
+                    <span className="list-dotted__label">
+                      {isCompleted ? 'Delivered' : 'Proposed Delivery'}{' '}
+                    </span>
                     <span className="list-dotted__value">
                       {getShortDate(delivery)}
                     </span>

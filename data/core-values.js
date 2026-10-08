@@ -12,7 +12,7 @@ export const coreValues = [
     titleColor: '#3468BE', // Strong readable blue
     watermark: 'Q',
     title: 'Quality',
-    text: 'Premium construction materials, superior finishes, and world-class building standards deliver durable, lasting homes and a secure investment.',
+    text: 'Premium construction materials, superior finishes, and world-class building standards deliver durable, lasting homes and strong long-term value potential.',
   },
   {
     icon: HeartAdd,
@@ -20,7 +20,7 @@ export const coreValues = [
     titleColor: '#3DA882', // Deep teal
     watermark: 'W',
     title: 'Wellness',
-    text: 'Design focused on a healthier lifestyle, featuring ample green spaces and serene environments that support physical and mental well-being.',
+    text: 'Thoughtfully designed spaces, ample green areas and serene surroundings that promote comfort, relaxation and a healthier lifestyle.',
   },
   {
     icon: LampCharge,

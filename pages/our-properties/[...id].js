@@ -31,7 +31,11 @@ import {
 } from 'pages/our-projects/[slug]';
 import axios from 'axios';
 import BuyNowButton from '@/components/utils/BuyNowButton';
-import { PROJECT_STATUS, PROPERTY_STATUS } from '@/utils/constants';
+import {
+  PROJECT_STATUS,
+  PROJECT_STATUS_NAME,
+  PROPERTY_STATUS,
+} from '@/utils/constants';
 import ShareButton from '@/components/common/ShareButton';
 import PropertyImageGallery from '@/components/common/PropertyImageGallery';
 import OverviewCard from '@/components/common/OverviewCard';
@@ -744,6 +748,12 @@ export function ProjectOverviewDetails({ property, project }) {
   const [showAll, setShowAll] = React.useState(false);
 
   const isSoldOut = property?.availableUnits === 0;
+  const isCompleted =
+    project?.status === PROJECT_STATUS.COMPLETED ||
+    project?.status === 4 ||
+    project?.status === '4' ||
+    PROJECT_STATUS_NAME[project?.status]?.toLowerCase() === 'completed' ||
+    project?.status?.toString().toLowerCase() === 'completed';
 
   const details = [
     {
@@ -755,7 +765,7 @@ export function ProjectOverviewDetails({ property, project }) {
       value: getLocationFromAddress(project),
     },
     {
-      label: 'Title',
+      label: 'Land Title',
       value: 'Certificate of Occupancy (C of O)',
     },
     {
@@ -794,7 +804,7 @@ export function ProjectOverviewDetails({ property, project }) {
           : null,
     },
     {
-      label: 'Expected Completion',
+      label: isCompleted ? 'Delivered' : 'Proposed Delivery',
       value: getShortDate(project?.delivery),
     },
     {

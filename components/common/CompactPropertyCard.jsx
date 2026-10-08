@@ -49,7 +49,7 @@ export const CompactPropertyCard = ({ id, attributes, projectSlug }) => {
               <div className="d-flex flex-wrap text-muted small">
                 <div className="d-flex align-items-center me-3 mb-2">
                   <FaVectorSquare className="me-2" />
-                  {size} Msq
+                  {size} sqm
                 </div>
                 <div className="d-flex align-items-center me-3 mb-2">
                   <FaBed className="me-2" />

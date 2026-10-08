@@ -7,6 +7,7 @@ import { trackMetaEvent } from '@/utils/metaPixel';
 
 const ActionButtonGroup = ({
   price = 25_000_000,
+  topText = 'Initial Deposit From',
   href = '/our-projects/blissville-terraces',
   useAltPhone = false,
 }) => {
@@ -15,7 +16,7 @@ const ActionButtonGroup = ({
       <ActionButton
         color="primary"
         Icon={<KeyIcon />}
-        topText="Prices From"
+        topText={topText}
         bottomText={getPrice(price)}
         href={href}
       />

@@ -51,7 +51,7 @@ const SingleProperty = ({ id, attributes }) => {
             <div className="property-amenities d-flex align-items-center gap-3 mb-3">
               <div className="amenity-item">
                 <SizeIcon />
-                <span className="amenity-text">{size} Msq</span>
+                <span className="amenity-text">{size} sqm</span>
               </div>
               <span className="dot-separator">•</span>
               <div className="amenity-item">

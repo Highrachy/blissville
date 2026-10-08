@@ -1,4 +1,4 @@
-import { PROJECT_STATUS_NAME } from '@/utils/constants';
+import { PROJECT_STATUS, PROJECT_STATUS_NAME } from '@/utils/constants';
 import Image from 'next/image';
 import {
   FaCamera,
@@ -24,6 +24,12 @@ export default function ProjectHeaderSection({
   hasVideo = false,
   hasLocationMap = false,
 }) {
+  const isCompleted =
+    status === PROJECT_STATUS.COMPLETED ||
+    status === 4 ||
+    status === '4' ||
+    PROJECT_STATUS_NAME[status]?.toLowerCase() === 'completed' ||
+    status?.toString().toLowerCase() === 'completed';
   return (
     <section className="project-header-section position-relative">
       {/* Image Banner */}
@@ -99,7 +105,7 @@ export default function ProjectHeaderSection({
           />
           <ProjectInfoItem
             icon={<FaRegCalendarAlt size={18} />}
-            label="Proposed Delivery"
+            label={isCompleted ? 'Delivered' : 'Proposed Delivery'}
             value={delivery || '-'}
             className="info-item"
           />

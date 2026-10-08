@@ -187,7 +187,7 @@ const PropertyFormFields = ({ isEdit, paymentPlan }) => (
         label="Size"
         name="size"
         prefix=""
-        suffix="msq"
+        suffix=" sqm"
         formGroupClassName="col-sm-6"
       />
       <InputFormat

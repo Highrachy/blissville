@@ -225,8 +225,8 @@ const ComparePropertiesSection = ({
                 />
                 <CompareTableRow
                   title="Size"
-                  value1={`${property.size} Msq`}
-                  value2={`${property2.size} Msq`}
+                  value1={`${property.size} sqm`}
+                  value2={`${property2.size} sqm`}
                 />
                 <CompareTableRow
                   title="Floor"

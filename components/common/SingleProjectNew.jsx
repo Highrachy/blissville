@@ -1,4 +1,4 @@
-import { PROJECT_STATUS_NAME } from '@/utils/constants';
+import { PROJECT_STATUS, PROJECT_STATUS_NAME } from '@/utils/constants';
 import { getShortDate } from '@/utils/date-helpers';
 import { getPrice } from '@/utils/helpers';
 import Image from 'next/image';
@@ -34,6 +34,11 @@ const SingleProject = ({ id, attributes }) => {
   const totalUnits = slug === 'blissville-apartments' ? 12 : 14;
   const statusLabel = PROJECT_STATUS_NAME[status] || status;
   const dotColor = getStatusIndicatorColor(status);
+  const isCompleted =
+    status === PROJECT_STATUS.COMPLETED ||
+    status === 4 ||
+    status === '4' ||
+    statusLabel?.toString().toLowerCase() === 'completed';
   // const totalPrice = attributes.totalPrice || attributes.maxPrice || startingPrice * 2.5; // fallback for display demo
 
   return (
@@ -140,13 +145,15 @@ const SingleProject = ({ id, attributes }) => {
                 </span>
               </li>
               <li>
-                <span className="ppc-info-label">Title </span>
+                <span className="ppc-info-label">Land Title </span>
                 <span className="ppc-info-value fw-bold">
                   Certificate of Occupancy (C of O)
                 </span>
               </li>
               <li>
-                <span className="ppc-info-label">Delivery</span>
+                <span className="ppc-info-label">
+                  {isCompleted ? 'Delivered' : 'Proposed Delivery'}
+                </span>
                 <span className="ppc-info-value">{getShortDate(delivery)}</span>
               </li>
             </ul>
