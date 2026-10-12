@@ -47,7 +47,7 @@ export const team = [
   },
   {
     name: 'Elu-ojor Okoka',
-    image: 'tomiwa.jpg',
+    image: 'tomiwa.png',
     title: 'Legal',
     description: '-',
   },
@@ -60,12 +60,6 @@ export const team = [
   {
     name: 'Adimchi Oraegbunam',
     image: 'adimchi.png',
-    title: 'Sales',
-    description: '-',
-  },
-  {
-    name: 'Onyinyechi Oti',
-    image: 'onyinyechi.png',
     title: 'Sales',
     description: '-',
   },
