@@ -29,10 +29,10 @@ const CLARITY_EVENTS = {
 };
 
 // Monthly development progress percentage and last updated date
-const CURRENT_DEVELOPMENT_PERCENTAGE = 36;
-const LAST_UPDATED = 'September 1, 2026';
+export const CURRENT_DEVELOPMENT_PERCENTAGE = 36;
+export const LAST_UPDATED = 'September 1, 2026';
 
-const DEVELOPMENT_PROGRESS_DATA = {
+export const DEVELOPMENT_PROGRESS_DATA = {
   percentage: CURRENT_DEVELOPMENT_PERCENTAGE,
   lastUpdated: LAST_UPDATED,
   currentStatusLabel: 'Carcass (In Progress)',

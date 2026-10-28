@@ -24,15 +24,29 @@ const Footer = () => (
             <div className="col-md-5 offset-md-1 col-sm-6 col-6">
               <h6 className="text-white pb-2">Quick Links</h6>
               <ul className="text-dark-light list-unstyled row">
-                {footerLinks.map(({ title, url }) => (
-                  <li key={title} className="col-sm-6 pb-2">
-                    <Link href={url} passHref>
-                      <a className="text-reset text-decoration-none small">
-                        {title}
-                      </a>
-                    </Link>
-                  </li>
-                ))}
+                {footerLinks.map(({ title, url }) => {
+                  const isExternal = url.startsWith('http');
+                  return (
+                    <li key={title} className="col-sm-6 pb-2">
+                      {isExternal ? (
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-reset text-decoration-none small"
+                        >
+                          {title}
+                        </a>
+                      ) : (
+                        <Link href={url} passHref>
+                          <a className="text-reset text-decoration-none small">
+                            {title}
+                          </a>
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
             <div className="col-md-3 col-sm-12">

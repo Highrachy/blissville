@@ -22,7 +22,11 @@ const normalizeHref = (path = '') => {
   return `/${path.replace(/^\/+/, '').replace(/\/+/g, '/')}`;
 };
 
-const Navigation = ({ parentPage, navigation: navData = navigation }) => {
+const Navigation = ({
+  parentPage,
+  navigation: navData = navigation,
+  collapseOnSelect = false,
+}) => {
   const userContext = useContext(UserContext);
   const { loginUser = () => {}, user = null } = userContext || {};
   const [scrolled, setScrolled] = useState(false);
@@ -106,6 +110,10 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
                 {title}
               </Nav.Link>
             </ActiveLink>
+          ) : url.includes('#') && collapseOnSelect ? (
+            <Nav.Link href={url} eventKey={url} className="nav-url">
+              {title}
+            </Nav.Link>
           ) : url.includes('#') ? (
             <a href={url} key={index} className="nav-url nav-link">
               {title}
@@ -127,6 +135,7 @@ const Navigation = ({ parentPage, navigation: navData = navigation }) => {
       <header className={`header-wrapper ${scrolled ? 'header-scrolled' : ''}`}>
         <Navbar
           expand="lg"
+          collapseOnSelect={collapseOnSelect}
           className={`navbar-main show ${scrolled ? 'navbar-scrolled' : ''}`}
         >
           <Container>

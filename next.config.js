@@ -5,6 +5,8 @@ const nextConfig = {
     domains: [
       'blissville-staging.s3.amazonaws.com',
       'blissville-staging.s3.us-east-1.amazonaws.com',
+      'highrachy.s3.amazonaws.com',
+      'highrachy.s3.us-east-1.amazonaws.com',
     ],
   },
   optimizeFonts: false,

@@ -10,6 +10,7 @@ export const projects = {
   children: {
     '/our-properties/blissville-terraces/4-bedroom-waterview-terrace-duplex':
       'Blissville Terraces',
+    '/diaspora': 'Diaspora Advisory',
     '/our-projects/blissville-apartments': 'Blissville Apartments',
     // 'our-projects': 'View All Projects',
     // 'our-properties': 'View All  Properties',

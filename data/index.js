@@ -44,6 +44,10 @@ export const footerLinks = [
     url: '/our-projects/blissville-terraces',
   },
   {
+    title: 'Diaspora Advisory',
+    url: '/diaspora',
+  },
+  {
     title: 'Blissville Apartments',
     url: '/our-projects/blissville-apartments',
   },
@@ -62,6 +66,10 @@ export const footerLinks = [
   {
     title: 'Past Projects',
     url: '/past-projects',
+  },
+  {
+    title: 'Subscribe to Newsletter',
+    url: '/newsletter/subscribe',
   },
   {
     title: 'Login',

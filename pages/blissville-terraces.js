@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import ReactPlayer from 'react-player';
-import { toast } from 'react-toastify';
 
 import { PROJECT_STATUS } from '@/utils/constants';
 import Navigation from '@/components/layouts/Navigation';
@@ -19,15 +18,9 @@ import ScheduleVisit from '@/components/common/ScheduleVisit';
 import Footer from '@/components/common/Footer';
 import Section from '@/components/common/Section';
 import Button from '@/components/forms/Button';
-import {
-  getError,
-  moneyFormatInNaira,
-  statusIsSuccessful,
-} from '@/utils/helpers';
+import { moneyFormatInNaira } from '@/utils/helpers';
 import ProjectInterestModal from '@/components/common/ProjectInterestModal';
 import { getPackageDisplayName } from '@/data/packages';
-import { trackMetaEvent } from '@/utils/metaPixel';
-
 import {
   FaBath,
   FaBatteryFull,
@@ -36,7 +29,6 @@ import {
   FaCartShopping,
   FaCertificate,
   FaCopy,
-  FaDownload,
   FaDroplet,
   FaDumbbell,
   FaFilePdf,
@@ -62,7 +54,7 @@ import {
 import { ImQuotesRight } from 'react-icons/im';
 import faqs from '@/data/faqs';
 import SeoHead from '@/components/utils/SeoHead';
-import { FaCheckCircle, FaSpinner } from 'react-icons/fa';
+
 import Link from 'next/link';
 
 const AMENITY_ITEMS = [
@@ -454,158 +446,6 @@ const ReviewsSection = () => {
   );
 };
 
-const ExclusiveGuide = ({ projectName = 'Blissville Terraces' }) => {
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', phone: '' });
-  const [loading, setLoading] = useState(false);
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
- 
-    const payload = {
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      subject: 'Exclusive Guide Download',
-      message: `User downloaded the exclusive guide for ${projectName}`,
-      source: 'Exclusive Guide',
-      reference: projectName,
-    };
-
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/contacts`,
-        { data: payload },
-      );
-
-      if (statusIsSuccessful(response.status)) {
-        trackMetaEvent('Lead', {
-          content_name: 'Blissville Terraces Guide Download',
-          content_category: projectName || 'Investment Guide',
-        });
-        toast.success('Preparing your guide...');
-        setSent(true);
-
-        const link = document.createElement('a');
-        link.href = '/docs/beyond-the-hype.pdf';
-        link.download = 'Blissville-Exclusive-Guide.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    } catch (error) {
-      toast.error(getError(error));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <Section altBg2>
-      <div className="container">
-        <div className="row align-items-center gy-4" id="exclusive-guide">
-          <div className="col-lg-6">
-            <h2 className="fw-bold text-dark-800 mb-4">
-              Get the Free Guide: <br /> Beyond the Hype of Modern Housing
-            </h2>
-            <p className="text-muted lh-lg">
-              This isn’t just another brochure. It’s your{' '}
-              <strong>free insider’s guide</strong> to {projectName}, revealing
-              market insights, neighborhood advantages, lifestyle highlights,
-              and the smarter way to secure your future home.
-            </p>
-
-            {!sent ? (
-              <form onSubmit={onSubmit} className="row g-3">
-                <div className="col-12 col-md-6">
-                  <input
-                    className="form-control"
-                    placeholder="Full Name"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  />
-                </div>
-                <div className="col-12 col-md-6">
-                  <input
-                    type="email"
-                    className="form-control"
-                    placeholder="Email Address"
-                    required
-                    value={form.email}
-                    onChange={(e) =>
-                      setForm({ ...form, email: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="col-12 col-md-6">
-                  <input
-                    className="form-control"
-                    placeholder="Phone Number"
-                    required
-                    value={form.phone}
-                    onChange={(e) =>
-                      setForm({ ...form, phone: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="col-12 col-md-6 d-grid">
-                  <button
-                    className="btn btn-primary text-white text-sm"
-                    type="submit"
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      <>
-                        <span className="spinner-border spinner-border-sm me-2" />{' '}
-                        Preparing...
-                      </>
-                    ) : (
-                      <>
-                        <FaFilePdf className="ms-2" /> Download Free Guide
-                      </>
-                    )}
-                  </button>
-                </div>
-                <div className="col-12">
-                  <div className="form-text">
-                    We respect your privacy. By submitting, you agree to be
-                    contacted if we can support you further.
-                  </div>
-                </div>
-              </form>
-            ) : (
-              <div
-                className="alert alert-success d-flex align-items-center"
-                role="alert"
-              >
-                <FaCheckCircle className="me-2" /> Thanks! Your free guide is
-                downloading now.
-              </div>
-            )}
-          </div>
-
-          <div className="col-lg-6">
-            <div className="border rounded-4 p-4 h-100 bg-body-tertiary">
-              <h3 className="fw-bold h5">Inside the Free Guide:</h3>
-              <ul className="mb-0">
-                <li>
-                  Why Blissville Terraces is more than just another property
-                </li>
-                <li>Market trends & projected growth opportunities</li>
-                <li>Neighborhood highlights & commute times</li>
-                <li>Design details & eco-friendly finishes</li>
-                <li>Step-by-step path to secure your home</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Section>
-  );
-};
-
 export default function SingleProjectPage({ property }) {
   // Recreated sub-navigation to make top menus work perfectly
   const navigation = [
@@ -695,68 +535,105 @@ export default function SingleProjectPage({ property }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps() {
   const id = 3; // blissville terraces id
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/properties`;
 
-  const { data } = await axios.get(apiUrl, {
-    params: { 'filters[id][$eq]': id, populate: '*' },
-  });
+  try {
+    const { data } = await axios.get(apiUrl, {
+      params: { 'filters[id][$eq]': id, populate: '*' },
+    });
 
-  const propertyData = data?.data[0]?.attributes;
-  const project = propertyData.project;
-  const projectId = project?.data?.id;
+    const propertyData = data?.data[0]?.attributes || null;
+    if (!propertyData) throw new Error('Property not found');
 
-  let projectData = null;
-  if (projectId) {
-    const projectRes = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/projects/${projectId}`,
-      { params: { populate: '*' } },
+    const project = propertyData.project;
+    const projectId = project?.data?.id;
+
+    let projectData = null;
+    if (projectId) {
+      const projectRes = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/projects/${projectId}`,
+        { params: { populate: '*' } },
+      );
+      projectData = projectRes?.data || {};
+    }
+
+    const similarPropertiesRes = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+      {
+        params: {
+          populate: '*',
+          'filters[project][id][$eq]': projectId,
+          'filters[slug][$ne]': id,
+        },
+      },
     );
-    projectData = projectRes?.data || {};
+
+    const featuredPropertiesRes = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
+      {
+        params: {
+          populate: '*',
+          'pagination[pageSize]': 3,
+          sort: 'createdAt:desc',
+          'filters[project][id][$ne]': projectId,
+        },
+      },
+    );
+
+    const projectRes = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
+      {
+        params: {
+          'pagination[pageSize]': 3,
+          sort: 'createdAt:desc',
+          'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
+        },
+      },
+    );
+
+    return {
+      props: {
+        property: { ...propertyData, project: projectData },
+        featuredProperties: featuredPropertiesRes?.data?.data || [],
+        similarProperties: similarPropertiesRes?.data?.data || [],
+        projects: projectRes?.data?.data || [],
+      },
+      revalidate: 10,
+    };
+  } catch (error) {
+    const fallbackProperty = {
+      name: '4 Bedroom Waterview Terrace Duplex',
+      price: 155000000,
+      size: 335,
+      baths: 5,
+      toilets: 5,
+      parkingSpace: 2,
+      packageName: 'the-canvas',
+      availableUnits: 6,
+      project: {
+        data: {
+          id: 3,
+          attributes: {
+            name: 'Blissville Terraces',
+            slug: 'blissville-terraces',
+            city: 'Sangotedo',
+            state: 'Lagos',
+            brochureURL: '/assets/documents/blissville-terraces-brochure.pdf',
+          },
+        },
+      },
+    };
+
+    return {
+      props: {
+        property: fallbackProperty,
+        featuredProperties: [],
+        similarProperties: [],
+        projects: [],
+      },
+      revalidate: 10,
+    };
   }
-
-  const similarPropertiesRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
-    {
-      params: {
-        populate: '*',
-        'filters[project][id][$eq]': projectId,
-        'filters[slug][$ne]': id,
-      },
-    },
-  );
-
-  const featuredPropertiesRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/properties`,
-    {
-      params: {
-        populate: '*',
-        'pagination[pageSize]': 3,
-        sort: 'createdAt:desc',
-        'filters[project][id][$ne]': projectId,
-      },
-    },
-  );
-
-  const projectRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/projects`,
-    {
-      params: {
-        'pagination[pageSize]': 3,
-        sort: 'createdAt:desc',
-        'filters[status][$ne]': PROJECT_STATUS.NOT_AVAILABLE,
-      },
-    },
-  );
-
-  return {
-    props: {
-      property: { ...propertyData, project: projectData },
-      featuredProperties: featuredPropertiesRes?.data?.data || [],
-      similarProperties: similarPropertiesRes?.data?.data || [],
-      projects: projectRes?.data?.data || [],
-    },
-    revalidate: 10,
-  };
 }

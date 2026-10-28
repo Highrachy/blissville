@@ -3,7 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const ThemeContext = createContext();
 
 export const useTheme = () => {
-  return useContext(ThemeContext);
+  const context = useContext(ThemeContext);
+  return context || { theme: 'light', toggleTheme: () => {} };
 };
 
 export const ThemeProvider = ({ children }) => {
