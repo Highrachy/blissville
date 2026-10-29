@@ -74,12 +74,12 @@ const IMAGES = {
   dusk: `${S3}/type-2-night.jpg`,
   threeLevels: `${S3}/type-1-front.jpg`,
   street: `${S3}/type-2.jpg`,
-  cinema: `${S3}/interior/detached-lounge-2.jpg`,
-  furnished: `${S3}/interior/detached-lounge-1.jpg`,
-  bedroom: `${S3}/interior/detached-master-bedroom-1.jpg`,
-  office: `${S3}/interior/detached-master-bedroom-3.jpg`,
-  dining: `${S3}/interior/detached-dining-1.jpg`,
-  lake: '/assets/img/landing/4.png',
+  cinema: '/assets/img/interiors/cinema.jpg',
+  furnished: '/assets/img/interiors/detached-lounge-1.jpg',
+  bedroom: '/assets/img/interiors/semi-detached-master-bedroom-1.jpg',
+  office: '/assets/img/interiors/home-office.jpg',
+  dining: '/assets/img/interiors/detached-dining-1.jpg',
+  lake: '/assets/img/landing/1.png',
   progress: '/assets/img/investors/progress/building-structural-frame.jpg',
   structuralFrame:
     '/assets/img/investors/progress/building-structural-frame.jpg',
@@ -1456,7 +1456,7 @@ export default function DiasporaPage() {
                     >
                       {isSubmitting
                         ? 'Sending your request…'
-                        : 'Book a Virtual Consultation'}
+                        : 'Take the First Step Home'}
                       <FaArrowRight aria-hidden="true" />
                     </button>
                     <p className="dsp-form__reply">
