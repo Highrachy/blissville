@@ -76,7 +76,11 @@ export const footerLinks = [
     url: '/login',
   },
   {
-    title: 'Terms of Use and Privacy',
+    title: 'Terms of Use',
     url: '/terms-of-use',
+  },
+  {
+    title: 'Privacy Policy',
+    url: '/privacy-policy',
   },
 ];

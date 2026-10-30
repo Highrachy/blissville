@@ -5,6 +5,7 @@ export async function getServerSideProps({ res }) {
 
   const pages = [
     '',
+    '/diaspora',
     '/about-us',
     '/our-projects/blissville-terraces',
     '/our-projects',
@@ -17,6 +18,7 @@ export async function getServerSideProps({ res }) {
     '/beyond-the-hype',
     '/testimonials',
     '/terms-of-use',
+    '/privacy-policy',
   ];
 
   let dynamicProjects = [];
@@ -37,18 +39,32 @@ export async function getServerSideProps({ res }) {
   const blogPages = BLOG_POSTS.map((post) => post.slug);
   const allPages = [...new Set([...pages, ...blogPages, ...dynamicProjects, ...dynamicProperties])];
 
+  const getPagePriority = (page) => {
+    if (page === '') return '1.0';
+    if (page === '/diaspora' || page === '/our-projects' || page === '/our-properties') return '0.9';
+    if (page.startsWith('/our-projects/') || page.startsWith('/our-properties/')) return '0.85';
+    if (page === '/investors' || page === '/about-us' || page === '/contact-us') return '0.8';
+    if (page.startsWith('/blog')) return '0.7';
+    if (page === '/terms-of-use' || page === '/privacy-policy') return '0.5';
+    return '0.8';
+  };
+
+  const getPageChangeFreq = (page) => {
+    if (page === '' || page === '/diaspora') return 'weekly';
+    if (page.startsWith('/blog') || page.startsWith('/our-projects') || page.startsWith('/our-properties')) return 'weekly';
+    return 'monthly';
+  };
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${allPages
       .map(
         (page) => `
         <url>
           <loc>${baseUrl}${page}</loc>
           <lastmod>${new Date().toISOString()}</lastmod>
-          <changefreq>${
-            page.startsWith('/blog') ? 'weekly' : 'monthly'
-          }</changefreq>
-          <priority>${page.startsWith('/blog') ? '0.7' : '0.8'}</priority>
+          <changefreq>${getPageChangeFreq(page)}</changefreq>
+          <priority>${getPagePriority(page)}</priority>
         </url>
       `,
       )

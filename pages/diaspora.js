@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
@@ -384,6 +385,194 @@ const FAQS = [
   },
 ];
 
+const FAQ_SCHEMA_ITEMS = [
+  {
+    question: 'Can I buy a home while living abroad?',
+    answer:
+      'Yes. You can purchase a home remotely while living abroad. Consultations, virtual inspections, representation on-site, legal document reviews, and payments can all be coordinated remotely, allowing you to proceed with your purchase without being physically present in Lagos.',
+  },
+  {
+    question: 'How can I inspect the property from overseas?',
+    answer:
+      'You can arrange a live video walkthrough with our team or appoint a trusted representative or independent surveyor to conduct an on-site inspection on your behalf. Our team will coordinate the process and provide the information you need to assess the property remotely.',
+  },
+  {
+    question: 'What title does the land have?',
+    answer:
+      'The land has a Certificate of Occupancy (C of O) issued through Government Allocation. Upon completion of payment, the necessary documentation for transferring ownership, including the Deed of Assignment and Governor’s Consent, will be processed in accordance with applicable requirements.',
+  },
+  {
+    question: 'What documents will I receive?',
+    answer:
+      'A Deed of Assignment, survey plan and Form 1C. Once fully paid, you can process Governor’s Consent.',
+  },
+  {
+    question: 'How can I verify the title?',
+    answer:
+      'Have an independent lawyer search the title at the Lagos State Lands Registry and review the contract before you pay. We provide the necessary documents upon request.',
+  },
+  {
+    question: 'What do the homes cost?',
+    answer:
+      'Prices vary by package (The Canvas, The Complete and The Prestige) and payment plan, starting from ₦155 million for The Canvas and ₦187 million for The Complete.',
+  },
+  {
+    question: 'What payment plans are available?',
+    answer:
+      'A Fixed Plan or a Flexi Plan with flexible installment schedules. We explain the deposit, schedule and total cost of each, and confirm it in writing.',
+  },
+  {
+    question: 'How do I pay from abroad?',
+    answer:
+      'Only into Highrachy Investment & Technology Limited’s corporate account, using details we confirm with you by phone and in writing. Never a personal account; keep every receipt.',
+  },
+  {
+    question: 'What other costs should I budget for?',
+    answer:
+      'Utility connection fee, Governor’s Consent fees and registration, and the estate service charge.',
+  },
+];
+
+const DIASPORA_STRUCTURED_DATA = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SingleFamilyResidence',
+      '@id': 'https://www.blissville.com.ng/diaspora#residence',
+      name: 'Blissville Terraces 4-Bedroom Waterview Duplex',
+      description:
+        'Contemporary 3-level 4-bedroom waterview terraced duplex with maid’s room, multipurpose cinema/gym room, and smart hybrid solar setup at Caribbean Lake City Estate, Sangotedo, Lagos.',
+      url: 'https://www.blissville.com.ng/diaspora',
+      numberOfBedrooms: 4,
+      numberOfBathroomsTotal: 5,
+      floorSize: {
+        '@type': 'QuantitativeValue',
+        value: 335,
+        unitCode: 'MTK',
+        unitText: 'sqm',
+      },
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Caribbean Lake City Estate, off Lekki-Epe Expressway',
+        addressLocality: 'Sangotedo',
+        addressRegion: 'Lagos State',
+        addressCountry: 'NG',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 6.4746,
+        longitude: 3.6288,
+      },
+      photo: [
+        'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-3-night.jpg',
+        'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-1-front.jpg',
+        'https://blissville-staging.s3.us-east-1.amazonaws.com/bvt/type-2.jpg',
+      ],
+      amenityFeature: [
+        {
+          '@type': 'LocationFeatureSpecification',
+          name: 'Certificate of Occupancy (Government Allocation)',
+          value: true,
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          name: 'Smart Hybrid Solar & Inverter System',
+          value: true,
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          name: 'Private Estate Boat Jetty with Water Transport to Victoria Island',
+          value: true,
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          name: 'Waterview Estate Setting with Freshwater Lake',
+          value: true,
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          name: 'Dedicated Home Office & Multipurpose Room',
+          value: true,
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          name: 'Two Reserved Car Parking Bays',
+          value: true,
+        },
+      ],
+      offers: {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'NGN',
+        lowPrice: 155000000,
+        highPrice: 187000000,
+        offerCount: 3,
+        availability: 'https://schema.org/InStock',
+        seller: {
+          '@type': 'RealEstateAgent',
+          name: 'Highrachy Investment and Technology Limited',
+          url: 'https://www.highrachy.com',
+          telephone: '+234 905 555 5146',
+        },
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://www.blissville.com.ng/diaspora#faqs',
+      mainEntity: FAQ_SCHEMA_ITEMS.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://www.blissville.com.ng/diaspora#breadcrumb',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.blissville.com.ng',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Diaspora Real Estate',
+          item: 'https://www.blissville.com.ng/diaspora',
+        },
+      ],
+    },
+    {
+      '@type': 'RealEstateAgent',
+      '@id': 'https://www.blissville.com.ng/#realestateagent',
+      name: 'Blissville by Highrachy',
+      legalName: 'Highrachy Investment and Technology Limited',
+      url: 'https://www.blissville.com.ng',
+      logo: 'https://www.blissville.com.ng/assets/img/highrachy-logo-dark.png',
+      telephone: '+234 905 555 5146',
+      email: 'info@highrachy.com',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Ibukun House, No. 70 Adetokunbo Ademola Street',
+        addressLocality: 'Victoria Island',
+        addressRegion: 'Lagos State',
+        addressCountry: 'NG',
+      },
+      areaServed: [
+        { '@type': 'Country', name: 'United Kingdom' },
+        { '@type': 'Country', name: 'United States' },
+        { '@type': 'Country', name: 'Canada' },
+        { '@type': 'Country', name: 'United Arab Emirates' },
+        { '@type': 'Country', name: 'Nigeria' },
+      ],
+      priceRange: '₦155,000,000 - ₦187,000,000',
+    },
+  ],
+};
+
 const COUNTRIES = [
   'United Kingdom',
   'United States',
@@ -604,18 +793,63 @@ export default function DiasporaPage() {
   return (
     <div className="diaspora-experience" ref={pageRef}>
       <SeoHead
-        title="Blissville Terraces Diaspora | Own Your Home from Abroad"
-        description="Own a four-bedroom waterview home at Blissville Terraces, Caribbean Lake City Estate, Sangotedo, Lagos, from anywhere in the world. Fully verified title and transparent remote purchase."
+        title="Buy Property in Lagos from Abroad | Blissville Terraces Diaspora"
+        description="Own a 4-bedroom luxury waterview terrace at Caribbean Lake City, Sangotedo, Lagos from anywhere in the world. Verified C of O title, virtual walkthroughs & flexible payments."
         canonical="https://www.blissville.com.ng/diaspora"
         ogImage={IMAGES.hero}
         keywords={[
-          'Blissville Terraces Diaspora',
           'Buy property in Lagos from abroad',
           'Diaspora real estate Nigeria',
-          'Sangotedo waterfront homes',
+          'Buy house in Lagos from UK',
+          'Buy house in Lagos from USA',
+          'Buy house in Lagos from Canada',
+          'Blissville Terraces Diaspora',
+          'Sangotedo waterfront homes for sale',
+          'Lekki real estate investment diaspora',
+          'Verified real estate developer Lagos',
+          'Caribbean Lake City Estate Sangotedo',
           'Virtual property inspection Lagos',
+          'Nigeria property investment from diaspora',
+          'C of O title real estate Lagos',
+          'Highrachy Investment and Technology Limited',
+          'Luxury terraced duplex Sangotedo',
         ]}
       />
+
+      <Head>
+        {/* Schema.org Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(DIASPORA_STRUCTURED_DATA),
+          }}
+        />
+
+        {/* Geo-targeting for Lagos & Lekki Corridor */}
+        <meta name="geo.region" content="NG-LA" />
+        <meta name="geo.placename" content="Sangotedo, Lagos, Nigeria" />
+        <meta name="geo.position" content="6.4746;3.6288" />
+        <meta name="ICBM" content="6.4746, 3.6288" />
+
+        {/* Global Distribution & Localization for Diaspora */}
+        <meta name="coverage" content="Worldwide" />
+        <meta name="distribution" content="Global" />
+        <meta property="og:locale" content="en_GB" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:locale:alternate" content="en_CA" />
+        <meta property="og:locale:alternate" content="en_NG" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta
+          property="og:image:alt"
+          content="Blissville Terraces 4-bedroom waterview luxury homes in Sangotedo, Lagos"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image:alt"
+          content="Blissville Terraces 4-bedroom waterview luxury homes in Sangotedo, Lagos"
+        />
+      </Head>
       <a className="dsp-skip-link" href="#diaspora-content">
         Skip to content
       </a>
@@ -1431,7 +1665,7 @@ export default function DiasporaPage() {
                         I agree that Highrachy Investment &amp; Technology
                         Limited (Blissville) may contact me about Blissville
                         Terraces. I can opt out at any time. See our{' '}
-                        <Link href="/terms-of-use">
+                        <Link href="/privacy-policy">
                           <a>Privacy Policy</a>
                         </Link>
                         .

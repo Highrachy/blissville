@@ -110,7 +110,7 @@ const IntroText = () => {
             Terms and Conditions
           </span>{' '}
           and{' '}
-          <Link href="/terms-of-use">
+          <Link href="/privacy-policy">
             <a className="text-primary" style={{ textDecoration: 'underline' }}>
               Privacy Policy
             </a>

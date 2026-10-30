@@ -14,6 +14,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/privacy',
+        destination: '/privacy-policy',
+        permanent: true,
+      },
+      {
         source: '/blog/sangotedo-inflection-point',
         destination: '/blog/why-sangotedo-properties-keep-growing',
         permanent: true,
