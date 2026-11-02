@@ -752,53 +752,56 @@ export default function PrivacyPolicyPage() {
                 </p>
 
                 <div className="legal-retention-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Data Category &amp; Purpose</th>
-                        <th>Standard Retention Period</th>
+                  <table role="table">
+                    <caption className="visually-hidden">
+                      Personal data categories and standard retention periods
+                    </caption>
+                    <thead role="rowgroup">
+                      <tr role="row">
+                        <th scope="col" role="columnheader">Data Category &amp; Purpose</th>
+                        <th scope="col" role="columnheader">Standard Retention Period</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>Enquiries and leads that do not proceed</td>
-                        <td>Up to two years after last contact</td>
+                    <tbody role="rowgroup">
+                      <tr role="row">
+                        <th scope="row" role="rowheader">Enquiries and leads that do not proceed</th>
+                        <td role="cell" data-label="Standard Retention Period">Up to two years after last contact</td>
                       </tr>
-                      <tr>
-                        <td>
+                      <tr role="row">
+                        <th scope="row" role="rowheader">
                           Identity verification and anti-money laundering records
-                        </td>
-                        <td>
+                        </th>
+                        <td role="cell" data-label="Standard Retention Period">
                           At least five years after the relationship ends, or
                           longer where required
                         </td>
                       </tr>
-                      <tr>
-                        <td>Sale, payment, allocation and title records</td>
-                        <td>
+                      <tr role="row">
+                        <th scope="row" role="rowheader">Sale, payment, allocation and title records</th>
+                        <td role="cell" data-label="Standard Retention Period">
                           For as long as the interest subsists and for twelve
                           years afterwards
                         </td>
                       </tr>
-                      <tr>
-                        <td>CCTV and visitor records</td>
-                        <td>
+                      <tr role="row">
+                        <th scope="row" role="rowheader">CCTV and visitor records</th>
+                        <td role="cell" data-label="Standard Retention Period">
                           Up to 90 days unless needed for an incident or claim
                         </td>
                       </tr>
-                      <tr>
-                        <td>Marketing data</td>
-                        <td>
+                      <tr role="row">
+                        <th scope="row" role="rowheader">Marketing data</th>
+                        <td role="cell" data-label="Standard Retention Period">
                           Until you unsubscribe or after two years of inactivity
                         </td>
                       </tr>
-                      <tr>
-                        <td>Website and cookie data</td>
-                        <td>No longer than 26 months</td>
+                      <tr role="row">
+                        <th scope="row" role="rowheader">Website and cookie data</th>
+                        <td role="cell" data-label="Standard Retention Period">No longer than 26 months</td>
                       </tr>
-                      <tr>
-                        <td>Technology service records</td>
-                        <td>
+                      <tr role="row">
+                        <th scope="row" role="rowheader">Technology service records</th>
+                        <td role="cell" data-label="Standard Retention Period">
                           For the term of the service and six years afterwards
                         </td>
                       </tr>
