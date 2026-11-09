@@ -1693,9 +1693,6 @@ export default function DiasporaPage() {
                         : 'Take the First Step Home'}
                       <FaArrowRight aria-hidden="true" />
                     </button>
-                    <p className="dsp-form__reply">
-                      <FaClock aria-hidden="true" /> We reply within 6 hours.
-                    </p>
                   </fieldset>
                 </form>
               )}

@@ -44,7 +44,7 @@ export const footerLinks = [
     url: '/our-projects/blissville-terraces',
   },
   {
-    title: 'Diaspora Advisory',
+    title: 'Diaspora',
     url: '/diaspora',
   },
   {
